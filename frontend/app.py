@@ -611,28 +611,14 @@ if "quick_run" in st.session_state:
 
 
 # ── Data sources banner (shown on every page) ─────────────────────────────────
-SOURCES = [
-    ("SF", "Salesforce", "#00A1E0"),
-    ("ZD", "Zendesk",    "#03363D"),
-    ("GS", "Gainsight",  "#F6821F"),
-    ("✉",  "Email",      "#5B3FA8"),
-]
-src_pills = "".join(f"""
-    <div style="display:flex;align-items:center;gap:5px;background:#FFFFFF;border:1px solid #EDE8F2;
-                border-radius:50px;padding:4px 10px 4px 6px;box-shadow:0 1px 3px rgba(27,16,64,0.05)">
-        <span style="background:{c};color:#fff;font-size:0.60rem;font-weight:800;width:18px;height:18px;
-                     border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">{ic}</span>
-        <span style="font-size:0.72rem;font-weight:600;color:#4B3F72">{lbl}</span>
-    </div>""" for ic, lbl, c in SOURCES)
-
-st.markdown(f"""
-<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;
-            background:#FDFBFF;border:1px solid #EDE8F2;border-radius:10px;
-            padding:7px 14px;margin-bottom:14px">
-    <span style="font-size:0.65rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;
-                 letter-spacing:0.10em;margin-right:2px;white-space:nowrap">Data Sources</span>
-    {src_pills}
-    <span style="margin-left:auto;font-size:0.65rem;color:#C4B4ED;font-style:italic">Synthetic demo data</span>
+st.markdown("""
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:#FDFBFF;border:1px solid #EDE8F2;border-radius:10px;padding:7px 14px;margin-bottom:14px">
+  <span style="font-size:0.65rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-right:4px;white-space:nowrap">Data Sources</span>
+  <span style="display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid #EDE8F2;border-radius:50px;padding:3px 10px 3px 4px"><span style="background:#00A1E0;color:#fff;font-size:0.58rem;font-weight:800;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center">SF</span><span style="font-size:0.72rem;font-weight:600;color:#4B3F72">Salesforce</span></span>
+  <span style="display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid #EDE8F2;border-radius:50px;padding:3px 10px 3px 4px"><span style="background:#03363D;color:#fff;font-size:0.58rem;font-weight:800;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center">ZD</span><span style="font-size:0.72rem;font-weight:600;color:#4B3F72">Zendesk</span></span>
+  <span style="display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid #EDE8F2;border-radius:50px;padding:3px 10px 3px 4px"><span style="background:#F6821F;color:#fff;font-size:0.58rem;font-weight:800;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center">GS</span><span style="font-size:0.72rem;font-weight:600;color:#4B3F72">Gainsight</span></span>
+  <span style="display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid #EDE8F2;border-radius:50px;padding:3px 10px 3px 4px"><span style="background:#5B3FA8;color:#fff;font-size:0.58rem;font-weight:800;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center">@</span><span style="font-size:0.72rem;font-weight:600;color:#4B3F72">Email</span></span>
+  <span style="margin-left:auto;font-size:0.65rem;color:#C4B4ED;font-style:italic">Synthetic demo data</span>
 </div>
 """, unsafe_allow_html=True)
 # PAGE: PORTFOLIO DASHBOARD
