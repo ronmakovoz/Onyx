@@ -496,16 +496,18 @@ with st.sidebar:
     st.markdown("<div style='font-size:0.72rem;color:#6B6280;margin-bottom:4px'>Executive Demo · AI-Powered Customer OS</div>", unsafe_allow_html=True)
     st.markdown("---")
 
+    _pages = ["Portfolio Dashboard", "Customer 360", "Agent Console",
+              "Briefings", "Implementation Digest", "Audit Trail & Costs"]
+    _default_idx = _pages.index(st.session_state.get("nav_page", "Portfolio Dashboard")) \
+                   if st.session_state.get("nav_page") in _pages else 0
     page = st.radio(
         "",
-        ["Portfolio Dashboard",
-         "Customer 360",
-         "Agent Console",
-         "Briefings",
-         "Implementation Digest",
-         "Audit Trail & Costs"],
-        label_visibility="collapsed"
+        _pages,
+        index=_default_idx,
+        label_visibility="collapsed",
+        key="nav_radio"
     )
+    st.session_state["nav_page"] = page
 
     st.markdown("---")
     summary = fetch_summary()
@@ -530,7 +532,7 @@ with st.sidebar:
         qcust = st.selectbox("Customer", [c["id"] for c in customers],
                              format_func=lambda x: next((c["name"] for c in customers if c["id"]==x), str(x)),
                              key="sidebar_cust", label_visibility="collapsed")
-        if st.button("🩺 Health Check", use_container_width=True, key="sb_health", type="secondary"):
+        if st.button("Health Check", use_container_width=True, key="sb_health", type="secondary"):
             st.session_state["quick_run"] = ("CustomerHealthAgent", qcust)
             st.rerun()
 
@@ -633,7 +635,9 @@ if "quick_run" in st.session_state:
     agent_name, cid = st.session_state.pop("quick_run")
     with st.spinner(f"Running {agent_name}..."):
         result = call_agent(agent_name, cid)
-    st.session_state["quick_result"] = result
+    st.session_state["console_result"] = result
+    st.session_state["nav_page"] = "Agent Console"
+    st.rerun()
 
 
 # ── Data sources banner (shown on every page) ─────────────────────────────────
