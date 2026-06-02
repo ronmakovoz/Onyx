@@ -881,40 +881,68 @@ elif page == "Customer 360":
     history   = data.get("health_history", [])
 
     # ── Header ────────────────────────────────────────────────────────────────
-    risk_color = {"High":"#9B2335","Medium":"#7A5C1E","Low":"#2D5A3D"}.get(c.get("risk_level",""), "#1B1040")
+    risk_color  = {"High":"#9B2335","Medium":"#C9952A","Low":"#2D5A3D"}.get(c.get("risk_level",""), "#1B1040")
+    risk_bg     = {"High":"#FDF1F2","Medium":"#FDF8EE","Low":"#EFF6F1"}.get(c.get("risk_level",""), "#F5F2EE")
+    renewal_days = renewal.get("days_to_renewal", "?")
+    open_tickets = sum(1 for t in tickets if t["status"] != "Resolved")
+    champ_status = c.get("champion_status", "?")
+    champ_color  = {"Active":"#2D5A3D","Disengaged":"#7A5C1E","Left Company":"#9B2335"}.get(champ_status,"#6B6280")
+
     st.markdown(f"""
-    <div class="card" style="margin-bottom:10px;border-top:3px solid {risk_color}">
-        <div style="display:flex;align-items:center;gap:16px">
-            <div style="flex:1">
-                <div style="font-size:1.3rem;font-weight:800;color:#1B1040;letter-spacing:-0.02em">{c['name']}</div>
-                <div style="color:#6B6280;margin-top:2px;font-size:0.78rem">{c['industry']} · {c.get('employee_count','?'):,} employees · <b style="color:#1B1040">${c['arr']:,}</b> ARR</div>
-                <div style="margin-top:6px;color:#3D3458;font-size:0.80rem"><b style="color:#1B1040">Risk:</b> {c.get('primary_risk_reason','')}</div>
-                <div style="margin-top:2px;color:#3D3458;font-size:0.80rem;font-weight:500">→ {c.get('recommended_next_action','')}</div>
-            </div>
-            <div style="text-align:center;min-width:72px;background:{risk_color}12;border-radius:8px;padding:8px 12px;flex-shrink:0">
-                <div style="font-size:2.2rem;font-weight:900;color:{risk_color};line-height:1">{c['health_score']}</div>
-                <div style="font-size:0.58rem;color:#6B6280;font-weight:700;letter-spacing:0.10em">HEALTH</div>
-                <div style="font-size:0.72rem;font-weight:700;color:{risk_color};margin-top:2px">{c.get('risk_level','?')}</div>
-                <div style="font-size:0.65rem;color:#6B6280">{c.get('health_trend','?')}</div>
-            </div>
+    <div style="background:#FFFFFF;border:1px solid #E8E4DC;border-radius:12px;
+                border-left:4px solid {risk_color};padding:16px 20px;margin-bottom:14px">
+      <div style="display:flex;align-items:flex-start;gap:20px">
+        <div style="flex:1;min-width:0">
+          <div style="font-size:1.25rem;font-weight:800;color:#1B1040;letter-spacing:-0.02em;line-height:1.2">
+            {c['name']}</div>
+          <div style="color:#6B6280;font-size:0.75rem;margin-top:3px">
+            {c['industry']} &nbsp;·&nbsp; {c.get('employee_count','?'):,} employees &nbsp;·&nbsp;
+            <span style="font-weight:700;color:#1B1040">${c['arr']:,} ARR</span>
+          </div>
+          <div style="margin-top:10px;padding:8px 12px;background:#F5F2EE;border-radius:8px;font-size:0.78rem;color:#3D3458;line-height:1.5">
+            <span style="font-weight:700;color:#1B1040">Risk:</span> {c.get('primary_risk_reason','')}
+            <br><span style="color:#6B6280">→</span> {c.get('recommended_next_action','')}
+          </div>
         </div>
+        <div style="text-align:center;background:{risk_bg};border:1px solid {risk_color}33;
+                    border-radius:10px;padding:12px 16px;flex-shrink:0;min-width:80px">
+          <div style="font-size:2.4rem;font-weight:900;color:{risk_color};line-height:1">{c['health_score']}</div>
+          <div style="font-size:0.58rem;font-weight:700;color:#6B6280;letter-spacing:0.10em;margin-top:2px">HEALTH</div>
+          <div style="font-size:0.72rem;font-weight:700;color:{risk_color};margin-top:4px">{c.get('risk_level','?')}</div>
+          <div style="font-size:0.65rem;color:#6B6280">{c.get('health_trend','?')}</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
+        <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:80px">
+          <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Adoption</div>
+          <div style="font-size:1.05rem;font-weight:800;color:#1B1040;line-height:1.3">{c.get('adoption_score',0)}<span style="font-size:0.65rem;font-weight:500;color:#6B6280">/100</span></div>
+        </div>
+        <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:80px">
+          <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Churn Risk</div>
+          <div style="font-size:1.05rem;font-weight:800;color:{risk_color};line-height:1.3">{c.get('renewal_risk_score',0):.0%}</div>
+        </div>
+        <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:80px">
+          <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Open Tickets</div>
+          <div style="font-size:1.05rem;font-weight:800;color:#1B1040;line-height:1.3">{open_tickets}</div>
+        </div>
+        <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:80px">
+          <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Escalations</div>
+          <div style="font-size:1.05rem;font-weight:800;color:{'#9B2335' if escs else '#2D5A3D'};line-height:1.3">{len(escs)}</div>
+        </div>
+        <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:80px">
+          <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Renewal</div>
+          <div style="font-size:1.05rem;font-weight:800;color:#1B1040;line-height:1.3">{renewal_days}d</div>
+        </div>
+        <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:90px">
+          <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Champion</div>
+          <div style="font-size:0.82rem;font-weight:700;color:{champ_color};line-height:1.4">{champ_status}</div>
+        </div>
+      </div>
     </div>
     """, unsafe_allow_html=True)
 
-    # ── Quick metrics row ─────────────────────────────────────────────────────
-    m1, m2, m3, m4, m5, m6 = st.columns(6)
-    renewal_days = renewal.get("days_to_renewal", "?")
-    with m1: st.metric("Adoption", f"{c.get('adoption_score',0)}/100")
-    with m2: st.metric("Churn Risk", f"{c.get('renewal_risk_score',0):.0%}", delta_color="inverse")
-    with m3: st.metric("Open Tickets", sum(1 for t in tickets if t["status"] != "Resolved"), delta_color="inverse")
-    with m4: st.metric("Escalations", len(escs), delta_color="inverse")
-    with m5: st.metric("Renewal", f"{renewal_days}d" if isinstance(renewal_days, int) else "?")
-    with m6:
-        champ_icon = {"Active":"✅","Disengaged":"⚠️","Left Company":"❌"}.get(c.get("champion_status",""),"?")
-        st.metric("Champion", f"{champ_icon} {c.get('champion_status','?')}")
-
     # ── Agent action bar ──────────────────────────────────────────────────────
-    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Run Agents</div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size:0.68rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Run Agents</div>", unsafe_allow_html=True)
     ab1, ab2, ab3, ab4, ab5 = st.columns(5)
     triggered = None
     btns = [
@@ -982,48 +1010,99 @@ elif page == "Customer 360":
     with tab_use:
         mrow = metrics[0] if metrics else {}
         if mrow:
-            u1, u2, u3, u4 = st.columns(4)
-            with u1: st.metric("Daily Active Users", int(mrow.get("dau",0)), delta=f"{mrow.get('dau_trend_30d',0):+.0%} vs 30d")
-            with u2: st.metric("Asset Coverage", f"{int(mrow.get('asset_coverage_pct',0))}%")
-            with u3: st.metric("Features Active", f"{int(mrow.get('features_enabled',0))}/18")
-            with u4: st.metric("False Positive Rate", f"{mrow.get('false_positive_rate',0):.0%}", delta_color="inverse")
-            u5, u6, u7, u8 = st.columns(4)
-            with u5: st.metric("API Calls (30d)", f"{int(mrow.get('api_calls_last_30d',0)):,}")
-            with u6: st.metric("Alerts (30d)", int(mrow.get("alerts_generated_last_30d",0)))
-            with u7: st.metric("Logins (7d)", int(mrow.get("unique_logins_last_7d",0)))
-            with u8: st.metric("Agents Deployed", int(mrow.get("agents_deployed",0)))
+            dau_trend = mrow.get('dau_trend_30d', 0)
+            trend_color = "#2D5A3D" if dau_trend >= 0 else "#9B2335"
+            trend_sign  = "+" if dau_trend >= 0 else ""
+            usage_items = [
+                ("Daily Active Users", str(int(mrow.get("dau",0))),
+                 f"<span style='color:{trend_color};font-size:0.68rem'>{trend_sign}{dau_trend:.0%} vs 30d</span>"),
+                ("Asset Coverage",    f"{int(mrow.get('asset_coverage_pct',0))}%", ""),
+                ("Features Active",   f"{int(mrow.get('features_enabled',0))}/18", ""),
+                ("False Positive Rate", f"{mrow.get('false_positive_rate',0):.0%}", ""),
+                ("API Calls (30d)",   f"{int(mrow.get('api_calls_last_30d',0)):,}", ""),
+                ("Alerts (30d)",      str(int(mrow.get("alerts_generated_last_30d",0))), ""),
+                ("Logins (7d)",       str(int(mrow.get("unique_logins_last_7d",0))), ""),
+                ("Agents Deployed",   str(int(mrow.get("agents_deployed",0))), ""),
+            ]
+            cols = st.columns(4)
+            for i, (lbl, val, sub) in enumerate(usage_items):
+                with cols[i % 4]:
+                    st.markdown(
+                        f"<div class='kpi-card'><div class='kpi-label'>{lbl}</div>"
+                        f"<div class='kpi-value' style='font-size:1.3rem'>{val}</div>"
+                        f"<div class='kpi-sub'>{sub}</div></div>",
+                        unsafe_allow_html=True
+                    )
 
-        # Health trend chart
         if history:
-            st.markdown("**30-Day Health Trend**")
+            st.markdown("<div style='margin-top:14px;font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>30-Day Health Trend</div>", unsafe_allow_html=True)
             hdf = pd.DataFrame(history)[["date","health_score"]].copy()
             hdf["date"] = pd.to_datetime(hdf["date"])
             hdf = hdf.sort_values("date")
-            st.line_chart(hdf.set_index("date")["health_score"], height=150, use_container_width=True)
+            st.line_chart(hdf.set_index("date")["health_score"], height=140, use_container_width=True)
 
-        sec_icon = {"Complete":"🟢","In Progress":"🟡","Blocked":"🔴","Not Started":"⚫"}.get(c.get("security_review_status",""),"⚪")
-        st.info(f"**Security Review:** {sec_icon} {c.get('security_review_status','?')} · "
-                f"**Onboarding:** {c.get('onboarding_status','?')} · "
-                f"**Sentiment:** {c.get('sentiment','?')}")
+        sec = c.get('security_review_status','?')
+        sec_color = {"Complete":"#2D5A3D","In Progress":"#7A5C1E","Blocked":"#9B2335","Not Started":"#6B6280"}.get(sec,"#6B6280")
+        onb = c.get('onboarding_status','?')
+        sent = c.get('sentiment','?')
+        sent_color = {"Positive":"#2D5A3D","Negative":"#9B2335","Neutral":"#6B6280"}.get(sent,"#6B6280")
+        st.markdown(f"""
+<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+  <div style="background:#F5F2EE;border-radius:8px;padding:6px 14px;font-size:0.75rem">
+    <span style="color:#6B6280;font-weight:600">Security Review</span>
+    <span style="margin-left:8px;font-weight:700;color:{sec_color}">{sec}</span>
+  </div>
+  <div style="background:#F5F2EE;border-radius:8px;padding:6px 14px;font-size:0.75rem">
+    <span style="color:#6B6280;font-weight:600">Onboarding</span>
+    <span style="margin-left:8px;font-weight:700;color:#1B1040">{onb}</span>
+  </div>
+  <div style="background:#F5F2EE;border-radius:8px;padding:6px 14px;font-size:0.75rem">
+    <span style="color:#6B6280;font-weight:600">Sentiment</span>
+    <span style="margin-left:8px;font-weight:700;color:{sent_color}">{sent}</span>
+  </div>
+</div>""", unsafe_allow_html=True)
 
     with tab_impl:
         if impl:
-            behind = impl.get("days_behind_schedule",0)
-            sc = "#9B2335" if impl.get("overall_status") in ("Stalled","Behind Schedule") else "#7A5C1E" if impl.get("overall_status") == "Slight Delay" else "#2D5A3D"
-            pct = impl.get("pct_complete",0)
-            st.markdown(f"**Status:** <span style='color:{sc};font-weight:700'>{impl.get('overall_status','?')}</span>"
-                        + (f" · <span style='color:#9B2335'>⚠️ {behind} days behind</span>" if behind > 0 else ""),
-                        unsafe_allow_html=True)
-            st.progress(pct / 100)
-            st.caption(f"{pct}% complete · Implementation Owner: {impl.get('implementation_owner','?')} · Go-live target: {impl.get('go_live_target','?')}")
+            behind = impl.get("days_behind_schedule", 0)
+            status = impl.get("overall_status", "?")
+            pct    = impl.get("pct_complete", 0)
+            sc     = "#9B2335" if status in ("Stalled","Behind Schedule") else "#C9952A" if status == "Slight Delay" else "#2D5A3D"
+            sc_bg  = "#FDF1F2" if status in ("Stalled","Behind Schedule") else "#FDF8EE" if status == "Slight Delay" else "#EFF6F1"
+            st.markdown(f"""
+<div style="background:#FFFFFF;border:1px solid #E8E4DC;border-radius:10px;padding:12px 16px;margin-bottom:12px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+    <span style="background:{sc_bg};color:{sc};font-size:0.72rem;font-weight:700;
+          padding:3px 10px;border-radius:20px;border:1px solid {sc}33">{status}</span>
+    <span style="font-size:0.72rem;color:#6B6280">{pct}% complete</span>
+  </div>
+  <div style="background:#E8E4DC;border-radius:50px;height:6px;overflow:hidden">
+    <div style="width:{pct}%;background:{sc};height:100%;border-radius:50px"></div>
+  </div>
+  <div style="display:flex;gap:16px;margin-top:8px;font-size:0.72rem;color:#6B6280">
+    <span>Owner: <b style="color:#1B1040">{impl.get('implementation_owner','?')}</b></span>
+    <span>Go-live: <b style="color:#1B1040">{impl.get('go_live_target','?')}</b></span>
+    {f'<span style="color:#9B2335;font-weight:600">{behind}d behind schedule</span>' if behind > 0 else ''}
+  </div>
+</div>""", unsafe_allow_html=True)
         else:
-            st.caption("No implementation record found.")
+            st.markdown("<div style='font-size:0.78rem;color:#6B6280;padding:8px 0'>No implementation record found.</div>", unsafe_allow_html=True)
 
         for m in milestones:
-            icon = {"Complete":"✅","In Progress":"🔄","Not Started":"⬜"}.get(m.get("status",""),"?")
-            mname = m.get("milestone_name") or m.get("name","?")
-            blocker = m.get("blocker")
-            st.markdown(f"{icon} **{mname}**" + (f" — ⚠️ *{blocker}*" if blocker else ""))
+            status_m = m.get("status","")
+            m_color  = {"Complete":"#2D5A3D","In Progress":"#7A5C1E","Not Started":"#6B6280"}.get(status_m,"#6B6280")
+            m_bg     = {"Complete":"#EFF6F1","In Progress":"#FDF8EE","Not Started":"#F5F2EE"}.get(status_m,"#F5F2EE")
+            mname    = m.get("milestone_name") or m.get("name","?")
+            blocker  = m.get("blocker")
+            st.markdown(f"""
+<div style="display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-bottom:1px solid #E8E4DC">
+  <span style="background:{m_bg};color:{m_color};font-size:0.65rem;font-weight:700;padding:2px 8px;
+        border-radius:20px;white-space:nowrap;margin-top:1px">{status_m}</span>
+  <div>
+    <div style="font-size:0.82rem;font-weight:600;color:#1B1040">{mname}</div>
+    {f'<div style="font-size:0.72rem;color:#9B2335;margin-top:2px">{blocker}</div>' if blocker else ''}
+  </div>
+</div>""", unsafe_allow_html=True)
 
     with tab_tick:
         open_t    = [t for t in tickets if t["status"] != "Resolved"]
@@ -1044,19 +1123,29 @@ elif page == "Customer 360":
 
     with tab_escs:
         if not escs:
-            st.success("No active escalations.")
+            st.markdown("<div style='font-size:0.78rem;color:#2D5A3D;padding:8px 0'>No active escalations.</div>", unsafe_allow_html=True)
         for e in escs:
-            sc = "#9B2335" if e["severity"] == "Critical" else "#7A5C1E"
-            exec_aware = "🔔 Exec aware" if e.get("executive_aware") else ""
-            st.markdown(f"""<div class="card card-{'red' if e['severity']=='Critical' else 'yellow'}">
-                <div style="display:flex;justify-content:space-between;align-items:center">
-                    <span style="background:{sc}18;color:{sc};font-weight:700;font-size:0.72rem;padding:2px 10px;border-radius:20px;border:1px solid {sc}44">{e['severity']} · {e['status']}</span>
-                    <span style="color:#6B6280;font-size:0.72rem">{exec_aware}</span>
-                </div>
-                <div style="color:#1B1040;font-size:0.9rem;margin-top:6px;font-weight:600">{e['title']}</div>
-                <div style="color:#6B6280;font-size:0.75rem;margin-top:3px">Owner: {e['owner']} · Opened: {e['opened_at'][:10]}</div>
-                {f'<div style="color:#6B6280;font-size:0.75rem;margin-top:2px">{e["resolution_plan"]}</div>' if e.get("resolution_plan") else ''}
-            </div>""", unsafe_allow_html=True)
+            is_crit = e["severity"] == "Critical"
+            sc      = "#9B2335" if is_crit else "#7A5C1E"
+            sc_bg   = "#FDF1F2" if is_crit else "#FDF8EE"
+            exec_badge = "<span style='background:#EAE6E0;color:#3D3458;font-size:0.62rem;font-weight:700;padding:2px 7px;border-radius:20px;margin-left:6px'>Exec Aware</span>" if e.get("executive_aware") else ""
+            st.markdown(f"""
+<div style="background:#FFFFFF;border:1px solid #E8E4DC;border-left:3px solid {sc};
+     border-radius:8px;padding:11px 14px;margin-bottom:8px">
+  <div style="display:flex;align-items:center;justify-content:space-between">
+    <div>
+      <span style="background:{sc_bg};color:{sc};font-size:0.65rem;font-weight:700;
+            padding:2px 9px;border-radius:20px;border:1px solid {sc}33">{e['severity']}</span>
+      <span style="background:#F5F2EE;color:#6B6280;font-size:0.65rem;font-weight:600;
+            padding:2px 9px;border-radius:20px;margin-left:5px">{e['status']}</span>
+      {exec_badge}
+    </div>
+    <span style="font-size:0.68rem;color:#9B93A8">{e['opened_at'][:10]}</span>
+  </div>
+  <div style="font-size:0.85rem;font-weight:600;color:#1B1040;margin-top:7px">{e['title']}</div>
+  <div style="font-size:0.72rem;color:#6B6280;margin-top:3px">Owner: {e['owner']}</div>
+  {f'<div style="font-size:0.72rem;color:#6B6280;margin-top:4px;font-style:italic">{e["resolution_plan"]}</div>' if e.get("resolution_plan") else ''}
+</div>""", unsafe_allow_html=True)
 
     with tab_stk:
         role_colors = {"Champion":"#1B1040","Technical Sponsor":"#3D3458","Business Sponsor":"#5C4A1E",
