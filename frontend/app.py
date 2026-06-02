@@ -71,9 +71,9 @@ p, li { color: #3D3458; font-size: 0.85rem; margin: 0; }
     margin-bottom: 6px;
     box-shadow: 0 1px 4px rgba(27,16,64,0.05);
 }
-.card-red    { border-left: 3px solid #E53E3E; }
-.card-yellow { border-left: 3px solid #DD6B20; }
-.card-green  { border-left: 3px solid #38A169; }
+.card-red    { border-left: 3px solid #9B2335; }
+.card-yellow { border-left: 3px solid #7A5C1E; }
+.card-green  { border-left: 3px solid #2D5A3D; }
 
 /* KPI cards — compact */
 .kpi-card {
@@ -95,13 +95,13 @@ p, li { color: #3D3458; font-size: 0.85rem; margin: 0; }
     display: inline-block; padding: 2px 8px; border-radius: 20px;
     font-size: 0.67rem; font-weight: 700; margin-right: 4px; vertical-align: middle;
 }
-.badge-haiku  { background: #E8F4FD; color: #1a6fa8; border: 1px solid #93CCF0; }
-.badge-sonnet { background: #EDE8F9; color: #5B3FA8; border: 1px solid #C4B4ED; }
-.badge-opus   { background: #F5EEF8; color: #8E44AD; border: 1px solid #D7BDE2; }
-.badge-mock   { background: #FEF9E7; color: #A07A00; border: 1px solid #F7DC6F; }
-.badge-risk-high   { background: #FFF5F5; color: #C53030; border: 1px solid #FEB2B2; }
-.badge-risk-medium { background: #FFFAF0; color: #C05621; border: 1px solid #FBD38D; }
-.badge-risk-low    { background: #F0FFF4; color: #276749; border: 1px solid #9AE6B4; }
+.badge-haiku  { background: #E8EDF5; color: #2D4A7A; border: 1px solid #A8BAD4; }
+.badge-sonnet { background: #EDEAF4; color: #3D3458; border: 1px solid #C0BAD4; }
+.badge-opus   { background: #EAE6E0; color: #1B1040; border: 1px solid #B8B0A0; }
+.badge-mock   { background: #F5F0E8; color: #5C4A1E; border: 1px solid #C8B88A; }
+.badge-risk-high   { background: #F5ECEC; color: #9B2335; border: 1px solid #D4AAAA; }
+.badge-risk-medium { background: #F5F0E8; color: #7A5C1E; border: 1px solid #C8B88A; }
+.badge-risk-low    { background: #EBF2EE; color: #2D5A3D; border: 1px solid #96BAA4; }
 
 /* Buttons — slim Onyx pill */
 .stButton > button {
@@ -278,12 +278,12 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
 
 /* Skeptik boxes */
 .skeptik-before {
-    border-left: 3px solid #A78BFA;
+    border-left: 3px solid #3D3458;
     background: #FDFCFF; border-radius: 0 6px 6px 0; padding: 10px 12px;
     font-size: 0.82rem;
 }
 .skeptik-after {
-    border-left: 3px solid #38A169;
+    border-left: 3px solid #2D5A3D;
     background: #F9FFFC; border-radius: 0 6px 6px 0; padding: 10px 12px;
     font-size: 0.82rem;
 }
@@ -398,9 +398,9 @@ def risk_icon(level):
             "Critical": "🔴", "At Risk": "🟡", "Healthy": "🟢"}.get(level, "⚪")
 
 def health_color(score):
-    if score < 40: return "#E53E3E"
-    if score < 60: return "#DD6B20"
-    return "#38A169"
+    if score < 40: return "#9B2335"
+    if score < 60: return "#7A5C1E"
+    return "#2D5A3D"
 
 def model_tier_from_id(model_id):
     if "haiku" in model_id.lower(): return "haiku"
@@ -408,14 +408,14 @@ def model_tier_from_id(model_id):
     return "sonnet"
 
 def tier_color(tier):
-    return {"haiku": "#1a6fa8", "sonnet": "#5B3FA8", "opus": "#8E44AD"}.get(tier, "#1B1040")
+    return {"haiku": "#2D4A7A", "sonnet": "#3D3458", "opus": "#1B1040"}.get(tier, "#1B1040")
 
 def render_model_meta(result, expanded=False):
     """Renders the model/cost/confidence/tokens strip + routing rationale."""
     tier  = result.get("model_tier") or model_tier_from_id(result.get("model_used",""))
     color = tier_color(tier)
     conf  = result.get("confidence_score", 0)
-    conf_color = "#38A169" if conf >= 0.75 else "#DD6B20" if conf >= 0.55 else "#E53E3E"
+    conf_color = "#2D5A3D" if conf >= 0.75 else "#7A5C1E" if conf >= 0.55 else "#9B2335"
     disp  = result.get("model_display") or result.get("model_used","?")
 
     meta_html = f"""<div style="display:flex;gap:0;background:#FFFFFF;border:1px solid #EDE8F2;border-radius:8px;padding:8px 14px;margin-bottom:6px;align-items:center">
@@ -425,7 +425,7 @@ def render_model_meta(result, expanded=False):
         </div>
         <div style="flex:1;border-right:1px solid #EDE8F2;padding-right:14px;margin-right:14px">
             <div class="kpi-label">Est. Cost</div>
-            <div style="color:#38A169;font-weight:700;font-size:0.88rem">${result.get('estimated_cost_usd',0):.5f}</div>
+            <div style="color:#1B1040;font-weight:700;font-size:0.88rem">${result.get('estimated_cost_usd',0):.5f}</div>
         </div>
         <div style="flex:1;border-right:1px solid #EDE8F2;padding-right:14px;margin-right:14px">
             <div class="kpi-label">Confidence</div>
@@ -500,7 +500,7 @@ with st.sidebar:
         with col_b:
             arr_risk = summary.get('arr_at_risk',0)
             total    = summary.get('total_arr',1)
-            st.markdown(f"<div style='font-size:1.1rem;font-weight:800;color:#E53E3E'>${arr_risk/1e6:.1f}M</div><div style='font-size:0.72rem;color:#6B6280'>ARR at risk</div><div style='font-size:0.85rem;font-weight:700;color:#1B1040'>{arr_risk/total*100:.0f}%</div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='font-size:1.1rem;font-weight:800;color:#9B2335'>${arr_risk/1e6:.1f}M</div><div style='font-size:0.72rem;color:#6B6280'>ARR at risk</div><div style='font-size:0.85rem;font-weight:700;color:#1B1040'>{arr_risk/total*100:.0f}%</div>", unsafe_allow_html=True)
 
     st.markdown("---")
 
@@ -529,8 +529,8 @@ def show_agent_guide():
             "name": "Customer Health Agent",
             "icon": "🩺",
             "model": "Haiku",
-            "model_color": "#1a6fa8",
-            "model_bg": "#E8F4FD",
+            "model_color": "#2D4A7A",
+            "model_bg": "#E8EDF5",
             "when": "Run first — gives you the overall risk picture for any customer.",
             "what": "Scores customer health 0–100, identifies the top risk drivers pulling the score down, surfaces early warning signals (champion disengagement, declining DAU, overdue milestones), and lists concrete recommended actions.",
             "outputs": ["Health score & risk level", "Top risk drivers (ranked)", "Early warning signals", "Positive signals", "Recommended actions", "Confidence score + rationale"],
@@ -539,8 +539,8 @@ def show_agent_guide():
             "name": "Implementation Agent",
             "icon": "🔧",
             "model": "Sonnet",
-            "model_color": "#5B3FA8",
-            "model_bg": "#EDE8F9",
+            "model_color": "#3D3458",
+            "model_bg": "#EDEAF4",
             "when": "Use when a customer is in onboarding or has active implementation milestones.",
             "what": "Reviews all milestones, calculates % complete, identifies blockers and delayed items, rates launch confidence (Very Low → High), and drafts an owner action plan with intervention recommendations.",
             "outputs": ["Overall status & % complete", "Launch confidence rating", "Delayed milestones & blockers", "Owner action plan", "Executive summary", "Recommended intervention"],
@@ -549,8 +549,8 @@ def show_agent_guide():
             "name": "Briefing Agent",
             "icon": "📋",
             "model": "Sonnet",
-            "model_color": "#5B3FA8",
-            "model_bg": "#EDE8F9",
+            "model_color": "#3D3458",
+            "model_bg": "#EDEAF4",
             "when": "Before a QBR, exec meeting, or renewal conversation with a customer.",
             "what": "Generates a CEO-ready executive briefing covering the business situation, risk narrative, key asks, and a 30/60/90-day action plan. Written for a non-technical exec audience with zero fluff.",
             "outputs": ["Situation summary", "Business risk & financial impact", "Key asks from the customer", "30 / 60 / 90-day plan", "Recommended executive action", "Risk narrative"],
@@ -559,8 +559,8 @@ def show_agent_guide():
             "name": "Escalation Commander",
             "icon": "🚨",
             "model": "Opus",
-            "model_color": "#8E44AD",
-            "model_bg": "#F5EEF8",
+            "model_color": "#1B1040",
+            "model_bg": "#EAE6E0",
             "when": "When a customer has an active escalation or is at risk of churning imminently.",
             "what": "Performs a full crisis analysis: determines likely root cause, quantifies customer impact, maps internal owners, builds a 48-hour recovery plan and 2-week stabilization plan, and drafts executive communications.",
             "outputs": ["Severity assessment", "Root cause analysis", "Customer impact statement", "Internal owner map", "48-hour recovery plan", "2-week stabilization plan", "Executive comms draft"],
@@ -569,8 +569,8 @@ def show_agent_guide():
             "name": "Skeptik QA Agent",
             "icon": "🔍",
             "model": "Opus",
-            "model_color": "#8E44AD",
-            "model_bg": "#F5EEF8",
+            "model_color": "#1B1040",
+            "model_bg": "#EAE6E0",
             "when": "After running any other agent — especially before sharing a briefing or escalation plan with executives.",
             "what": "Adversarially reviews the most recent agent output for that customer. Challenges unsupported claims, flags missing evidence, identifies overconfident conclusions, and suggests alternative explanations. Revises the confidence score.",
             "outputs": ["Unsupported claims", "Missing evidence", "Overconfident conclusions", "Alternative explanations", "Recommended edits", "Revised confidence score", "Verdict (Approved / Needs Revision / Reject)"],
@@ -579,8 +579,8 @@ def show_agent_guide():
             "name": "VP Chief of Staff",
             "icon": "📊",
             "model": "Opus",
-            "model_color": "#8E44AD",
-            "model_bg": "#F5EEF8",
+            "model_color": "#1B1040",
+            "model_bg": "#EAE6E0",
             "when": "Weekly — generates the VP CX operating review across the full 25-customer portfolio.",
             "what": "Synthesizes the entire portfolio into a board-ready weekly review: top 5 risks, ARR at risk, renewal watchlist, implementation bottlenecks, product feedback themes, support burden, cross-functional asks, and a CEO-ready paragraph summary.",
             "outputs": ["Portfolio health summary", "Top 5 risks + actions", "ARR at risk breakdown", "Renewals watchlist", "Impl bottlenecks", "Product feedback themes", "Cross-functional asks", "CEO-ready paragraph"],
@@ -600,7 +600,7 @@ def show_agent_guide():
             <div style="font-size:0.80rem;color:#3D3458;line-height:1.5;margin-bottom:6px">{a['what']}</div>
             <div style="font-size:0.72rem;color:#6B6280;font-style:italic;margin-bottom:8px">💡 {a['when']}</div>
             <div style="display:flex;flex-wrap:wrap;gap:4px">
-                {''.join(f'<span style="background:#EFEBE5;color:#5B3FA8;font-size:0.68rem;font-weight:600;padding:2px 8px;border-radius:20px">{o}</span>' for o in a['outputs'])}
+                {''.join(f'<span style="background:#EDEAF4;color:#3D3458;font-size:0.68rem;font-weight:600;padding:2px 8px;border-radius:20px">{o}</span>' for o in a['outputs'])}
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -628,7 +628,7 @@ st.markdown("""
   <span style="display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid #E8E4DC;border-radius:50px;padding:3px 10px 3px 4px"><span style="background:#00A1E0;color:#fff;font-size:0.58rem;font-weight:800;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center">SF</span><span style="font-size:0.72rem;font-weight:600;color:#3D3458">Salesforce</span></span>
   <span style="display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid #E8E4DC;border-radius:50px;padding:3px 10px 3px 4px"><span style="background:#03363D;color:#fff;font-size:0.58rem;font-weight:800;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center">ZD</span><span style="font-size:0.72rem;font-weight:600;color:#3D3458">Zendesk</span></span>
   <span style="display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid #E8E4DC;border-radius:50px;padding:3px 10px 3px 4px"><span style="background:#F6821F;color:#fff;font-size:0.58rem;font-weight:800;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center">GS</span><span style="font-size:0.72rem;font-weight:600;color:#3D3458">Gainsight</span></span>
-  <span style="display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid #E8E4DC;border-radius:50px;padding:3px 10px 3px 4px"><span style="background:#5B3FA8;color:#fff;font-size:0.58rem;font-weight:800;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center">@</span><span style="font-size:0.72rem;font-weight:600;color:#3D3458">Email</span></span>
+  <span style="display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid #E8E4DC;border-radius:50px;padding:3px 10px 3px 4px"><span style="background:#3D3458;color:#fff;font-size:0.58rem;font-weight:800;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center">@</span><span style="font-size:0.72rem;font-weight:600;color:#3D3458">Email</span></span>
   <span style="margin-left:auto;font-size:0.65rem;color:#9B93A8;font-style:italic">Synthetic demo data</span>
 </div>
 """, unsafe_allow_html=True)
@@ -668,9 +668,9 @@ if page == "Portfolio Dashboard":
     st.markdown(f"""
     <div style="margin:10px 0 6px">
         <div style="display:flex;height:16px;border-radius:50px;overflow:hidden;gap:2px;background:#E8E4DC;padding:2px">
-            <div style="width:{h_pct:.0f}%;background:#E53E3E;border-radius:50px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white;min-width:24px">{summary.get('critical_count',0)}</div>
-            <div style="width:{m_pct:.0f}%;background:#DD6B20;border-radius:50px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white;min-width:24px">{summary.get('at_risk_count',0)}</div>
-            <div style="width:{l_pct:.0f}%;background:#38A169;border-radius:50px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white;min-width:24px">{summary.get('healthy_count',0)}</div>
+            <div style="width:{h_pct:.0f}%;background:#9B2335;border-radius:50px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white;min-width:24px">{summary.get('critical_count',0)}</div>
+            <div style="width:{m_pct:.0f}%;background:#7A5C1E;border-radius:50px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white;min-width:24px">{summary.get('at_risk_count',0)}</div>
+            <div style="width:{l_pct:.0f}%;background:#2D5A3D;border-radius:50px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white;min-width:24px">{summary.get('healthy_count',0)}</div>
         </div>
         <div style="display:flex;gap:16px;margin-top:4px;font-size:11px;color:#6B6280;font-weight:500">
             <span>🔴 High Risk</span><span>🟡 Medium Risk</span><span>🟢 Healthy</span>
@@ -720,7 +720,7 @@ if page == "Portfolio Dashboard":
     with right_col:
         st.markdown("<div style='font-size:0.78rem;font-weight:700;color:#1B1040;margin-bottom:6px'>Top Escalations</div>", unsafe_allow_html=True)
         for esc in summary.get("top_escalations", []):
-            sev_color = "#E53E3E" if esc.get("severity") == "Critical" else "#DD6B20"
+            sev_color = "#9B2335" if esc.get("severity") == "Critical" else "#7A5C1E"
             cname = next((c["name"] for c in customers if c["id"] == esc.get("customer_id")), "?")
             st.markdown(f"""<div class="card card-{'red' if esc.get('severity')=='Critical' else 'yellow'}">
                 <div style="font-size:0.72rem;color:{sev_color};font-weight:700;text-transform:uppercase;letter-spacing:0.06em">{esc.get('severity','?')} · {cname}</div>
@@ -784,7 +784,7 @@ elif page == "Customer 360":
     history   = data.get("health_history", [])
 
     # ── Header ────────────────────────────────────────────────────────────────
-    risk_color = {"High":"#E53E3E","Medium":"#DD6B20","Low":"#38A169"}.get(c.get("risk_level",""), "#1B1040")
+    risk_color = {"High":"#9B2335","Medium":"#7A5C1E","Low":"#2D5A3D"}.get(c.get("risk_level",""), "#1B1040")
     st.markdown(f"""
     <div class="card" style="margin-bottom:10px;border-top:3px solid {risk_color}">
         <div style="display:flex;align-items:center;gap:16px">
@@ -792,7 +792,7 @@ elif page == "Customer 360":
                 <div style="font-size:1.3rem;font-weight:800;color:#1B1040;letter-spacing:-0.02em">{c['name']}</div>
                 <div style="color:#6B6280;margin-top:2px;font-size:0.78rem">{c['industry']} · {c.get('employee_count','?'):,} employees · <b style="color:#1B1040">${c['arr']:,}</b> ARR</div>
                 <div style="margin-top:6px;color:#3D3458;font-size:0.80rem"><b style="color:#1B1040">Risk:</b> {c.get('primary_risk_reason','')}</div>
-                <div style="margin-top:2px;color:#5B3FA8;font-size:0.80rem;font-weight:500">→ {c.get('recommended_next_action','')}</div>
+                <div style="margin-top:2px;color:#3D3458;font-size:0.80rem;font-weight:500">→ {c.get('recommended_next_action','')}</div>
             </div>
             <div style="text-align:center;min-width:72px;background:{risk_color}12;border-radius:8px;padding:8px 12px;flex-shrink:0">
                 <div style="font-size:2.2rem;font-weight:900;color:{risk_color};line-height:1">{c['health_score']}</div>
@@ -912,10 +912,10 @@ elif page == "Customer 360":
     with tab_impl:
         if impl:
             behind = impl.get("days_behind_schedule",0)
-            sc = "#E53E3E" if impl.get("overall_status") in ("Stalled","Behind Schedule") else "#DD6B20" if impl.get("overall_status") == "Slight Delay" else "#38A169"
+            sc = "#9B2335" if impl.get("overall_status") in ("Stalled","Behind Schedule") else "#7A5C1E" if impl.get("overall_status") == "Slight Delay" else "#2D5A3D"
             pct = impl.get("pct_complete",0)
             st.markdown(f"**Status:** <span style='color:{sc};font-weight:700'>{impl.get('overall_status','?')}</span>"
-                        + (f" · <span style='color:#ff4b4b'>⚠️ {behind} days behind</span>" if behind > 0 else ""),
+                        + (f" · <span style='color:#9B2335'>⚠️ {behind} days behind</span>" if behind > 0 else ""),
                         unsafe_allow_html=True)
             st.progress(pct / 100)
             st.caption(f"{pct}% complete · Implementation Owner: {impl.get('implementation_owner','?')} · Go-live target: {impl.get('go_live_target','?')}")
@@ -933,7 +933,7 @@ elif page == "Customer 360":
         closed_t  = [t for t in tickets if t["status"] == "Resolved"]
         st.markdown(f"<div style='font-size:0.78rem;font-weight:700;color:#1B1040;margin-bottom:6px'>{len(open_t)} Open <span style=\"color:#6B6280;font-weight:400\">· {len(closed_t)} Resolved</span></div>", unsafe_allow_html=True)
         for t in sorted(tickets, key=lambda x: ("P1P2P3P4".index(x["severity"]) if x["severity"] in "P1P2P3P4" else 9, x["status"] == "Resolved")):
-            sc = {"P1":"#E53E3E","P2":"#DD6B20","P3":"#D69E2E","P4":"#9B8FBF"}.get(t["severity"],"#9B8FBF")
+            sc = {"P1":"#9B2335","P2":"#7A5C1E","P3":"#5C4A1E","P4":"#6B6280"}.get(t["severity"],"#6B6280")
             si = "🔴" if t["status"]=="Open" else "🔄" if t["status"]=="In Progress" else "✅"
             st.markdown(f"""<div class="card">
                 <div style="display:flex;justify-content:space-between;align-items:center">
@@ -942,14 +942,14 @@ elif page == "Customer 360":
                 </div>
                 <div style="color:#1B1040;font-size:0.88rem;margin-top:6px;font-weight:500">{t['title']}</div>
                 <div style="color:#6B6280;font-size:0.72rem;margin-top:3px">Opened {t['opened_at'][:10]} · Assignee: {t.get('assignee','?')}</div>
-                {f'<div style="color:#DD6B20;font-size:0.72rem;margin-top:2px">⚠️ {t["escalation_reference"]}</div>' if t.get("escalation_reference") else ''}
+                {f'<div style="color:#7A5C1E;font-size:0.72rem;margin-top:2px">⚠️ {t["escalation_reference"]}</div>' if t.get("escalation_reference") else ''}
             </div>""", unsafe_allow_html=True)
 
     with tab_escs:
         if not escs:
             st.success("No active escalations.")
         for e in escs:
-            sc = "#E53E3E" if e["severity"] == "Critical" else "#DD6B20"
+            sc = "#9B2335" if e["severity"] == "Critical" else "#7A5C1E"
             exec_aware = "🔔 Exec aware" if e.get("executive_aware") else ""
             st.markdown(f"""<div class="card card-{'red' if e['severity']=='Critical' else 'yellow'}">
                 <div style="display:flex;justify-content:space-between;align-items:center">
@@ -962,13 +962,13 @@ elif page == "Customer 360":
             </div>""", unsafe_allow_html=True)
 
     with tab_stk:
-        role_colors = {"Champion":"#1a6fa8","Technical Sponsor":"#5B3FA8","Business Sponsor":"#DD6B20",
-                       "Executive Sponsor":"#8E44AD","Economic Buyer":"#E53E3E"}
-        role_bg = {"Champion":"#E8F4FD","Technical Sponsor":"#EDE8F9","Business Sponsor":"#FFFAF0",
-                   "Executive Sponsor":"#F5EEF8","Economic Buyer":"#FFF5F5"}
+        role_colors = {"Champion":"#1B1040","Technical Sponsor":"#3D3458","Business Sponsor":"#5C4A1E",
+                       "Executive Sponsor":"#2D3A4A","Economic Buyer":"#9B2335"}
+        role_bg = {"Champion":"#EAE6E0","Technical Sponsor":"#EDEAF4","Business Sponsor":"#F0EBE0",
+                   "Executive Sponsor":"#E8EBF0","Economic Buyer":"#F5ECEC"}
         eng_icons = {"High":"🟢","Medium":"🟡","Low":"🔴","None":"⚫"}
         for s in stk:
-            rc = role_colors.get(s["role"],"#9B8FBF")
+            rc = role_colors.get(s["role"],"#6B6280")
             rb = role_bg.get(s["role"],"#F8F5FF")
             ei = eng_icons.get(s.get("engagement_level",""),"?")
             st.markdown(f"""<div class="card">
@@ -986,7 +986,7 @@ elif page == "Customer 360":
             </div>""", unsafe_allow_html=True)
 
     with tab_notes:
-        sent_colors = {"Positive":"#38A169","Neutral":"#9B8FBF","Negative":"#E53E3E"}
+        sent_colors = {"Positive":"#2D5A3D","Neutral":"#6B6280","Negative":"#9B2335"}
         for n in notes:
             sc = sent_colors.get(n.get("sentiment_signal",""),"#8b949e")
             import json as _json
@@ -1002,12 +1002,12 @@ elif page == "Customer 360":
                 </div>
                 <div style="color:#1B1040;font-size:0.88rem;margin-top:6px;line-height:1.5">{n['summary']}</div>
                 <div style="color:#6B6280;font-size:0.72rem;margin-top:4px">👥 {n.get('attendees_internal','?')} · {n.get('attendees_customer','?')}</div>
-                {('<div style="margin-top:6px">' + ''.join(f'<div style="font-size:0.75rem;color:#5B3FA8;margin-top:2px">→ {a}</div>' for a in actions) + '</div>') if actions else ''}
+                {('<div style="margin-top:6px">' + ''.join(f'<div style="font-size:0.75rem;color:#3D3458;margin-top:2px">→ {a}</div>' for a in actions) + '</div>') if actions else ''}
             </div>""", unsafe_allow_html=True)
 
     with tab_renew:
         if renewal:
-            rc_color = "#E53E3E" if c.get("renewal_risk_score",0) > 0.6 else "#DD6B20" if c.get("renewal_risk_score",0) > 0.3 else "#38A169"
+            rc_color = "#9B2335" if c.get("renewal_risk_score",0) > 0.6 else "#7A5C1E" if c.get("renewal_risk_score",0) > 0.3 else "#2D5A3D"
             r1, r2, r3, r4 = st.columns(4)
             with r1: st.metric("Days to Renewal", renewal.get("days_to_renewal","?"))
             with r2: st.metric("Renewal Stage", renewal.get("renewal_stage","?"))
@@ -1220,7 +1220,7 @@ elif page == "Implementation Digest":
             st.success(f"Reviewed {digest.get('projects_reviewed',0)} implementation projects · Total cost: ${digest.get('total_cost_usd',0):.4f}")
 
             conf_order = {"Very Low": 0, "Low": 1, "Medium": 2, "High": 3}
-            conf_colors = {"Very Low":"#E53E3E","Low":"#DD6B20","Medium":"#D69E2E","High":"#38A169"}
+            conf_colors = {"Very Low":"#9B2335","Low":"#7A5C1E","Medium":"#5C4A1E","High":"#2D5A3D"}
 
             # Summary metrics
             c1, c2, c3, c4 = st.columns(4)
@@ -1237,7 +1237,7 @@ elif page == "Implementation Digest":
             for r in sorted(results, key=lambda x: conf_order.get(x["launch_confidence"], 2)):
                 cc = conf_colors.get(r["launch_confidence"], "#fff")
                 blockers_html = "".join(
-                    f"<div style='font-size:0.78rem;color:#DD6B20;margin-top:2px'>⚠️ {b[:80]}</div>"
+                    f"<div style='font-size:0.78rem;color:#7A5C1E;margin-top:2px'>⚠️ {b[:80]}</div>"
                     for b in r.get("active_blockers", [])
                 )
                 with st.expander(
