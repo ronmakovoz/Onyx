@@ -8,12 +8,17 @@ import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import streamlit as st
-import requests
 import pandas as pd
 from datetime import datetime
-import os
 
-API = os.environ.get("API_BASE_URL", "http://localhost:8000")
+from backend.crud import (
+    get_all_customers, get_customer_360, get_portfolio_summary,
+    save_agent_run, save_briefing, get_agent_runs, get_briefings, get_cost_summary
+)
+from backend.context_builder import build_customer_context, build_portfolio_context
+from agents.agents import AGENT_REGISTRY, AGENT_DESCRIPTIONS, AGENT_MODEL_TIER
+from agents.model_router import route as _route
+from backend.database import fetchall
 
 st.set_page_config(
     page_title="VP CX Agent OS",
@@ -323,70 +328,161 @@ div[data-testid="column"] > div { gap: 0.4rem !important; }
 """, unsafe_allow_html=True)
 
 
-# ── API helpers ───────────────────────────────────────────────────────────────
+# ── Direct backend helpers (no HTTP) ─────────────────────────────────────────
 
 @st.cache_data(ttl=20)
 def fetch_customers():
     try:
-        return requests.get(f"{API}/customers", timeout=5).json()
+        return get_all_customers()
     except Exception:
         return []
 
 @st.cache_data(ttl=20)
 def fetch_summary():
     try:
-        return requests.get(f"{API}/portfolio/summary", timeout=5).json()
+        return get_portfolio_summary()
     except Exception:
         return {}
 
 def fetch_360(cid):
     try:
-        return requests.get(f"{API}/customers/{cid}/360", timeout=5).json()
+        return get_customer_360(cid)
     except Exception:
         return {}
 
 def call_agent(agent_name, customer_id=None):
     try:
-        params = {"agent_name": agent_name}
-        if customer_id:
-            params["customer_id"] = customer_id
-        return requests.post(f"{API}/agents/run", params=params, timeout=60).json()
+        agent = AGENT_REGISTRY[agent_name]()
+
+        if agent_name == "VPChiefOfStaffAgent":
+            context = build_portfolio_context()
+            cid = None
+        elif agent_name == "SkeptikQAAgent":
+            runs = get_agent_runs(20)
+            prior = next(
+                (r for r in runs if r.get("customer_id") == customer_id
+                 and r["agent_name"] != "SkeptikQAAgent"), None
+            )
+            if not prior:
+                return {"error": "No prior agent output found. Run another agent first."}
+            context = build_customer_context(customer_id)
+            context["prior_agent"]      = prior["agent_name"]
+            context["prior_output"]     = prior["output_text"]
+            context["prior_confidence"] = prior.get("confidence_score", 0.75)
+            cid = customer_id
+        else:
+            context = build_customer_context(customer_id)
+            cid = customer_id
+
+        result = agent.run(context, customer_id=cid)
+        run_id = save_agent_run(result)
+
+        if agent_name in ("BriefingAgent", "VPChiefOfStaffAgent"):
+            briefing_type = "CEO" if agent_name == "BriefingAgent" else "VP_CX"
+            save_briefing(briefing_type, cid, result.output_text, run_id)
+
+        routing = _route(agent_name)
+        return {
+            "run_id":             run_id,
+            "agent_name":         result.agent_name,
+            "agent_description":  AGENT_DESCRIPTIONS.get(agent_name, ""),
+            "customer_id":        result.customer_id,
+            "model_used":         result.model_used,
+            "model_display":      result.model_display,
+            "model_tier":         AGENT_MODEL_TIER.get(agent_name, "sonnet"),
+            "model_rationale":    result.model_rationale,
+            "input_tokens":       result.input_tokens,
+            "output_tokens":      result.output_tokens,
+            "estimated_cost_usd": result.estimated_cost_usd,
+            "confidence_score":   result.confidence_score,
+            "output_text":        result.output_text,
+            "structured":         result.to_dict().get("structured"),
+            "created_at":         result.created_at,
+            "is_mock":            result.is_mock,
+        }
     except Exception as e:
         return {"error": str(e)}
 
 def call_portfolio_health():
     try:
-        return requests.post(f"{API}/agents/run-portfolio-health", timeout=120).json()
+        customers = get_all_customers()
+        agent     = AGENT_REGISTRY["CustomerHealthAgent"]()
+        results   = []
+        for c in customers:
+            context = build_customer_context(c["id"])
+            result  = agent.run(context, customer_id=c["id"])
+            run_id  = save_agent_run(result)
+            results.append({
+                "customer_id":        c["id"],
+                "customer_name":      c["name"],
+                "arr":                c["arr"],
+                "health_score":       result.structured.health_score if result.structured else c["health_score"],
+                "risk_level":         result.structured.risk_level if result.structured else c.get("risk_level","?"),
+                "confidence_score":   result.confidence_score,
+                "top_risk_drivers":   result.structured.top_risk_drivers[:2] if result.structured else [],
+                "recommended_actions":result.structured.recommended_actions[:2] if result.structured else [],
+                "run_id":             run_id,
+                "model_used":         result.model_used,
+                "estimated_cost_usd": result.estimated_cost_usd,
+            })
+        results.sort(key=lambda r: r["health_score"])
+        return {
+            "scan_completed_at": result.created_at,
+            "customers_scanned": len(results),
+            "total_cost_usd":    round(sum(r["estimated_cost_usd"] for r in results), 6),
+            "results":           results,
+        }
     except Exception as e:
         return {"error": str(e)}
 
 def call_impl_digest():
     try:
-        return requests.post(f"{API}/agents/run-implementation-digest", timeout=120).json()
+        impls  = fetchall("SELECT DISTINCT customer_id FROM implementations")
+        agent  = AGENT_REGISTRY["ImplementationAgent"]()
+        results = []
+        for row in impls:
+            cid     = row["customer_id"]
+            context = build_customer_context(cid)
+            result  = agent.run(context, customer_id=cid)
+            run_id  = save_agent_run(result)
+            results.append({
+                "customer_id":         cid,
+                "customer_name":       context["customer_name"],
+                "overall_status":      result.structured.overall_status if result.structured else "?",
+                "pct_complete":        result.structured.pct_complete if result.structured else 0,
+                "launch_confidence":   result.structured.launch_confidence if result.structured else "Unknown",
+                "active_blockers":     result.structured.active_blockers[:2] if result.structured else [],
+                "recommended_intervention": result.structured.recommended_intervention if result.structured else "",
+                "run_id":              run_id,
+                "estimated_cost_usd":  result.estimated_cost_usd,
+            })
+        results.sort(key=lambda r: {"Very Low":0,"Low":1,"Medium":2,"High":3}.get(r["launch_confidence"],2))
+        return {
+            "projects_reviewed": len(results),
+            "total_cost_usd":    round(sum(r["estimated_cost_usd"] for r in results), 6),
+            "results":           results,
+        }
     except Exception as e:
         return {"error": str(e)}
 
 def fetch_audit(limit=50, agent_name=None, customer_id=None):
     try:
-        params = {"limit": limit}
-        if agent_name:   params["agent_name"]  = agent_name
-        if customer_id:  params["customer_id"] = customer_id
-        return requests.get(f"{API}/audit-log", params=params, timeout=5).json()
+        runs = get_agent_runs(limit)
+        if agent_name:  runs = [r for r in runs if r["agent_name"] == agent_name]
+        if customer_id: runs = [r for r in runs if r.get("customer_id") == customer_id]
+        return runs
     except Exception:
         return []
 
 def fetch_briefings(btype=None, cid=None):
     try:
-        params = {}
-        if btype: params["briefing_type"] = btype
-        if cid:   params["customer_id"]   = cid
-        return requests.get(f"{API}/briefings", params=params, timeout=5).json()
+        return get_briefings(btype, cid)
     except Exception:
         return []
 
 def fetch_costs():
     try:
-        return requests.get(f"{API}/costs", timeout=5).json()
+        return get_cost_summary()
     except Exception:
         return {}
 
@@ -699,7 +795,7 @@ if page == "Portfolio Dashboard":
     customers = fetch_customers()
 
     if not summary or not customers:
-        st.error("❌ Cannot reach backend. Run: `uvicorn backend.main:app --port 8000`")
+        st.error("❌ Failed to load data. Check that the database is initialized.")
         st.stop()
 
     # ── KPI row ───────────────────────────────────────────────────────────────
