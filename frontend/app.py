@@ -629,25 +629,38 @@ def show_agent_guide():
         },
     ]
 
-    st.markdown("<div style='color:#6B6280;font-size:0.82rem;margin-bottom:16px'>Six AI agents run your post-sale org. Each is routed to the optimal Claude model based on task complexity.</div>", unsafe_allow_html=True)
+    # model routing legend
+    st.markdown("""
+<div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap">
+  <div style="font-size:0.68rem;color:#6B6280;align-self:center;margin-right:4px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em">Model routing</div>
+  <span style="background:#E8EDF5;color:#2D4A7A;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:20px">Haiku — fast scanning</span>
+  <span style="background:#EDEAF4;color:#3D3458;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:20px">Sonnet — synthesis</span>
+  <span style="background:#EAE6E0;color:#1B1040;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:20px">Opus — judgment & adversarial</span>
+</div>
+""", unsafe_allow_html=True)
 
-    for a in AGENTS:
+    for i, a in enumerate(AGENTS):
+        outputs_html = "".join(
+            f'<span style="background:#F5F2EE;color:#3D3458;font-size:0.67rem;font-weight:600;'
+            f'padding:2px 9px;border-radius:20px;border:1px solid #E8E4DC">{o}</span>'
+            for o in a["outputs"]
+        )
+        border_top = "border-top:1px solid #E8E4DC;" if i > 0 else ""
         st.markdown(f"""
-        <div style="background:#FFFFFF;border:1px solid #E8E4DC;border-radius:10px;padding:14px 16px;margin-bottom:10px;box-shadow:0 1px 4px rgba(27,16,64,0.05)">
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-                <span style="font-size:1.2rem">{a['icon']}</span>
-                <span style="font-size:0.95rem;font-weight:700;color:#1B1040">{a['name']}</span>
-                <span style="background:{a['model_bg']};color:{a['model_color']};font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:auto">{a['model']}</span>
-            </div>
-            <div style="font-size:0.80rem;color:#3D3458;line-height:1.5;margin-bottom:6px">{a['what']}</div>
-            <div style="font-size:0.72rem;color:#6B6280;font-style:italic;margin-bottom:8px">💡 {a['when']}</div>
-            <div style="display:flex;flex-wrap:wrap;gap:4px">
-                {''.join(f'<span style="background:#EDEAF4;color:#3D3458;font-size:0.68rem;font-weight:600;padding:2px 8px;border-radius:20px">{o}</span>' for o in a['outputs'])}
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-
-    st.markdown("<div style='font-size:0.75rem;color:#6B6280;margin-top:4px;text-align:center'>Haiku → fast scanning &nbsp;·&nbsp; Sonnet → synthesis &nbsp;·&nbsp; Opus → judgment & adversarial review</div>", unsafe_allow_html=True)
+<div style="padding:16px 4px;{border_top}">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px">
+    <div style="font-size:1.0rem;font-weight:800;color:#1B1040;letter-spacing:-0.01em">{a['name']}</div>
+    <span style="background:{a['model_bg']};color:{a['model_color']};font-size:0.65rem;font-weight:700;
+          padding:3px 10px;border-radius:20px;flex-shrink:0">{a['model']}</span>
+  </div>
+  <div style="font-size:0.78rem;color:#3D3458;line-height:1.55;margin-bottom:8px">{a['what']}</div>
+  <div style="font-size:0.70rem;color:#6B6280;margin-bottom:10px;padding:5px 10px;
+       background:#F5F2EE;border-radius:6px;border-left:2px solid #D8D3C8">
+    When: {a['when']}
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:4px">{outputs_html}</div>
+</div>
+""", unsafe_allow_html=True)
 
 
 # Show agent guide dialog
