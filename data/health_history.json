@@ -1,0 +1,6752 @@
+[
+  {
+    "id": 1,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-03",
+    "health_score": 43.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 2,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-04",
+    "health_score": 42.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 3,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-05",
+    "health_score": 44.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 4,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-06",
+    "health_score": 45.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 5,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-07",
+    "health_score": 47.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 6,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-08",
+    "health_score": 46.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 7,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-09",
+    "health_score": 51.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 8,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-10",
+    "health_score": 47.6,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 9,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-11",
+    "health_score": 50.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 10,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-12",
+    "health_score": 52.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 11,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-13",
+    "health_score": 57.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 12,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-14",
+    "health_score": 49.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 13,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-15",
+    "health_score": 53.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 14,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-16",
+    "health_score": 45.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 15,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-17",
+    "health_score": 55.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 16,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-18",
+    "health_score": 46.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 17,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-19",
+    "health_score": 64.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 18,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-20",
+    "health_score": 65.6,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 19,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-21",
+    "health_score": 52.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 20,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-22",
+    "health_score": 55.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 21,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-23",
+    "health_score": 52.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 22,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-24",
+    "health_score": 51.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 23,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-25",
+    "health_score": 51.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 24,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-26",
+    "health_score": 60.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 25,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-27",
+    "health_score": 65.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 26,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-28",
+    "health_score": 70.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 27,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-29",
+    "health_score": 82.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 28,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-30",
+    "health_score": 60.6,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 29,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-05-31",
+    "health_score": 79.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 30,
+    "customer_id": 1,
+    "customer_name": "Acme Industrial Corp",
+    "date": "2026-06-01",
+    "health_score": 72.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 31,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-03",
+    "health_score": 79.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 32,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-04",
+    "health_score": 77.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 33,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-05",
+    "health_score": 78.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 34,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-06",
+    "health_score": 78.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 35,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-07",
+    "health_score": 77.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 36,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-08",
+    "health_score": 79.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 37,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-09",
+    "health_score": 81.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 38,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-10",
+    "health_score": 79.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 39,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-11",
+    "health_score": 73.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 40,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-12",
+    "health_score": 72.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 41,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-13",
+    "health_score": 69.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 42,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-14",
+    "health_score": 71.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 43,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-15",
+    "health_score": 79.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 44,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-16",
+    "health_score": 77.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 45,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-17",
+    "health_score": 76.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 46,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-18",
+    "health_score": 69.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 47,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-19",
+    "health_score": 78.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 48,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-20",
+    "health_score": 74.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 49,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-21",
+    "health_score": 80.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 50,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-22",
+    "health_score": 67.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 51,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-23",
+    "health_score": 79.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 52,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-24",
+    "health_score": 79.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 53,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-25",
+    "health_score": 93.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 54,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-26",
+    "health_score": 69.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 55,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-27",
+    "health_score": 82.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 56,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-28",
+    "health_score": 92.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 57,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-29",
+    "health_score": 63.8,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 58,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-30",
+    "health_score": 63.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 59,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-05-31",
+    "health_score": 85.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 60,
+    "customer_id": 2,
+    "customer_name": "BioNexus Health Systems",
+    "date": "2026-06-01",
+    "health_score": 78.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 61,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-03",
+    "health_score": 38.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 62,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-04",
+    "health_score": 39.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 63,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-05",
+    "health_score": 39.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 64,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-06",
+    "health_score": 38.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 65,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-07",
+    "health_score": 39.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 66,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-08",
+    "health_score": 38.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 67,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-09",
+    "health_score": 43.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 68,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-10",
+    "health_score": 43.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 69,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-11",
+    "health_score": 45.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 70,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-12",
+    "health_score": 40.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 71,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-13",
+    "health_score": 51.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 72,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-14",
+    "health_score": 40.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 73,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-15",
+    "health_score": 47.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 74,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-16",
+    "health_score": 51.6,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 75,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-17",
+    "health_score": 49.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 76,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-18",
+    "health_score": 43.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 77,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-19",
+    "health_score": 58.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 78,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-20",
+    "health_score": 59.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 79,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-21",
+    "health_score": 54.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 80,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-22",
+    "health_score": 54.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 81,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-23",
+    "health_score": 47.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 82,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-24",
+    "health_score": 49.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 83,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-25",
+    "health_score": 55.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 84,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-26",
+    "health_score": 65.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 85,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-27",
+    "health_score": 63.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 86,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-28",
+    "health_score": 75.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 87,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-29",
+    "health_score": 61.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 88,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-30",
+    "health_score": 56.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 89,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-05-31",
+    "health_score": 62.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 90,
+    "customer_id": 3,
+    "customer_name": "ClearPath Logistics",
+    "date": "2026-06-01",
+    "health_score": 68.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 91,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-03",
+    "health_score": 85.5,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 92,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-04",
+    "health_score": 87.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 93,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-05",
+    "health_score": 83.5,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 94,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-06",
+    "health_score": 83.5,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 95,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-07",
+    "health_score": 87.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 96,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-08",
+    "health_score": 85.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 97,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-09",
+    "health_score": 87.5,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 98,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-10",
+    "health_score": 77.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 99,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-11",
+    "health_score": 86.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 100,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-12",
+    "health_score": 80.5,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 101,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-13",
+    "health_score": 80.1,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 102,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-14",
+    "health_score": 77.9,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 103,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-15",
+    "health_score": 76.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 104,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-16",
+    "health_score": 71.5,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 105,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-17",
+    "health_score": 68.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 106,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-18",
+    "health_score": 73.0,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 107,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-19",
+    "health_score": 86.1,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 108,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-20",
+    "health_score": 77.2,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 109,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-21",
+    "health_score": 75.0,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 110,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-22",
+    "health_score": 76.4,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 111,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-23",
+    "health_score": 64.0,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 112,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-24",
+    "health_score": 76.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 113,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-25",
+    "health_score": 71.0,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 114,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-26",
+    "health_score": 59.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 115,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-27",
+    "health_score": 82.2,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 116,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-28",
+    "health_score": 74.4,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 117,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-29",
+    "health_score": 75.7,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 118,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-30",
+    "health_score": 65.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 119,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-05-31",
+    "health_score": 58.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 120,
+    "customer_id": 4,
+    "customer_name": "DataVault Analytics",
+    "date": "2026-06-01",
+    "health_score": 81.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 121,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-03",
+    "health_score": 66.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 122,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-04",
+    "health_score": 68.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 123,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-05",
+    "health_score": 66.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 124,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-06",
+    "health_score": 68.0,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 125,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-07",
+    "health_score": 72.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 126,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-08",
+    "health_score": 65.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 127,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-09",
+    "health_score": 68.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 128,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-10",
+    "health_score": 71.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 129,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-11",
+    "health_score": 71.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 130,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-12",
+    "health_score": 64.0,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 131,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-13",
+    "health_score": 73.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 132,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-14",
+    "health_score": 72.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 133,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-15",
+    "health_score": 70.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 134,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-16",
+    "health_score": 65.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 135,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-17",
+    "health_score": 68.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 136,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-18",
+    "health_score": 65.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 137,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-19",
+    "health_score": 67.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 138,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-20",
+    "health_score": 67.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 139,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-21",
+    "health_score": 76.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 140,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-22",
+    "health_score": 76.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 141,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-23",
+    "health_score": 77.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 142,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-24",
+    "health_score": 76.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 143,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-25",
+    "health_score": 82.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 144,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-26",
+    "health_score": 58.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 145,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-27",
+    "health_score": 80.8,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 146,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-28",
+    "health_score": 60.8,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 147,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-29",
+    "health_score": 73.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 148,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-30",
+    "health_score": 61.0,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 149,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-05-31",
+    "health_score": 67.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 150,
+    "customer_id": 5,
+    "customer_name": "Evora Energy Partners",
+    "date": "2026-06-01",
+    "health_score": 86.8,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 151,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-03",
+    "health_score": 43.6,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 152,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-04",
+    "health_score": 44.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 153,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-05",
+    "health_score": 45.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 154,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-06",
+    "health_score": 45.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 155,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-07",
+    "health_score": 44.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 156,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-08",
+    "health_score": 49.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 157,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-09",
+    "health_score": 48.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 158,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-10",
+    "health_score": 46.6,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 159,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-11",
+    "health_score": 50.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 160,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-12",
+    "health_score": 58.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 161,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-13",
+    "health_score": 49.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 162,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-14",
+    "health_score": 55.6,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 163,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-15",
+    "health_score": 53.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 164,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-16",
+    "health_score": 47.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 165,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-17",
+    "health_score": 58.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 166,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-18",
+    "health_score": 58.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 167,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-19",
+    "health_score": 59.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 168,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-20",
+    "health_score": 48.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 169,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-21",
+    "health_score": 49.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 170,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-22",
+    "health_score": 64.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 171,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-23",
+    "health_score": 71.6,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 172,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-24",
+    "health_score": 65.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 173,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-25",
+    "health_score": 62.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 174,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-26",
+    "health_score": 58.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 175,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-27",
+    "health_score": 58.6,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 176,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-28",
+    "health_score": 50.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 177,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-29",
+    "health_score": 77.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 178,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-30",
+    "health_score": 61.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 179,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-05-31",
+    "health_score": 80.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 180,
+    "customer_id": 6,
+    "customer_name": "Fortress Bank NA",
+    "date": "2026-06-01",
+    "health_score": 83.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 181,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-03",
+    "health_score": 71.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 182,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-04",
+    "health_score": 71.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 183,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-05",
+    "health_score": 70.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 184,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-06",
+    "health_score": 73.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 185,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-07",
+    "health_score": 72.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 186,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-08",
+    "health_score": 73.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 187,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-09",
+    "health_score": 74.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 188,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-10",
+    "health_score": 73.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 189,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-11",
+    "health_score": 67.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 190,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-12",
+    "health_score": 70.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 191,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-13",
+    "health_score": 65.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 192,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-14",
+    "health_score": 72.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 193,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-15",
+    "health_score": 80.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 194,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-16",
+    "health_score": 68.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 195,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-17",
+    "health_score": 73.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 196,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-18",
+    "health_score": 64.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 197,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-19",
+    "health_score": 72.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 198,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-20",
+    "health_score": 83.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 199,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-21",
+    "health_score": 66.0,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 200,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-22",
+    "health_score": 63.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 201,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-23",
+    "health_score": 62.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 202,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-24",
+    "health_score": 75.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 203,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-25",
+    "health_score": 64.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 204,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-26",
+    "health_score": 86.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 205,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-27",
+    "health_score": 65.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 206,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-28",
+    "health_score": 74.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 207,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-29",
+    "health_score": 63.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 208,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-30",
+    "health_score": 54.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 209,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-05-31",
+    "health_score": 91.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 210,
+    "customer_id": 7,
+    "customer_name": "GlobalEdge Retail",
+    "date": "2026-06-01",
+    "health_score": 70.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 211,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-03",
+    "health_score": 53.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 212,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-04",
+    "health_score": 52.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 213,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-05",
+    "health_score": 53.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 214,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-06",
+    "health_score": 53.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 215,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-07",
+    "health_score": 54.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 216,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-08",
+    "health_score": 55.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 217,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-09",
+    "health_score": 55.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 218,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-10",
+    "health_score": 58.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 219,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-11",
+    "health_score": 59.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 220,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-12",
+    "health_score": 65.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 221,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-13",
+    "health_score": 64.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 222,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-14",
+    "health_score": 61.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 223,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-15",
+    "health_score": 58.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 224,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-16",
+    "health_score": 69.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 225,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-17",
+    "health_score": 58.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 226,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-18",
+    "health_score": 64.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 227,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-19",
+    "health_score": 58.6,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 228,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-20",
+    "health_score": 74.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 229,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-21",
+    "health_score": 76.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 230,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-22",
+    "health_score": 75.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 231,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-23",
+    "health_score": 77.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 232,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-24",
+    "health_score": 80.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 233,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-25",
+    "health_score": 65.6,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 234,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-26",
+    "health_score": 68.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 235,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-27",
+    "health_score": 66.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 236,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-28",
+    "health_score": 77.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 237,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-29",
+    "health_score": 80.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 238,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-30",
+    "health_score": 68.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 239,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-05-31",
+    "health_score": 61.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 240,
+    "customer_id": 8,
+    "customer_name": "HealthFirst Insurance",
+    "date": "2026-06-01",
+    "health_score": 76.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 241,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-03",
+    "health_score": 83.7,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 242,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-04",
+    "health_score": 81.1,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 243,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-05",
+    "health_score": 80.4,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 244,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-06",
+    "health_score": 80.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 245,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-07",
+    "health_score": 81.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 246,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-08",
+    "health_score": 82.1,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 247,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-09",
+    "health_score": 77.3,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 248,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-10",
+    "health_score": 75.4,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 249,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-11",
+    "health_score": 77.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 250,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-12",
+    "health_score": 70.5,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 251,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-13",
+    "health_score": 82.1,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 252,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-14",
+    "health_score": 78.9,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 253,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-15",
+    "health_score": 71.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 254,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-16",
+    "health_score": 71.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 255,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-17",
+    "health_score": 73.4,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 256,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-18",
+    "health_score": 68.1,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 257,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-19",
+    "health_score": 67.4,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 258,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-20",
+    "health_score": 80.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 259,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-21",
+    "health_score": 72.9,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 260,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-22",
+    "health_score": 68.5,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 261,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-23",
+    "health_score": 62.9,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 262,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-24",
+    "health_score": 69.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 263,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-25",
+    "health_score": 54.2,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 264,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-26",
+    "health_score": 73.0,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 265,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-27",
+    "health_score": 63.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 266,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-28",
+    "health_score": 61.7,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 267,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-29",
+    "health_score": 54.7,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 268,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-30",
+    "health_score": 74.5,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 269,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-05-31",
+    "health_score": 66.9,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 270,
+    "customer_id": 9,
+    "customer_name": "InnovateTech Solutions",
+    "date": "2026-06-01",
+    "health_score": 47.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 271,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-03",
+    "health_score": 29.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 272,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-04",
+    "health_score": 30.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 273,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-05",
+    "health_score": 33.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 274,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-06",
+    "health_score": 31.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 275,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-07",
+    "health_score": 32.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 276,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-08",
+    "health_score": 32.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 277,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-09",
+    "health_score": 37.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 278,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-10",
+    "health_score": 34.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 279,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-11",
+    "health_score": 38.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 280,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-12",
+    "health_score": 36.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 281,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-13",
+    "health_score": 42.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 282,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-14",
+    "health_score": 34.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 283,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-15",
+    "health_score": 34.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 284,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-16",
+    "health_score": 39.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 285,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-17",
+    "health_score": 46.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 286,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-18",
+    "health_score": 50.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 287,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-19",
+    "health_score": 46.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 288,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-20",
+    "health_score": 36.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 289,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-21",
+    "health_score": 49.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 290,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-22",
+    "health_score": 55.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 291,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-23",
+    "health_score": 48.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 292,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-24",
+    "health_score": 57.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 293,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-25",
+    "health_score": 47.6,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 294,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-26",
+    "health_score": 44.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 295,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-27",
+    "health_score": 54.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 296,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-28",
+    "health_score": 40.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 297,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-29",
+    "health_score": 45.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 298,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-30",
+    "health_score": 46.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 299,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-05-31",
+    "health_score": 70.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 300,
+    "customer_id": 10,
+    "customer_name": "JetStream Airlines",
+    "date": "2026-06-01",
+    "health_score": 72.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 301,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-03",
+    "health_score": 91.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 302,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-04",
+    "health_score": 89.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 303,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-05",
+    "health_score": 89.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 304,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-06",
+    "health_score": 88.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 305,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-07",
+    "health_score": 88.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 306,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-08",
+    "health_score": 91.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 307,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-09",
+    "health_score": 90.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 308,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-10",
+    "health_score": 91.0,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 309,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-11",
+    "health_score": 92.0,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 310,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-12",
+    "health_score": 91.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 311,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-13",
+    "health_score": 85.0,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 312,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-14",
+    "health_score": 95.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 313,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-15",
+    "health_score": 83.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 314,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-16",
+    "health_score": 98.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 315,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-17",
+    "health_score": 92.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 316,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-18",
+    "health_score": 88.8,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 317,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-19",
+    "health_score": 83.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 318,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-20",
+    "health_score": 93.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 319,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-21",
+    "health_score": 85.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 320,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-22",
+    "health_score": 100,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 321,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-23",
+    "health_score": 97.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 322,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-24",
+    "health_score": 78.0,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 323,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-25",
+    "health_score": 100,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 324,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-26",
+    "health_score": 98.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 325,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-27",
+    "health_score": 91.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 326,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-28",
+    "health_score": 84.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 327,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-29",
+    "health_score": 86.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 328,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-30",
+    "health_score": 84.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 329,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-05-31",
+    "health_score": 82.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 330,
+    "customer_id": 11,
+    "customer_name": "Kestrel Defense Systems",
+    "date": "2026-06-01",
+    "health_score": 96.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 331,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-03",
+    "health_score": 29.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 332,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-04",
+    "health_score": 31.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 333,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-05",
+    "health_score": 31.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 334,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-06",
+    "health_score": 33.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 335,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-07",
+    "health_score": 32.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 336,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-08",
+    "health_score": 35.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 337,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-09",
+    "health_score": 33.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 338,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-10",
+    "health_score": 35.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 339,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-11",
+    "health_score": 32.6,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 340,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-12",
+    "health_score": 36.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 341,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-13",
+    "health_score": 32.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 342,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-14",
+    "health_score": 42.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 343,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-15",
+    "health_score": 46.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 344,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-16",
+    "health_score": 44.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 345,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-17",
+    "health_score": 48.6,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 346,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-18",
+    "health_score": 40.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 347,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-19",
+    "health_score": 35.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 348,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-20",
+    "health_score": 53.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 349,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-21",
+    "health_score": 47.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 350,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-22",
+    "health_score": 48.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 351,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-23",
+    "health_score": 56.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 352,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-24",
+    "health_score": 49.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 353,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-25",
+    "health_score": 61.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 354,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-26",
+    "health_score": 41.6,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 355,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-27",
+    "health_score": 63.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 356,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-28",
+    "health_score": 56.6,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 357,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-29",
+    "health_score": 64.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 358,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-30",
+    "health_score": 38.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 359,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-05-31",
+    "health_score": 55.6,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 360,
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "date": "2026-06-01",
+    "health_score": 51.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 361,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-03",
+    "health_score": 74.3,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 362,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-04",
+    "health_score": 74.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 363,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-05",
+    "health_score": 73.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 364,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-06",
+    "health_score": 74.9,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 365,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-07",
+    "health_score": 75.4,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 366,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-08",
+    "health_score": 73.1,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 367,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-09",
+    "health_score": 75.9,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 368,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-10",
+    "health_score": 68.1,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 369,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-11",
+    "health_score": 66.2,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 370,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-12",
+    "health_score": 68.1,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 371,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-13",
+    "health_score": 68.0,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 372,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-14",
+    "health_score": 74.2,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 373,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-15",
+    "health_score": 69.0,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 374,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-16",
+    "health_score": 61.2,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 375,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-17",
+    "health_score": 68.0,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 376,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-18",
+    "health_score": 56.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 377,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-19",
+    "health_score": 67.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 378,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-20",
+    "health_score": 66.5,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 379,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-21",
+    "health_score": 61.3,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 380,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-22",
+    "health_score": 72.9,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 381,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-23",
+    "health_score": 62.2,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 382,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-24",
+    "health_score": 73.0,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 383,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-25",
+    "health_score": 48.2,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 384,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-26",
+    "health_score": 53.0,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 385,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-27",
+    "health_score": 50.3,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 386,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-28",
+    "health_score": 64.1,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 387,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-29",
+    "health_score": 53.9,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 388,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-30",
+    "health_score": 56.7,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 389,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-05-31",
+    "health_score": 44.5,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 390,
+    "customer_id": 13,
+    "customer_name": "MegaMart Wholesale",
+    "date": "2026-06-01",
+    "health_score": 70.9,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 391,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-03",
+    "health_score": 69.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 392,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-04",
+    "health_score": 70.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 393,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-05",
+    "health_score": 67.0,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 394,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-06",
+    "health_score": 68.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 395,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-07",
+    "health_score": 68.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 396,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-08",
+    "health_score": 70.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 397,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-09",
+    "health_score": 71.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 398,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-10",
+    "health_score": 71.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 399,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-11",
+    "health_score": 74.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 400,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-12",
+    "health_score": 66.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 401,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-13",
+    "health_score": 72.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 402,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-14",
+    "health_score": 64.8,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 403,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-15",
+    "health_score": 74.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 404,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-16",
+    "health_score": 64.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 405,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-17",
+    "health_score": 60.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 406,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-18",
+    "health_score": 71.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 407,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-19",
+    "health_score": 71.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 408,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-20",
+    "health_score": 78.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 409,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-21",
+    "health_score": 78.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 410,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-22",
+    "health_score": 82.0,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 411,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-23",
+    "health_score": 74.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 412,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-24",
+    "health_score": 72.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 413,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-25",
+    "health_score": 60.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 414,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-26",
+    "health_score": 57.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 415,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-27",
+    "health_score": 58.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 416,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-28",
+    "health_score": 50.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 417,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-29",
+    "health_score": 57.0,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 418,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-30",
+    "health_score": 49.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 419,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-05-31",
+    "health_score": 63.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 420,
+    "customer_id": 14,
+    "customer_name": "NovaTech Systems",
+    "date": "2026-06-01",
+    "health_score": 66.8,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 421,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-03",
+    "health_score": 46.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 422,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-04",
+    "health_score": 48.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 423,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-05",
+    "health_score": 52.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 424,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-06",
+    "health_score": 50.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 425,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-07",
+    "health_score": 51.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 426,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-08",
+    "health_score": 48.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 427,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-09",
+    "health_score": 58.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 428,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-10",
+    "health_score": 55.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 429,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-11",
+    "health_score": 55.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 430,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-12",
+    "health_score": 60.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 431,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-13",
+    "health_score": 58.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 432,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-14",
+    "health_score": 62.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 433,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-15",
+    "health_score": 54.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 434,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-16",
+    "health_score": 65.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 435,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-17",
+    "health_score": 52.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 436,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-18",
+    "health_score": 70.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 437,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-19",
+    "health_score": 54.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 438,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-20",
+    "health_score": 66.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 439,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-21",
+    "health_score": 52.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 440,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-22",
+    "health_score": 58.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 441,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-23",
+    "health_score": 70.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 442,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-24",
+    "health_score": 66.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 443,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-25",
+    "health_score": 54.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 444,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-26",
+    "health_score": 67.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 445,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-27",
+    "health_score": 59.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 446,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-28",
+    "health_score": 72.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 447,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-29",
+    "health_score": 56.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 448,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-30",
+    "health_score": 83.6,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 449,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-05-31",
+    "health_score": 75.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 450,
+    "customer_id": 15,
+    "customer_name": "OmniCloud Infrastructure",
+    "date": "2026-06-01",
+    "health_score": 89.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 451,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-03",
+    "health_score": 80.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 452,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-04",
+    "health_score": 80.0,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 453,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-05",
+    "health_score": 79.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 454,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-06",
+    "health_score": 81.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 455,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-07",
+    "health_score": 84.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 456,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-08",
+    "health_score": 84.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 457,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-09",
+    "health_score": 82.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 458,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-10",
+    "health_score": 82.8,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 459,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-11",
+    "health_score": 79.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 460,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-12",
+    "health_score": 82.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 461,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-13",
+    "health_score": 85.0,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 462,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-14",
+    "health_score": 82.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 463,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-15",
+    "health_score": 72.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 464,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-16",
+    "health_score": 69.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 465,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-17",
+    "health_score": 74.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 466,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-18",
+    "health_score": 83.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 467,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-19",
+    "health_score": 92.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 468,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-20",
+    "health_score": 75.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 469,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-21",
+    "health_score": 70.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 470,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-22",
+    "health_score": 86.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 471,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-23",
+    "health_score": 83.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 472,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-24",
+    "health_score": 68.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 473,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-25",
+    "health_score": 95.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 474,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-26",
+    "health_score": 75.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 475,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-27",
+    "health_score": 77.8,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 476,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-28",
+    "health_score": 67.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 477,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-29",
+    "health_score": 96.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 478,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-30",
+    "health_score": 58.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 479,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-05-31",
+    "health_score": 71.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 480,
+    "customer_id": 16,
+    "customer_name": "PrecisionMfg Solutions",
+    "date": "2026-06-01",
+    "health_score": 83.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 481,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-03",
+    "health_score": 71.2,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 482,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-04",
+    "health_score": 71.5,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 483,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-05",
+    "health_score": 69.7,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 484,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-06",
+    "health_score": 69.4,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 485,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-07",
+    "health_score": 71.3,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 486,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-08",
+    "health_score": 70.3,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 487,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-09",
+    "health_score": 70.4,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 488,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-10",
+    "health_score": 69.3,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 489,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-11",
+    "health_score": 66.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 490,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-12",
+    "health_score": 62.2,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 491,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-13",
+    "health_score": 69.1,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 492,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-14",
+    "health_score": 65.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 493,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-15",
+    "health_score": 59.7,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 494,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-16",
+    "health_score": 68.9,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 495,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-17",
+    "health_score": 60.0,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 496,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-18",
+    "health_score": 56.0,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 497,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-19",
+    "health_score": 65.9,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 498,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-20",
+    "health_score": 56.1,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 499,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-21",
+    "health_score": 58.3,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 500,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-22",
+    "health_score": 66.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 501,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-23",
+    "health_score": 53.2,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 502,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-24",
+    "health_score": 59.4,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 503,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-25",
+    "health_score": 50.9,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 504,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-26",
+    "health_score": 47.9,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 505,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-27",
+    "health_score": 59.1,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 506,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-28",
+    "health_score": 69.5,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 507,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-29",
+    "health_score": 59.3,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 508,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-30",
+    "health_score": 61.5,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 509,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-05-31",
+    "health_score": 56.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 510,
+    "customer_id": 17,
+    "customer_name": "QuantumLeap Finance",
+    "date": "2026-06-01",
+    "health_score": 57.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 511,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-03",
+    "health_score": 31.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 512,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-04",
+    "health_score": 35.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 513,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-05",
+    "health_score": 33.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 514,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-06",
+    "health_score": 34.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 515,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-07",
+    "health_score": 35.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 516,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-08",
+    "health_score": 39.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 517,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-09",
+    "health_score": 41.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 518,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-10",
+    "health_score": 36.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 519,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-11",
+    "health_score": 38.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 520,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-12",
+    "health_score": 37.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 521,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-13",
+    "health_score": 45.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 522,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-14",
+    "health_score": 44.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 523,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-15",
+    "health_score": 44.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 524,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-16",
+    "health_score": 37.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 525,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-17",
+    "health_score": 46.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 526,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-18",
+    "health_score": 39.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 527,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-19",
+    "health_score": 48.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 528,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-20",
+    "health_score": 54.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 529,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-21",
+    "health_score": 50.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 530,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-22",
+    "health_score": 46.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 531,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-23",
+    "health_score": 42.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 532,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-24",
+    "health_score": 58.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 533,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-25",
+    "health_score": 59.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 534,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-26",
+    "health_score": 45.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 535,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-27",
+    "health_score": 46.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 536,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-28",
+    "health_score": 44.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 537,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-29",
+    "health_score": 66.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 538,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-30",
+    "health_score": 59.6,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 539,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-05-31",
+    "health_score": 44.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 540,
+    "customer_id": 18,
+    "customer_name": "RedRock Mining",
+    "date": "2026-06-01",
+    "health_score": 43.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 541,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-03",
+    "health_score": 64.8,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 542,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-04",
+    "health_score": 63.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 543,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-05",
+    "health_score": 66.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 544,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-06",
+    "health_score": 62.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 545,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-07",
+    "health_score": 62.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 546,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-08",
+    "health_score": 61.8,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 547,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-09",
+    "health_score": 66.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 548,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-10",
+    "health_score": 68.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 549,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-11",
+    "health_score": 65.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 550,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-12",
+    "health_score": 57.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 551,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-13",
+    "health_score": 65.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 552,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-14",
+    "health_score": 70.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 553,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-15",
+    "health_score": 62.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 554,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-16",
+    "health_score": 74.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 555,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-17",
+    "health_score": 68.8,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 556,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-18",
+    "health_score": 57.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 557,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-19",
+    "health_score": 68.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 558,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-20",
+    "health_score": 59.0,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 559,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-21",
+    "health_score": 54.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 560,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-22",
+    "health_score": 73.6,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 561,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-23",
+    "health_score": 69.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 562,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-24",
+    "health_score": 51.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 563,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-25",
+    "health_score": 60.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 564,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-26",
+    "health_score": 70.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 565,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-27",
+    "health_score": 69.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 566,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-28",
+    "health_score": 56.0,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 567,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-29",
+    "health_score": 63.0,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 568,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-30",
+    "health_score": 59.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 569,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-05-31",
+    "health_score": 52.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 570,
+    "customer_id": 19,
+    "customer_name": "Silverline Media Group",
+    "date": "2026-06-01",
+    "health_score": 61.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 571,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-03",
+    "health_score": 55.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 572,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-04",
+    "health_score": 58.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 573,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-05",
+    "health_score": 56.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 574,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-06",
+    "health_score": 58.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 575,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-07",
+    "health_score": 63.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 576,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-08",
+    "health_score": 63.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 577,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-09",
+    "health_score": 60.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 578,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-10",
+    "health_score": 62.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 579,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-11",
+    "health_score": 66.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 580,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-12",
+    "health_score": 65.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 581,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-13",
+    "health_score": 67.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 582,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-14",
+    "health_score": 63.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 583,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-15",
+    "health_score": 64.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 584,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-16",
+    "health_score": 68.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 585,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-17",
+    "health_score": 69.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 586,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-18",
+    "health_score": 65.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 587,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-19",
+    "health_score": 80.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 588,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-20",
+    "health_score": 66.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 589,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-21",
+    "health_score": 63.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 590,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-22",
+    "health_score": 78.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 591,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-23",
+    "health_score": 72.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 592,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-24",
+    "health_score": 88.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 593,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-25",
+    "health_score": 79.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 594,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-26",
+    "health_score": 80.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 595,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-27",
+    "health_score": 84.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 596,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-28",
+    "health_score": 74.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 597,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-29",
+    "health_score": 79.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 598,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-30",
+    "health_score": 72.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 599,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-05-31",
+    "health_score": 69.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 600,
+    "customer_id": 20,
+    "customer_name": "TitanBuild Construction",
+    "date": "2026-06-01",
+    "health_score": 74.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 601,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-03",
+    "health_score": 86.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 602,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-04",
+    "health_score": 87.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 603,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-05",
+    "health_score": 90.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 604,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-06",
+    "health_score": 86.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 605,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-07",
+    "health_score": 85.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 606,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-08",
+    "health_score": 87.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 607,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-09",
+    "health_score": 87.8,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 608,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-10",
+    "health_score": 88.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 609,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-11",
+    "health_score": 92.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 610,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-12",
+    "health_score": 86.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 611,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-13",
+    "health_score": 89.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 612,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-14",
+    "health_score": 91.4,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 613,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-15",
+    "health_score": 82.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 614,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-16",
+    "health_score": 96.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 615,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-17",
+    "health_score": 95.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 616,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-18",
+    "health_score": 94.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 617,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-19",
+    "health_score": 88.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 618,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-20",
+    "health_score": 91.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 619,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-21",
+    "health_score": 98.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 620,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-22",
+    "health_score": 75.8,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 621,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-23",
+    "health_score": 99.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 622,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-24",
+    "health_score": 100,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 623,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-25",
+    "health_score": 84.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 624,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-26",
+    "health_score": 95.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 625,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-27",
+    "health_score": 77.0,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 626,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-28",
+    "health_score": 84.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 627,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-29",
+    "health_score": 94.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 628,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-30",
+    "health_score": 76.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 629,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-05-31",
+    "health_score": 85.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 630,
+    "customer_id": 21,
+    "customer_name": "UltraSecure Federal",
+    "date": "2026-06-01",
+    "health_score": 95.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 631,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-03",
+    "health_score": 53.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 632,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-04",
+    "health_score": 54.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 633,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-05",
+    "health_score": 54.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 634,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-06",
+    "health_score": 58.6,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 635,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-07",
+    "health_score": 55.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 636,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-08",
+    "health_score": 56.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 637,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-09",
+    "health_score": 64.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 638,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-10",
+    "health_score": 64.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 639,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-11",
+    "health_score": 59.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 640,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-12",
+    "health_score": 64.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 641,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-13",
+    "health_score": 68.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 642,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-14",
+    "health_score": 64.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 643,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-15",
+    "health_score": 61.5,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 644,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-16",
+    "health_score": 59.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 645,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-17",
+    "health_score": 68.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 646,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-18",
+    "health_score": 76.2,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 647,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-19",
+    "health_score": 71.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 648,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-20",
+    "health_score": 62.3,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 649,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-21",
+    "health_score": 61.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 650,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-22",
+    "health_score": 75.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 651,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-23",
+    "health_score": 62.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 652,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-24",
+    "health_score": 70.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 653,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-25",
+    "health_score": 68.8,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 654,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-26",
+    "health_score": 74.4,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 655,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-27",
+    "health_score": 88.1,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 656,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-28",
+    "health_score": 64.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 657,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-29",
+    "health_score": 67.0,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 658,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-30",
+    "health_score": 82.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 659,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-05-31",
+    "health_score": 81.9,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 660,
+    "customer_id": 22,
+    "customer_name": "VantagePoint Capital",
+    "date": "2026-06-01",
+    "health_score": 69.7,
+    "health_trend": "Declining",
+    "notes": null
+  },
+  {
+    "id": 661,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-03",
+    "health_score": 78.2,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 662,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-04",
+    "health_score": 76.4,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 663,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-05",
+    "health_score": 76.7,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 664,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-06",
+    "health_score": 76.2,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 665,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-07",
+    "health_score": 75.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 666,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-08",
+    "health_score": 70.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 667,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-09",
+    "health_score": 74.5,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 668,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-10",
+    "health_score": 73.0,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 669,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-11",
+    "health_score": 74.9,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 670,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-12",
+    "health_score": 65.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 671,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-13",
+    "health_score": 75.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 672,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-14",
+    "health_score": 64.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 673,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-15",
+    "health_score": 65.1,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 674,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-16",
+    "health_score": 67.1,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 675,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-17",
+    "health_score": 73.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 676,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-18",
+    "health_score": 64.3,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 677,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-19",
+    "health_score": 59.3,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 678,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-20",
+    "health_score": 70.5,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 679,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-21",
+    "health_score": 66.9,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 680,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-22",
+    "health_score": 64.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 681,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-23",
+    "health_score": 69.5,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 682,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-24",
+    "health_score": 52.9,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 683,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-25",
+    "health_score": 70.1,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 684,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-26",
+    "health_score": 64.4,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 685,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-27",
+    "health_score": 53.7,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 686,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-28",
+    "health_score": 52.9,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 687,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-29",
+    "health_score": 65.7,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 688,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-30",
+    "health_score": 50.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 689,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-05-31",
+    "health_score": 51.1,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 690,
+    "customer_id": 23,
+    "customer_name": "WestCoast Pharma",
+    "date": "2026-06-01",
+    "health_score": 43.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 691,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-03",
+    "health_score": 44.8,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 692,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-04",
+    "health_score": 46.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 693,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-05",
+    "health_score": 46.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 694,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-06",
+    "health_score": 42.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 695,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-07",
+    "health_score": 49.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 696,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-08",
+    "health_score": 45.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 697,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-09",
+    "health_score": 45.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 698,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-10",
+    "health_score": 42.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 699,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-11",
+    "health_score": 45.8,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 700,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-12",
+    "health_score": 54.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 701,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-13",
+    "health_score": 48.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 702,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-14",
+    "health_score": 40.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 703,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-15",
+    "health_score": 41.7,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 704,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-16",
+    "health_score": 51.8,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 705,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-17",
+    "health_score": 43.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 706,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-18",
+    "health_score": 38.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 707,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-19",
+    "health_score": 58.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 708,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-20",
+    "health_score": 35.0,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 709,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-21",
+    "health_score": 55.8,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 710,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-22",
+    "health_score": 33.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 711,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-23",
+    "health_score": 37.9,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 712,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-24",
+    "health_score": 37.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 713,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-25",
+    "health_score": 43.0,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 714,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-26",
+    "health_score": 36.3,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 715,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-27",
+    "health_score": 58.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 716,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-28",
+    "health_score": 34.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 717,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-29",
+    "health_score": 31.5,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 718,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-30",
+    "health_score": 28.1,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 719,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-05-31",
+    "health_score": 36.2,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 720,
+    "customer_id": 24,
+    "customer_name": "XcelOps Consulting",
+    "date": "2026-06-01",
+    "health_score": 67.0,
+    "health_trend": "Stable",
+    "notes": null
+  },
+  {
+    "id": 721,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-03",
+    "health_score": 92.9,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 722,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-04",
+    "health_score": 94.1,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 723,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-05",
+    "health_score": 90.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 724,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-06",
+    "health_score": 95.0,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 725,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-07",
+    "health_score": 94.2,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 726,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-08",
+    "health_score": 87.2,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 727,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-09",
+    "health_score": 89.0,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 728,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-10",
+    "health_score": 89.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 729,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-11",
+    "health_score": 90.5,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 730,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-12",
+    "health_score": 89.4,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 731,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-13",
+    "health_score": 91.2,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 732,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-14",
+    "health_score": 91.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 733,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-15",
+    "health_score": 83.1,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 734,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-16",
+    "health_score": 91.7,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 735,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-17",
+    "health_score": 78.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 736,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-18",
+    "health_score": 90.9,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 737,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-19",
+    "health_score": 91.7,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 738,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-20",
+    "health_score": 90.5,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 739,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-21",
+    "health_score": 86.8,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 740,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-22",
+    "health_score": 70.7,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 741,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-23",
+    "health_score": 75.3,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 742,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-24",
+    "health_score": 92.7,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 743,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-25",
+    "health_score": 83.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 744,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-26",
+    "health_score": 90.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 745,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-27",
+    "health_score": 83.4,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 746,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-28",
+    "health_score": 91.6,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 747,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-29",
+    "health_score": 84.0,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 748,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-30",
+    "health_score": 80.3,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 749,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-05-31",
+    "health_score": 68.5,
+    "health_trend": "Improving",
+    "notes": null
+  },
+  {
+    "id": 750,
+    "customer_id": 25,
+    "customer_name": "ZenithAero Systems",
+    "date": "2026-06-01",
+    "health_score": 70.6,
+    "health_trend": "Improving",
+    "notes": null
+  }
+]

@@ -12,24 +12,33 @@ def get_customer(customer_id: int):
 
 def get_customer_360(customer_id: int):
     return {
-        "customer": fetchone("SELECT * FROM customers WHERE id = ?", (customer_id,)),
-        "tickets": fetchall("SELECT * FROM support_tickets WHERE customer_id = ? ORDER BY opened_at DESC", (customer_id,)),
-        "escalations": fetchall("SELECT * FROM escalations WHERE customer_id = ?", (customer_id,)),
-        "stakeholders": fetchall("SELECT * FROM stakeholders WHERE customer_id = ?", (customer_id,)),
-        "metrics": fetchall("SELECT * FROM usage_metrics WHERE customer_id = ?", (customer_id,)),
-        "milestones": fetchall("SELECT * FROM implementation_milestones WHERE customer_id = ?", (customer_id,)),
-        "meeting_notes": fetchall("SELECT * FROM meeting_notes WHERE customer_id = ? ORDER BY date DESC LIMIT 5", (customer_id,)),
+        "customer":      fetchone("SELECT * FROM customers WHERE id = ?", (customer_id,)),
+        "tickets":       fetchall("SELECT * FROM support_tickets WHERE customer_id = ? ORDER BY opened_at DESC", (customer_id,)),
+        "escalations":   fetchall("SELECT * FROM escalations WHERE customer_id = ?", (customer_id,)),
+        "stakeholders":  fetchall("SELECT * FROM stakeholders WHERE customer_id = ?", (customer_id,)),
+        "metrics":       fetchall("SELECT * FROM usage_metrics WHERE customer_id = ?", (customer_id,)),
+        "milestones":    fetchall(
+            """SELECT im.* FROM implementation_milestones im
+               JOIN implementations i ON im.implementation_id = i.id
+               WHERE im.customer_id = ?
+               ORDER BY im.planned_days_from_start""",
+            (customer_id,)
+        ),
+        "implementation": fetchone("SELECT * FROM implementations WHERE customer_id = ?", (customer_id,)),
+        "meeting_notes": fetchall("SELECT * FROM meeting_notes WHERE customer_id = ? ORDER BY date DESC LIMIT 6", (customer_id,)),
+        "renewal":       fetchone("SELECT * FROM renewals WHERE customer_id = ?", (customer_id,)),
+        "health_history":fetchall("SELECT * FROM health_history WHERE customer_id = ? ORDER BY date ASC", (customer_id,)),
     }
 
 
 def get_portfolio_summary():
-    customers = fetchall("SELECT * FROM customers")
+    customers   = fetchall("SELECT * FROM customers")
     escalations = fetchall("SELECT * FROM escalations WHERE status != 'Resolved'")
 
-    total_arr = sum(c["arr"] for c in customers)
-    critical = [c for c in customers if c["risk_label"] == "Critical"]
-    at_risk = [c for c in customers if c["risk_label"] == "At Risk"]
-    healthy = [c for c in customers if c["risk_label"] == "Healthy"]
+    total_arr   = sum(c["arr"] for c in customers)
+    critical    = [c for c in customers if c["risk_level"] == "High"]
+    at_risk     = [c for c in customers if c["risk_level"] == "Medium"]
+    healthy     = [c for c in customers if c["risk_level"] == "Low"]
     arr_at_risk = sum(c["arr"] for c in critical + at_risk)
 
     today = datetime.now().date()
@@ -38,20 +47,19 @@ def get_portfolio_summary():
         if 0 <= (datetime.strptime(c["renewal_date"], "%Y-%m-%d").date() - today).days <= 90
     )
     avg_health = sum(c["health_score"] for c in customers) / len(customers) if customers else 0
-
-    top_escalations = sorted(escalations, key=lambda e: e["severity"], reverse=True)[:5]
+    top_escalations = sorted(escalations, key=lambda e: (e["severity"] == "Critical", e["arr_at_risk"] or 0), reverse=True)[:5]
 
     return {
-        "total_customers": len(customers),
-        "total_arr": total_arr,
-        "arr_at_risk": arr_at_risk,
-        "critical_count": len(critical),
-        "at_risk_count": len(at_risk),
-        "healthy_count": len(healthy),
-        "open_escalations": len(escalations),
+        "total_customers":       len(customers),
+        "total_arr":             total_arr,
+        "arr_at_risk":           arr_at_risk,
+        "critical_count":        len(critical),
+        "at_risk_count":         len(at_risk),
+        "healthy_count":         len(healthy),
+        "open_escalations":      len(escalations),
         "renewals_next_90_days": renewals_90,
-        "avg_health_score": round(avg_health, 1),
-        "top_escalations": top_escalations,
+        "avg_health_score":      round(avg_health, 1),
+        "top_escalations":       top_escalations,
     }
 
 
@@ -86,22 +94,20 @@ def get_agent_runs(limit: int = 50):
 
 
 def get_briefings(briefing_type: str = None, customer_id: int = None):
-    query = "SELECT b.*, c.name as customer_name FROM briefings b LEFT JOIN customers c ON b.customer_id = c.id"
-    conditions, params = [], []
+    query  = "SELECT b.*, c.name as customer_name FROM briefings b LEFT JOIN customers c ON b.customer_id = c.id"
+    conds, params = [], []
     if briefing_type:
-        conditions.append("b.briefing_type = ?")
-        params.append(briefing_type)
+        conds.append("b.briefing_type = ?"); params.append(briefing_type)
     if customer_id:
-        conditions.append("b.customer_id = ?")
-        params.append(customer_id)
-    if conditions:
-        query += " WHERE " + " AND ".join(conditions)
+        conds.append("b.customer_id = ?");   params.append(customer_id)
+    if conds:
+        query += " WHERE " + " AND ".join(conds)
     query += " ORDER BY b.created_at DESC LIMIT 20"
     return fetchall(query, params)
 
 
 def get_cost_summary():
-    rows = fetchall(
+    rows  = fetchall(
         """SELECT model_used,
            COUNT(*) as run_count,
            SUM(input_tokens) as total_input_tokens,
@@ -111,6 +117,6 @@ def get_cost_summary():
     )
     total = fetchone("SELECT SUM(estimated_cost_usd) as total FROM agent_runs")
     return {
-        "by_model": rows,
+        "by_model":    rows,
         "grand_total": total["total"] if total and total["total"] else 0.0,
     }

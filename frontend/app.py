@@ -95,7 +95,8 @@ def get_costs():
         return {}
 
 def risk_badge(label):
-    colors = {"Critical": "🔴", "At Risk": "🟡", "Healthy": "🟢"}
+    colors = {"Critical": "🔴", "At Risk": "🟡", "Healthy": "🟢",
+              "High": "🔴", "Medium": "🟡", "Low": "🟢"}
     return colors.get(label, "⚪")
 
 def health_color(score):
@@ -234,11 +235,12 @@ if page == "Portfolio Dashboard":
     with left:
         st.markdown("**All Customers — Click a row to drill in**")
         df = pd.DataFrame(customers)
-        df["Status"] = df["risk_label"].map({"Critical": "🔴 Critical", "At Risk": "🟡 At Risk", "Healthy": "🟢 Healthy"})
+        df["Status"] = df["risk_level"].map({"High": "🔴 High Risk", "Medium": "🟡 Medium Risk", "Low": "🟢 Healthy"})
         df["ARR"] = df["arr"].map(lambda x: f"${x:,.0f}")
         df["Health"] = df["health_score"]
         df["Renewal"] = df["renewal_date"]
-        df["Churn Risk"] = df["renewal_risk"].map(lambda x: f"{x:.0%}")
+        churn_col = "renewal_risk_score" if "renewal_risk_score" in df.columns else "renewal_risk"
+        df["Churn Risk"] = df[churn_col].map(lambda x: f"{x:.0%}" if x else "N/A")
         display_df = df[["name", "industry", "ARR", "Health", "Renewal", "Churn Risk", "Status"]].rename(
             columns={"name": "Customer", "industry": "Industry"}
         )
@@ -290,7 +292,7 @@ elif page == "Customer 360":
     st.markdown("# Customer 360")
 
     customers = get_customers()
-    customer_names = {c["id"]: f"{risk_badge(c['risk_label'])} {c['name']}" for c in customers}
+    customer_names = {c["id"]: f"{risk_badge(c.get('risk_level', c.get('risk_label','Unknown')))} {c['name']}" for c in customers}
     customer_ids = list(customer_names.keys())
 
     default_id = st.session_state.get("selected_customer_id", customer_ids[0])
@@ -318,7 +320,7 @@ elif page == "Customer 360":
     notes = data.get("meeting_notes", [])
 
     # Header
-    risk_color = {"Critical": "#ff4b4b", "At Risk": "#ffa726", "Healthy": "#4caf50"}.get(c["risk_label"], "#fff")
+    risk_color = {"Critical": "#ff4b4b", "At Risk": "#ffa726", "Healthy": "#4caf50"}.get(c.get('risk_level', c.get('risk_label','Unknown')), "#fff")
     st.markdown(f"""
     <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
         <div>
@@ -330,7 +332,7 @@ elif page == "Customer 360":
             <div style="color:#8b949e;font-size:0.8rem">Health Score</div>
         </div>
         <div style="text-align:center">
-            <div style="font-size:1.5rem;font-weight:700;color:{risk_color}">{c['risk_label']}</div>
+            <div style="font-size:1.5rem;font-weight:700;color:{risk_color}">{c.get('risk_level', c.get('risk_label','Unknown'))}</div>
             <div style="color:#8b949e;font-size:0.8rem">Risk Level</div>
         </div>
     </div>
@@ -378,33 +380,76 @@ elif page == "Customer 360":
 
     with tab1:
         if metrics:
-            metrics_dict = {m["metric_name"]: m["value"] for m in metrics}
-            m1, m2, m3, m4 = st.columns(4)
-            with m1: st.metric("Daily Active Users", int(metrics_dict.get("dau", 0)))
-            with m2: st.metric("Features Enabled", int(metrics_dict.get("features_enabled", 0)))
-            with m3: st.metric("API Calls (30d)", f"{int(metrics_dict.get('api_calls_last_30d', 0)):,}")
-            with m4: st.metric("Active Integrations", int(metrics_dict.get("integrations_active", 0)))
+            # New schema: metrics is a list of dicts with direct column names
+            mrow = metrics[0] if metrics else {}
+            # Support both old (metric_name/value) and new (direct column) schemas
+            if "metric_name" in mrow:
+                metrics_dict = {m["metric_name"]: m["value"] for m in metrics}
+                dau_val   = int(metrics_dict.get("dau", 0))
+                feat_val  = int(metrics_dict.get("features_enabled", 0))
+                api_val   = int(metrics_dict.get("api_calls_last_30d", 0))
+                integ_val = int(metrics_dict.get("integrations_active", 0))
+                alert_val = int(metrics_dict.get("alerts_generated_last_30d", 0))
+                rep_val   = int(metrics_dict.get("reports_exported_last_30d", 0))
+                login_val = int(metrics_dict.get("login_last_7d_unique_users", 0))
+                cov_val   = int(metrics_dict.get("asset_coverage_pct", 0))
+                trend_val = float(metrics_dict.get("dau_trend_30d", 0))
+                fp_val    = float(metrics_dict.get("false_positive_rate", 0))
+            else:
+                dau_val   = int(mrow.get("dau", 0))
+                feat_val  = int(mrow.get("features_enabled", 0))
+                api_val   = int(mrow.get("api_calls_last_30d", 0))
+                integ_val = int(mrow.get("integrations_active", 0))
+                alert_val = int(mrow.get("alerts_generated_last_30d", 0))
+                rep_val   = int(mrow.get("reports_exported_last_30d", 0))
+                login_val = int(mrow.get("unique_logins_last_7d", 0))
+                cov_val   = int(mrow.get("asset_coverage_pct", 0))
+                trend_val = float(mrow.get("dau_trend_30d", 0))
+                fp_val    = float(mrow.get("false_positive_rate", 0))
 
-            m5, m6, m7 = st.columns(3)
-            with m5: st.metric("Alerts (30d)", int(metrics_dict.get("alerts_generated_last_30d", 0)))
-            with m6: st.metric("Reports Exported", int(metrics_dict.get("reports_exported_last_30d", 0)))
-            with m7: st.metric("Unique Logins (7d)", int(metrics_dict.get("login_last_7d_unique_users", 0)))
+            m1, m2, m3, m4 = st.columns(4)
+            with m1: st.metric("Daily Active Users", dau_val, delta=f"{trend_val:+.0%} vs 30d ago")
+            with m2: st.metric("Features Enabled", f"{feat_val}/18")
+            with m3: st.metric("API Calls (30d)", f"{api_val:,}")
+            with m4: st.metric("Active Integrations", integ_val)
+
+            m5, m6, m7, m8 = st.columns(4)
+            with m5: st.metric("Alerts (30d)", alert_val)
+            with m6: st.metric("False Positive Rate", f"{fp_val:.0%}", delta_color="inverse")
+            with m7: st.metric("Unique Logins (7d)", login_val)
+            with m8: st.metric("Asset Coverage", f"{cov_val}%")
+
+            # Health trend chart
+            health_hist = data.get("health_history", [])
+            if health_hist:
+                st.markdown("**30-Day Health Trend**")
+                hist_df = pd.DataFrame(health_hist)[["date", "health_score"]]
+                hist_df["date"] = pd.to_datetime(hist_df["date"])
+                hist_df = hist_df.sort_values("date")
+                st.line_chart(hist_df.set_index("date")["health_score"], height=140, use_container_width=True)
 
             # Security review status
-            sec_colors = {"Complete": "🟢", "In Progress": "🟡", "Not Started": "🔴"}
-            sec_icon = sec_colors.get(c["security_review_status"], "⚪")
-            st.info(f"**Security Review Status:** {sec_icon} {c['security_review_status']} · **Onboarding:** {c['onboarding_status']}")
+            sec_colors = {"Complete": "🟢", "In Progress": "🟡", "Not Started": "🔴", "Blocked": "🚫"}
+            sec_icon = sec_colors.get(c.get("security_review_status",""), "⚪")
+            st.info(f"**Security Review:** {sec_icon} {c.get('security_review_status','?')} · **Onboarding:** {c.get('onboarding_status','?')} · **Health Trend:** {c.get('health_trend','?')}")
 
     with tab2:
+        impl_info = data.get("implementation") or {}
         done = sum(1 for m in milestones if m["status"] == "Complete")
         total_m = len(milestones)
         pct = int(done / total_m * 100) if total_m else 0
-        st.markdown(f"**Implementation Progress: {pct}% ({done}/{total_m} milestones)**")
+        impl_status = impl_info.get("overall_status", "N/A")
+        days_behind = impl_info.get("days_behind_schedule", 0)
+        status_color = "#ff4b4b" if impl_status in ("Stalled","Behind Schedule") else "#ffa726" if impl_status == "Slight Delay" else "#4caf50"
+        st.markdown(f"**Implementation: <span style='color:{status_color}'>{impl_status}</span> · {pct}% complete ({done}/{total_m} milestones)**"
+                    + (f" · <span style='color:#ff4b4b'>{days_behind} days behind</span>" if days_behind > 0 else ""),
+                    unsafe_allow_html=True)
         st.progress(pct / 100)
         for m in milestones:
             icon = {"Complete": "✅", "In Progress": "🔄", "Not Started": "⬜"}.get(m["status"], "?")
-            due = m.get("due_date", "")[:10]
-            st.markdown(f"{icon} **{m['name']}** · Due: {due}")
+            mname = m.get("milestone_name") or m.get("name", "?")
+            blocker_txt = f" ⚠️ *{m['blocker']}*" if m.get("blocker") else ""
+            st.markdown(f"{icon} **{mname}**{blocker_txt}")
 
     with tab3:
         open_t = [t for t in tickets if t["status"] != "Resolved"]
@@ -540,7 +585,7 @@ elif page == "Briefings":
     with tab_ceo:
         col_gen, col_view = st.columns([1, 2])
         with col_gen:
-            customer_map = {c["id"]: f"{risk_badge(c['risk_label'])} {c['name']}" for c in customers}
+            customer_map = {c["id"]: f"{risk_badge(c.get('risk_level', c.get('risk_label','Unknown')))} {c['name']}" for c in customers}
             selected_id = st.selectbox("Customer", list(customer_map.keys()), format_func=lambda x: customer_map[x])
             if st.button("📋 Generate CEO Briefing", use_container_width=True, type="primary"):
                 with st.spinner("Generating CEO briefing..."):
