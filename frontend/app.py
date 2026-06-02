@@ -512,16 +512,41 @@ with st.sidebar:
     st.markdown("---")
     summary = fetch_summary()
     if summary:
-        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Portfolio</div>", unsafe_allow_html=True)
-        col_a, col_b = st.columns(2)
-        with col_a:
-            st.markdown(f"<div style='font-size:0.82rem;color:#1B1040;margin-bottom:3px'>🔴 <b>{summary.get('critical_count',0)}</b> High</div>", unsafe_allow_html=True)
-            st.markdown(f"<div style='font-size:0.82rem;color:#1B1040;margin-bottom:3px'>🟡 <b>{summary.get('at_risk_count',0)}</b> Med</div>", unsafe_allow_html=True)
-            st.markdown(f"<div style='font-size:0.82rem;color:#1B1040'>🟢 <b>{summary.get('healthy_count',0)}</b> OK</div>", unsafe_allow_html=True)
-        with col_b:
-            arr_risk = summary.get('arr_at_risk',0)
-            total    = summary.get('total_arr',1)
-            st.markdown(f"<div style='font-size:1.1rem;font-weight:800;color:#9B2335'>${arr_risk/1e6:.1f}M</div><div style='font-size:0.72rem;color:#6B6280'>ARR at risk</div><div style='font-size:0.85rem;font-weight:700;color:#1B1040'>{arr_risk/total*100:.0f}%</div>", unsafe_allow_html=True)
+        arr_risk = summary.get('arr_at_risk', 0)
+        total    = summary.get('total_arr', 1)
+        pct      = arr_risk / total * 100
+        hi  = summary.get('critical_count', 0)
+        med = summary.get('at_risk_count', 0)
+        ok  = summary.get('healthy_count', 0)
+        st.markdown(f"""
+<div style="background:#FFFFFF;border:1px solid #E8E4DC;border-radius:10px;padding:10px 12px;margin-bottom:2px">
+  <div style="font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px">Portfolio</div>
+  <div style="display:flex;gap:6px;margin-bottom:10px">
+    <div style="flex:1;background:#FDF1F2;border-radius:7px;padding:6px 8px;text-align:center">
+      <div style="font-size:1.1rem;font-weight:800;color:#9B2335;line-height:1">{hi}</div>
+      <div style="font-size:0.60rem;color:#9B2335;font-weight:600;margin-top:1px">High</div>
+    </div>
+    <div style="flex:1;background:#FDF8EE;border-radius:7px;padding:6px 8px;text-align:center">
+      <div style="font-size:1.1rem;font-weight:800;color:#7A5C1E;line-height:1">{med}</div>
+      <div style="font-size:0.60rem;color:#7A5C1E;font-weight:600;margin-top:1px">Med</div>
+    </div>
+    <div style="flex:1;background:#EFF6F1;border-radius:7px;padding:6px 8px;text-align:center">
+      <div style="font-size:1.1rem;font-weight:800;color:#2D5A3D;line-height:1">{ok}</div>
+      <div style="font-size:0.60rem;color:#2D5A3D;font-weight:600;margin-top:1px">OK</div>
+    </div>
+  </div>
+  <div style="border-top:1px solid #E8E4DC;padding-top:8px;display:flex;align-items:baseline;justify-content:space-between">
+    <div>
+      <div style="font-size:1.15rem;font-weight:800;color:#9B2335;line-height:1">${arr_risk/1e6:.1f}M</div>
+      <div style="font-size:0.62rem;color:#6B6280;margin-top:1px">ARR at risk</div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:1.15rem;font-weight:800;color:#1B1040;line-height:1">{pct:.0f}%</div>
+      <div style="font-size:0.62rem;color:#6B6280;margin-top:1px">of portfolio</div>
+    </div>
+  </div>
+</div>
+""", unsafe_allow_html=True)
 
     st.markdown("---")
 
