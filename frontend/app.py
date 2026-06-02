@@ -610,7 +610,31 @@ if "quick_run" in st.session_state:
     st.session_state["quick_result"] = result
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+# ── Data sources banner (shown on every page) ─────────────────────────────────
+SOURCES = [
+    ("SF", "Salesforce", "#00A1E0"),
+    ("ZD", "Zendesk",    "#03363D"),
+    ("GS", "Gainsight",  "#F6821F"),
+    ("✉",  "Email",      "#5B3FA8"),
+]
+src_pills = "".join(f"""
+    <div style="display:flex;align-items:center;gap:5px;background:#FFFFFF;border:1px solid #EDE8F2;
+                border-radius:50px;padding:4px 10px 4px 6px;box-shadow:0 1px 3px rgba(27,16,64,0.05)">
+        <span style="background:{c};color:#fff;font-size:0.60rem;font-weight:800;width:18px;height:18px;
+                     border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">{ic}</span>
+        <span style="font-size:0.72rem;font-weight:600;color:#4B3F72">{lbl}</span>
+    </div>""" for ic, lbl, c in SOURCES)
+
+st.markdown(f"""
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+            background:#FDFBFF;border:1px solid #EDE8F2;border-radius:10px;
+            padding:7px 14px;margin-bottom:14px">
+    <span style="font-size:0.65rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;
+                 letter-spacing:0.10em;margin-right:2px;white-space:nowrap">Data Sources</span>
+    {src_pills}
+    <span style="margin-left:auto;font-size:0.65rem;color:#C4B4ED;font-style:italic">Synthetic demo data</span>
+</div>
+""", unsafe_allow_html=True)
 # PAGE: PORTFOLIO DASHBOARD
 # ══════════════════════════════════════════════════════════════════════════════
 
@@ -676,7 +700,7 @@ if page == "🏠 Portfolio Dashboard":
     left_col, right_col = st.columns([3, 1])
 
     with left_col:
-        st.markdown("**Customer Portfolio** — select a row to drill in →")
+        st.markdown("<div style='font-size:0.78rem;font-weight:700;color:#1B1040;margin-bottom:6px'>Customer Portfolio <span style=\"font-weight:400;color:#9B8FBF\">— click a row to drill in →</span></div>", unsafe_allow_html=True)
         df = pd.DataFrame(customers)
         df["Risk"]    = df["risk_level"].map({"High":"🔴 High","Medium":"🟡 Medium","Low":"🟢 Healthy"})
         df["ARR"]     = df["arr"].map(lambda x: f"${x:,.0f}")
@@ -697,7 +721,7 @@ if page == "🏠 Portfolio Dashboard":
             st.success(f"Selected **{chosen['name']}** ({chosen['risk_level']} risk) → go to Customer 360")
 
     with right_col:
-        st.markdown("**Top Escalations**")
+        st.markdown("<div style='font-size:0.78rem;font-weight:700;color:#1B1040;margin-bottom:6px'>Top Escalations</div>", unsafe_allow_html=True)
         for esc in summary.get("top_escalations", []):
             sev_color = "#E53E3E" if esc.get("severity") == "Critical" else "#DD6B20"
             cname = next((c["name"] for c in customers if c["id"] == esc.get("customer_id")), "?")
@@ -711,7 +735,7 @@ if page == "🏠 Portfolio Dashboard":
     if "portfolio_scan" in st.session_state and "error" not in st.session_state["portfolio_scan"]:
         scan = st.session_state["portfolio_scan"]
         st.markdown("---")
-        st.markdown("**Portfolio Health Scan Results** (CustomerHealthAgent · Haiku)")
+        st.markdown("<div style='font-size:0.78rem;font-weight:700;color:#1B1040;margin-bottom:6px'>Portfolio Health Scan <span style=\"font-weight:400;color:#9B8FBF\">— CustomerHealthAgent · Haiku</span></div>", unsafe_allow_html=True)
         scan_df = pd.DataFrame(scan["results"])
         scan_df["Risk"]  = scan_df["risk_level"]
         scan_df["Score"] = scan_df["health_score"]
@@ -796,7 +820,7 @@ elif page == "👤 Customer 360":
         st.metric("Champion", f"{champ_icon} {c.get('champion_status','?')}")
 
     # ── Agent action bar ──────────────────────────────────────────────────────
-    st.markdown("**Run Agents**")
+    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Run Agents</div>", unsafe_allow_html=True)
     ab1, ab2, ab3, ab4, ab5 = st.columns(5)
     triggered = None
     btns = [
@@ -824,7 +848,7 @@ elif page == "👤 Customer 360":
     if recent_key:
         result = st.session_state[recent_key]
         agent_label = recent_key.split("_")[-1]
-        st.markdown(f"### {agent_label} Output")
+        st.markdown(f"<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin:10px 0 6px'>{agent_label} Output</div>", unsafe_allow_html=True)
 
         # Skeptik shows before/after
         if "SkeptikQAAgent" in recent_key:
@@ -835,14 +859,14 @@ elif page == "👤 Customer 360":
             if prior_key:
                 bc, ac = st.columns(2)
                 with bc:
-                    st.markdown("**Before — Original Output**")
+                    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Original Output</div>", unsafe_allow_html=True)
                     with st.container():
                         st.markdown(f"<div class='skeptik-before'>", unsafe_allow_html=True)
                         prior = st.session_state[prior_key]
                         st.markdown(prior.get("output_text","")[:1200] + "...", unsafe_allow_html=False)
                         st.markdown("</div>", unsafe_allow_html=True)
                 with ac:
-                    st.markdown("**After — Skeptik Review**")
+                    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Skeptik QA Review</div>", unsafe_allow_html=True)
                     render_agent_output(result)
             else:
                 render_agent_output(result)
@@ -910,7 +934,7 @@ elif page == "👤 Customer 360":
     with tab_tick:
         open_t    = [t for t in tickets if t["status"] != "Resolved"]
         closed_t  = [t for t in tickets if t["status"] == "Resolved"]
-        st.markdown(f"**{len(open_t)} Open · {len(closed_t)} Resolved**")
+        st.markdown(f"<div style='font-size:0.78rem;font-weight:700;color:#1B1040;margin-bottom:6px'>{len(open_t)} Open <span style=\"color:#9B8FBF;font-weight:400\">· {len(closed_t)} Resolved</span></div>", unsafe_allow_html=True)
         for t in sorted(tickets, key=lambda x: ("P1P2P3P4".index(x["severity"]) if x["severity"] in "P1P2P3P4" else 9, x["status"] == "Resolved")):
             sc = {"P1":"#E53E3E","P2":"#DD6B20","P3":"#D69E2E","P4":"#9B8FBF"}.get(t["severity"],"#9B8FBF")
             si = "🔴" if t["status"]=="Open" else "🔄" if t["status"]=="In Progress" else "✅"
@@ -1034,7 +1058,7 @@ elif page == "🤖 Agent Console":
     left_col, right_col = st.columns([1, 2])
 
     with left_col:
-        st.markdown("**Configure**")
+        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Configure</div>", unsafe_allow_html=True)
         selected_agent = st.selectbox(
             "Agent",
             list(AGENT_INFO.keys()),
@@ -1123,12 +1147,12 @@ elif page == "📋 Briefings":
             if "ceo_skeptik" in st.session_state:
                 bc, ac = st.columns(2)
                 with bc:
-                    st.markdown("**Original Briefing**")
+                    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Original Briefing</div>", unsafe_allow_html=True)
                     render_model_meta(r)
                     st.markdown("---")
                     st.markdown(f"<div class='skeptik-before'>{r.get('output_text','')}</div>", unsafe_allow_html=True)
                 with ac:
-                    st.markdown("**Skeptik QA Review**")
+                    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Skeptik QA Review</div>", unsafe_allow_html=True)
                     skeptik = st.session_state["ceo_skeptik"]
                     render_model_meta(skeptik)
                     st.markdown("---")
@@ -1156,7 +1180,7 @@ elif page == "📋 Briefings":
                 export_button(r["output_text"], f"VP_CX_Review_{datetime.now().strftime('%Y%m%d')}.md")
 
     with tab_hist:
-        st.markdown("**Recent CEO Briefings**")
+        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Recent CEO Briefings</div>", unsafe_allow_html=True)
         ceo_briefs = fetch_briefings("CEO")
         if not ceo_briefs:
             st.caption("No CEO briefings generated yet.")
@@ -1167,7 +1191,7 @@ elif page == "📋 Briefings":
                 export_button(b["content"], f"CEO_Briefing_{b.get('customer_id','?')}_{b['created_at'][:10]}.md")
 
         st.markdown("---")
-        st.markdown("**Recent VP CX Reviews**")
+        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Recent VP CX Reviews</div>", unsafe_allow_html=True)
         vp_briefs = fetch_briefings("VP_CX")
         if not vp_briefs:
             st.caption("No VP CX reviews generated yet.")
@@ -1216,7 +1240,7 @@ elif page == "📊 Implementation Digest":
             for r in sorted(results, key=lambda x: conf_order.get(x["launch_confidence"], 2)):
                 cc = conf_colors.get(r["launch_confidence"], "#fff")
                 blockers_html = "".join(
-                    f"<div style='font-size:0.78rem;color:#ffa726;margin-top:2px'>⚠️ {b[:80]}</div>"
+                    f"<div style='font-size:0.78rem;color:#DD6B20;margin-top:2px'>⚠️ {b[:80]}</div>"
                     for b in r.get("active_blockers", [])
                 )
                 with st.expander(
@@ -1264,7 +1288,7 @@ elif page == "🔍 Audit Trail & Costs":
 
     # ── By model ──────────────────────────────────────────────────────────────
     st.markdown("---")
-    st.markdown("**Spend by Model**")
+    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Spend by Model</div>", unsafe_allow_html=True)
     by_model = costs.get("by_model", [])
     if by_model:
         for row in by_model:
@@ -1299,7 +1323,7 @@ elif page == "🔍 Audit Trail & Costs":
     if filter_cust != "All":
         filtered = [r for r in filtered if r.get("customer_name") == filter_cust]
 
-    st.markdown(f"**Run History** ({len(filtered)} records)")
+    st.markdown(f"<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Run History <span style=\"font-weight:400\">({len(filtered)} records)</span></div>", unsafe_allow_html=True)
 
     for run in filtered:
         tier   = model_tier_from_id(run.get("model_used",""))
