@@ -189,8 +189,12 @@ button[data-testid="stBaseButton-secondary"] *,
 }
 .stTabs [aria-selected="true"] {
     background: #1B1040 !important;
-    color: #FFFFFF !important;
     box-shadow: 0 1px 4px rgba(27,16,64,0.22) !important;
+}
+.stTabs [aria-selected="true"],
+.stTabs [aria-selected="true"] * {
+    color: #FFFFFF !important;
+    fill: #FFFFFF !important;
 }
 .stTabs [data-baseweb="tab-panel"] {
     background: transparent !important;
@@ -1122,7 +1126,7 @@ elif page == "Briefings":
     customers = fetch_customers()
     cmap = {c["id"]: c for c in customers}
 
-    tab_ceo, tab_vp, tab_hist = st.tabs(["📋 CEO Briefings", "📊 Weekly VP CX Review", "🗄️ History"])
+    tab_ceo, tab_vp, tab_hist = st.tabs(["CEO Briefings", "Weekly VP CX Review", "History"])
 
     with tab_ceo:
         gen_col, _ = st.columns([1, 2])
