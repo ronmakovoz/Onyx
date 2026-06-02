@@ -28,67 +28,72 @@ st.markdown("""
 
 * { font-family: 'Inter', sans-serif !important; }
 
-/* Page background — soft pink-lavender like onyx.security */
+/* Page background */
 [data-testid="stAppViewContainer"] {
     background: linear-gradient(160deg, #FAF5FA 0%, #F3EDF8 50%, #EEF0FA 100%) !important;
     min-height: 100vh;
 }
 [data-testid="stMain"] { background: transparent !important; }
 
-/* Sidebar */
+/* Tighter main content padding */
+[data-testid="stMainBlockContainer"] { padding: 1.5rem 2rem 2rem !important; }
+[data-testid="stVerticalBlockBorderWrapper"] > div { gap: 0.4rem !important; }
+
+/* Sidebar — compact */
 [data-testid="stSidebar"] {
     background: #FFFFFF !important;
     border-right: 1px solid #EDE8F2 !important;
     box-shadow: 2px 0 12px rgba(27,16,64,0.06) !important;
 }
+[data-testid="stSidebar"] > div { padding: 1rem 0.8rem !important; }
 [data-testid="stSidebar"] p,
 [data-testid="stSidebar"] label,
 [data-testid="stSidebar"] span { color: #4B3F72 !important; }
-[data-testid="stSidebar"] .stRadio label { color: #1B1040 !important; font-weight: 500 !important; }
+[data-testid="stSidebar"] .stRadio label { color: #1B1040 !important; font-weight: 500 !important; font-size: 0.82rem !important; }
 
-/* Hide default streamlit header decoration */
+/* Hide decorations */
 [data-testid="stDecoration"] { display: none !important; }
 [data-testid="stHeader"] { background: transparent !important; }
 
-/* Typography */
-h1 { color: #1B1040 !important; font-weight: 800 !important; font-size: 2rem !important; letter-spacing: -0.03em !important; }
-h2 { color: #1B1040 !important; font-weight: 700 !important; letter-spacing: -0.02em !important; }
-h3 { color: #1B1040 !important; font-weight: 600 !important; }
-p, li { color: #4B3F72; }
-.stMarkdown p { color: #4B3F72; }
+/* Typography — tighter */
+h1 { color: #1B1040 !important; font-weight: 800 !important; font-size: 1.6rem !important; letter-spacing: -0.03em !important; margin-bottom: 0 !important; }
+h2 { color: #1B1040 !important; font-weight: 700 !important; font-size: 1.1rem !important; letter-spacing: -0.02em !important; margin: 0 !important; }
+h3 { color: #1B1040 !important; font-weight: 600 !important; font-size: 0.95rem !important; margin: 0 !important; }
+p, li { color: #4B3F72; font-size: 0.85rem; margin: 0; }
+.stMarkdown p { color: #4B3F72; font-size: 0.85rem; }
 
-/* Cards */
+/* Cards — compact */
 .card {
     background: #FFFFFF;
     border: 1px solid #EDE8F2;
-    border-radius: 14px;
-    padding: 18px 22px;
-    margin-bottom: 10px;
-    box-shadow: 0 2px 8px rgba(27,16,64,0.06);
+    border-radius: 10px;
+    padding: 11px 14px;
+    margin-bottom: 6px;
+    box-shadow: 0 1px 4px rgba(27,16,64,0.05);
 }
-.card-red    { border-left: 4px solid #E53E3E; }
-.card-yellow { border-left: 4px solid #DD6B20; }
-.card-green  { border-left: 4px solid #38A169; }
+.card-red    { border-left: 3px solid #E53E3E; }
+.card-yellow { border-left: 3px solid #DD6B20; }
+.card-green  { border-left: 3px solid #38A169; }
 
-/* KPI cards */
+/* KPI cards — compact */
 .kpi-card {
     background: #FFFFFF;
     border: 1px solid #EDE8F2;
-    border-radius: 14px;
-    padding: 18px 20px;
-    box-shadow: 0 2px 8px rgba(27,16,64,0.06);
+    border-radius: 10px;
+    padding: 12px 14px;
+    box-shadow: 0 1px 4px rgba(27,16,64,0.05);
 }
 .kpi-label {
-    font-size: 0.68rem; color: #9B8FBF; text-transform: uppercase;
-    letter-spacing: 0.10em; margin-bottom: 4px; font-weight: 600;
+    font-size: 0.62rem; color: #9B8FBF; text-transform: uppercase;
+    letter-spacing: 0.10em; margin-bottom: 2px; font-weight: 700;
 }
-.kpi-value { font-size: 2rem; font-weight: 800; color: #1B1040; line-height: 1.1; }
-.kpi-sub   { font-size: 0.75rem; color: #9B8FBF; margin-top: 3px; }
+.kpi-value { font-size: 1.55rem; font-weight: 800; color: #1B1040; line-height: 1.1; }
+.kpi-sub   { font-size: 0.68rem; color: #9B8FBF; margin-top: 1px; }
 
 /* Badges */
 .badge {
-    display: inline-block; padding: 3px 10px; border-radius: 20px;
-    font-size: 0.70rem; font-weight: 700; margin-right: 6px; vertical-align: middle;
+    display: inline-block; padding: 2px 8px; border-radius: 20px;
+    font-size: 0.67rem; font-weight: 700; margin-right: 4px; vertical-align: middle;
 }
 .badge-haiku  { background: #E8F4FD; color: #1a6fa8; border: 1px solid #93CCF0; }
 .badge-sonnet { background: #EDE8F9; color: #5B3FA8; border: 1px solid #C4B4ED; }
@@ -98,23 +103,27 @@ p, li { color: #4B3F72; }
 .badge-risk-medium { background: #FFFAF0; color: #C05621; border: 1px solid #FBD38D; }
 .badge-risk-low    { background: #F0FFF4; color: #276749; border: 1px solid #9AE6B4; }
 
-/* Buttons — Onyx pill style */
+/* Buttons — slim Onyx pill */
 .stButton > button {
     border-radius: 50px !important;
     font-weight: 600 !important;
-    font-size: 0.85rem !important;
-    padding: 0.45rem 1.4rem !important;
+    font-size: 0.78rem !important;
+    padding: 0.30rem 1.1rem !important;
+    height: auto !important;
+    min-height: 0 !important;
+    line-height: 1.4 !important;
     transition: all 0.15s ease !important;
     border: none !important;
+    white-space: nowrap !important;
 }
 .stButton > button[kind="primary"] {
     background: #1B1040 !important;
     color: #FFFFFF !important;
-    box-shadow: 0 2px 8px rgba(27,16,64,0.25) !important;
+    box-shadow: 0 1px 6px rgba(27,16,64,0.22) !important;
 }
 .stButton > button[kind="primary"]:hover {
     background: #2D1B6B !important;
-    box-shadow: 0 4px 14px rgba(27,16,64,0.35) !important;
+    box-shadow: 0 3px 10px rgba(27,16,64,0.32) !important;
     transform: translateY(-1px) !important;
 }
 .stButton > button[kind="secondary"] {
@@ -127,51 +136,54 @@ p, li { color: #4B3F72; }
     border-color: #9B8FBF !important;
 }
 
-/* Metrics */
-[data-testid="stMetricLabel"] { color: #9B8FBF !important; font-size: 0.75rem !important; font-weight: 600 !important; text-transform: uppercase !important; letter-spacing: 0.06em !important; }
-[data-testid="stMetricValue"] { color: #1B1040 !important; font-weight: 800 !important; }
-[data-testid="stMetricDelta"] { font-size: 0.78rem !important; }
+/* Metrics — very compact */
+[data-testid="stMetricLabel"] { color: #9B8FBF !important; font-size: 0.62rem !important; font-weight: 700 !important; text-transform: uppercase !important; letter-spacing: 0.08em !important; }
+[data-testid="stMetricValue"] { color: #1B1040 !important; font-weight: 800 !important; font-size: 1.3rem !important; }
+[data-testid="stMetricDelta"] { font-size: 0.72rem !important; }
 [data-testid="metric-container"] {
     background: #FFFFFF;
     border: 1px solid #EDE8F2;
-    border-radius: 12px;
-    padding: 14px 16px !important;
-    box-shadow: 0 2px 6px rgba(27,16,64,0.05);
+    border-radius: 8px;
+    padding: 10px 12px !important;
+    box-shadow: 0 1px 4px rgba(27,16,64,0.04);
 }
 
-/* Tabs */
+/* Tabs — slim pill */
 .stTabs [data-baseweb="tab-list"] {
     background: #EDE8F2 !important;
     border-radius: 50px !important;
-    padding: 4px !important;
-    gap: 2px !important;
+    padding: 3px !important;
+    gap: 1px !important;
     border: none !important;
 }
 .stTabs [data-baseweb="tab"] {
     border-radius: 50px !important;
     color: #6B5E99 !important;
     font-weight: 600 !important;
-    font-size: 0.82rem !important;
-    padding: 6px 16px !important;
+    font-size: 0.75rem !important;
+    padding: 4px 12px !important;
     background: transparent !important;
+    white-space: nowrap !important;
 }
 .stTabs [aria-selected="true"] {
     background: #1B1040 !important;
     color: #FFFFFF !important;
-    box-shadow: 0 2px 6px rgba(27,16,64,0.25) !important;
+    box-shadow: 0 1px 4px rgba(27,16,64,0.22) !important;
 }
 .stTabs [data-baseweb="tab-panel"] {
     background: transparent !important;
-    padding-top: 16px !important;
+    padding-top: 10px !important;
 }
 .stTabs [data-baseweb="tab-border"] { display: none !important; }
 
-/* Selectbox / inputs */
+/* Selectbox */
 [data-baseweb="select"] > div {
     background: #FFFFFF !important;
     border: 1.5px solid #DDD6EC !important;
-    border-radius: 10px !important;
+    border-radius: 8px !important;
     color: #1B1040 !important;
+    min-height: 36px !important;
+    font-size: 0.82rem !important;
 }
 [data-baseweb="select"] > div:focus-within {
     border-color: #1B1040 !important;
@@ -179,70 +191,77 @@ p, li { color: #4B3F72; }
 }
 
 /* Dataframe */
-[data-testid="stDataFrame"] { border-radius: 12px !important; overflow: hidden !important; border: 1px solid #EDE8F2 !important; }
+[data-testid="stDataFrame"] { border-radius: 10px !important; overflow: hidden !important; border: 1px solid #EDE8F2 !important; }
 
-/* Expanders */
+/* Expanders — compact */
 details {
     background: #FFFFFF !important;
     border: 1px solid #EDE8F2 !important;
-    border-radius: 12px !important;
-    margin-bottom: 8px !important;
+    border-radius: 8px !important;
+    margin-bottom: 5px !important;
 }
+details > summary { padding: 8px 12px !important; font-size: 0.82rem !important; }
 summary { color: #1B1040 !important; font-weight: 600 !important; }
 
-/* Info / success / warning / error boxes */
-[data-testid="stAlert"] { border-radius: 10px !important; border: none !important; }
+/* Alerts */
+[data-testid="stAlert"] { border-radius: 8px !important; border: none !important; padding: 8px 12px !important; font-size: 0.82rem !important; }
 
 /* Divider */
-hr { border-color: #EDE8F2 !important; }
+hr { border-color: #EDE8F2 !important; margin: 8px 0 !important; }
 
-/* Sidebar radio nav — pill style */
+/* Sidebar radio nav */
 [data-testid="stSidebar"] .stRadio > div > label {
-    border-radius: 8px !important;
-    padding: 8px 12px !important;
-    margin-bottom: 2px !important;
+    border-radius: 6px !important;
+    padding: 5px 8px !important;
+    margin-bottom: 1px !important;
     transition: background 0.1s ease !important;
+    font-size: 0.80rem !important;
 }
-[data-testid="stSidebar"] .stRadio > div > label:hover {
-    background: #F3EDF8 !important;
-}
+[data-testid="stSidebar"] .stRadio > div > label:hover { background: #F3EDF8 !important; }
 
-/* Output / skeptik boxes */
-.output-box {
-    background: #FAFAFA; border: 1px solid #EDE8F2; border-radius: 12px;
-    padding: 20px; font-family: inherit;
-}
+/* Skeptik boxes */
 .skeptik-before {
-    border-left: 4px solid #A78BFA; padding-left: 14px;
-    background: #FDFCFF; border-radius: 0 8px 8px 0; padding: 12px 14px;
+    border-left: 3px solid #A78BFA;
+    background: #FDFCFF; border-radius: 0 6px 6px 0; padding: 10px 12px;
+    font-size: 0.82rem;
 }
 .skeptik-after {
-    border-left: 4px solid #38A169; padding-left: 14px;
-    background: #F9FFFC; border-radius: 0 8px 8px 0; padding: 12px 14px;
+    border-left: 3px solid #38A169;
+    background: #F9FFFC; border-radius: 0 6px 6px 0; padding: 10px 12px;
+    font-size: 0.82rem;
 }
 
 /* Spinner */
 [data-testid="stSpinner"] > div { border-top-color: #1B1040 !important; }
 
 /* Caption */
-.stCaption { color: #9B8FBF !important; }
+.stCaption { color: #9B8FBF !important; font-size: 0.70rem !important; }
 
 /* Download button */
 .stDownloadButton > button {
     border-radius: 50px !important;
     font-weight: 600 !important;
+    font-size: 0.75rem !important;
+    padding: 0.25rem 0.9rem !important;
     background: #FFFFFF !important;
     color: #1B1040 !important;
     border: 1.5px solid #C4B4ED !important;
+    height: auto !important;
 }
 .stDownloadButton > button:hover { background: #F5EFF9 !important; }
 
 /* Progress bar */
 .stProgress > div > div > div > div { background: #1B1040 !important; border-radius: 4px !important; }
 .stProgress > div > div > div { background: #EDE8F2 !important; border-radius: 4px !important; }
+.stProgress { margin: 4px 0 !important; }
 
 /* Line chart */
-[data-testid="stVegaLiteChart"] { background: #FFFFFF !important; border-radius: 12px !important; border: 1px solid #EDE8F2 !important; padding: 8px !important; }
+[data-testid="stVegaLiteChart"] { background: #FFFFFF !important; border-radius: 10px !important; border: 1px solid #EDE8F2 !important; padding: 6px !important; }
+
+/* Reduce vertical gaps between streamlit elements */
+.element-container { margin-bottom: 0.3rem !important; }
+.stVerticalBlock { gap: 0.4rem !important; }
+div[data-testid="column"] > div { gap: 0.4rem !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -342,15 +361,25 @@ def render_model_meta(result, expanded=False):
     conf_color = "#38A169" if conf >= 0.75 else "#DD6B20" if conf >= 0.55 else "#E53E3E"
     disp  = result.get("model_display") or result.get("model_used","?")
 
-    c1, c2, c3, c4 = st.columns(4)
-    with c1:
-        st.markdown(f"<div class='kpi-label'>Model</div><div style='color:{color};font-weight:700;font-size:1rem'>{disp}</div>", unsafe_allow_html=True)
-    with c2:
-        st.markdown(f"<div class='kpi-label'>Est. Cost</div><div style='color:#38A169;font-weight:700;font-size:1rem'>${result.get('estimated_cost_usd',0):.5f}</div>", unsafe_allow_html=True)
-    with c3:
-        st.markdown(f"<div class='kpi-label'>Confidence</div><div style='color:{conf_color};font-weight:700;font-size:1rem'>{conf:.0%}</div>", unsafe_allow_html=True)
-    with c4:
-        st.markdown(f"<div class='kpi-label'>Tokens</div><div style='color:#9B8FBF;font-size:0.9rem'>{result.get('input_tokens',0):,} in · {result.get('output_tokens',0):,} out</div>", unsafe_allow_html=True)
+    meta_html = f"""<div style="display:flex;gap:0;background:#FFFFFF;border:1px solid #EDE8F2;border-radius:8px;padding:8px 14px;margin-bottom:6px;align-items:center">
+        <div style="flex:1;border-right:1px solid #EDE8F2;padding-right:14px;margin-right:14px">
+            <div class="kpi-label">Model</div>
+            <div style="color:{color};font-weight:700;font-size:0.88rem">{disp}</div>
+        </div>
+        <div style="flex:1;border-right:1px solid #EDE8F2;padding-right:14px;margin-right:14px">
+            <div class="kpi-label">Est. Cost</div>
+            <div style="color:#38A169;font-weight:700;font-size:0.88rem">${result.get('estimated_cost_usd',0):.5f}</div>
+        </div>
+        <div style="flex:1;border-right:1px solid #EDE8F2;padding-right:14px;margin-right:14px">
+            <div class="kpi-label">Confidence</div>
+            <div style="color:{conf_color};font-weight:700;font-size:0.88rem">{conf:.0%}</div>
+        </div>
+        <div style="flex:1">
+            <div class="kpi-label">Tokens</div>
+            <div style="color:#9B8FBF;font-size:0.80rem">{result.get('input_tokens',0):,} in · {result.get('output_tokens',0):,} out</div>
+        </div>
+    </div>"""
+    st.markdown(meta_html, unsafe_allow_html=True)
 
     if result.get("is_mock"):
         st.info("🟡 **Mock mode active** — set `ANTHROPIC_API_KEY` for live Claude responses.", icon="ℹ️")
@@ -377,8 +406,11 @@ def render_agent_output(result, show_structured=True):
     st.caption(f"Generated {ts} UTC · Run ID #{result.get('run_id','?')} · {result.get('agent_name','?')}")
 
 
-def export_button(content: str, filename: str, label: str = "⬇️ Export Markdown"):
-    st.download_button(label=label, data=content, file_name=filename, mime="text/markdown")
+_export_counter = [0]
+def export_button(content: str, filename: str, label: str = "⬇️ Export"):
+    _export_counter[0] += 1
+    st.download_button(label=label, data=content, file_name=filename,
+                       mime="text/markdown", key=f"dl_{_export_counter[0]}_{filename[:20]}")
 
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
@@ -473,13 +505,13 @@ if page == "🏠 Portfolio Dashboard":
     m_pct = summary.get("at_risk_count",0)  / total * 100
     l_pct = summary.get("healthy_count",0)  / total * 100
     st.markdown(f"""
-    <div style="margin:16px 0 8px">
-        <div style="display:flex;height:22px;border-radius:50px;overflow:hidden;gap:3px;background:#EDE8F2;padding:3px">
-            <div style="width:{h_pct:.0f}%;background:#E53E3E;border-radius:50px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;min-width:28px">{summary.get('critical_count',0)}</div>
-            <div style="width:{m_pct:.0f}%;background:#DD6B20;border-radius:50px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;min-width:28px">{summary.get('at_risk_count',0)}</div>
-            <div style="width:{l_pct:.0f}%;background:#38A169;border-radius:50px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:white;min-width:28px">{summary.get('healthy_count',0)}</div>
+    <div style="margin:10px 0 6px">
+        <div style="display:flex;height:16px;border-radius:50px;overflow:hidden;gap:2px;background:#EDE8F2;padding:2px">
+            <div style="width:{h_pct:.0f}%;background:#E53E3E;border-radius:50px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white;min-width:24px">{summary.get('critical_count',0)}</div>
+            <div style="width:{m_pct:.0f}%;background:#DD6B20;border-radius:50px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white;min-width:24px">{summary.get('at_risk_count',0)}</div>
+            <div style="width:{l_pct:.0f}%;background:#38A169;border-radius:50px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white;min-width:24px">{summary.get('healthy_count',0)}</div>
         </div>
-        <div style="display:flex;gap:20px;margin-top:6px;font-size:12px;color:#9B8FBF;font-weight:500">
+        <div style="display:flex;gap:16px;margin-top:4px;font-size:11px;color:#9B8FBF;font-weight:500">
             <span>🔴 High Risk</span><span>🟡 Medium Risk</span><span>🟢 Healthy</span>
         </div>
     </div>
@@ -593,23 +625,19 @@ elif page == "👤 Customer 360":
     # ── Header ────────────────────────────────────────────────────────────────
     risk_color = {"High":"#E53E3E","Medium":"#DD6B20","Low":"#38A169"}.get(c.get("risk_level",""), "#1B1040")
     st.markdown(f"""
-    <div class="card" style="margin-bottom:16px;border-top:3px solid {risk_color}">
-        <div style="display:flex;align-items:flex-start;gap:20px">
+    <div class="card" style="margin-bottom:10px;border-top:3px solid {risk_color}">
+        <div style="display:flex;align-items:center;gap:16px">
             <div style="flex:1">
-                <div style="font-size:1.7rem;font-weight:800;color:#1B1040;letter-spacing:-0.03em">{c['name']}</div>
-                <div style="color:#9B8FBF;margin-top:3px;font-size:0.85rem">{c['industry']} · {c.get('employee_count','?'):,} employees · <b style="color:#1B1040">${c['arr']:,}</b> ARR</div>
-                <div style="margin-top:10px;color:#4B3F72;font-size:0.85rem">
-                    <b style="color:#1B1040">Primary Risk:</b> {c.get('primary_risk_reason','')}
-                </div>
-                <div style="margin-top:4px;color:#5B3FA8;font-size:0.85rem;font-weight:500">
-                    → {c.get('recommended_next_action','')}
-                </div>
+                <div style="font-size:1.3rem;font-weight:800;color:#1B1040;letter-spacing:-0.02em">{c['name']}</div>
+                <div style="color:#9B8FBF;margin-top:2px;font-size:0.78rem">{c['industry']} · {c.get('employee_count','?'):,} employees · <b style="color:#1B1040">${c['arr']:,}</b> ARR</div>
+                <div style="margin-top:6px;color:#4B3F72;font-size:0.80rem"><b style="color:#1B1040">Risk:</b> {c.get('primary_risk_reason','')}</div>
+                <div style="margin-top:2px;color:#5B3FA8;font-size:0.80rem;font-weight:500">→ {c.get('recommended_next_action','')}</div>
             </div>
-            <div style="text-align:center;min-width:90px;background:{risk_color}15;border-radius:12px;padding:14px 18px">
-                <div style="font-size:3rem;font-weight:900;color:{risk_color};line-height:1">{c['health_score']}</div>
-                <div style="font-size:0.65rem;color:#9B8FBF;font-weight:700;letter-spacing:0.10em;margin-top:2px">HEALTH</div>
-                <div style="font-size:0.82rem;font-weight:700;color:{risk_color};margin-top:4px">{c.get('risk_level','?')} Risk</div>
-                <div style="font-size:0.72rem;color:#9B8FBF">{c.get('health_trend','?')}</div>
+            <div style="text-align:center;min-width:72px;background:{risk_color}12;border-radius:8px;padding:8px 12px;flex-shrink:0">
+                <div style="font-size:2.2rem;font-weight:900;color:{risk_color};line-height:1">{c['health_score']}</div>
+                <div style="font-size:0.58rem;color:#9B8FBF;font-weight:700;letter-spacing:0.10em">HEALTH</div>
+                <div style="font-size:0.72rem;font-weight:700;color:{risk_color};margin-top:2px">{c.get('risk_level','?')}</div>
+                <div style="font-size:0.65rem;color:#9B8FBF">{c.get('health_trend','?')}</div>
             </div>
         </div>
     </div>
@@ -881,10 +909,10 @@ elif page == "🤖 Agent Console":
             sel_cid = st.selectbox("Customer", list(cmap.keys()),
                                    format_func=lambda x: f"{risk_icon(cmap[x].get('risk_level','?'))} {cmap[x]['name']}")
 
-        st.markdown(f"""<div class="card" style="margin-top:12px;border-left:4px solid {color}">
+        st.markdown(f"""<div class="card" style="margin-top:8px;border-left:3px solid {color};padding:9px 12px">
             <div class="kpi-label">ROUTED TO</div>
-            <div style="color:{color};font-weight:800;font-size:1.1rem">{tier.capitalize()}</div>
-            <div style="color:#9B8FBF;font-size:0.78rem;margin-top:2px">{desc}</div>
+            <div style="color:{color};font-weight:800;font-size:0.95rem">{tier.capitalize()}</div>
+            <div style="color:#9B8FBF;font-size:0.72rem;margin-top:1px">{desc}</div>
         </div>""", unsafe_allow_html=True)
 
         run_btn = st.button(f"▶ Run {selected_agent}", use_container_width=True, type="primary")
