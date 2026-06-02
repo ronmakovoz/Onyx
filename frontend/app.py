@@ -30,7 +30,7 @@ st.markdown("""
 
 /* Page background */
 [data-testid="stAppViewContainer"] {
-    background: linear-gradient(160deg, #FAF5FA 0%, #F3EDF8 50%, #EEF0FA 100%) !important;
+    background: #F5F2EE !important;
     min-height: 100vh;
 }
 [data-testid="stMain"] { background: transparent !important; }
@@ -42,13 +42,13 @@ st.markdown("""
 /* Sidebar — compact */
 [data-testid="stSidebar"] {
     background: #FFFFFF !important;
-    border-right: 1px solid #EDE8F2 !important;
+    border-right: 1px solid #E8E4DC !important;
     box-shadow: 2px 0 12px rgba(27,16,64,0.06) !important;
 }
 [data-testid="stSidebar"] > div { padding: 1rem 0.8rem !important; }
 [data-testid="stSidebar"] p,
 [data-testid="stSidebar"] label,
-[data-testid="stSidebar"] span { color: #4B3F72 !important; }
+[data-testid="stSidebar"] span { color: #3D3458 !important; }
 [data-testid="stSidebar"] .stRadio label { color: #1B1040 !important; font-weight: 500 !important; font-size: 0.82rem !important; }
 
 /* Hide decorations */
@@ -59,13 +59,13 @@ st.markdown("""
 h1 { color: #1B1040 !important; font-weight: 800 !important; font-size: 1.6rem !important; letter-spacing: -0.03em !important; margin-bottom: 0 !important; }
 h2 { color: #1B1040 !important; font-weight: 700 !important; font-size: 1.1rem !important; letter-spacing: -0.02em !important; margin: 0 !important; }
 h3 { color: #1B1040 !important; font-weight: 600 !important; font-size: 0.95rem !important; margin: 0 !important; }
-p, li { color: #4B3F72; font-size: 0.85rem; margin: 0; }
-.stMarkdown p { color: #4B3F72; font-size: 0.85rem; }
+p, li { color: #3D3458; font-size: 0.85rem; margin: 0; }
+.stMarkdown p { color: #3D3458; font-size: 0.85rem; }
 
 /* Cards — compact */
 .card {
     background: #FFFFFF;
-    border: 1px solid #EDE8F2;
+    border: 1px solid #E8E4DC;
     border-radius: 10px;
     padding: 11px 14px;
     margin-bottom: 6px;
@@ -78,17 +78,17 @@ p, li { color: #4B3F72; font-size: 0.85rem; margin: 0; }
 /* KPI cards — compact */
 .kpi-card {
     background: #FFFFFF;
-    border: 1px solid #EDE8F2;
+    border: 1px solid #E8E4DC;
     border-radius: 10px;
     padding: 12px 14px;
     box-shadow: 0 1px 4px rgba(27,16,64,0.05);
 }
 .kpi-label {
-    font-size: 0.62rem; color: #9B8FBF; text-transform: uppercase;
+    font-size: 0.62rem; color: #6B6280; text-transform: uppercase;
     letter-spacing: 0.10em; margin-bottom: 2px; font-weight: 700;
 }
 .kpi-value { font-size: 1.55rem; font-weight: 800; color: #1B1040; line-height: 1.1; }
-.kpi-sub   { font-size: 0.68rem; color: #9B8FBF; margin-top: 1px; }
+.kpi-sub   { font-size: 0.68rem; color: #6B6280; margin-top: 1px; }
 
 /* Badges */
 .badge {
@@ -113,39 +113,50 @@ p, li { color: #4B3F72; font-size: 0.85rem; margin: 0; }
     min-height: 0 !important;
     line-height: 1.4 !important;
     transition: all 0.15s ease !important;
-    border: none !important;
     white-space: nowrap !important;
 }
-.stButton > button[kind="primary"] {
+/* Primary — dark navy, always white text */
+.stButton > button[kind="primary"],
+.stButton > button[kind="primary"]:focus,
+.stButton > button[kind="primary"]:active {
     background: #1B1040 !important;
-    color: #FFFFFF !important;
-    box-shadow: 0 1px 6px rgba(27,16,64,0.22) !important;
+    border: 1.5px solid #1B1040 !important;
+    box-shadow: 0 1px 6px rgba(27,16,64,0.20) !important;
 }
-.stButton > button[kind="primary"] * { color: #FFFFFF !important; }
-.stButton > button[kind="primary"] p { color: #FFFFFF !important; }
+.stButton > button[kind="primary"],
+.stButton > button[kind="primary"] p,
+.stButton > button[kind="primary"] span,
+.stButton > button[kind="primary"] div { color: #FFFFFF !important; }
 .stButton > button[kind="primary"]:hover {
-    background: #2D1B6B !important;
-    box-shadow: 0 3px 10px rgba(27,16,64,0.32) !important;
+    background: #2D1A5E !important;
+    border-color: #2D1A5E !important;
+    box-shadow: 0 3px 10px rgba(27,16,64,0.30) !important;
     transform: translateY(-1px) !important;
 }
-.stButton > button[kind="secondary"] {
+/* Secondary — white, always dark text */
+.stButton > button[kind="secondary"],
+.stButton > button[kind="secondary"]:focus,
+.stButton > button[kind="secondary"]:active {
     background: #FFFFFF !important;
-    color: #1B1040 !important;
-    border: 1.5px solid #C4B4ED !important;
+    border: 1.5px solid #D0CADE !important;
+    box-shadow: none !important;
 }
-.stButton > button[kind="secondary"] * { color: #1B1040 !important; }
+.stButton > button[kind="secondary"],
+.stButton > button[kind="secondary"] p,
+.stButton > button[kind="secondary"] span,
+.stButton > button[kind="secondary"] div { color: #1B1040 !important; }
 .stButton > button[kind="secondary"]:hover {
-    background: #F5EFF9 !important;
-    border-color: #9B8FBF !important;
+    background: #F0ECE8 !important;
+    border-color: #6B6280 !important;
 }
 
 /* Metrics — very compact */
-[data-testid="stMetricLabel"] { color: #9B8FBF !important; font-size: 0.62rem !important; font-weight: 700 !important; text-transform: uppercase !important; letter-spacing: 0.08em !important; }
+[data-testid="stMetricLabel"] { color: #6B6280 !important; font-size: 0.62rem !important; font-weight: 700 !important; text-transform: uppercase !important; letter-spacing: 0.08em !important; }
 [data-testid="stMetricValue"] { color: #1B1040 !important; font-weight: 800 !important; font-size: 1.3rem !important; }
 [data-testid="stMetricDelta"] { font-size: 0.72rem !important; }
 [data-testid="metric-container"] {
     background: #FFFFFF;
-    border: 1px solid #EDE8F2;
+    border: 1px solid #E8E4DC;
     border-radius: 8px;
     padding: 10px 12px !important;
     box-shadow: 0 1px 4px rgba(27,16,64,0.04);
@@ -153,7 +164,7 @@ p, li { color: #4B3F72; font-size: 0.85rem; margin: 0; }
 
 /* Tabs — slim pill */
 .stTabs [data-baseweb="tab-list"] {
-    background: #EDE8F2 !important;
+    background: #E8E4DC !important;
     border-radius: 50px !important;
     padding: 3px !important;
     gap: 1px !important;
@@ -161,7 +172,7 @@ p, li { color: #4B3F72; font-size: 0.85rem; margin: 0; }
 }
 .stTabs [data-baseweb="tab"] {
     border-radius: 50px !important;
-    color: #6B5E99 !important;
+    color: #6B6280 !important;
     font-weight: 600 !important;
     font-size: 0.75rem !important;
     padding: 4px 12px !important;
@@ -182,7 +193,7 @@ p, li { color: #4B3F72; font-size: 0.85rem; margin: 0; }
 /* Selectbox trigger */
 [data-baseweb="select"] > div {
     background: #FFFFFF !important;
-    border: 1.5px solid #DDD6EC !important;
+    border: 1.5px solid #D8D3C8 !important;
     border-radius: 8px !important;
     color: #1B1040 !important;
     min-height: 36px !important;
@@ -198,7 +209,7 @@ p, li { color: #4B3F72; font-size: 0.85rem; margin: 0; }
 [data-baseweb="popover"] { z-index: 9999 !important; }
 [data-baseweb="menu"] {
     background: #FFFFFF !important;
-    border: 1px solid #EDE8F2 !important;
+    border: 1px solid #E8E4DC !important;
     border-radius: 10px !important;
     box-shadow: 0 8px 24px rgba(27,16,64,0.12) !important;
     padding: 4px !important;
@@ -215,18 +226,18 @@ p, li { color: #4B3F72; font-size: 0.85rem; margin: 0; }
     margin: 1px 2px !important;
 }
 [role="option"]:hover, [role="option"][aria-selected="true"] {
-    background: #F0EBF8 !important;
+    background: #EDE9E4 !important;
     color: #1B1040 !important;
 }
 [role="option"] span, [role="option"] div { color: #1B1040 !important; font-size: 0.82rem !important; }
 
 /* Dataframe */
-[data-testid="stDataFrame"] { border-radius: 10px !important; overflow: hidden !important; border: 1px solid #EDE8F2 !important; }
+[data-testid="stDataFrame"] { border-radius: 10px !important; overflow: hidden !important; border: 1px solid #E8E4DC !important; }
 
 /* Expanders — compact */
 details {
     background: #FFFFFF !important;
-    border: 1px solid #EDE8F2 !important;
+    border: 1px solid #E8E4DC !important;
     border-radius: 8px !important;
     margin-bottom: 5px !important;
 }
@@ -237,7 +248,7 @@ summary { color: #1B1040 !important; font-weight: 600 !important; }
 [data-testid="stAlert"] { border-radius: 8px !important; border: none !important; padding: 8px 12px !important; font-size: 0.82rem !important; }
 
 /* Divider */
-hr { border-color: #EDE8F2 !important; margin: 8px 0 !important; }
+hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
 
 /* Sidebar radio nav — hide radio circles, style as clean nav links */
 [data-testid="stSidebar"] .stRadio > div { gap: 2px !important; }
@@ -253,14 +264,14 @@ hr { border-color: #EDE8F2 !important; margin: 8px 0 !important; }
     align-items: center !important;
     cursor: pointer !important;
 }
-[data-testid="stSidebar"] .stRadio > div > label:hover { background: #F0EBF8 !important; color: #1B1040 !important; }
+[data-testid="stSidebar"] .stRadio > div > label:hover { background: #EDE9E4 !important; color: #1B1040 !important; }
 /* Hide the actual radio circle */
 [data-testid="stSidebar"] .stRadio > div > label > div:first-child { display: none !important; }
 /* Highlight selected item */
 [data-testid="stSidebar"] .stRadio > div > label[data-baseweb="radio"]:has(input:checked),
 [data-testid="stSidebar"] .stRadio [aria-checked="true"] ~ label,
 [data-testid="stSidebar"] .stRadio > div > label:has(input[type="radio"]:checked) {
-    background: #EDE8F2 !important;
+    background: #E8E4DC !important;
     color: #1B1040 !important;
     font-weight: 700 !important;
 }
@@ -281,7 +292,7 @@ hr { border-color: #EDE8F2 !important; margin: 8px 0 !important; }
 [data-testid="stSpinner"] > div { border-top-color: #1B1040 !important; }
 
 /* Caption */
-.stCaption { color: #9B8FBF !important; font-size: 0.70rem !important; }
+.stCaption { color: #6B6280 !important; font-size: 0.70rem !important; }
 
 /* Download button */
 .stDownloadButton > button {
@@ -291,18 +302,18 @@ hr { border-color: #EDE8F2 !important; margin: 8px 0 !important; }
     padding: 0.25rem 0.9rem !important;
     background: #FFFFFF !important;
     color: #1B1040 !important;
-    border: 1.5px solid #C4B4ED !important;
+    border: 1.5px solid #D0CADE !important;
     height: auto !important;
 }
-.stDownloadButton > button:hover { background: #F5EFF9 !important; }
+.stDownloadButton > button:hover { background: #F0ECE8 !important; }
 
 /* Progress bar */
 .stProgress > div > div > div > div { background: #1B1040 !important; border-radius: 4px !important; }
-.stProgress > div > div > div { background: #EDE8F2 !important; border-radius: 4px !important; }
+.stProgress > div > div > div { background: #E8E4DC !important; border-radius: 4px !important; }
 .stProgress { margin: 4px 0 !important; }
 
 /* Line chart */
-[data-testid="stVegaLiteChart"] { background: #FFFFFF !important; border-radius: 10px !important; border: 1px solid #EDE8F2 !important; padding: 6px !important; }
+[data-testid="stVegaLiteChart"] { background: #FFFFFF !important; border-radius: 10px !important; border: 1px solid #E8E4DC !important; padding: 6px !important; }
 
 /* Reduce vertical gaps between streamlit elements */
 .element-container { margin-bottom: 0.3rem !important; }
@@ -422,7 +433,7 @@ def render_model_meta(result, expanded=False):
         </div>
         <div style="flex:1">
             <div class="kpi-label">Tokens</div>
-            <div style="color:#9B8FBF;font-size:0.80rem">{result.get('input_tokens',0):,} in · {result.get('output_tokens',0):,} out</div>
+            <div style="color:#6B6280;font-size:0.80rem">{result.get('input_tokens',0):,} in · {result.get('output_tokens',0):,} out</div>
         </div>
     </div>"""
     st.markdown(meta_html, unsafe_allow_html=True)
@@ -462,25 +473,25 @@ def export_button(content: str, filename: str, label: str = "⬇️ Export"):
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 
 with st.sidebar:
-    st.markdown("<div style='padding:8px 0 4px'><span style='font-size:1.3rem;font-weight:900;color:#1B1040;letter-spacing:-0.04em'>ONYX</span><span style='font-size:0.65rem;font-weight:700;color:#9B8FBF;letter-spacing:0.12em;margin-left:8px;vertical-align:middle'>CX AGENT OS</span></div>", unsafe_allow_html=True)
-    st.markdown("<div style='font-size:0.72rem;color:#9B8FBF;margin-bottom:4px'>Executive Demo · AI-Powered Customer OS</div>", unsafe_allow_html=True)
+    st.markdown("<div style='padding:8px 0 4px'><span style='font-size:1.3rem;font-weight:900;color:#1B1040;letter-spacing:-0.04em'>ONYX</span><span style='font-size:0.65rem;font-weight:700;color:#6B6280;letter-spacing:0.12em;margin-left:8px;vertical-align:middle'>CX AGENT OS</span></div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size:0.72rem;color:#6B6280;margin-bottom:4px'>Executive Demo · AI-Powered Customer OS</div>", unsafe_allow_html=True)
     st.markdown("---")
 
     page = st.radio(
         "",
-        ["🏠 Portfolio Dashboard",
-         "👤 Customer 360",
-         "🤖 Agent Console",
-         "📋 Briefings",
-         "📊 Implementation Digest",
-         "🔍 Audit Trail & Costs"],
+        ["Portfolio Dashboard",
+         "Customer 360",
+         "Agent Console",
+         "Briefings",
+         "Implementation Digest",
+         "Audit Trail & Costs"],
         label_visibility="collapsed"
     )
 
     st.markdown("---")
     summary = fetch_summary()
     if summary:
-        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Portfolio</div>", unsafe_allow_html=True)
+        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Portfolio</div>", unsafe_allow_html=True)
         col_a, col_b = st.columns(2)
         with col_a:
             st.markdown(f"<div style='font-size:0.82rem;color:#1B1040;margin-bottom:3px'>🔴 <b>{summary.get('critical_count',0)}</b> High</div>", unsafe_allow_html=True)
@@ -489,14 +500,14 @@ with st.sidebar:
         with col_b:
             arr_risk = summary.get('arr_at_risk',0)
             total    = summary.get('total_arr',1)
-            st.markdown(f"<div style='font-size:1.1rem;font-weight:800;color:#E53E3E'>${arr_risk/1e6:.1f}M</div><div style='font-size:0.72rem;color:#9B8FBF'>ARR at risk</div><div style='font-size:0.85rem;font-weight:700;color:#1B1040'>{arr_risk/total*100:.0f}%</div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='font-size:1.1rem;font-weight:800;color:#E53E3E'>${arr_risk/1e6:.1f}M</div><div style='font-size:0.72rem;color:#6B6280'>ARR at risk</div><div style='font-size:0.85rem;font-weight:700;color:#1B1040'>{arr_risk/total*100:.0f}%</div>", unsafe_allow_html=True)
 
     st.markdown("---")
 
     # Quick agent run shortcuts
     customers = fetch_customers()
     if customers:
-        st.markdown("<div style='font-size:0.68rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin:4px 0 6px'>Quick Run</div>", unsafe_allow_html=True)
+        st.markdown("<div style='font-size:0.68rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin:4px 0 6px'>Quick Run</div>", unsafe_allow_html=True)
         qcust = st.selectbox("Customer", [c["id"] for c in customers],
                              format_func=lambda x: next((c["name"] for c in customers if c["id"]==x), str(x)),
                              key="sidebar_cust", label_visibility="collapsed")
@@ -508,7 +519,7 @@ with st.sidebar:
     if st.button("ℹ️ About the Agents", use_container_width=True, key="sb_about", type="secondary"):
         st.session_state["show_agent_guide"] = True
 
-    st.markdown("<div style='margin-top:8px;font-size:0.68rem;color:#C4B4ED'>API · localhost:8000</div>", unsafe_allow_html=True)
+    st.markdown("<div style='margin-top:8px;font-size:0.68rem;color:#9B93A8'>API · localhost:8000</div>", unsafe_allow_html=True)
 
 
 @st.dialog("Agent Guide", width="large")
@@ -576,7 +587,7 @@ def show_agent_guide():
         },
     ]
 
-    st.markdown("<div style='color:#9B8FBF;font-size:0.82rem;margin-bottom:16px'>Six AI agents run your post-sale org. Each is routed to the optimal Claude model based on task complexity.</div>", unsafe_allow_html=True)
+    st.markdown("<div style='color:#6B6280;font-size:0.82rem;margin-bottom:16px'>Six AI agents run your post-sale org. Each is routed to the optimal Claude model based on task complexity.</div>", unsafe_allow_html=True)
 
     for a in AGENTS:
         st.markdown(f"""
@@ -586,15 +597,15 @@ def show_agent_guide():
                 <span style="font-size:0.95rem;font-weight:700;color:#1B1040">{a['name']}</span>
                 <span style="background:{a['model_bg']};color:{a['model_color']};font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:auto">{a['model']}</span>
             </div>
-            <div style="font-size:0.80rem;color:#4B3F72;line-height:1.5;margin-bottom:6px">{a['what']}</div>
-            <div style="font-size:0.72rem;color:#9B8FBF;font-style:italic;margin-bottom:8px">💡 {a['when']}</div>
+            <div style="font-size:0.80rem;color:#3D3458;line-height:1.5;margin-bottom:6px">{a['what']}</div>
+            <div style="font-size:0.72rem;color:#6B6280;font-style:italic;margin-bottom:8px">💡 {a['when']}</div>
             <div style="display:flex;flex-wrap:wrap;gap:4px">
-                {''.join(f'<span style="background:#F3EDF8;color:#5B3FA8;font-size:0.68rem;font-weight:600;padding:2px 8px;border-radius:20px">{o}</span>' for o in a['outputs'])}
+                {''.join(f'<span style="background:#EFEBE5;color:#5B3FA8;font-size:0.68rem;font-weight:600;padding:2px 8px;border-radius:20px">{o}</span>' for o in a['outputs'])}
             </div>
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("<div style='font-size:0.75rem;color:#9B8FBF;margin-top:4px;text-align:center'>Haiku → fast scanning &nbsp;·&nbsp; Sonnet → synthesis &nbsp;·&nbsp; Opus → judgment & adversarial review</div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size:0.75rem;color:#6B6280;margin-top:4px;text-align:center'>Haiku → fast scanning &nbsp;·&nbsp; Sonnet → synthesis &nbsp;·&nbsp; Opus → judgment & adversarial review</div>", unsafe_allow_html=True)
 
 
 # Show agent guide dialog
@@ -612,21 +623,21 @@ if "quick_run" in st.session_state:
 
 # ── Data sources banner (shown on every page) ─────────────────────────────────
 st.markdown("""
-<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:#FDFBFF;border:1px solid #EDE8F2;border-radius:10px;padding:7px 14px;margin-bottom:14px">
-  <span style="font-size:0.65rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-right:4px;white-space:nowrap">Data Sources</span>
-  <span style="display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid #EDE8F2;border-radius:50px;padding:3px 10px 3px 4px"><span style="background:#00A1E0;color:#fff;font-size:0.58rem;font-weight:800;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center">SF</span><span style="font-size:0.72rem;font-weight:600;color:#4B3F72">Salesforce</span></span>
-  <span style="display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid #EDE8F2;border-radius:50px;padding:3px 10px 3px 4px"><span style="background:#03363D;color:#fff;font-size:0.58rem;font-weight:800;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center">ZD</span><span style="font-size:0.72rem;font-weight:600;color:#4B3F72">Zendesk</span></span>
-  <span style="display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid #EDE8F2;border-radius:50px;padding:3px 10px 3px 4px"><span style="background:#F6821F;color:#fff;font-size:0.58rem;font-weight:800;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center">GS</span><span style="font-size:0.72rem;font-weight:600;color:#4B3F72">Gainsight</span></span>
-  <span style="display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid #EDE8F2;border-radius:50px;padding:3px 10px 3px 4px"><span style="background:#5B3FA8;color:#fff;font-size:0.58rem;font-weight:800;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center">@</span><span style="font-size:0.72rem;font-weight:600;color:#4B3F72">Email</span></span>
-  <span style="margin-left:auto;font-size:0.65rem;color:#C4B4ED;font-style:italic">Synthetic demo data</span>
+<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:#FFFFFF;border:1px solid #E8E4DC;border-radius:10px;padding:7px 14px;margin-bottom:14px">
+  <span style="font-size:0.65rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-right:4px;white-space:nowrap">Data Sources</span>
+  <span style="display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid #E8E4DC;border-radius:50px;padding:3px 10px 3px 4px"><span style="background:#00A1E0;color:#fff;font-size:0.58rem;font-weight:800;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center">SF</span><span style="font-size:0.72rem;font-weight:600;color:#3D3458">Salesforce</span></span>
+  <span style="display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid #E8E4DC;border-radius:50px;padding:3px 10px 3px 4px"><span style="background:#03363D;color:#fff;font-size:0.58rem;font-weight:800;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center">ZD</span><span style="font-size:0.72rem;font-weight:600;color:#3D3458">Zendesk</span></span>
+  <span style="display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid #E8E4DC;border-radius:50px;padding:3px 10px 3px 4px"><span style="background:#F6821F;color:#fff;font-size:0.58rem;font-weight:800;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center">GS</span><span style="font-size:0.72rem;font-weight:600;color:#3D3458">Gainsight</span></span>
+  <span style="display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid #E8E4DC;border-radius:50px;padding:3px 10px 3px 4px"><span style="background:#5B3FA8;color:#fff;font-size:0.58rem;font-weight:800;width:17px;height:17px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center">@</span><span style="font-size:0.72rem;font-weight:600;color:#3D3458">Email</span></span>
+  <span style="margin-left:auto;font-size:0.65rem;color:#9B93A8;font-style:italic">Synthetic demo data</span>
 </div>
 """, unsafe_allow_html=True)
 # PAGE: PORTFOLIO DASHBOARD
 # ══════════════════════════════════════════════════════════════════════════════
 
-if page == "🏠 Portfolio Dashboard":
+if page == "Portfolio Dashboard":
     st.markdown("<h1 style='margin-bottom:2px'>Portfolio Dashboard</h1>", unsafe_allow_html=True)
-    st.markdown("<div style='color:#9B8FBF;font-size:0.88rem;margin-bottom:20px'>Real-time view of all 25 enterprise customers</div>", unsafe_allow_html=True)
+    st.markdown("<div style='color:#6B6280;font-size:0.88rem;margin-bottom:20px'>Real-time view of all 25 enterprise customers</div>", unsafe_allow_html=True)
 
     summary   = fetch_summary()
     customers = fetch_customers()
@@ -656,12 +667,12 @@ if page == "🏠 Portfolio Dashboard":
     l_pct = summary.get("healthy_count",0)  / total * 100
     st.markdown(f"""
     <div style="margin:10px 0 6px">
-        <div style="display:flex;height:16px;border-radius:50px;overflow:hidden;gap:2px;background:#EDE8F2;padding:2px">
+        <div style="display:flex;height:16px;border-radius:50px;overflow:hidden;gap:2px;background:#E8E4DC;padding:2px">
             <div style="width:{h_pct:.0f}%;background:#E53E3E;border-radius:50px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white;min-width:24px">{summary.get('critical_count',0)}</div>
             <div style="width:{m_pct:.0f}%;background:#DD6B20;border-radius:50px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white;min-width:24px">{summary.get('at_risk_count',0)}</div>
             <div style="width:{l_pct:.0f}%;background:#38A169;border-radius:50px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white;min-width:24px">{summary.get('healthy_count',0)}</div>
         </div>
-        <div style="display:flex;gap:16px;margin-top:4px;font-size:11px;color:#9B8FBF;font-weight:500">
+        <div style="display:flex;gap:16px;margin-top:4px;font-size:11px;color:#6B6280;font-weight:500">
             <span>🔴 High Risk</span><span>🟡 Medium Risk</span><span>🟢 Healthy</span>
         </div>
     </div>
@@ -686,7 +697,7 @@ if page == "🏠 Portfolio Dashboard":
     left_col, right_col = st.columns([3, 1])
 
     with left_col:
-        st.markdown("<div style='font-size:0.78rem;font-weight:700;color:#1B1040;margin-bottom:6px'>Customer Portfolio <span style=\"font-weight:400;color:#9B8FBF\">— click a row to drill in →</span></div>", unsafe_allow_html=True)
+        st.markdown("<div style='font-size:0.78rem;font-weight:700;color:#1B1040;margin-bottom:6px'>Customer Portfolio <span style=\"font-weight:400;color:#6B6280\">— click a row to drill in →</span></div>", unsafe_allow_html=True)
         df = pd.DataFrame(customers)
         df["Risk"]    = df["risk_level"].map({"High":"🔴 High","Medium":"🟡 Medium","Low":"🟢 Healthy"})
         df["ARR"]     = df["arr"].map(lambda x: f"${x:,.0f}")
@@ -714,14 +725,14 @@ if page == "🏠 Portfolio Dashboard":
             st.markdown(f"""<div class="card card-{'red' if esc.get('severity')=='Critical' else 'yellow'}">
                 <div style="font-size:0.72rem;color:{sev_color};font-weight:700;text-transform:uppercase;letter-spacing:0.06em">{esc.get('severity','?')} · {cname}</div>
                 <div style="font-size:0.85rem;color:#1B1040;margin-top:4px;font-weight:600">{esc.get('title','')[:60]}</div>
-                <div style="font-size:0.72rem;color:#9B8FBF;margin-top:3px">{esc.get('owner','')}</div>
+                <div style="font-size:0.72rem;color:#6B6280;margin-top:3px">{esc.get('owner','')}</div>
             </div>""", unsafe_allow_html=True)
 
     # Show portfolio scan results if available
     if "portfolio_scan" in st.session_state and "error" not in st.session_state["portfolio_scan"]:
         scan = st.session_state["portfolio_scan"]
         st.markdown("---")
-        st.markdown("<div style='font-size:0.78rem;font-weight:700;color:#1B1040;margin-bottom:6px'>Portfolio Health Scan <span style=\"font-weight:400;color:#9B8FBF\">— CustomerHealthAgent · Haiku</span></div>", unsafe_allow_html=True)
+        st.markdown("<div style='font-size:0.78rem;font-weight:700;color:#1B1040;margin-bottom:6px'>Portfolio Health Scan <span style=\"font-weight:400;color:#6B6280\">— CustomerHealthAgent · Haiku</span></div>", unsafe_allow_html=True)
         scan_df = pd.DataFrame(scan["results"])
         scan_df["Risk"]  = scan_df["risk_level"]
         scan_df["Score"] = scan_df["health_score"]
@@ -738,7 +749,7 @@ if page == "🏠 Portfolio Dashboard":
 # PAGE: CUSTOMER 360
 # ══════════════════════════════════════════════════════════════════════════════
 
-elif page == "👤 Customer 360":
+elif page == "Customer 360":
     st.markdown("# Customer 360")
     customers = fetch_customers()
     if not customers:
@@ -779,15 +790,15 @@ elif page == "👤 Customer 360":
         <div style="display:flex;align-items:center;gap:16px">
             <div style="flex:1">
                 <div style="font-size:1.3rem;font-weight:800;color:#1B1040;letter-spacing:-0.02em">{c['name']}</div>
-                <div style="color:#9B8FBF;margin-top:2px;font-size:0.78rem">{c['industry']} · {c.get('employee_count','?'):,} employees · <b style="color:#1B1040">${c['arr']:,}</b> ARR</div>
-                <div style="margin-top:6px;color:#4B3F72;font-size:0.80rem"><b style="color:#1B1040">Risk:</b> {c.get('primary_risk_reason','')}</div>
+                <div style="color:#6B6280;margin-top:2px;font-size:0.78rem">{c['industry']} · {c.get('employee_count','?'):,} employees · <b style="color:#1B1040">${c['arr']:,}</b> ARR</div>
+                <div style="margin-top:6px;color:#3D3458;font-size:0.80rem"><b style="color:#1B1040">Risk:</b> {c.get('primary_risk_reason','')}</div>
                 <div style="margin-top:2px;color:#5B3FA8;font-size:0.80rem;font-weight:500">→ {c.get('recommended_next_action','')}</div>
             </div>
             <div style="text-align:center;min-width:72px;background:{risk_color}12;border-radius:8px;padding:8px 12px;flex-shrink:0">
                 <div style="font-size:2.2rem;font-weight:900;color:{risk_color};line-height:1">{c['health_score']}</div>
-                <div style="font-size:0.58rem;color:#9B8FBF;font-weight:700;letter-spacing:0.10em">HEALTH</div>
+                <div style="font-size:0.58rem;color:#6B6280;font-weight:700;letter-spacing:0.10em">HEALTH</div>
                 <div style="font-size:0.72rem;font-weight:700;color:{risk_color};margin-top:2px">{c.get('risk_level','?')}</div>
-                <div style="font-size:0.65rem;color:#9B8FBF">{c.get('health_trend','?')}</div>
+                <div style="font-size:0.65rem;color:#6B6280">{c.get('health_trend','?')}</div>
             </div>
         </div>
     </div>
@@ -806,7 +817,7 @@ elif page == "👤 Customer 360":
         st.metric("Champion", f"{champ_icon} {c.get('champion_status','?')}")
 
     # ── Agent action bar ──────────────────────────────────────────────────────
-    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Run Agents</div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Run Agents</div>", unsafe_allow_html=True)
     ab1, ab2, ab3, ab4, ab5 = st.columns(5)
     triggered = None
     btns = [
@@ -834,7 +845,7 @@ elif page == "👤 Customer 360":
     if recent_key:
         result = st.session_state[recent_key]
         agent_label = recent_key.split("_")[-1]
-        st.markdown(f"<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin:10px 0 6px'>{agent_label} Output</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin:10px 0 6px'>{agent_label} Output</div>", unsafe_allow_html=True)
 
         # Skeptik shows before/after
         if "SkeptikQAAgent" in recent_key:
@@ -845,14 +856,14 @@ elif page == "👤 Customer 360":
             if prior_key:
                 bc, ac = st.columns(2)
                 with bc:
-                    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Original Output</div>", unsafe_allow_html=True)
+                    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Original Output</div>", unsafe_allow_html=True)
                     with st.container():
                         st.markdown(f"<div class='skeptik-before'>", unsafe_allow_html=True)
                         prior = st.session_state[prior_key]
                         st.markdown(prior.get("output_text","")[:1200] + "...", unsafe_allow_html=False)
                         st.markdown("</div>", unsafe_allow_html=True)
                 with ac:
-                    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Skeptik QA Review</div>", unsafe_allow_html=True)
+                    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Skeptik QA Review</div>", unsafe_allow_html=True)
                     render_agent_output(result)
             else:
                 render_agent_output(result)
@@ -920,17 +931,17 @@ elif page == "👤 Customer 360":
     with tab_tick:
         open_t    = [t for t in tickets if t["status"] != "Resolved"]
         closed_t  = [t for t in tickets if t["status"] == "Resolved"]
-        st.markdown(f"<div style='font-size:0.78rem;font-weight:700;color:#1B1040;margin-bottom:6px'>{len(open_t)} Open <span style=\"color:#9B8FBF;font-weight:400\">· {len(closed_t)} Resolved</span></div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='font-size:0.78rem;font-weight:700;color:#1B1040;margin-bottom:6px'>{len(open_t)} Open <span style=\"color:#6B6280;font-weight:400\">· {len(closed_t)} Resolved</span></div>", unsafe_allow_html=True)
         for t in sorted(tickets, key=lambda x: ("P1P2P3P4".index(x["severity"]) if x["severity"] in "P1P2P3P4" else 9, x["status"] == "Resolved")):
             sc = {"P1":"#E53E3E","P2":"#DD6B20","P3":"#D69E2E","P4":"#9B8FBF"}.get(t["severity"],"#9B8FBF")
             si = "🔴" if t["status"]=="Open" else "🔄" if t["status"]=="In Progress" else "✅"
             st.markdown(f"""<div class="card">
                 <div style="display:flex;justify-content:space-between;align-items:center">
                     <span style="background:{sc}18;color:{sc};font-weight:700;font-size:0.72rem;padding:2px 8px;border-radius:20px;border:1px solid {sc}44">{t['severity']}</span>
-                    <span style="color:#9B8FBF;font-size:0.75rem">{si} {t['status']}</span>
+                    <span style="color:#6B6280;font-size:0.75rem">{si} {t['status']}</span>
                 </div>
                 <div style="color:#1B1040;font-size:0.88rem;margin-top:6px;font-weight:500">{t['title']}</div>
-                <div style="color:#9B8FBF;font-size:0.72rem;margin-top:3px">Opened {t['opened_at'][:10]} · Assignee: {t.get('assignee','?')}</div>
+                <div style="color:#6B6280;font-size:0.72rem;margin-top:3px">Opened {t['opened_at'][:10]} · Assignee: {t.get('assignee','?')}</div>
                 {f'<div style="color:#DD6B20;font-size:0.72rem;margin-top:2px">⚠️ {t["escalation_reference"]}</div>' if t.get("escalation_reference") else ''}
             </div>""", unsafe_allow_html=True)
 
@@ -943,11 +954,11 @@ elif page == "👤 Customer 360":
             st.markdown(f"""<div class="card card-{'red' if e['severity']=='Critical' else 'yellow'}">
                 <div style="display:flex;justify-content:space-between;align-items:center">
                     <span style="background:{sc}18;color:{sc};font-weight:700;font-size:0.72rem;padding:2px 10px;border-radius:20px;border:1px solid {sc}44">{e['severity']} · {e['status']}</span>
-                    <span style="color:#9B8FBF;font-size:0.72rem">{exec_aware}</span>
+                    <span style="color:#6B6280;font-size:0.72rem">{exec_aware}</span>
                 </div>
                 <div style="color:#1B1040;font-size:0.9rem;margin-top:6px;font-weight:600">{e['title']}</div>
-                <div style="color:#9B8FBF;font-size:0.75rem;margin-top:3px">Owner: {e['owner']} · Opened: {e['opened_at'][:10]}</div>
-                {f'<div style="color:#9B8FBF;font-size:0.75rem;margin-top:2px">{e["resolution_plan"]}</div>' if e.get("resolution_plan") else ''}
+                <div style="color:#6B6280;font-size:0.75rem;margin-top:3px">Owner: {e['owner']} · Opened: {e['opened_at'][:10]}</div>
+                {f'<div style="color:#6B6280;font-size:0.75rem;margin-top:2px">{e["resolution_plan"]}</div>' if e.get("resolution_plan") else ''}
             </div>""", unsafe_allow_html=True)
 
     with tab_stk:
@@ -964,13 +975,13 @@ elif page == "👤 Customer 360":
                 <div style="display:flex;justify-content:space-between;align-items:flex-start">
                     <div>
                         <span style="font-weight:700;color:#1B1040;font-size:0.95rem">{s['name']}</span>
-                        <div style="font-size:0.80rem;color:#9B8FBF;margin-top:1px">{s['title']}</div>
+                        <div style="font-size:0.80rem;color:#6B6280;margin-top:1px">{s['title']}</div>
                     </div>
-                    <span style="font-size:0.72rem;color:#9B8FBF">{ei} {s.get('engagement_level','?')}</span>
+                    <span style="font-size:0.72rem;color:#6B6280">{ei} {s.get('engagement_level','?')}</span>
                 </div>
                 <div style="margin-top:6px;display:flex;align-items:center;gap:8px">
                     <span style="background:{rb};color:{rc};font-size:0.72rem;font-weight:700;padding:2px 8px;border-radius:20px">{s['role']}</span>
-                    <span style="color:#9B8FBF;font-size:0.72rem">{s['email']}</span>
+                    <span style="color:#6B6280;font-size:0.72rem">{s['email']}</span>
                 </div>
             </div>""", unsafe_allow_html=True)
 
@@ -986,11 +997,11 @@ elif page == "👤 Customer 360":
             sent_bg = {"Positive":"#F0FFF4","Neutral":"#F8F6FF","Negative":"#FFF5F5"}.get(n.get('sentiment_signal',''),'#F8F6FF')
             st.markdown(f"""<div class="card">
                 <div style="display:flex;justify-content:space-between;align-items:center">
-                    <span style="color:#9B8FBF;font-size:0.75rem">{n['date'][:10]} · <b style="color:#4B3F72">{n.get('meeting_type','?')}</b></span>
+                    <span style="color:#6B6280;font-size:0.75rem">{n['date'][:10]} · <b style="color:#3D3458">{n.get('meeting_type','?')}</b></span>
                     <span style="background:{sent_bg};color:{sc};font-size:0.70rem;font-weight:700;padding:2px 8px;border-radius:20px">{n.get('sentiment_signal','?')}</span>
                 </div>
                 <div style="color:#1B1040;font-size:0.88rem;margin-top:6px;line-height:1.5">{n['summary']}</div>
-                <div style="color:#9B8FBF;font-size:0.72rem;margin-top:4px">👥 {n.get('attendees_internal','?')} · {n.get('attendees_customer','?')}</div>
+                <div style="color:#6B6280;font-size:0.72rem;margin-top:4px">👥 {n.get('attendees_internal','?')} · {n.get('attendees_customer','?')}</div>
                 {('<div style="margin-top:6px">' + ''.join(f'<div style="font-size:0.75rem;color:#5B3FA8;margin-top:2px">→ {a}</div>' for a in actions) + '</div>') if actions else ''}
             </div>""", unsafe_allow_html=True)
 
@@ -1025,7 +1036,7 @@ elif page == "👤 Customer 360":
 # PAGE: AGENT CONSOLE
 # ══════════════════════════════════════════════════════════════════════════════
 
-elif page == "🤖 Agent Console":
+elif page == "Agent Console":
     st.markdown("# Agent Console")
     st.caption("Run any agent, inspect model routing rationale, cost, and structured output in real time.")
 
@@ -1044,7 +1055,7 @@ elif page == "🤖 Agent Console":
     left_col, right_col = st.columns([1, 2])
 
     with left_col:
-        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Configure</div>", unsafe_allow_html=True)
+        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Configure</div>", unsafe_allow_html=True)
         selected_agent = st.selectbox(
             "Agent",
             list(AGENT_INFO.keys()),
@@ -1062,7 +1073,7 @@ elif page == "🤖 Agent Console":
         st.markdown(f"""<div class="card" style="margin-top:8px;border-left:3px solid {color};padding:9px 12px">
             <div class="kpi-label">ROUTED TO</div>
             <div style="color:{color};font-weight:800;font-size:0.95rem">{tier.capitalize()}</div>
-            <div style="color:#9B8FBF;font-size:0.72rem;margin-top:1px">{desc}</div>
+            <div style="color:#6B6280;font-size:0.72rem;margin-top:1px">{desc}</div>
         </div>""", unsafe_allow_html=True)
 
         run_btn = st.button(f"▶ Run {selected_agent}", use_container_width=True, type="primary")
@@ -1089,7 +1100,7 @@ elif page == "🤖 Agent Console":
             st.markdown("""<div style="border:2px dashed #DDD6EC;border-radius:16px;padding:60px;text-align:center;background:#FDFBFF">
                 <div style="font-size:2.5rem">🤖</div>
                 <div style="margin-top:10px;font-size:0.95rem;font-weight:600;color:#1B1040">Configure an agent and click Run</div>
-                <div style="margin-top:4px;font-size:0.80rem;color:#9B8FBF">Model routing rationale, cost, and confidence will appear here</div>
+                <div style="margin-top:4px;font-size:0.80rem;color:#6B6280">Model routing rationale, cost, and confidence will appear here</div>
             </div>""", unsafe_allow_html=True)
 
 
@@ -1097,7 +1108,7 @@ elif page == "🤖 Agent Console":
 # PAGE: BRIEFINGS
 # ══════════════════════════════════════════════════════════════════════════════
 
-elif page == "📋 Briefings":
+elif page == "Briefings":
     st.markdown("# Briefings")
     customers = fetch_customers()
     cmap = {c["id"]: c for c in customers}
@@ -1133,12 +1144,12 @@ elif page == "📋 Briefings":
             if "ceo_skeptik" in st.session_state:
                 bc, ac = st.columns(2)
                 with bc:
-                    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Original Briefing</div>", unsafe_allow_html=True)
+                    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Original Briefing</div>", unsafe_allow_html=True)
                     render_model_meta(r)
                     st.markdown("---")
                     st.markdown(f"<div class='skeptik-before'>{r.get('output_text','')}</div>", unsafe_allow_html=True)
                 with ac:
-                    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Skeptik QA Review</div>", unsafe_allow_html=True)
+                    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Skeptik QA Review</div>", unsafe_allow_html=True)
                     skeptik = st.session_state["ceo_skeptik"]
                     render_model_meta(skeptik)
                     st.markdown("---")
@@ -1166,7 +1177,7 @@ elif page == "📋 Briefings":
                 export_button(r["output_text"], f"VP_CX_Review_{datetime.now().strftime('%Y%m%d')}.md")
 
     with tab_hist:
-        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Recent CEO Briefings</div>", unsafe_allow_html=True)
+        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Recent CEO Briefings</div>", unsafe_allow_html=True)
         ceo_briefs = fetch_briefings("CEO")
         if not ceo_briefs:
             st.caption("No CEO briefings generated yet.")
@@ -1177,7 +1188,7 @@ elif page == "📋 Briefings":
                 export_button(b["content"], f"CEO_Briefing_{b.get('customer_id','?')}_{b['created_at'][:10]}.md")
 
         st.markdown("---")
-        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Recent VP CX Reviews</div>", unsafe_allow_html=True)
+        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Recent VP CX Reviews</div>", unsafe_allow_html=True)
         vp_briefs = fetch_briefings("VP_CX")
         if not vp_briefs:
             st.caption("No VP CX reviews generated yet.")
@@ -1191,7 +1202,7 @@ elif page == "📋 Briefings":
 # PAGE: IMPLEMENTATION DIGEST
 # ══════════════════════════════════════════════════════════════════════════════
 
-elif page == "📊 Implementation Digest":
+elif page == "Implementation Digest":
     st.markdown("# Implementation Digest")
     st.caption("Weekly implementation health across all active projects — powered by ImplementationAgent (Sonnet)")
 
@@ -1249,7 +1260,7 @@ elif page == "📊 Implementation Digest":
         st.markdown("""<div style="border:2px dashed #DDD6EC;border-radius:16px;padding:40px;text-align:center;background:#FDFBFF">
             <div style="font-size:2rem">🔧</div>
             <div style="margin-top:10px;font-size:0.9rem;font-weight:600;color:#1B1040">Click the button above to generate the weekly implementation digest</div>
-            <div style="margin-top:4px;font-size:0.78rem;color:#9B8FBF">Runs ImplementationAgent (Sonnet) on all active implementation projects</div>
+            <div style="margin-top:4px;font-size:0.78rem;color:#6B6280">Runs ImplementationAgent (Sonnet) on all active implementation projects</div>
         </div>""", unsafe_allow_html=True)
 
 
@@ -1257,7 +1268,7 @@ elif page == "📊 Implementation Digest":
 # PAGE: AUDIT TRAIL & COSTS
 # ══════════════════════════════════════════════════════════════════════════════
 
-elif page == "🔍 Audit Trail & Costs":
+elif page == "Audit Trail & Costs":
     st.markdown("# Audit Trail & Cost Tracking")
 
     costs = fetch_costs()
@@ -1274,7 +1285,7 @@ elif page == "🔍 Audit Trail & Costs":
 
     # ── By model ──────────────────────────────────────────────────────────────
     st.markdown("---")
-    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Spend by Model</div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Spend by Model</div>", unsafe_allow_html=True)
     by_model = costs.get("by_model", [])
     if by_model:
         for row in by_model:
@@ -1309,7 +1320,7 @@ elif page == "🔍 Audit Trail & Costs":
     if filter_cust != "All":
         filtered = [r for r in filtered if r.get("customer_name") == filter_cust]
 
-    st.markdown(f"<div style='font-size:0.72rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Run History <span style=\"font-weight:400\">({len(filtered)} records)</span></div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Run History <span style=\"font-weight:400\">({len(filtered)} records)</span></div>", unsafe_allow_html=True)
 
     for run in filtered:
         tier   = model_tier_from_id(run.get("model_used",""))
