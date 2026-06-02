@@ -532,7 +532,7 @@ with st.sidebar:
             st.rerun()
 
     st.markdown("---")
-    if st.button("ℹ️ About the Agents", use_container_width=True, key="sb_about", type="secondary"):
+    if st.button("About the Agents", use_container_width=True, key="sb_about", type="secondary"):
         st.session_state["show_agent_guide"] = True
 
     st.markdown("<div style='margin-top:8px;font-size:0.68rem;color:#9B93A8'>API · localhost:8000</div>", unsafe_allow_html=True)
@@ -698,7 +698,7 @@ if page == "Portfolio Dashboard":
     # ── Portfolio health scan ─────────────────────────────────────────────────
     col_scan, col_info = st.columns([1, 3])
     with col_scan:
-        if st.button("🔍 Scan Full Portfolio", use_container_width=True, type="primary", help="Run CustomerHealthAgent on all 25 customers using Claude Haiku"):
+        if st.button("Scan Full Portfolio", use_container_width=True, type="primary", help="Run CustomerHealthAgent on all 25 customers using Claude Haiku"):
             with st.spinner("Running CustomerHealthAgent on all 25 customers (Haiku)..."):
                 scan = call_portfolio_health()
             st.session_state["portfolio_scan"] = scan
@@ -836,11 +836,11 @@ elif page == "Customer 360":
     ab1, ab2, ab3, ab4, ab5 = st.columns(5)
     triggered = None
     btns = [
-        (ab1, "CustomerHealthAgent",      "🩺 Health Assessment",      "secondary"),
-        (ab2, "ImplementationAgent",      "🔧 Implementation Report",  "secondary"),
-        (ab3, "BriefingAgent",            "📋 Generate CEO Briefing",  "primary"),
-        (ab4, "EscalationCommanderAgent", "🚨 Escalation Commander",   "primary"),
-        (ab5, "SkeptikQAAgent",           "🔍 Skeptik QA Review",      "secondary"),
+        (ab1, "CustomerHealthAgent",      "Health Assessment",      "secondary"),
+        (ab2, "ImplementationAgent",      "Implementation Report",  "secondary"),
+        (ab3, "BriefingAgent",            "Generate CEO Briefing",  "primary"),
+        (ab4, "EscalationCommanderAgent", "Escalation Commander",   "primary"),
+        (ab5, "SkeptikQAAgent",           "Skeptik QA Review",      "secondary"),
     ]
     for col, aname, label, btype in btns:
         with col:
@@ -894,7 +894,7 @@ elif page == "Customer 360":
 
     # ── Tabbed detail view ────────────────────────────────────────────────────
     tab_use, tab_impl, tab_tick, tab_escs, tab_stk, tab_notes, tab_renew = st.tabs(
-        ["📊 Usage & Health", "🎯 Implementation", "🎫 Tickets", "🚨 Escalations", "👥 Stakeholders", "📝 Notes", "💰 Renewal"]
+        ["Usage & Health", "Implementation", "Tickets", "Escalations", "Stakeholders", "Notes", "Renewal"]
     )
 
     with tab_use:
@@ -1038,7 +1038,7 @@ elif page == "Customer 360":
                 <div style="color:#6B6280">Exec Involvement Required: {'✅ Yes' if renewal.get('requires_exec_involvement') else 'No'}</div>
             </div>""", unsafe_allow_html=True)
 
-            if st.button("📋 Generate CEO Briefing for Renewal", type="primary"):
+            if st.button("Generate CEO Briefing for Renewal", type="primary"):
                 with st.spinner("Generating CEO Briefing (Sonnet)..."):
                     result = call_agent("BriefingAgent", cid)
                 st.session_state[f"360_result_{cid}_BriefingAgent"] = result
@@ -1137,7 +1137,7 @@ elif page == "Briefings":
                 format_func=lambda x: f"{risk_icon(cmap[x].get('risk_level','?'))} {cmap[x]['name']} — ${cmap[x]['arr']:,}",
                 key="brief_cid",
             )
-            if st.button("📋 Generate CEO Briefing", use_container_width=True, type="primary"):
+            if st.button("Generate CEO Briefing", use_container_width=True, type="primary"):
                 with st.spinner("Generating CEO Briefing (Sonnet)..."):
                     result = call_agent("BriefingAgent", sel_cid)
                 st.session_state["ceo_briefing"] = result
@@ -1146,7 +1146,7 @@ elif page == "Briefings":
                 r = st.session_state["ceo_briefing"]
                 if not r.get("error"):
                     # Then offer Skeptik review
-                    if st.button("🔍 Review with Skeptik Agent", use_container_width=True):
+                    if st.button("Review with Skeptik Agent", use_container_width=True):
                         with st.spinner("Running Skeptik QA (Opus)..."):
                             skeptik = call_agent("SkeptikQAAgent", sel_cid)
                         st.session_state["ceo_skeptik"] = skeptik
@@ -1178,7 +1178,7 @@ elif page == "Briefings":
                     export_button(r["output_text"], f"CEO_Briefing_{sel_cid}_{datetime.now().strftime('%Y%m%d')}.md")
 
     with tab_vp:
-        if st.button("📊 Generate Weekly VP CX Review", use_container_width=True, type="primary"):
+        if st.button("Generate Weekly VP CX Review", use_container_width=True, type="primary"):
             with st.spinner("Running VP Chief of Staff Agent (Opus)..."):
                 result = call_agent("VPChiefOfStaffAgent")
             st.session_state["vp_review"] = result
