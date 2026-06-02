@@ -36,8 +36,8 @@ st.markdown("""
 [data-testid="stMain"] { background: transparent !important; }
 
 /* Tighter main content padding */
-[data-testid="stMainBlockContainer"] { padding: 1.5rem 2rem 2rem !important; }
-[data-testid="stVerticalBlockBorderWrapper"] > div { gap: 0.4rem !important; }
+[data-testid="stMainBlockContainer"] { padding: 1rem 1.8rem 2rem !important; max-width: 1500px; }
+[data-testid="stVerticalBlockBorderWrapper"] > div { gap: 0.35rem !important; }
 
 /* Sidebar — compact */
 [data-testid="stSidebar"] {
@@ -104,51 +104,59 @@ p, li { color: #3D3458; font-size: 0.85rem; margin: 0; }
 .badge-risk-low    { background: #EBF2EE; color: #2D5A3D; border: 1px solid #96BAA4; }
 
 /* Buttons — slim Onyx pill */
-.stButton > button {
+.stButton > button, .stDownloadButton > button {
     border-radius: 50px !important;
     font-weight: 600 !important;
     font-size: 0.78rem !important;
-    padding: 0.30rem 1.1rem !important;
+    padding: 0.32rem 1.1rem !important;
     height: auto !important;
     min-height: 0 !important;
     line-height: 1.4 !important;
     transition: all 0.15s ease !important;
     white-space: nowrap !important;
 }
-/* Primary — dark navy, always white text */
+/* Primary — dark navy, always white text (cover kind + stBaseButton testid) */
 .stButton > button[kind="primary"],
-.stButton > button[kind="primary"]:focus,
-.stButton > button[kind="primary"]:active {
+.stButton > button[kind="primaryFormSubmit"],
+button[data-testid="stBaseButton-primary"] {
     background: #1B1040 !important;
     border: 1.5px solid #1B1040 !important;
     box-shadow: 0 1px 6px rgba(27,16,64,0.20) !important;
 }
-.stButton > button[kind="primary"],
-.stButton > button[kind="primary"] p,
-.stButton > button[kind="primary"] span,
-.stButton > button[kind="primary"] div { color: #FFFFFF !important; }
-.stButton > button[kind="primary"]:hover {
+.stButton > button[kind="primary"]:hover,
+button[data-testid="stBaseButton-primary"]:hover {
     background: #2D1A5E !important;
     border-color: #2D1A5E !important;
     box-shadow: 0 3px 10px rgba(27,16,64,0.30) !important;
     transform: translateY(-1px) !important;
 }
-/* Secondary — white, always dark text */
+.stButton > button[kind="primary"],
+.stButton > button[kind="primary"] *,
+button[data-testid="stBaseButton-primary"],
+button[data-testid="stBaseButton-primary"] * { color: #FFFFFF !important; fill: #FFFFFF !important; }
+
+/* Secondary + download — white, always dark navy text */
 .stButton > button[kind="secondary"],
-.stButton > button[kind="secondary"]:focus,
-.stButton > button[kind="secondary"]:active {
+button[data-testid="stBaseButton-secondary"],
+.stDownloadButton > button,
+button[data-testid="stBaseButton-secondaryFormSubmit"],
+button[data-testid="stDownloadButton"] {
     background: #FFFFFF !important;
     border: 1.5px solid #D0CADE !important;
     box-shadow: none !important;
 }
-.stButton > button[kind="secondary"],
-.stButton > button[kind="secondary"] p,
-.stButton > button[kind="secondary"] span,
-.stButton > button[kind="secondary"] div { color: #1B1040 !important; }
-.stButton > button[kind="secondary"]:hover {
+.stButton > button[kind="secondary"]:hover,
+button[data-testid="stBaseButton-secondary"]:hover,
+.stDownloadButton > button:hover {
     background: #F0ECE8 !important;
     border-color: #6B6280 !important;
 }
+.stButton > button[kind="secondary"],
+.stButton > button[kind="secondary"] *,
+button[data-testid="stBaseButton-secondary"],
+button[data-testid="stBaseButton-secondary"] *,
+.stDownloadButton > button,
+.stDownloadButton > button * { color: #1B1040 !important; fill: #1B1040 !important; }
 
 /* Metrics — very compact */
 [data-testid="stMetricLabel"] { color: #6B6280 !important; font-size: 0.62rem !important; font-weight: 700 !important; text-transform: uppercase !important; letter-spacing: 0.08em !important; }
@@ -259,7 +267,7 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
     transition: background 0.12s ease !important;
     font-size: 0.82rem !important;
     font-weight: 500 !important;
-    color: #4B3F72 !important;
+    color: #3D3458 !important;
     display: flex !important;
     align-items: center !important;
     cursor: pointer !important;
@@ -279,12 +287,12 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
 /* Skeptik boxes */
 .skeptik-before {
     border-left: 3px solid #3D3458;
-    background: #FDFCFF; border-radius: 0 6px 6px 0; padding: 10px 12px;
+    background: #FAF8F4; border-radius: 0 6px 6px 0; padding: 10px 12px;
     font-size: 0.82rem;
 }
 .skeptik-after {
     border-left: 3px solid #2D5A3D;
-    background: #F9FFFC; border-radius: 0 6px 6px 0; padding: 10px 12px;
+    background: #F4F7F4; border-radius: 0 6px 6px 0; padding: 10px 12px;
     font-size: 0.82rem;
 }
 
@@ -293,19 +301,6 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
 
 /* Caption */
 .stCaption { color: #6B6280 !important; font-size: 0.70rem !important; }
-
-/* Download button */
-.stDownloadButton > button {
-    border-radius: 50px !important;
-    font-weight: 600 !important;
-    font-size: 0.75rem !important;
-    padding: 0.25rem 0.9rem !important;
-    background: #FFFFFF !important;
-    color: #1B1040 !important;
-    border: 1.5px solid #D0CADE !important;
-    height: auto !important;
-}
-.stDownloadButton > button:hover { background: #F0ECE8 !important; }
 
 /* Progress bar */
 .stProgress > div > div > div > div { background: #1B1040 !important; border-radius: 4px !important; }
@@ -410,7 +405,7 @@ def model_tier_from_id(model_id):
 def tier_color(tier):
     return {"haiku": "#2D4A7A", "sonnet": "#3D3458", "opus": "#1B1040"}.get(tier, "#1B1040")
 
-def render_model_meta(result, expanded=False):
+def render_model_meta(result, expanded=False, nested=False):
     """Renders the model/cost/confidence/tokens strip + routing rationale."""
     tier  = result.get("model_tier") or model_tier_from_id(result.get("model_used",""))
     color = tier_color(tier)
@@ -418,16 +413,16 @@ def render_model_meta(result, expanded=False):
     conf_color = "#2D5A3D" if conf >= 0.75 else "#7A5C1E" if conf >= 0.55 else "#9B2335"
     disp  = result.get("model_display") or result.get("model_used","?")
 
-    meta_html = f"""<div style="display:flex;gap:0;background:#FFFFFF;border:1px solid #EDE8F2;border-radius:8px;padding:8px 14px;margin-bottom:6px;align-items:center">
-        <div style="flex:1;border-right:1px solid #EDE8F2;padding-right:14px;margin-right:14px">
+    meta_html = f"""<div style="display:flex;gap:0;background:#FFFFFF;border:1px solid #E8E4DC;border-radius:8px;padding:8px 14px;margin-bottom:6px;align-items:center">
+        <div style="flex:1;border-right:1px solid #E8E4DC;padding-right:14px;margin-right:14px">
             <div class="kpi-label">Model</div>
             <div style="color:{color};font-weight:700;font-size:0.88rem">{disp}</div>
         </div>
-        <div style="flex:1;border-right:1px solid #EDE8F2;padding-right:14px;margin-right:14px">
+        <div style="flex:1;border-right:1px solid #E8E4DC;padding-right:14px;margin-right:14px">
             <div class="kpi-label">Est. Cost</div>
             <div style="color:#1B1040;font-weight:700;font-size:0.88rem">${result.get('estimated_cost_usd',0):.5f}</div>
         </div>
-        <div style="flex:1;border-right:1px solid #EDE8F2;padding-right:14px;margin-right:14px">
+        <div style="flex:1;border-right:1px solid #E8E4DC;padding-right:14px;margin-right:14px">
             <div class="kpi-label">Confidence</div>
             <div style="color:{conf_color};font-weight:700;font-size:0.88rem">{conf:.0%}</div>
         </div>
@@ -439,28 +434,45 @@ def render_model_meta(result, expanded=False):
     st.markdown(meta_html, unsafe_allow_html=True)
 
     if result.get("is_mock"):
-        st.info("🟡 **Mock mode active** — set `ANTHROPIC_API_KEY` for live Claude responses.", icon="ℹ️")
+        st.info("Mock mode active — set `ANTHROPIC_API_KEY` for live Claude responses.", icon="ℹ️")
 
-    with st.expander("🔀 Model Routing Rationale", expanded=expanded):
-        st.markdown(f"<div style='color:#8b949e;font-size:0.85rem;font-style:italic'>{result.get('model_rationale','')}</div>", unsafe_allow_html=True)
+    rationale = result.get("model_rationale", "")
+    if rationale:
+        if nested:
+            st.markdown(f"<div style='font-size:0.75rem;color:#6B6280;font-style:italic;margin:2px 0 6px'><b style='color:#3D3458'>Routing:</b> {rationale}</div>", unsafe_allow_html=True)
+        else:
+            with st.expander("Model Routing Rationale", expanded=expanded):
+                st.markdown(f"<div style='color:#6B6280;font-size:0.85rem;font-style:italic'>{rationale}</div>", unsafe_allow_html=True)
 
-def render_agent_output(result, show_structured=True):
-    """Full agent result renderer: meta strip + markdown output."""
+def render_agent_output(result, show_structured=True, nested=False):
+    """Full agent result renderer: meta strip + markdown output.
+
+    Set nested=True when rendered inside an st.expander to avoid nesting
+    expanders (which Streamlit disallows).
+    """
     if "error" in result:
         st.error(f"Agent error: {result['error']}")
         return
 
-    render_model_meta(result)
+    render_model_meta(result, nested=nested)
     st.markdown("---")
 
-    # Structured output panel (collapsible)
+    # Structured output panel
     if show_structured and result.get("structured"):
-        with st.expander("📊 Structured Output (parsed)", expanded=False):
-            st.json(result["structured"])
+        if nested:
+            st.json(result["structured"], expanded=False)
+        else:
+            with st.expander("Structured Output (parsed)", expanded=False):
+                st.json(result["structured"])
 
     st.markdown(result.get("output_text",""), unsafe_allow_html=False)
     ts = result.get("created_at","")[:16].replace("T"," ")
     st.caption(f"Generated {ts} UTC · Run ID #{result.get('run_id','?')} · {result.get('agent_name','?')}")
+
+
+def page_header(title, subtitle=""):
+    sub = f"<div style='color:#6B6280;font-size:0.82rem;margin-bottom:14px'>{subtitle}</div>" if subtitle else "<div style='margin-bottom:8px'></div>"
+    st.markdown(f"<h1 style='margin-bottom:2px'>{title}</h1>{sub}", unsafe_allow_html=True)
 
 
 _export_counter = [0]
@@ -591,7 +603,7 @@ def show_agent_guide():
 
     for a in AGENTS:
         st.markdown(f"""
-        <div style="background:#FFFFFF;border:1px solid #EDE8F2;border-radius:10px;padding:14px 16px;margin-bottom:10px;box-shadow:0 1px 4px rgba(27,16,64,0.05)">
+        <div style="background:#FFFFFF;border:1px solid #E8E4DC;border-radius:10px;padding:14px 16px;margin-bottom:10px;box-shadow:0 1px 4px rgba(27,16,64,0.05)">
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
                 <span style="font-size:1.2rem">{a['icon']}</span>
                 <span style="font-size:0.95rem;font-weight:700;color:#1B1040">{a['name']}</span>
@@ -636,8 +648,7 @@ st.markdown("""
 # ══════════════════════════════════════════════════════════════════════════════
 
 if page == "Portfolio Dashboard":
-    st.markdown("<h1 style='margin-bottom:2px'>Portfolio Dashboard</h1>", unsafe_allow_html=True)
-    st.markdown("<div style='color:#6B6280;font-size:0.88rem;margin-bottom:20px'>Real-time view of all 25 enterprise customers</div>", unsafe_allow_html=True)
+    page_header("Portfolio Dashboard", "Real-time view of all 25 enterprise customers")
 
     summary   = fetch_summary()
     customers = fetch_customers()
@@ -750,7 +761,7 @@ if page == "Portfolio Dashboard":
 # ══════════════════════════════════════════════════════════════════════════════
 
 elif page == "Customer 360":
-    st.markdown("# Customer 360")
+    page_header("Customer 360")
     customers = fetch_customers()
     if not customers:
         st.error("No customers loaded.")
@@ -969,7 +980,7 @@ elif page == "Customer 360":
         eng_icons = {"High":"🟢","Medium":"🟡","Low":"🔴","None":"⚫"}
         for s in stk:
             rc = role_colors.get(s["role"],"#6B6280")
-            rb = role_bg.get(s["role"],"#F8F5FF")
+            rb = role_bg.get(s["role"],"#EAE6E0")
             ei = eng_icons.get(s.get("engagement_level",""),"?")
             st.markdown(f"""<div class="card">
                 <div style="display:flex;justify-content:space-between;align-items:flex-start">
@@ -988,13 +999,13 @@ elif page == "Customer 360":
     with tab_notes:
         sent_colors = {"Positive":"#2D5A3D","Neutral":"#6B6280","Negative":"#9B2335"}
         for n in notes:
-            sc = sent_colors.get(n.get("sentiment_signal",""),"#8b949e")
+            sc = sent_colors.get(n.get("sentiment_signal",""),"#6B6280")
             import json as _json
             try:
                 actions = _json.loads(n.get("action_items","[]")) if n.get("action_items") else []
             except Exception:
                 actions = []
-            sent_bg = {"Positive":"#F0FFF4","Neutral":"#F8F6FF","Negative":"#FFF5F5"}.get(n.get('sentiment_signal',''),'#F8F6FF')
+            sent_bg = {"Positive":"#EBF2EE","Neutral":"#EFEBE5","Negative":"#F5ECEC"}.get(n.get('sentiment_signal',''),'#EFEBE5')
             st.markdown(f"""<div class="card">
                 <div style="display:flex;justify-content:space-between;align-items:center">
                     <span style="color:#6B6280;font-size:0.75rem">{n['date'][:10]} · <b style="color:#3D3458">{n.get('meeting_type','?')}</b></span>
@@ -1015,12 +1026,12 @@ elif page == "Customer 360":
             with r4: st.metric("Expansion Opp.", f"${renewal.get('expansion_arr',0):,}")
 
             st.markdown(f"""<div class="card">
-                <div style="font-size:0.75rem;color:#8b949e;margin-bottom:4px">RENEWAL DETAILS</div>
+                <div style="font-size:0.75rem;color:#6B6280;margin-bottom:4px">RENEWAL DETAILS</div>
                 <div>Forecast: <b style="color:{rc_color}">{renewal.get('forecast_category','?')}</b></div>
                 <div style="margin-top:4px">Risk Score: <b style="color:{rc_color}">{c.get('renewal_risk_score',0):.0%}</b></div>
                 <div style="margin-top:4px">Commercial Note: {renewal.get('commercial_terms_note','?')}</div>
-                <div style="margin-top:4px;color:#8b949e">Procurement Contact: {renewal.get('procurement_contact','?')}</div>
-                <div style="color:#8b949e">Exec Involvement Required: {'✅ Yes' if renewal.get('requires_exec_involvement') else 'No'}</div>
+                <div style="margin-top:4px;color:#6B6280">Procurement Contact: {renewal.get('procurement_contact','?')}</div>
+                <div style="color:#6B6280">Exec Involvement Required: {'✅ Yes' if renewal.get('requires_exec_involvement') else 'No'}</div>
             </div>""", unsafe_allow_html=True)
 
             if st.button("📋 Generate CEO Briefing for Renewal", type="primary"):
@@ -1037,8 +1048,7 @@ elif page == "Customer 360":
 # ══════════════════════════════════════════════════════════════════════════════
 
 elif page == "Agent Console":
-    st.markdown("# Agent Console")
-    st.caption("Run any agent, inspect model routing rationale, cost, and structured output in real time.")
+    page_header("Agent Console", "Run any agent, inspect model routing rationale, cost, and structured output in real time.")
 
     customers = fetch_customers()
     cmap = {c["id"]: c for c in customers}
@@ -1097,9 +1107,8 @@ elif page == "Agent Console":
                 export_button(r["output_text"],
                               f"{selected_agent}_{datetime.now().strftime('%Y%m%d_%H%M')}.md")
         else:
-            st.markdown("""<div style="border:2px dashed #DDD6EC;border-radius:16px;padding:60px;text-align:center;background:#FDFBFF">
-                <div style="font-size:2.5rem">🤖</div>
-                <div style="margin-top:10px;font-size:0.95rem;font-weight:600;color:#1B1040">Configure an agent and click Run</div>
+            st.markdown("""<div style="border:2px dashed #D8D3C8;border-radius:14px;padding:48px;text-align:center;background:#FFFFFF">
+                <div style="font-size:0.95rem;font-weight:600;color:#1B1040">Configure an agent and click Run</div>
                 <div style="margin-top:4px;font-size:0.80rem;color:#6B6280">Model routing rationale, cost, and confidence will appear here</div>
             </div>""", unsafe_allow_html=True)
 
@@ -1109,7 +1118,7 @@ elif page == "Agent Console":
 # ══════════════════════════════════════════════════════════════════════════════
 
 elif page == "Briefings":
-    st.markdown("# Briefings")
+    page_header("Briefings")
     customers = fetch_customers()
     cmap = {c["id"]: c for c in customers}
 
@@ -1203,8 +1212,7 @@ elif page == "Briefings":
 # ══════════════════════════════════════════════════════════════════════════════
 
 elif page == "Implementation Digest":
-    st.markdown("# Implementation Digest")
-    st.caption("Weekly implementation health across all active projects — powered by ImplementationAgent (Sonnet)")
+    page_header("Implementation Digest", "Weekly implementation health across all active projects — powered by ImplementationAgent (Sonnet)")
 
     if st.button("🔧 Run Weekly Implementation Digest", use_container_width=False, type="primary"):
         with st.spinner("Running ImplementationAgent on all active projects (Sonnet)..."):
@@ -1232,10 +1240,10 @@ elif page == "Implementation Digest":
             with c4: st.metric("Cost", f"${digest.get('total_cost_usd',0):.4f}")
 
             st.markdown("---")
-            st.markdown("**Project Status Overview** — sorted by launch confidence risk")
+            st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Project Status Overview <span style=\"font-weight:400\">— sorted by launch confidence risk</span></div>", unsafe_allow_html=True)
 
             for r in sorted(results, key=lambda x: conf_order.get(x["launch_confidence"], 2)):
-                cc = conf_colors.get(r["launch_confidence"], "#fff")
+                cc = conf_colors.get(r["launch_confidence"], "#1B1040")
                 blockers_html = "".join(
                     f"<div style='font-size:0.78rem;color:#7A5C1E;margin-top:2px'>⚠️ {b[:80]}</div>"
                     for b in r.get("active_blockers", [])
@@ -1248,18 +1256,17 @@ elif page == "Implementation Digest":
                     with col_a:
                         st.markdown(f"<div class='card'><div class='kpi-label'>Launch Confidence</div>"
                                     f"<div style='color:{cc};font-weight:800;font-size:1.2rem'>{r['launch_confidence']}</div>"
-                                    f"<div style='margin-top:8px;font-size:0.82rem;color:#c9d1d9'>{r.get('recommended_intervention','')[:120]}</div>"
+                                    f"<div style='margin-top:8px;font-size:0.82rem;color:#3D3458'>{r.get('recommended_intervention','')[:120]}</div>"
                                     f"{blockers_html}</div>", unsafe_allow_html=True)
                     with col_b:
                         with st.spinner("Loading full analysis..."):
                             cust_result = call_agent("ImplementationAgent", r["customer_id"])
-                        render_agent_output(cust_result, show_structured=False)
+                        render_agent_output(cust_result, show_structured=False, nested=True)
                         export_button(cust_result.get("output_text",""),
                                       f"Impl_{r['customer_name'].replace(' ','_')}_{datetime.now().strftime('%Y%m%d')}.md")
     else:
-        st.markdown("""<div style="border:2px dashed #DDD6EC;border-radius:16px;padding:40px;text-align:center;background:#FDFBFF">
-            <div style="font-size:2rem">🔧</div>
-            <div style="margin-top:10px;font-size:0.9rem;font-weight:600;color:#1B1040">Click the button above to generate the weekly implementation digest</div>
+        st.markdown("""<div style="border:2px dashed #D8D3C8;border-radius:14px;padding:40px;text-align:center;background:#FFFFFF">
+            <div style="margin-top:2px;font-size:0.9rem;font-weight:600;color:#1B1040">Generate the weekly implementation digest</div>
             <div style="margin-top:4px;font-size:0.78rem;color:#6B6280">Runs ImplementationAgent (Sonnet) on all active implementation projects</div>
         </div>""", unsafe_allow_html=True)
 
@@ -1269,7 +1276,7 @@ elif page == "Implementation Digest":
 # ══════════════════════════════════════════════════════════════════════════════
 
 elif page == "Audit Trail & Costs":
-    st.markdown("# Audit Trail & Cost Tracking")
+    page_header("Audit Trail & Cost Tracking")
 
     costs = fetch_costs()
     runs  = fetch_audit(limit=100)
@@ -1294,7 +1301,7 @@ elif page == "Audit Trail & Costs":
             mc1, mc2, mc3, mc4 = st.columns([3, 1, 1, 1])
             with mc1:
                 st.markdown(f"<span style='color:{color};font-weight:700'>{tier.capitalize()}</span> "
-                            f"<span style='color:#8b949e;font-size:0.75rem'>{row.get('model_used','')}</span>",
+                            f"<span style='color:#6B6280;font-size:0.75rem'>{row.get('model_used','')}</span>",
                             unsafe_allow_html=True)
             with mc2: st.metric("Runs", row.get("run_count",0))
             with mc3:
