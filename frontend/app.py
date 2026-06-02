@@ -489,6 +489,9 @@ def export_button(content: str, filename: str, label: str = "⬇️ Export"):
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 
 with st.sidebar:
+    if st.button("About the Agents", use_container_width=True, key="sb_about", type="secondary"):
+        st.session_state["show_agent_guide"] = True
+
     st.markdown("<div style='padding:8px 0 4px'><span style='font-size:1.3rem;font-weight:900;color:#1B1040;letter-spacing:-0.04em'>ONYX</span><span style='font-size:0.65rem;font-weight:700;color:#6B6280;letter-spacing:0.12em;margin-left:8px;vertical-align:middle'>CX AGENT OS</span></div>", unsafe_allow_html=True)
     st.markdown("<div style='font-size:0.72rem;color:#6B6280;margin-bottom:4px'>Executive Demo · AI-Powered Customer OS</div>", unsafe_allow_html=True)
     st.markdown("---")
@@ -530,10 +533,6 @@ with st.sidebar:
         if st.button("🩺 Health Check", use_container_width=True, key="sb_health", type="secondary"):
             st.session_state["quick_run"] = ("CustomerHealthAgent", qcust)
             st.rerun()
-
-    st.markdown("---")
-    if st.button("About the Agents", use_container_width=True, key="sb_about", type="secondary"):
-        st.session_state["show_agent_guide"] = True
 
     st.markdown("<div style='margin-top:8px;font-size:0.68rem;color:#9B93A8'>API · localhost:8000</div>", unsafe_allow_html=True)
 
