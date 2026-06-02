@@ -1,6 +1,6 @@
 """
-Model routing logic. Selects the right Claude model based on task complexity.
-Cost estimates use Anthropic's published per-million-token pricing.
+Model routing logic. Selects the right Claude model based on task type and complexity.
+Cost estimates use Anthropic's published per-million-token pricing (2025).
 """
 
 from dataclasses import dataclass
@@ -9,12 +9,18 @@ from typing import Literal
 ModelTier = Literal["haiku", "sonnet", "opus"]
 
 MODEL_IDS = {
-    "haiku": "claude-haiku-4-5-20251001",
+    "haiku":  "claude-haiku-4-5-20251001",
     "sonnet": "claude-sonnet-4-6",
-    "opus": "claude-opus-4-8",
+    "opus":   "claude-opus-4-8",
 }
 
-# Cost per million tokens (input / output)
+MODEL_DISPLAY = {
+    "haiku":  "Claude Haiku 4.5",
+    "sonnet": "Claude Sonnet 4.6",
+    "opus":   "Claude Opus 4.8",
+}
+
+# Cost per million tokens (input / output) — USD
 MODEL_COSTS = {
     "haiku":  {"input": 0.80,  "output": 4.00},
     "sonnet": {"input": 3.00,  "output": 15.00},
@@ -22,12 +28,42 @@ MODEL_COSTS = {
 }
 
 AGENT_ROUTING = {
-    "CustomerHealthAgent":     ("haiku",  "High-volume scoring and extraction — Haiku is fast and cost-efficient."),
-    "ImplementationAgent":     ("sonnet", "Synthesis of milestone data and planning — Sonnet balances quality and cost."),
-    "BriefingAgent":           ("sonnet", "Executive writing requires nuance and polish — Sonnet is optimal."),
-    "EscalationCommanderAgent":("opus",   "High-stakes escalation judgment needs Opus's reasoning depth."),
-    "SkeptikQAAgent":          ("opus",   "QA critique requires adversarial reasoning — Opus provides the most rigorous review."),
-    "VPChiefOfStaffAgent":     ("sonnet", "Portfolio synthesis and executive review — Sonnet handles breadth well."),
+    "CustomerHealthAgent": (
+        "haiku",
+        "High-volume portfolio scanning and risk scoring. Haiku processes each customer "
+        "snapshot efficiently at a fraction of the cost of larger models. Structured "
+        "extraction and classification tasks are well within Haiku's capabilities."
+    ),
+    "ImplementationAgent": (
+        "sonnet",
+        "Implementation status synthesis requires reading across milestone data, blockers, "
+        "and stakeholder engagement to form a coherent narrative. Sonnet balances reasoning "
+        "quality with cost for this mid-complexity planning task."
+    ),
+    "BriefingAgent": (
+        "sonnet",
+        "Executive briefing and QBR generation demands clear narrative structure, precision "
+        "in business language, and evidence-backed claims. Sonnet produces boardroom-quality "
+        "output efficiently without requiring Opus-level reasoning depth."
+    ),
+    "EscalationCommanderAgent": (
+        "opus",
+        "Critical escalation management requires multi-factor risk assessment, stakeholder "
+        "psychology, recovery planning, and executive communication drafting simultaneously. "
+        "Opus's extended reasoning and judgment capacity is justified by the ARR at stake."
+    ),
+    "SkeptikQAAgent": (
+        "opus",
+        "Adversarial review of agent outputs requires the model to actively resist agreeing "
+        "with prior conclusions, identify logical gaps, and surface alternative explanations. "
+        "Opus's strongest reasoning layer is required to challenge Sonnet-class outputs effectively."
+    ),
+    "VPChiefOfStaffAgent": (
+        "opus",
+        "Portfolio-wide weekly review synthesis requires integrating outputs from five agent "
+        "types, forming cross-cutting executive recommendations, and producing C-suite-grade "
+        "narrative under uncertainty. Opus is selected for judgment depth and synthesis quality."
+    ),
 }
 
 
@@ -35,6 +71,7 @@ AGENT_ROUTING = {
 class RoutingDecision:
     model_tier: ModelTier
     model_id: str
+    model_display: str
     rationale: str
 
     def estimate_cost(self, input_tokens: int, output_tokens: int) -> float:
@@ -43,5 +80,12 @@ class RoutingDecision:
 
 
 def route(agent_name: str) -> RoutingDecision:
-    tier, rationale = AGENT_ROUTING.get(agent_name, ("sonnet", "Default to Sonnet for balanced performance."))
-    return RoutingDecision(model_tier=tier, model_id=MODEL_IDS[tier], rationale=rationale)
+    tier, rationale = AGENT_ROUTING.get(
+        agent_name, ("sonnet", "Default to Sonnet for balanced performance and quality.")
+    )
+    return RoutingDecision(
+        model_tier=tier,
+        model_id=MODEL_IDS[tier],
+        model_display=MODEL_DISPLAY[tier],
+        rationale=rationale,
+    )

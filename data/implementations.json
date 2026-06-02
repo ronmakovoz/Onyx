@@ -13,28 +13,28 @@
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-10-05T17:03:20",
+        "completed_at": "2025-10-05T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-10-16T17:03:20",
+        "completed_at": "2025-10-16T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-10-26T17:03:20",
+        "completed_at": "2025-10-26T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
         "status": "Complete",
-        "completed_at": "2025-11-03T17:03:20",
+        "completed_at": "2025-11-03T17:18:43",
         "blocker": null
       },
       {
@@ -109,63 +109,63 @@
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-08-11T17:03:20",
+        "completed_at": "2025-08-11T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-08-18T17:03:20",
+        "completed_at": "2025-08-18T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-08-31T17:03:20",
+        "completed_at": "2025-08-31T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
         "status": "Complete",
-        "completed_at": "2025-09-07T17:03:20",
+        "completed_at": "2025-09-07T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Initial Data Ingestion",
         "planned_days_from_start": 42,
         "status": "Complete",
-        "completed_at": "2025-09-18T17:03:20",
+        "completed_at": "2025-09-18T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Pilot Group Onboarding (25 users)",
         "planned_days_from_start": 56,
         "status": "Complete",
-        "completed_at": "2025-09-30T17:03:20",
+        "completed_at": "2025-09-30T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Detection Policy Configuration",
         "planned_days_from_start": 63,
         "status": "Complete",
-        "completed_at": "2025-10-12T17:03:20",
+        "completed_at": "2025-10-12T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Integration Testing & QA",
         "planned_days_from_start": 77,
         "status": "Complete",
-        "completed_at": "2025-10-23T17:03:20",
+        "completed_at": "2025-10-23T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Security Review Sign-off",
         "planned_days_from_start": 84,
         "status": "Complete",
-        "completed_at": "2025-10-29T17:03:20",
+        "completed_at": "2025-10-29T17:18:43",
         "blocker": null
       },
       {
@@ -205,28 +205,28 @@
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-09-15T17:03:20",
+        "completed_at": "2025-09-15T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-09-27T17:03:20",
+        "completed_at": "2025-09-27T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-10-03T17:03:20",
+        "completed_at": "2025-10-03T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
         "status": "Complete",
-        "completed_at": "2025-10-16T17:03:20",
+        "completed_at": "2025-10-16T17:18:43",
         "blocker": null
       },
       {
@@ -301,56 +301,56 @@
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-08-29T17:03:20",
+        "completed_at": "2025-08-29T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-09-02T17:03:20",
+        "completed_at": "2025-09-02T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-09-14T17:03:20",
+        "completed_at": "2025-09-14T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
         "status": "Complete",
-        "completed_at": "2025-09-25T17:03:20",
+        "completed_at": "2025-09-25T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Initial Data Ingestion",
         "planned_days_from_start": 42,
         "status": "Complete",
-        "completed_at": "2025-10-05T17:03:20",
+        "completed_at": "2025-10-05T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Pilot Group Onboarding (25 users)",
         "planned_days_from_start": 56,
         "status": "Complete",
-        "completed_at": "2025-10-14T17:03:20",
+        "completed_at": "2025-10-14T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Detection Policy Configuration",
         "planned_days_from_start": 63,
         "status": "Complete",
-        "completed_at": "2025-10-22T17:03:20",
+        "completed_at": "2025-10-22T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Integration Testing & QA",
         "planned_days_from_start": 77,
         "status": "Complete",
-        "completed_at": "2025-11-10T17:03:20",
+        "completed_at": "2025-11-10T17:18:43",
         "blocker": null
       },
       {
@@ -397,35 +397,35 @@
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-09-25T17:03:20",
+        "completed_at": "2025-09-25T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-09-29T17:03:20",
+        "completed_at": "2025-09-29T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-10-07T17:03:20",
+        "completed_at": "2025-10-07T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
         "status": "Complete",
-        "completed_at": "2025-10-27T17:03:20",
+        "completed_at": "2025-10-27T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Initial Data Ingestion",
         "planned_days_from_start": 42,
         "status": "Complete",
-        "completed_at": "2025-11-03T17:03:20",
+        "completed_at": "2025-11-03T17:18:43",
         "blocker": null
       },
       {
@@ -493,35 +493,35 @@
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-09-25T17:03:20",
+        "completed_at": "2025-09-25T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-10-04T17:03:20",
+        "completed_at": "2025-10-04T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-10-14T17:03:20",
+        "completed_at": "2025-10-14T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
         "status": "Complete",
-        "completed_at": "2025-10-27T17:03:20",
+        "completed_at": "2025-10-27T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Initial Data Ingestion",
         "planned_days_from_start": 42,
         "status": "Complete",
-        "completed_at": "2025-10-30T17:03:20",
+        "completed_at": "2025-10-30T17:18:43",
         "blocker": null
       },
       {
@@ -589,63 +589,63 @@
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-08-15T17:03:20",
+        "completed_at": "2025-08-15T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-08-25T17:03:20",
+        "completed_at": "2025-08-25T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-08-27T17:03:20",
+        "completed_at": "2025-08-27T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
         "status": "Complete",
-        "completed_at": "2025-09-12T17:03:20",
+        "completed_at": "2025-09-12T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Initial Data Ingestion",
         "planned_days_from_start": 42,
         "status": "Complete",
-        "completed_at": "2025-09-16T17:03:20",
+        "completed_at": "2025-09-16T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Pilot Group Onboarding (25 users)",
         "planned_days_from_start": 56,
         "status": "Complete",
-        "completed_at": "2025-09-28T17:03:20",
+        "completed_at": "2025-09-28T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Detection Policy Configuration",
         "planned_days_from_start": 63,
         "status": "Complete",
-        "completed_at": "2025-10-08T17:03:20",
+        "completed_at": "2025-10-08T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Integration Testing & QA",
         "planned_days_from_start": 77,
         "status": "Complete",
-        "completed_at": "2025-10-19T17:03:20",
+        "completed_at": "2025-10-19T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Security Review Sign-off",
         "planned_days_from_start": 84,
         "status": "Complete",
-        "completed_at": "2025-11-02T17:03:20",
+        "completed_at": "2025-11-02T17:18:43",
         "blocker": null
       },
       {
@@ -685,7 +685,7 @@
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-10-04T17:03:20",
+        "completed_at": "2025-10-04T17:18:43",
         "blocker": null
       },
       {
@@ -781,42 +781,42 @@
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-09-03T17:03:20",
+        "completed_at": "2025-09-03T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-09-06T17:03:20",
+        "completed_at": "2025-09-06T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-09-13T17:03:20",
+        "completed_at": "2025-09-13T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
         "status": "Complete",
-        "completed_at": "2025-10-01T17:03:20",
+        "completed_at": "2025-10-01T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Initial Data Ingestion",
         "planned_days_from_start": 42,
         "status": "Complete",
-        "completed_at": "2025-10-01T17:03:20",
+        "completed_at": "2025-10-01T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Pilot Group Onboarding (25 users)",
         "planned_days_from_start": 56,
         "status": "Complete",
-        "completed_at": "2025-10-21T17:03:20",
+        "completed_at": "2025-10-21T17:18:43",
         "blocker": null
       },
       {
@@ -877,49 +877,49 @@
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-08-27T17:03:20",
+        "completed_at": "2025-08-27T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-09-07T17:03:20",
+        "completed_at": "2025-09-07T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-09-09T17:03:20",
+        "completed_at": "2025-09-09T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
         "status": "Complete",
-        "completed_at": "2025-09-28T17:03:20",
+        "completed_at": "2025-09-28T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Initial Data Ingestion",
         "planned_days_from_start": 42,
         "status": "Complete",
-        "completed_at": "2025-10-06T17:03:20",
+        "completed_at": "2025-10-06T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Pilot Group Onboarding (25 users)",
         "planned_days_from_start": 56,
         "status": "Complete",
-        "completed_at": "2025-10-20T17:03:20",
+        "completed_at": "2025-10-20T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Detection Policy Configuration",
         "planned_days_from_start": 63,
         "status": "Complete",
-        "completed_at": "2025-10-22T17:03:20",
+        "completed_at": "2025-10-22T17:18:43",
         "blocker": null
       },
       {
@@ -973,7 +973,7 @@
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-09-23T17:03:20",
+        "completed_at": "2025-09-23T17:18:43",
         "blocker": null
       },
       {
@@ -1069,70 +1069,70 @@
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-08-10T17:03:20",
+        "completed_at": "2025-08-10T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-08-22T17:03:20",
+        "completed_at": "2025-08-22T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-08-25T17:03:20",
+        "completed_at": "2025-08-25T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
         "status": "Complete",
-        "completed_at": "2025-09-11T17:03:20",
+        "completed_at": "2025-09-11T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Initial Data Ingestion",
         "planned_days_from_start": 42,
         "status": "Complete",
-        "completed_at": "2025-09-21T17:03:20",
+        "completed_at": "2025-09-21T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Pilot Group Onboarding (25 users)",
         "planned_days_from_start": 56,
         "status": "Complete",
-        "completed_at": "2025-10-04T17:03:20",
+        "completed_at": "2025-10-04T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Detection Policy Configuration",
         "planned_days_from_start": 63,
         "status": "Complete",
-        "completed_at": "2025-10-13T17:03:20",
+        "completed_at": "2025-10-13T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Integration Testing & QA",
         "planned_days_from_start": 77,
         "status": "Complete",
-        "completed_at": "2025-10-26T17:03:20",
+        "completed_at": "2025-10-26T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Security Review Sign-off",
         "planned_days_from_start": 84,
         "status": "Complete",
-        "completed_at": "2025-11-02T17:03:20",
+        "completed_at": "2025-11-02T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Full Production Rollout",
         "planned_days_from_start": 98,
         "status": "Complete",
-        "completed_at": "2025-11-12T17:03:20",
+        "completed_at": "2025-11-12T17:18:43",
         "blocker": null
       },
       {
@@ -1165,49 +1165,49 @@
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-08-29T17:03:20",
+        "completed_at": "2025-08-29T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-09-09T17:03:20",
+        "completed_at": "2025-09-09T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-09-12T17:03:20",
+        "completed_at": "2025-09-12T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
         "status": "Complete",
-        "completed_at": "2025-09-28T17:03:20",
+        "completed_at": "2025-09-28T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Initial Data Ingestion",
         "planned_days_from_start": 42,
         "status": "Complete",
-        "completed_at": "2025-10-02T17:03:20",
+        "completed_at": "2025-10-02T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Pilot Group Onboarding (25 users)",
         "planned_days_from_start": 56,
         "status": "Complete",
-        "completed_at": "2025-10-21T17:03:20",
+        "completed_at": "2025-10-21T17:18:43",
         "blocker": null
       },
       {
         "milestone_name": "Detection Policy Configuration",
         "planned_days_from_start": 63,
         "status": "Complete",
-        "completed_at": "2025-10-28T17:03:20",
+        "completed_at": "2025-10-28T17:18:43",
         "blocker": null
       },
       {

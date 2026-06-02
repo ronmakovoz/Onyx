@@ -1,14 +1,14 @@
 """
-Base agent class. All agents inherit from this.
-Handles Claude API calls, mock mode, cost tracking, and audit logging.
+Base agent class. All six CX agents inherit from this.
+Handles: Claude API calls, mock mode fallback, cost tracking, structured output parsing.
 """
 
 import os
 import json
 import random
 from datetime import datetime
-from dataclasses import dataclass
-from typing import Optional
+from dataclasses import dataclass, asdict
+from typing import Optional, Any
 
 from agents.model_router import route, RoutingDecision
 
@@ -18,201 +18,420 @@ class AgentResult:
     agent_name: str
     customer_id: Optional[int]
     model_used: str
+    model_display: str
     model_rationale: str
     input_tokens: int
     output_tokens: int
     estimated_cost_usd: float
     confidence_score: float
-    output_text: str
+    output_text: str           # full markdown output
+    structured: Optional[Any]  # typed output dataclass
     created_at: str
     is_mock: bool = False
 
+    def to_dict(self):
+        d = {k: v for k, v in self.__dict__.items() if k != "structured"}
+        if self.structured:
+            try:
+                d["structured"] = asdict(self.structured)
+            except Exception:
+                d["structured"] = str(self.structured)
+        return d
+
 
 def _call_claude(model_id: str, system: str, user: str) -> tuple[str, int, int]:
-    """Returns (text, input_tokens, output_tokens)."""
+    """Returns (response_text, input_tokens, output_tokens)."""
     import anthropic
     client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
     msg = client.messages.create(
         model=model_id,
-        max_tokens=2048,
+        max_tokens=3000,
         system=system,
         messages=[{"role": "user", "content": user}],
     )
     return msg.content[0].text, msg.usage.input_tokens, msg.usage.output_tokens
 
 
-def _mock_response(agent_name: str, context: dict) -> tuple[str, int, int]:
-    """Returns realistic-looking mock output when no API key is set."""
-    customer_name = context.get("customer_name", "the customer")
-    mock_outputs = {
-        "CustomerHealthAgent": f"""## Health Assessment: {customer_name}
+# ── Mock outputs ──────────────────────────────────────────────────────────────
 
-**Overall Health Score:** {context.get('health_score', 'N/A')}/100
-**Risk Level:** {context.get('risk_label', 'Unknown')}
+def _mock_health(ctx):
+    name = ctx.get("customer_name", "Customer")
+    hs   = ctx.get("health_score", 55)
+    risk = ctx.get("risk_label", ctx.get("risk_level", "Medium"))
+    color = "🔴" if risk == "High" else "🟡" if risk == "Medium" else "🟢"
+    return f"""## Customer Health Assessment — {name}
+{color} **Risk Level: {risk}** · Health Score: **{hs}/100** · Trend: {ctx.get('health_trend','Unknown')}
 
-### Key Risk Signals
-- Adoption score trending below industry benchmark (adoption: {context.get('adoption_score', 'N/A')})
-- Champion engagement: {context.get('champion_status', 'Unknown')}
-- Open escalations require immediate attention
-- Renewal in {context.get('renewal_days', '?')} days with current sentiment: {context.get('sentiment', 'Unknown')}
+---
 
-### Recommended Actions
-1. Schedule executive sponsor call within 5 business days
-2. Assign dedicated CSM for weekly touchpoints
-3. Escalate open P1 tickets to engineering leadership
-4. Prepare ROI report to justify renewal conversation
+### Top Risk Drivers
+1. **{ctx.get('primary_risk_reason', 'Multiple converging risk signals detected')}**
+2. Champion status: **{ctx.get('champion_status','Unknown')}** — relationship continuity at risk
+3. Adoption score **{ctx.get('adoption_score',0)}/100** — below threshold for renewal confidence
+4. {ctx.get('open_tickets',0)} open support tickets ({ctx.get('open_escalations',0)} escalations active)
+5. Renewal in **{ctx.get('renewal_days','?')} days** with current renewal risk score **{ctx.get('renewal_risk',0):.0%}**
 
-**Confidence:** High — based on 90 days of engagement signals""",
+### Positive Signals
+- Industry: {ctx.get('industry','?')} — strong strategic fit for Onyx's core use case
+- Security review status: {ctx.get('security_review_status','?')}
+- CSM: {ctx.get('csm_owner','assigned')} is actively engaged
 
-        "ImplementationAgent": f"""## Implementation Status: {customer_name}
+### Early Warning Signals
+⚠️ Sentiment trending **{ctx.get('sentiment','Neutral')}** across last 3 meeting notes
+⚠️ Adoption score gap: {max(0, 65 - ctx.get('adoption_score',0))} points below renewal-safe threshold
+⚠️ Implementation status: **{ctx.get('impl_status','Unknown')}** — {ctx.get('days_behind',0)} days behind
 
-**Status:** {context.get('onboarding_status', 'Unknown')}
-**Completion:** {context.get('impl_progress', '?')}% of milestones complete
+### Recommended Next Actions
+1. **[URGENT]** Schedule VP-level alignment call within 5 business days — {ctx.get('recommended_next_action','')}
+2. Assign dedicated implementation engineer to unblock {ctx.get('impl_status','stalled')} milestones
+3. Prepare evidence-based ROI report for renewal conversation
+4. Map new champion candidate — current champion status: {ctx.get('champion_status','?')}
+5. Escalate open P1 tickets to engineering leadership with SLA commitment
 
-### Completed Milestones
-- Kickoff & scoping ✓
-- Technical discovery ✓
-- Environment provisioning ✓
+### Confidence Assessment
+**Confidence: {ctx.get('_conf',0.75):.0%}** — Based on {ctx.get('open_tickets',0)} tickets, \
+{ctx.get('open_escalations',0)} escalations, and {ctx.get('renewal_days','?')} days to renewal.
+Signal quality: {'High' if ctx.get('open_tickets',0) > 2 else 'Medium'} — \
+{'multiple corroborating data points' if ctx.get('open_escalations',0) > 0 else 'limited escalation history reduces certainty'}"""
 
-### In Progress
-- SSO / IdP integration — blocked on customer IT access
-- Policy configuration — 60% complete
 
-### Blockers
-1. **IT Access Delay** — Customer IT team hasn't provisioned service account (14 days outstanding)
-2. **Scope Creep** — 3 new use cases added post-kickoff, not in original SOW
+def _mock_implementation(ctx):
+    name    = ctx.get("customer_name", "Customer")
+    pct     = ctx.get("impl_progress", 50)
+    status  = ctx.get("impl_status", "In Progress")
+    behind  = ctx.get("days_behind", 0)
+    conf    = "Low" if behind > 30 else "Medium" if behind > 7 else "High"
+    primary = ctx.get("primary_risk_reason", "No major blockers")
+    impl_owner = ctx.get("implementation_owner", "Impl Manager")
+    csm     = ctx.get("csm_owner", "CSM")
+    sec_rev = ctx.get("security_review_status", "Unknown")
+    champ   = ctx.get("champion_status", "Active")
+    milestones_txt = ctx.get("milestones", "- Kickoff & Scoping\n- Technical Discovery")
 
-### Recommended Next Steps
-- Escalate IT blocker to {context.get('champion_name', 'champion')} by EOD Friday
-- Schedule SOW amendment discussion with account executive
-- Project completion re-forecast: +3 weeks from original go-live""",
+    schedule_note = f"⚠️ {behind} days behind schedule" if behind > 0 else "✅ On schedule"
+    conf_note = ("Risk factors present: scope creep, stakeholder availability, and technical blockers are converging."
+                 if conf != "High" else "Project is tracking well. No critical blockers identified.")
+    blocker_1 = (f"1. **{primary}**" if ctx.get("open_escalations", 0) > 0
+                 else "1. Minor configuration items pending customer IT team")
+    golive_note = (f"delay of {behind} days." if behind > 0 else "on original schedule.")
+    exec_note = ("Immediate executive intervention is recommended to avoid further slippage."
+                 if behind > 21 else "Active monitoring and weekly syncs are sufficient.")
+    intervention = ("🚨 **Escalate to VP level** — implementation recovery plan required within 72 hours"
+                    if behind > 30 else "📋 Weekly status report with milestone owner accountability is sufficient")
 
-        "BriefingAgent": f"""# CEO Briefing: {customer_name}
-*Prepared by Onyx CX Agent OS — {datetime.now().strftime('%B %d, %Y')}*
+    return f"""## Implementation Status — {name}
+**Status: {status}** · **{pct}% Complete** · {schedule_note}
+
+---
+
+### Launch Confidence: {conf}
+{conf_note}
+
+### Completed Milestones ✅
+{milestones_txt}
+
+### Active Blockers
+{blocker_1}
+2. Security review: **{sec_rev}** — pathway to sign-off needs owner
+3. Champion {champ} — stakeholder sign-off may be delayed
+
+### Owner Action Plan
+| Action | Owner | Due |
+|--------|-------|-----|
+| Unblock IT service account | {impl_owner} | 48 hours |
+| Security review escalation | {csm} | 72 hours |
+| SOW amendment (if scope changed) | Account Executive | 1 week |
+| Champion replacement identification | {csm} | 1 week |
+
+### Executive Summary
+{name} is currently **{pct}% through implementation** with a projected go-live {golive_note}
+The primary blocker is {primary}. {exec_note}
+
+### Recommended Intervention
+{intervention}"""
+
+
+def _mock_briefing(ctx):
+    name = ctx.get("customer_name", "Customer")
+    arr  = ctx.get("arr", 0)
+    days = ctx.get("renewal_days", "?")
+    hs   = ctx.get("health_score", 55)
+    return f"""# CEO Briefing — {name}
+*Prepared by Onyx CX Agent OS · {datetime.now().strftime('%B %d, %Y')} · Confidential*
 
 ---
 
 ## Situation
-{customer_name} ({context.get('industry', 'Enterprise')}, ${context.get('arr', 0):,} ARR) is approaching renewal in **{context.get('renewal_days', '?')} days** with a health score of **{context.get('health_score', 'N/A')}/100**. The account presents elevated churn risk driven by implementation delays, {context.get('open_tickets', 0)} open support tickets, and a champion who recently {context.get('champion_status', 'changed roles').lower()}.
+{name} ({ctx.get('industry','Enterprise')}, **${arr:,} ARR**) renews in **{days} days**. \
+Health score is **{hs}/100** with a **{ctx.get('health_trend','Declining')}** trend. \
+The account has **{ctx.get('open_escalations',0)} active escalations** and \
+**{ctx.get('open_tickets',0)} open support tickets**. \
+Champion is **{ctx.get('champion_status','Unknown')}**. \
+Sentiment across recent meetings is **{ctx.get('sentiment','Neutral')}**.
 
 ## Business Risk
-The ARR at risk is **${context.get('arr', 0):,}**. Intelligence gathered over the last 90 days indicates declining platform adoption, executive disengagement, and a competitor POC currently underway. If the renewal is lost, this represents a significant reduction in our {context.get('industry', 'sector')} segment revenue and a referenceable customer.
+**ARR at risk: ${arr:,}.** Renewal probability is estimated at \
+{100 - int(ctx.get('renewal_risk',0.5)*100)}% based on current signals. \
+{ctx.get('primary_risk_reason','Multiple risk factors present.')} \
+A lost renewal in {ctx.get('industry','this sector')} reduces our reference base and creates a \
+competitive precedent. If {name} churns, expect the competitor who ran a POC to publicize it.
 
-## Recommended Executive Actions
-1. **CEO-to-CEO Call** — Request a 30-minute call with their CEO to demonstrate Onyx's executive commitment and hear strategic concerns directly.
-2. **Dedicated SWAT Team** — Assign an implementation engineer and senior CSM exclusively to this account for the next 30 days.
-3. **Commercial Flexibility** — Authorize the AE to offer a 90-day extension with performance SLAs to de-risk the renewal conversation.
+## Business Outcomes Achieved
+- Platform deployed across {ctx.get('adoption_score',0)}% of target user base
+- Security review status: {ctx.get('security_review_status','In Progress')}
+- Implementation: {ctx.get('impl_status','In Progress')} ({ctx.get('impl_progress',0)}% complete)
 
-## What Success Looks Like
-Within 30 days: all P1 tickets resolved, implementation back on track, executive sponsor re-engaged, renewal signed or extended.""",
+## Key Asks
+1. Authorize 90-day contract extension with performance SLA to de-risk renewal
+2. CEO-to-CEO call to demonstrate Onyx's executive commitment
+3. Unblock engineering resources for {ctx.get('open_tickets',0)} open P1/P2 tickets
 
-        "EscalationCommanderAgent": f"""# Escalation War Room: {customer_name}
-*Escalation Commander — {datetime.now().strftime('%B %d, %Y')}*
+## Recommended Executive Action
+**{ctx.get('recommended_next_action','Schedule executive alignment call this week.')}** \
+Assign a dedicated SWAT team (1 senior CSM + 1 implementation engineer) to this account for 30 days. \
+The cost of retention is a fraction of replacement CAC.
+
+## 30 / 60 / 90 Day Plan
+- **30 days:** Resolve all P1 tickets. Re-engage executive sponsor. Deliver ROI report.
+- **60 days:** Implementation complete. New champion identified and onboarded. Renewal terms agreed.
+- **90 days:** Renewal signed. Expansion conversation initiated. Reference call scheduled.
+
+---
+*Evidence base: {ctx.get('open_tickets',0)} tickets · {ctx.get('open_escalations',0)} escalations · \
+{days} days to renewal · health score {hs}/100*"""
+
+
+def _mock_escalation(ctx):
+    name = ctx.get("customer_name", "Customer")
+    arr  = ctx.get("arr", 0)
+    return f"""# Escalation War Room — {name}
+*Escalation Commander · {datetime.now().strftime('%B %d, %Y, %H:%M')} · CONFIDENTIAL*
 
 ---
 
-## Threat Assessment
-**Severity: CRITICAL** | ARR at Risk: ${context.get('arr', 0):,} | Days to Renewal: {context.get('renewal_days', '?')}
+## 🚨 Severity: CRITICAL
+**ARR at Risk: ${arr:,}** · Days to Renewal: {ctx.get('renewal_days','?')} · Health: {ctx.get('health_score',0)}/100
 
-This account is in active churn risk. Multiple converging failure signals demand immediate coordinated response across CS, Engineering, and Executive teams.
+## Situation Summary
+{name} is in active churn risk. {ctx.get('primary_risk_reason','Multiple converging failure signals.')} \
+The account shows {ctx.get('open_escalations',0)} active escalations, \
+{ctx.get('open_tickets',0)} open support tickets, and a champion who is **{ctx.get('champion_status','Unknown')}**. \
+Sentiment is **{ctx.get('sentiment','Negative')}**. Implementation is **{ctx.get('impl_status','Unknown')}**, \
+{ctx.get('days_behind',0)} days behind schedule. This is not a single-issue problem — it is a systemic failure.
 
-## Active Escalations
-{context.get('escalation_summary') or '- Implementation 6 weeks behind schedule'}
+## Likely Root Cause
+Primary: **{ctx.get('primary_risk_reason','Execution gap compounded by relationship breakdown')}**
+Contributing: champion departure removed internal advocacy; implementation delays eroded trust; \
+P1 ticket backlog demonstrates ongoing product reliability concerns.
 
-## Battle Plan
+## Customer Impact
+Customer's security operations are partially dependent on Onyx. Delays and outages are creating \
+measurable operational risk for their team. Their CISO is aware and losing patience. \
+A competitor has already run a POC, suggesting active evaluation is underway.
 
-### Hour 0–24: Stabilize
-- [ ] VP CS to call economic buyer and acknowledge situation directly
-- [ ] Engineering on-call to own all open P1 tickets personally
-- [ ] Pause any non-critical communications to avoid noise
+## Internal Owner Map
+| Role | Owner | Accountability |
+|------|-------|---------------|
+| Executive Sponsor | VP Customer Experience | Own the relationship — call CEO within 24h |
+| Technical Rescue | Engineering Lead | P1 ticket resolution within 48h |
+| Commercial | Account Executive | Renewal terms + flexibility authorization |
+| Implementation | {ctx.get('implementation_owner','Impl Manager')} | Recovery plan within 72h |
+| CSM | {ctx.get('csm_owner','CSM')} | Daily written updates to customer |
 
-### Day 2–7: Demonstrate Progress
-- [ ] Daily written status update from Onyx to customer exec team
-- [ ] Resolve top 2 open tickets with root-cause documentation
-- [ ] Schedule executive alignment call with both CEOs
+## Recovery Plan — Next 48 Hours
+- [ ] VP CX calls economic buyer directly — acknowledge the situation, do not minimize
+- [ ] Engineering on-call owns every open P1 ticket personally — no handoffs
+- [ ] Freeze all non-critical communications to reduce noise
+- [ ] Post internal war room Slack channel — #escalation-{name.lower().replace(' ','-')[:12]}
+- [ ] Brief CEO and CRO — one paragraph, factual, include ARR figure
 
-### Day 7–30: Rebuild Trust
-- [ ] Implementation blitz sprint — assign two additional engineers
-- [ ] Co-create success plan with customer champion
-- [ ] Prepare renewal business case with measured ROI
+## Recovery Plan — Next 2 Weeks
+- [ ] Daily written status update from Onyx PM to customer exec team
+- [ ] Implementation blitz: assign 2 additional engineers for 2-week sprint
+- [ ] Co-create joint success plan with customer — their language, their metrics
+- [ ] Prepare renewal business case with measured ROI evidence
+- [ ] CEO-to-CEO call — topic: strategic partnership, not incident management
 
-## Owner Assignments
-| Action | Owner | Due |
-|--------|-------|-----|
-| Executive sponsor call | VP Customer Experience | 24 hours |
-| P1 ticket resolution | Engineering Lead | 48 hours |
-| Implementation recovery plan | Implementation Manager | 72 hours |
-| Commercial terms discussion | Account Executive | 1 week |
+## Executive Communication Draft
+---
+Subject: Personal note from [VP CX Name] — {name} partnership
 
-## Risk If No Action
-Estimated churn probability: **{round(context.get('renewal_risk', 0.7) * 100)}%**
-Projected impact: Full ARR loss + negative reference potential""",
+[Customer Exec Name],
 
-        "SkeptikQAAgent": f"""## QA Review — Skeptic Analysis
+I'm writing personally because I take your experience with Onyx seriously, and I want to own \
+our performance directly. We have not delivered the implementation quality or support responsiveness \
+you should expect from us.
 
-### What the Previous Agent Got Right
-The assessment correctly identifies {customer_name}'s core risk signals: declining adoption, champion instability, and implementation delays. The recommended actions are reasonable and actionable.
+I've assigned our best team to your account, effective today. [Engineering Lead] personally owns \
+your open issues. [Impl Manager] has a recovery plan ready to share in the next 24 hours.
 
-### What I'd Push Back On
-1. **Confidence may be overstated.** We have only {random.randint(3,8)} data points on sentiment — not enough for high-confidence trend analysis. I'd rate confidence as *Medium*, not High.
-2. **Missing competitive context.** The briefing doesn't acknowledge the competitor POC. This is material and the CEO needs to know it explicitly.
-3. **Timeline is optimistic.** Resolving P1 tickets in 48 hours assumes Engineering availability. Current sprint is full — this needs explicit resource allocation.
-4. **Champion 'left the company' ≠ dead account.** We should identify who replaced them and whether they're warm or cold. The new contact may actually be a better champion.
+I'd like 30 minutes with you this week. Not to explain — to listen, and to commit to specific \
+outcomes with dates attached.
 
-### Revised Confidence Score: 0.71
+You have my direct line. I'll follow up within the hour.
 
-### Suggested Additions
-- Add competitive displacement risk explicitly
-- Clarify engineering resource plan before committing to 48-hour SLA
-- Map new stakeholder as potential champion or detractor""",
+[VP CX Name]
+---
 
-        "VPChiefOfStaffAgent": f"""# Weekly VP CX Review
-*Week of {datetime.now().strftime('%B %d, %Y')} — Onyx Security*
+## Recommended Next Step (Do This First)
+**{ctx.get('recommended_next_action','Schedule VP-to-VP call within 24 hours.')}** \
+Without executive re-engagement, technical fixes alone will not save this renewal."""
+
+
+def _mock_skeptik(ctx):
+    prior = ctx.get("prior_agent", "Unknown Agent")
+    orig_conf = ctx.get("prior_confidence", 0.80)
+    revised_conf = max(0.45, orig_conf - random.uniform(0.08, 0.22))
+    return f"""## Skeptik QA Review — {prior} Output
+*Adversarial review by Skeptik QA Agent · {datetime.now().strftime('%B %d, %Y')}*
+
+---
+
+### Verdict: ⚠️ Approve with Edits
+**Original confidence:** {orig_conf:.0%} → **Revised confidence: {revised_conf:.0%}**
+
+---
+
+### Unsupported Claims
+1. The output asserts a specific churn probability without disclosing the model or data inputs used. \
+Confidence percentages need explicit evidence backing in an executive document.
+2. The "business outcomes achieved" section claims value delivery without citing specific metrics \
+or comparing against baseline. This is assertion, not evidence.
+3. Root cause analysis presents one explanation as definitive. The data supports at least two \
+competing hypotheses — this should be flagged to the reader.
+
+### Missing Evidence
+- No comparison to cohort benchmarks (what does a healthy {ctx.get('industry','comparable')} customer look like?)
+- Champion departure date not specified — material to understanding relationship gap duration
+- No mention of competitive intelligence quality (is the POC rumor or confirmed?)
+- Implementation delay attribution not established — customer-side vs Onyx-side blocker?
+
+### Overconfident Conclusions
+- "Full ARR loss + negative reference potential" is presented as certain. It is one scenario, \
+not the only scenario. A partial renewal or pause is equally plausible.
+- The 30/60/90-day plan assumes resource availability that has not been verified with Engineering.
+- "CEO-to-CEO call" is recommended without knowing whether the customer CEO is engaged or whether \
+this would escalate rather than de-escalate tension.
+
+### Alternative Explanations
+1. The customer may be using renewal pressure as a negotiating tactic, not genuinely at churn risk
+2. Champion departure may have opened a path to a more senior and better-aligned sponsor
+3. Low adoption could reflect a scope mismatch rather than product dissatisfaction
+
+### Recommended Edits
+1. Replace all confidence percentages with ranges and cite data sources explicitly
+2. Add a "What we don't know" section — executives need to see uncertainty acknowledged
+3. Reframe 30/60/90 plan as "if resources are allocated" not as fait accompli
+4. Add competitive context: is the POC confirmed? What product gap did they name?
+5. Remove the phrase "fraction of replacement CAC" — it's unquantified and sounds like sales talk
+
+---
+*Skeptik note: This output is usable with edits. The core risk diagnosis is directionally correct \
+but the confidence is overstated given data gaps. Do not share the current version with the CEO.*"""
+
+
+def _mock_vpcos(ctx):
+    today = datetime.now().strftime("%B %d, %Y")
+    total = ctx.get("total_arr", 0)
+    at_risk = ctx.get("arr_at_risk", 0)
+    return f"""# Weekly VP CX Operating Review
+*Chief of Staff Agent · Week Ending {today} · Onyx Security — INTERNAL*
 
 ---
 
 ## Portfolio Health Summary
-| Status | Count | ARR |
-|--------|-------|-----|
-| 🔴 Critical | {context.get('critical_count', 3)} | ${context.get('critical_arr', 0):,} |
-| 🟡 At Risk | {context.get('at_risk_count', 7)} | ${context.get('at_risk_arr', 0):,} |
-| 🟢 Healthy | {context.get('healthy_count', 15)} | ${context.get('healthy_arr', 0):,} |
+| Segment | Customers | ARR | Trend |
+|---------|-----------|-----|-------|
+| 🔴 High Risk | {ctx.get('critical_count',0)} | ${ctx.get('critical_arr',0):,} | Declining |
+| 🟡 Medium Risk | {ctx.get('at_risk_count',0)} | ${ctx.get('at_risk_arr',0):,} | Mixed |
+| 🟢 Healthy | {ctx.get('healthy_count',0)} | ${ctx.get('healthy_arr',0):,} | Stable/Improving |
+| **Total** | **{ctx.get('total_customers',0)}** | **${total:,}** | |
 
-**Total Portfolio ARR:** ${context.get('total_arr', 0):,}
-**ARR at Risk (Critical + At Risk):** ${context.get('arr_at_risk', 0):,} ({context.get('risk_pct', '?')}% of portfolio)
+**ARR at Risk (High + Medium):** ${at_risk:,} — {ctx.get('risk_pct',0):.1f}% of portfolio
+
+---
+
+## Top 5 Customer Risks (This Week)
+{ctx.get('top_at_risk','No data')}
 
 ---
 
-## This Week's Critical Actions
-1. **JetStream Airlines** — CEO call required this week. Implementation 6 weeks behind, competitor POC active. Own it personally.
-2. **LuminaCare Medical** — P1 ticket open 7 days. Engineering escalation required. Involves PHI — legal awareness needed.
-3. **RedRock Mining** — Champion left. Identify new contact by EOD Friday. Do not let this go dark.
-
-## Renewal Pipeline (Next 90 Days)
-{context.get('renewal_pipeline', '5 renewals totaling $2.1M ARR due within 90 days. 3 are at-risk.')}
-
-## What's Working
-- ZenithAero Systems: Completed full rollout 2 weeks early. Strong NPS. Expansion conversation started.
-- DataVault Analytics: QBR delivered, champion is a net promoter. Reference call agreed.
-- WestCoast Pharma: GxP compliance milestone hit — significant customer milestone.
-
-## Risks for VP Awareness
-- Engineering backlog: 14 open P1/P2 tickets across the portfolio. Bandwidth constraint emerging.
-- Onboarding velocity: 3 new customers stuck in provisioning > 2 weeks. Process review needed.
-
-## Recommended VP Actions This Week
-1. Personally call JetStream Airlines VP of IT — today
-2. Unblock engineering resources for LuminaCare and Acme
-3. Review commercial flexibility options for 3 at-risk renewals with CFO
-4. Recognize ZenithAero win with the team publicly
+## Top 5 Executive Actions Required
+1. **[VP CX — TODAY]** Personal call to JetStream Airlines economic buyer. \
+Do not delegate. Competitor POC is active. ARR is $670,000.
+2. **[VP CX + CRO — 48h]** Authorize commercial flexibility for 3 high-risk renewals. \
+Combined ARR: $1.56M. Prepare terms options for CFO review.
+3. **[VP Eng — 72h]** Engineering resource allocation for open P1 escalations. \
+21 unresolved P1 tickets across portfolio is unsustainable. Name owners by EOD Wednesday.
+4. **[VP CX — This week]** Identify champion replacements for 3 customers with departed champions. \
+Dark accounts churn silently. This is the highest-probability churn signal in the portfolio.
+5. **[VP Product — This week]** SIEM integration gap is now cited in 2 separate accounts as a churn signal. \
+This needs a roadmap decision, not another "we're evaluating it" response.
 
 ---
-*Generated by VP Chief of Staff Agent | Model: Sonnet | Confidence: 0.88*"""
-    }
 
-    text = mock_outputs.get(agent_name, f"[Mock output for {agent_name} — set ANTHROPIC_API_KEY for real responses]")
-    input_tokens = random.randint(800, 2500)
-    output_tokens = random.randint(400, 1200)
+## Renewals Watchlist (Next 90 Days)
+{ctx.get('renewal_pipeline','No renewal data')}
+
+---
+
+## Implementation Bottlenecks
+- 3 implementations stalled on customer-side IT provisioning delays (> 14 days each)
+- Security review sign-off process is a recurring blocker — recommend creating a Fast Path for low-risk customers
+- Scope creep in 2 active implementations — SOW amendments not initiated — AEs need to act now
+
+## Product Feedback Themes (From Meeting Notes This Week)
+1. **SIEM integration gaps** — mentioned by 2 customers as blocking full value realization
+2. **Alert fatigue** — false positive rate > 40% is being cited in renewal risk conversations
+3. **Report export limitations** — 3 customers requested PDF compliance report improvements
+4. **Mobile app performance** — 2 enterprise accounts with field security teams flagging this
+
+## Support Burden Themes
+- 21 open P1 tickets across the portfolio — concentration in Onboarding-stage customers
+- Webhook and API reliability issues appear in 4 separate accounts — potential systemic issue
+- Average P1 response time this week: estimated 19 hours against 4-hour SLA — Engineering must address
+
+## Cross-Functional Asks
+| Ask | For Team | Owner | Due |
+|-----|----------|-------|-----|
+| SIEM roadmap decision | Product | VP Product | 1 week |
+| P1 ticket SLA enforcement | Engineering | VP Eng | 48 hours |
+| Commercial flexibility approval | Finance | CFO | 72 hours |
+| Fast Path security review process | Legal/Compliance | General Counsel | 2 weeks |
+| Reference customer program launch | Marketing | VP Marketing | 1 month |
+
+---
+
+## CEO-Ready Summary (3 sentences)
+**{ctx.get('risk_pct',0):.0f}% of portfolio ARR (${at_risk:,}) is at active risk this week, \
+concentrated in {ctx.get('critical_count',0)} high-risk accounts requiring immediate executive attention.** \
+The highest-priority actions are a personal VP CX call to JetStream Airlines today and engineering \
+resource allocation for 21 open P1 tickets by Wednesday. \
+Two product gaps — SIEM integration and alert fatigue — are now appearing in renewal risk conversations \
+and require a roadmap decision from Product this week.
+
+---
+*Generated by VP Chief of Staff Agent | Model: Claude Opus 4.8 | {today}*"""
+
+
+MOCK_DISPATCH = {
+    "CustomerHealthAgent":     _mock_health,
+    "ImplementationAgent":     _mock_implementation,
+    "BriefingAgent":           _mock_briefing,
+    "EscalationCommanderAgent":_mock_escalation,
+    "SkeptikQAAgent":          _mock_skeptik,
+    "VPChiefOfStaffAgent":     _mock_vpcos,
+}
+
+
+def _mock_response(agent_name: str, context: dict) -> tuple[str, int, int]:
+    fn = MOCK_DISPATCH.get(agent_name, lambda ctx: f"[Mock output for {agent_name}]")
+    text = fn(context)
+    # Realistic token estimates by model tier
+    from agents.model_router import AGENT_ROUTING
+    tier = AGENT_ROUTING.get(agent_name, ("sonnet",))[0]
+    input_tokens  = {"haiku": random.randint(600,1800), "sonnet": random.randint(900,2500), "opus": random.randint(1200,3500)}[tier]
+    output_tokens = {"haiku": random.randint(300,700),  "sonnet": random.randint(500,1200), "opus": random.randint(800,2000)}[tier]
     return text, input_tokens, output_tokens
 
 
@@ -222,6 +441,10 @@ class BaseAgent:
     def build_prompt(self, context: dict) -> tuple[str, str]:
         raise NotImplementedError
 
+    def parse_structured(self, text: str, context: dict):
+        """Override in subclass to parse structured output from response text."""
+        return None
+
     def run(self, context: dict, customer_id: Optional[int] = None) -> AgentResult:
         routing: RoutingDecision = route(self.name)
         system_prompt, user_prompt = self.build_prompt(context)
@@ -229,6 +452,7 @@ class BaseAgent:
         use_mock = not os.environ.get("ANTHROPIC_API_KEY")
 
         if use_mock:
+            context["_conf"] = self._estimate_confidence(context)
             output_text, input_tokens, output_tokens = _mock_response(self.name, context)
         else:
             try:
@@ -236,32 +460,40 @@ class BaseAgent:
                     routing.model_id, system_prompt, user_prompt
                 )
             except Exception as e:
-                output_text = f"[API Error: {e}]\n\n" + _mock_response(self.name, context)[0]
+                output_text = f"[API Error: {e}]\n\n"
+                output_text += _mock_response(self.name, context)[0]
                 input_tokens, output_tokens = 1000, 500
 
-        cost = routing.estimate_cost(input_tokens, output_tokens)
+        cost       = routing.estimate_cost(input_tokens, output_tokens)
         confidence = self._estimate_confidence(context)
+        structured = self.parse_structured(output_text, context)
 
         return AgentResult(
             agent_name=self.name,
             customer_id=customer_id,
             model_used=routing.model_id,
+            model_display=routing.model_display,
             model_rationale=routing.rationale,
             input_tokens=input_tokens,
             output_tokens=output_tokens,
-            estimated_cost_usd=cost,
+            estimated_cost_usd=round(cost, 6),
             confidence_score=confidence,
             output_text=output_text,
+            structured=structured,
             created_at=datetime.now().isoformat(),
             is_mock=use_mock,
         )
 
     def _estimate_confidence(self, context: dict) -> float:
-        base = 0.85
-        if context.get("health_score", 100) < 40:
-            base -= 0.10
+        score = 0.87
+        if context.get("health_score", 100) < 35:
+            score -= 0.10
         if context.get("champion_status") in ("Left Company", "Disengaged"):
-            base -= 0.08
-        if not context.get("meeting_notes"):
-            base -= 0.05
-        return round(max(0.50, min(0.98, base + random.uniform(-0.05, 0.05))), 2)
+            score -= 0.08
+        if not context.get("meeting_notes") or context.get("meeting_notes") == "No recent meeting notes":
+            score -= 0.06
+        if context.get("open_escalations", 0) > 2:
+            score -= 0.04
+        if context.get("open_tickets", 0) == 0:
+            score -= 0.03  # low data volume
+        return round(max(0.42, min(0.97, score + random.uniform(-0.04, 0.04))), 2)
