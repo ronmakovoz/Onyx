@@ -121,6 +121,8 @@ p, li { color: #4B3F72; font-size: 0.85rem; margin: 0; }
     color: #FFFFFF !important;
     box-shadow: 0 1px 6px rgba(27,16,64,0.22) !important;
 }
+.stButton > button[kind="primary"] * { color: #FFFFFF !important; }
+.stButton > button[kind="primary"] p { color: #FFFFFF !important; }
 .stButton > button[kind="primary"]:hover {
     background: #2D1B6B !important;
     box-shadow: 0 3px 10px rgba(27,16,64,0.32) !important;
@@ -131,6 +133,7 @@ p, li { color: #4B3F72; font-size: 0.85rem; margin: 0; }
     color: #1B1040 !important;
     border: 1.5px solid #C4B4ED !important;
 }
+.stButton > button[kind="secondary"] * { color: #1B1040 !important; }
 .stButton > button[kind="secondary"]:hover {
     background: #F5EFF9 !important;
     border-color: #9B8FBF !important;
@@ -176,7 +179,7 @@ p, li { color: #4B3F72; font-size: 0.85rem; margin: 0; }
 }
 .stTabs [data-baseweb="tab-border"] { display: none !important; }
 
-/* Selectbox */
+/* Selectbox trigger */
 [data-baseweb="select"] > div {
     background: #FFFFFF !important;
     border: 1.5px solid #DDD6EC !important;
@@ -189,6 +192,33 @@ p, li { color: #4B3F72; font-size: 0.85rem; margin: 0; }
     border-color: #1B1040 !important;
     box-shadow: 0 0 0 2px rgba(27,16,64,0.10) !important;
 }
+[data-baseweb="select"] span { color: #1B1040 !important; font-size: 0.82rem !important; }
+
+/* Dropdown list popup */
+[data-baseweb="popover"] { z-index: 9999 !important; }
+[data-baseweb="menu"] {
+    background: #FFFFFF !important;
+    border: 1px solid #EDE8F2 !important;
+    border-radius: 10px !important;
+    box-shadow: 0 8px 24px rgba(27,16,64,0.12) !important;
+    padding: 4px !important;
+    overflow: hidden !important;
+}
+[data-baseweb="menu"] ul { padding: 0 !important; }
+[role="option"] {
+    background: transparent !important;
+    color: #1B1040 !important;
+    font-size: 0.82rem !important;
+    font-weight: 500 !important;
+    padding: 7px 10px !important;
+    border-radius: 6px !important;
+    margin: 1px 2px !important;
+}
+[role="option"]:hover, [role="option"][aria-selected="true"] {
+    background: #F0EBF8 !important;
+    color: #1B1040 !important;
+}
+[role="option"] span, [role="option"] div { color: #1B1040 !important; font-size: 0.82rem !important; }
 
 /* Dataframe */
 [data-testid="stDataFrame"] { border-radius: 10px !important; overflow: hidden !important; border: 1px solid #EDE8F2 !important; }
@@ -209,15 +239,31 @@ summary { color: #1B1040 !important; font-weight: 600 !important; }
 /* Divider */
 hr { border-color: #EDE8F2 !important; margin: 8px 0 !important; }
 
-/* Sidebar radio nav */
+/* Sidebar radio nav — hide radio circles, style as clean nav links */
+[data-testid="stSidebar"] .stRadio > div { gap: 2px !important; }
 [data-testid="stSidebar"] .stRadio > div > label {
     border-radius: 6px !important;
-    padding: 5px 8px !important;
-    margin-bottom: 1px !important;
-    transition: background 0.1s ease !important;
-    font-size: 0.80rem !important;
+    padding: 7px 10px !important;
+    margin-bottom: 0 !important;
+    transition: background 0.12s ease !important;
+    font-size: 0.82rem !important;
+    font-weight: 500 !important;
+    color: #4B3F72 !important;
+    display: flex !important;
+    align-items: center !important;
+    cursor: pointer !important;
 }
-[data-testid="stSidebar"] .stRadio > div > label:hover { background: #F3EDF8 !important; }
+[data-testid="stSidebar"] .stRadio > div > label:hover { background: #F0EBF8 !important; color: #1B1040 !important; }
+/* Hide the actual radio circle */
+[data-testid="stSidebar"] .stRadio > div > label > div:first-child { display: none !important; }
+/* Highlight selected item */
+[data-testid="stSidebar"] .stRadio > div > label[data-baseweb="radio"]:has(input:checked),
+[data-testid="stSidebar"] .stRadio [aria-checked="true"] ~ label,
+[data-testid="stSidebar"] .stRadio > div > label:has(input[type="radio"]:checked) {
+    background: #EDE8F2 !important;
+    color: #1B1040 !important;
+    font-weight: 700 !important;
+}
 
 /* Skeptik boxes */
 .skeptik-before {
@@ -450,16 +496,15 @@ with st.sidebar:
     # Quick agent run shortcuts
     customers = fetch_customers()
     if customers:
-        st.markdown("**Quick Run**")
+        st.markdown("<div style='font-size:0.68rem;font-weight:700;color:#9B8FBF;text-transform:uppercase;letter-spacing:0.10em;margin:4px 0 6px'>Quick Run</div>", unsafe_allow_html=True)
         qcust = st.selectbox("Customer", [c["id"] for c in customers],
                              format_func=lambda x: next((c["name"] for c in customers if c["id"]==x), str(x)),
                              key="sidebar_cust", label_visibility="collapsed")
-        if st.button("🩺 Health Check", use_container_width=True, key="sb_health"):
+        if st.button("🩺 Health Check", use_container_width=True, key="sb_health", type="secondary"):
             st.session_state["quick_run"] = ("CustomerHealthAgent", qcust)
             st.rerun()
 
-    st.markdown("---")
-    st.markdown("<div style='font-size:0.70rem;color:#C4B4ED'>API: localhost:8000</div>", unsafe_allow_html=True)
+    st.markdown("<div style='margin-top:12px;font-size:0.68rem;color:#C4B4ED'>API · localhost:8000</div>", unsafe_allow_html=True)
 
 
 # Handle quick run from sidebar
