@@ -45,7 +45,7 @@ st.markdown("""
     border-right: 1px solid #E8E4DC !important;
     box-shadow: 2px 0 12px rgba(27,16,64,0.06) !important;
 }
-[data-testid="stSidebar"] > div { padding: 1rem 0.8rem !important; }
+[data-testid="stSidebar"] > div { padding: 0.25rem 0.8rem 1rem !important; }
 [data-testid="stSidebar"] p,
 [data-testid="stSidebar"] label,
 [data-testid="stSidebar"] span { color: #3D3458 !important; }
