@@ -11,8 +11,9 @@ import streamlit as st
 import requests
 import pandas as pd
 from datetime import datetime
+import os
 
-API = "http://localhost:8000"
+API = os.environ.get("API_BASE_URL", "http://localhost:8000")
 
 st.set_page_config(
     page_title="VP CX Agent OS",
