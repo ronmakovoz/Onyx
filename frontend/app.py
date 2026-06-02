@@ -504,7 +504,102 @@ with st.sidebar:
             st.session_state["quick_run"] = ("CustomerHealthAgent", qcust)
             st.rerun()
 
-    st.markdown("<div style='margin-top:12px;font-size:0.68rem;color:#C4B4ED'>API · localhost:8000</div>", unsafe_allow_html=True)
+    st.markdown("---")
+    if st.button("ℹ️ About the Agents", use_container_width=True, key="sb_about", type="secondary"):
+        st.session_state["show_agent_guide"] = True
+
+    st.markdown("<div style='margin-top:8px;font-size:0.68rem;color:#C4B4ED'>API · localhost:8000</div>", unsafe_allow_html=True)
+
+
+@st.dialog("Agent Guide", width="large")
+def show_agent_guide():
+    AGENTS = [
+        {
+            "name": "Customer Health Agent",
+            "icon": "🩺",
+            "model": "Haiku",
+            "model_color": "#1a6fa8",
+            "model_bg": "#E8F4FD",
+            "when": "Run first — gives you the overall risk picture for any customer.",
+            "what": "Scores customer health 0–100, identifies the top risk drivers pulling the score down, surfaces early warning signals (champion disengagement, declining DAU, overdue milestones), and lists concrete recommended actions.",
+            "outputs": ["Health score & risk level", "Top risk drivers (ranked)", "Early warning signals", "Positive signals", "Recommended actions", "Confidence score + rationale"],
+        },
+        {
+            "name": "Implementation Agent",
+            "icon": "🔧",
+            "model": "Sonnet",
+            "model_color": "#5B3FA8",
+            "model_bg": "#EDE8F9",
+            "when": "Use when a customer is in onboarding or has active implementation milestones.",
+            "what": "Reviews all milestones, calculates % complete, identifies blockers and delayed items, rates launch confidence (Very Low → High), and drafts an owner action plan with intervention recommendations.",
+            "outputs": ["Overall status & % complete", "Launch confidence rating", "Delayed milestones & blockers", "Owner action plan", "Executive summary", "Recommended intervention"],
+        },
+        {
+            "name": "Briefing Agent",
+            "icon": "📋",
+            "model": "Sonnet",
+            "model_color": "#5B3FA8",
+            "model_bg": "#EDE8F9",
+            "when": "Before a QBR, exec meeting, or renewal conversation with a customer.",
+            "what": "Generates a CEO-ready executive briefing covering the business situation, risk narrative, key asks, and a 30/60/90-day action plan. Written for a non-technical exec audience with zero fluff.",
+            "outputs": ["Situation summary", "Business risk & financial impact", "Key asks from the customer", "30 / 60 / 90-day plan", "Recommended executive action", "Risk narrative"],
+        },
+        {
+            "name": "Escalation Commander",
+            "icon": "🚨",
+            "model": "Opus",
+            "model_color": "#8E44AD",
+            "model_bg": "#F5EEF8",
+            "when": "When a customer has an active escalation or is at risk of churning imminently.",
+            "what": "Performs a full crisis analysis: determines likely root cause, quantifies customer impact, maps internal owners, builds a 48-hour recovery plan and 2-week stabilization plan, and drafts executive communications.",
+            "outputs": ["Severity assessment", "Root cause analysis", "Customer impact statement", "Internal owner map", "48-hour recovery plan", "2-week stabilization plan", "Executive comms draft"],
+        },
+        {
+            "name": "Skeptik QA Agent",
+            "icon": "🔍",
+            "model": "Opus",
+            "model_color": "#8E44AD",
+            "model_bg": "#F5EEF8",
+            "when": "After running any other agent — especially before sharing a briefing or escalation plan with executives.",
+            "what": "Adversarially reviews the most recent agent output for that customer. Challenges unsupported claims, flags missing evidence, identifies overconfident conclusions, and suggests alternative explanations. Revises the confidence score.",
+            "outputs": ["Unsupported claims", "Missing evidence", "Overconfident conclusions", "Alternative explanations", "Recommended edits", "Revised confidence score", "Verdict (Approved / Needs Revision / Reject)"],
+        },
+        {
+            "name": "VP Chief of Staff",
+            "icon": "📊",
+            "model": "Opus",
+            "model_color": "#8E44AD",
+            "model_bg": "#F5EEF8",
+            "when": "Weekly — generates the VP CX operating review across the full 25-customer portfolio.",
+            "what": "Synthesizes the entire portfolio into a board-ready weekly review: top 5 risks, ARR at risk, renewal watchlist, implementation bottlenecks, product feedback themes, support burden, cross-functional asks, and a CEO-ready paragraph summary.",
+            "outputs": ["Portfolio health summary", "Top 5 risks + actions", "ARR at risk breakdown", "Renewals watchlist", "Impl bottlenecks", "Product feedback themes", "Cross-functional asks", "CEO-ready paragraph"],
+        },
+    ]
+
+    st.markdown("<div style='color:#9B8FBF;font-size:0.82rem;margin-bottom:16px'>Six AI agents run your post-sale org. Each is routed to the optimal Claude model based on task complexity.</div>", unsafe_allow_html=True)
+
+    for a in AGENTS:
+        st.markdown(f"""
+        <div style="background:#FFFFFF;border:1px solid #EDE8F2;border-radius:10px;padding:14px 16px;margin-bottom:10px;box-shadow:0 1px 4px rgba(27,16,64,0.05)">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+                <span style="font-size:1.2rem">{a['icon']}</span>
+                <span style="font-size:0.95rem;font-weight:700;color:#1B1040">{a['name']}</span>
+                <span style="background:{a['model_bg']};color:{a['model_color']};font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:20px;margin-left:auto">{a['model']}</span>
+            </div>
+            <div style="font-size:0.80rem;color:#4B3F72;line-height:1.5;margin-bottom:6px">{a['what']}</div>
+            <div style="font-size:0.72rem;color:#9B8FBF;font-style:italic;margin-bottom:8px">💡 {a['when']}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px">
+                {''.join(f'<span style="background:#F3EDF8;color:#5B3FA8;font-size:0.68rem;font-weight:600;padding:2px 8px;border-radius:20px">{o}</span>' for o in a['outputs'])}
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("<div style='font-size:0.75rem;color:#9B8FBF;margin-top:4px;text-align:center'>Haiku → fast scanning &nbsp;·&nbsp; Sonnet → synthesis &nbsp;·&nbsp; Opus → judgment & adversarial review</div>", unsafe_allow_html=True)
+
+
+# Show agent guide dialog
+if st.session_state.pop("show_agent_guide", False):
+    show_agent_guide()
 
 
 # Handle quick run from sidebar
