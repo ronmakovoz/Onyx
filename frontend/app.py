@@ -1236,14 +1236,18 @@ elif page == "Customer 360":
 
     # ── Agent action bar ──────────────────────────────────────────────────────
     st.markdown("<div style='font-size:0.68rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Run Agents</div>", unsafe_allow_html=True)
-    ab1, ab2, ab3, ab4, ab5 = st.columns(5)
     triggered = None
+    row_a = st.columns(5)
+    row_b = st.columns(5)
     btns = [
-        (ab1, "CustomerHealthAgent",      "Health Assessment",      "secondary"),
-        (ab2, "ImplementationAgent",      "Implementation Report",  "secondary"),
-        (ab3, "BriefingAgent",            "Generate CEO Briefing",  "primary"),
-        (ab4, "EscalationCommanderAgent", "Escalation Commander",   "primary"),
-        (ab5, "SkeptikQAAgent",           "Skeptik QA Review",      "secondary"),
+        (row_a[0], "CustomerHealthAgent",       "Health Assessment",      "secondary"),
+        (row_a[1], "ImplementationAgent",       "Implementation Report",  "secondary"),
+        (row_a[2], "BriefingAgent",             "Generate CEO Briefing",  "primary"),
+        (row_a[3], "EscalationCommanderAgent",  "Escalation Commander",   "primary"),
+        (row_a[4], "SkeptikQAAgent",            "Skeptik QA Review",      "secondary"),
+        (row_b[0], "ExpansionOpportunityAgent", "Expansion Opportunity",  "secondary"),
+        (row_b[1], "QBRPreparationAgent",       "Prepare QBR",            "secondary"),
+        (row_b[2], "SuccessPlanAgent",          "Build Success Plan",     "secondary"),
     ]
     for col, aname, label, btype in btns:
         with col:
