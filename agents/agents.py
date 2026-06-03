@@ -1,5 +1,5 @@
 """
-All six CX agents. Each defines prompts and structured output parsing.
+All CX agents. Each defines prompts and structured output parsing.
 """
 
 import re
@@ -11,6 +11,7 @@ from agents.base_agent import BaseAgent
 from agents.outputs import (
     HealthOutput, ImplementationOutput, BriefingOutput,
     EscalationOutput, SkeptikOutput, VPReviewOutput,
+    ExpansionOutput, QBRPrepOutput, SuccessPlanOutput,
 )
 from prompts.templates import (
     HEALTH_SYSTEM, HEALTH_USER,
@@ -19,6 +20,9 @@ from prompts.templates import (
     ESCALATION_SYSTEM, ESCALATION_USER,
     SKEPTIK_SYSTEM, SKEPTIK_USER,
     VPCOS_SYSTEM, VPCOS_USER,
+    EXPANSION_SYSTEM, EXPANSION_USER,
+    QBR_SYSTEM, QBR_USER,
+    SUCCESSPLAN_SYSTEM, SUCCESSPLAN_USER,
 )
 
 
@@ -249,6 +253,62 @@ class VPChiefOfStaffAgent(BaseAgent):
         return round(max(0.68, min(0.92, base + random.uniform(-0.04, 0.04))), 2)
 
 
+class ExpansionOpportunityAgent(BaseAgent):
+    name = "ExpansionOpportunityAgent"
+
+    def build_prompt(self, ctx: dict) -> tuple[str, str]:
+        return EXPANSION_SYSTEM, EXPANSION_USER.format(**ctx)
+
+    def parse_structured(self, text: str, ctx: dict) -> ExpansionOutput:
+        upl = ctx.get("expansion_pipeline_arr", 0) or int(ctx.get("arr", 0) * 0.2)
+        ul  = ctx.get("upsell_likelihood", 0)
+        return ExpansionOutput(
+            expansion_thesis=_extract_section(text, "Expansion Thesis")[:400],
+            recommended_modules=_extract_list(text, "Recommended Modules"),
+            projected_arr_uplift=upl,
+            confidence=("High" if ul >= 0.45 else "Medium" if ul >= 0.2 else "Low"),
+            proof_points=_extract_list(text, "Proof Points"),
+            recommended_play=_extract_list(text, "Recommended Play"),
+            best_timing=_extract_section(text, "Best Timing")[:200],
+        )
+
+
+class QBRPreparationAgent(BaseAgent):
+    name = "QBRPreparationAgent"
+
+    def build_prompt(self, ctx: dict) -> tuple[str, str]:
+        return QBR_SYSTEM, QBR_USER.format(**ctx)
+
+    def parse_structured(self, text: str, ctx: dict) -> QBRPrepOutput:
+        return QBRPrepOutput(
+            executive_headline=_extract_section(text, "Executive Headline")[:300],
+            value_delivered=_extract_list(text, "Value Delivered"),
+            adoption_summary=_extract_section(text, "Adoption Summary")[:300],
+            open_items=_extract_list(text, "Open Items"),
+            proposed_agenda=_extract_list(text, "Proposed Agenda"),
+            expansion_talking_points=_extract_list(text, "Expansion Talking Points"),
+            success_metrics=_extract_list(text, "Success Metrics"),
+        )
+
+
+class SuccessPlanAgent(BaseAgent):
+    name = "SuccessPlanAgent"
+
+    def build_prompt(self, ctx: dict) -> tuple[str, str]:
+        return SUCCESSPLAN_SYSTEM, SUCCESSPLAN_USER.format(**ctx)
+
+    def parse_structured(self, text: str, ctx: dict) -> SuccessPlanOutput:
+        return SuccessPlanOutput(
+            objective=_extract_section(text, "Objective")[:300],
+            current_state=_extract_section(text, "Current State")[:300],
+            target_state=_extract_section(text, "Target State")[:300],
+            workstreams=_extract_list(text, "Workstreams"),
+            milestones_30_60_90=_extract_list(text, "Milestones 30 / 60 / 90"),
+            success_metrics=_extract_list(text, "Success Metrics"),
+            risks_and_mitigations=_extract_list(text, "Risks and Mitigations"),
+        )
+
+
 # ── Registry ──────────────────────────────────────────────────────────────────
 
 AGENT_REGISTRY = {
@@ -258,6 +318,9 @@ AGENT_REGISTRY = {
     "EscalationCommanderAgent": EscalationCommanderAgent,
     "SkeptikQAAgent":           SkeptikQAAgent,
     "VPChiefOfStaffAgent":      VPChiefOfStaffAgent,
+    "ExpansionOpportunityAgent": ExpansionOpportunityAgent,
+    "QBRPreparationAgent":      QBRPreparationAgent,
+    "SuccessPlanAgent":         SuccessPlanAgent,
 }
 
 AGENT_DESCRIPTIONS = {
@@ -267,6 +330,9 @@ AGENT_DESCRIPTIONS = {
     "EscalationCommanderAgent": "Manages critical escalations with battle plans and executive comms.",
     "SkeptikQAAgent":           "Adversarially reviews prior agent outputs before executive delivery.",
     "VPChiefOfStaffAgent":      "Produces the weekly VP CX operating review across the full portfolio.",
+    "ExpansionOpportunityAgent": "Finds evidence-backed upsell opportunities and quantifies ARR uplift.",
+    "QBRPreparationAgent":      "Auto-generates an executive-ready Quarterly Business Review briefing.",
+    "SuccessPlanAgent":         "Builds a time-phased 30/60/90 success plan for an account.",
 }
 
 AGENT_MODEL_TIER = {
@@ -276,4 +342,7 @@ AGENT_MODEL_TIER = {
     "EscalationCommanderAgent": "opus",
     "SkeptikQAAgent":           "opus",
     "VPChiefOfStaffAgent":      "opus",
+    "ExpansionOpportunityAgent": "sonnet",
+    "QBRPreparationAgent":      "sonnet",
+    "SuccessPlanAgent":         "sonnet",
 }

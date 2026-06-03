@@ -1,5 +1,5 @@
 """
-Structured output models for all six agents.
+Structured output models for all agents.
 Each agent returns a typed dataclass alongside the raw markdown text.
 """
 
@@ -86,3 +86,36 @@ class VPReviewOutput:
     support_burden_themes: List[str]
     cross_functional_asks: List[str]     # asks of Eng / Product / Finance / Legal
     ceo_ready_summary: str              # 3 sentences max, zero fluff
+
+
+@dataclass
+class ExpansionOutput:
+    expansion_thesis: str                # why this account can grow
+    recommended_modules: List[str]       # products / modules to upsell
+    projected_arr_uplift: int            # $ uplift estimate
+    confidence: str                      # High / Medium / Low likelihood
+    proof_points: List[str]              # ROI / adoption evidence supporting the play
+    recommended_play: List[str]          # concrete steps to land expansion
+    best_timing: str                     # when to make the move
+
+
+@dataclass
+class QBRPrepOutput:
+    executive_headline: str              # one-line state of the relationship
+    value_delivered: List[str]           # outcomes since last QBR
+    adoption_summary: str
+    open_items: List[str]                # risks / asks to cover
+    proposed_agenda: List[str]           # QBR agenda items
+    expansion_talking_points: List[str]
+    success_metrics: List[str]           # metrics to review
+
+
+@dataclass
+class SuccessPlanOutput:
+    objective: str                       # the north-star outcome for the account
+    current_state: str
+    target_state: str
+    workstreams: List[str]               # major workstreams with owners
+    milestones_30_60_90: List[str]       # time-phased milestones
+    success_metrics: List[str]           # how success is measured
+    risks_and_mitigations: List[str]

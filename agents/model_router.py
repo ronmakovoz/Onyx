@@ -64,6 +64,23 @@ AGENT_ROUTING = {
         "types, forming cross-cutting executive recommendations, and producing C-suite-grade "
         "narrative under uncertainty. Opus is selected for judgment depth and synthesis quality."
     ),
+    "ExpansionOpportunityAgent": (
+        "sonnet",
+        "Expansion analysis weighs adoption, ROI, and relationship signals to build a commercial "
+        "thesis and quantify uplift. Sonnet delivers sharp, evidence-grounded recommendations at "
+        "the right cost for a high-volume opportunity-scan task."
+    ),
+    "QBRPreparationAgent": (
+        "sonnet",
+        "QBR briefing assembly requires structured narrative and clear business framing across "
+        "value, adoption, and expansion. Sonnet produces polished, executive-ready documents "
+        "without the reasoning depth Opus is reserved for."
+    ),
+    "SuccessPlanAgent": (
+        "sonnet",
+        "Success-plan construction is a structured planning task — mapping current vs. target "
+        "state into time-phased workstreams with owners. Sonnet balances planning quality and cost."
+    ),
 }
 
 

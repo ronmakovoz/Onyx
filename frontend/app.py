@@ -785,9 +785,30 @@ def show_agent_guide():
             "model": "Opus",
             "model_color": "#1B1040",
             "model_bg": "#EAE6E0",
-            "when": "Weekly — generates the VP CX operating review across the full 25-customer portfolio.",
+            "when": "Weekly — generates the VP CX operating review across the full portfolio.",
             "what": "Synthesizes the entire portfolio into a board-ready weekly review: top 5 risks, ARR at risk, renewal watchlist, implementation bottlenecks, product feedback themes, support burden, cross-functional asks, and a CEO-ready paragraph summary.",
             "outputs": ["Portfolio health summary", "Top 5 risks + actions", "ARR at risk breakdown", "Renewals watchlist", "Impl bottlenecks", "Product feedback themes", "Cross-functional asks", "CEO-ready paragraph"],
+        },
+        {
+            "name": "Expansion Opportunity Agent",
+            "icon": "", "model": "Sonnet", "model_color": "#3D3458", "model_bg": "#EDEAF4",
+            "when": "When an account is healthy and you want to quantify and land upsell.",
+            "what": "Builds an evidence-backed expansion thesis, recommends modules to cross-sell, projects ARR uplift, and lays out a concrete play timed to the renewal — grounded in adoption, ROI, and relationship signals.",
+            "outputs": ["Expansion thesis", "Recommended modules", "Projected ARR uplift", "Confidence", "Proof points", "Recommended play", "Best timing"],
+        },
+        {
+            "name": "QBR Preparation Agent",
+            "icon": "", "model": "Sonnet", "model_color": "#3D3458", "model_bg": "#EDEAF4",
+            "when": "Ahead of a Quarterly Business Review with any customer.",
+            "what": "Assembles an executive-ready QBR briefing: value delivered, adoption summary, open items, a proposed agenda, expansion talking points, and success metrics to review with the customer.",
+            "outputs": ["Executive headline", "Value delivered", "Adoption summary", "Open items", "Proposed agenda", "Expansion talking points", "Success metrics"],
+        },
+        {
+            "name": "Success Plan Agent",
+            "icon": "", "model": "Sonnet", "model_color": "#3D3458", "model_bg": "#EDEAF4",
+            "when": "For at-risk or onboarding accounts that need a structured path to value.",
+            "what": "Creates a time-phased 30/60/90 success plan: objective, current vs. target state, owned workstreams, dated milestones, success metrics, and risks with mitigations.",
+            "outputs": ["Objective", "Current & target state", "Workstreams", "30/60/90 milestones", "Success metrics", "Risks & mitigations"],
         },
     ]
 
@@ -1589,12 +1610,15 @@ elif page == "Agent Console":
     cmap = {c["id"]: c for c in customers}
 
     AGENT_INFO = {
-        "CustomerHealthAgent":      ("🩺", "haiku",  "Scanning & risk scoring"),
-        "ImplementationAgent":      ("🔧", "sonnet", "Milestone synthesis & planning"),
-        "BriefingAgent":            ("📋", "sonnet", "Executive briefing generation"),
-        "EscalationCommanderAgent": ("🚨", "opus",   "Crisis management & battle plan"),
-        "SkeptikQAAgent":           ("🔍", "opus",   "Adversarial output review"),
-        "VPChiefOfStaffAgent":      ("📊", "opus",   "Weekly portfolio operating review"),
+        "CustomerHealthAgent":       ("", "haiku",  "Scanning & risk scoring"),
+        "ImplementationAgent":       ("", "sonnet", "Milestone synthesis & planning"),
+        "BriefingAgent":             ("", "sonnet", "Executive briefing generation"),
+        "EscalationCommanderAgent":  ("", "opus",   "Crisis management & battle plan"),
+        "SkeptikQAAgent":            ("", "opus",   "Adversarial output review"),
+        "VPChiefOfStaffAgent":       ("", "opus",   "Weekly portfolio operating review"),
+        "ExpansionOpportunityAgent": ("", "sonnet", "Upsell discovery & ARR uplift"),
+        "QBRPreparationAgent":       ("", "sonnet", "Quarterly business review prep"),
+        "SuccessPlanAgent":          ("", "sonnet", "30/60/90 success planning"),
     }
 
     left_col, right_col = st.columns([1, 2])
@@ -1604,7 +1628,7 @@ elif page == "Agent Console":
         selected_agent = st.selectbox(
             "Agent",
             list(AGENT_INFO.keys()),
-            format_func=lambda x: f"{AGENT_INFO[x][0]} {x} — {AGENT_INFO[x][1].capitalize()}",
+            format_func=lambda x: f"{x} — {AGENT_INFO[x][1].capitalize()}",
         )
         emoji, tier, desc = AGENT_INFO[selected_agent]
         color = tier_color(tier)
