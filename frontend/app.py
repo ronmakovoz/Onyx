@@ -28,19 +28,21 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Bridge: if ANTHROPIC_API_KEY isn't already in the environment, pull it from
-# Streamlit secrets (.streamlit/secrets.toml locally, or the Secrets box on
-# Streamlit Cloud). Absent everywhere → the app stays in mock mode.
-if not os.environ.get("ANTHROPIC_API_KEY"):
-    try:
-        if "ANTHROPIC_API_KEY" in st.secrets:
-            os.environ["ANTHROPIC_API_KEY"] = st.secrets["ANTHROPIC_API_KEY"]
-    except Exception:
-        pass
-
-# Remember the real key so the sidebar Mock/Live toggle can enable or disable
-# live calls at runtime by adding/removing it from the environment.
-_REAL_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+# Resolve the real Anthropic key ONCE per session and stash it in session_state.
+# The Mock/Live toggle mutates os.environ on every rerun (popping the key in mock
+# mode), so we must not rely on os.environ as the persistent store — otherwise the
+# key "disappears" after the first rerun. st.secrets is only consulted if the env
+# var is absent, which avoids the "No secrets found" error box on hosts (e.g.
+# Hugging Face) that inject the key as an environment variable.
+if "_real_api_key" not in st.session_state:
+    _key = os.environ.get("ANTHROPIC_API_KEY", "")
+    if not _key:
+        try:
+            _key = st.secrets["ANTHROPIC_API_KEY"]
+        except Exception:
+            _key = ""
+    st.session_state["_real_api_key"] = _key
+_REAL_API_KEY = st.session_state["_real_api_key"]
 
 from backend.crud import (
     get_all_customers, get_customer_360, get_portfolio_summary,
