@@ -7,6 +7,14 @@ import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# Auto-seed the database on first run (e.g. Hugging Face Spaces where the DB
+# is not committed to the repo).
+_DB_PATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "cx_agent_os.db")
+if not os.path.exists(_DB_PATH):
+    import subprocess
+    _seed = os.path.join(os.path.dirname(_DB_PATH), "generate_synthetic_data.py")
+    subprocess.run([sys.executable, _seed], check=True)
+
 import streamlit as st
 import pandas as pd
 from datetime import datetime
