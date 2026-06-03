@@ -598,16 +598,19 @@ def render_meta_pills(result):
     mock_pill = ("<span style='background:#F5F0E8;color:#7A5C1E;border:1px solid #D8C89A;"
                  "border-radius:20px;padding:2px 10px;font-size:0.68rem;font-weight:700'>MOCK</span>") if result.get("is_mock") else ""
 
-    pills = f"""<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:2px 0 10px">
-        <span style="background:#FFFFFF;border:1px solid {color};color:{color};border-radius:20px;padding:2px 11px;font-size:0.70rem;font-weight:700">{disp}</span>
-        <span style="color:#C8C2B8">·</span>
-        <span style="color:#6B6280;font-size:0.72rem">Confidence <b style="color:{conf_color}">{conf:.0%}</b></span>
-        <span style="color:#C8C2B8">·</span>
-        <span style="color:#6B6280;font-size:0.72rem">Est. cost <b style="color:#3D3458">${result.get('estimated_cost_usd',0):.4f}</b></span>
-        <span style="color:#C8C2B8">·</span>
-        <span style="color:#6B6280;font-size:0.72rem">{result.get('input_tokens',0):,} in · {result.get('output_tokens',0):,} out</span>
-        {mock_pill}
-    </div>"""
+    sep = "<span style='color:#C8C2B8'>·</span>"
+    pills = (
+        "<div style=\"display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:2px 0 10px\">"
+        f"<span style=\"background:#FFFFFF;border:1px solid {color};color:{color};border-radius:20px;padding:2px 11px;font-size:0.70rem;font-weight:700\">{disp}</span>"
+        f"{sep}"
+        f"<span style=\"color:#6B6280;font-size:0.72rem\">Confidence <b style=\"color:{conf_color}\">{conf:.0%}</b></span>"
+        f"{sep}"
+        f"<span style=\"color:#6B6280;font-size:0.72rem\">Est. cost <b style=\"color:#3D3458\">${result.get('estimated_cost_usd',0):.4f}</b></span>"
+        f"{sep}"
+        f"<span style=\"color:#6B6280;font-size:0.72rem\">{result.get('input_tokens',0):,} in · {result.get('output_tokens',0):,} out</span>"
+        f"{mock_pill}"
+        "</div>"
+    )
     st.markdown(pills, unsafe_allow_html=True)
 
 
