@@ -24,35 +24,63 @@ DB_PATH  = DATA_DIR / "cx_agent_os.db"
 # ══════════════════════════════════════════════════════════════════════════════
 
 # fmt: off
+# Each entry: id, name, industry, region, employees, arr, contract_start_offset,
+#             renewal_offset, stage, health, trend, risk, primary_risk_reason, next_action
 MASTER_CUSTOMERS = [
-    # id  name                          industry              employees  arr      contract_start  renewal_offset  stage           health  trend  risk     primary_risk_reason                     next_action
-    ( 1, "Acme Industrial Corp",        "Manufacturing",       4200,    480000,  -365,  45, "Mature",        42,  "Declining",  "High",    "Champion departed; adoption stalled",  "Schedule exec alignment call"),
-    ( 2, "BioNexus Health Systems",     "Healthcare",          2800,    720000,   -87,  87, "Expanding",     78,  "Stable",     "Low",     "Strong usage; expansion in progress",  "Prep expansion proposal for Q3 QBR"),
-    ( 3, "ClearPath Logistics",         "Logistics",           1600,    310000,  -180,  23, "At Risk",       38,  "Declining",  "High",    "Implementation 9wks behind; exec disengaged", "Escalate to VP level immediately"),
-    ( 4, "DataVault Analytics",         "Financial Services",  3500,    950000,  -300, 112, "Mature",        87,  "Improving",  "Low",     "Gold standard customer; NPS 10",       "Recruit as reference customer"),
-    ( 5, "Evora Energy Partners",       "Energy",              2100,    560000,  -210,  67, "Mature",        68,  "Stable",     "Medium",  "Security review blocker delaying expansion", "Expedite sec review sign-off"),
-    ( 6, "Fortress Bank NA",            "Financial Services",  8900,   1200000,  -90,  34, "Onboarding",    44,  "Declining",  "High",    "Budget freeze; CFO disengaged; renewal at risk", "CEO-to-CFO call within 5 days"),
-    ( 7, "GlobalEdge Retail",           "Retail",              5500,    290000,  -420, 178, "Mature",        72,  "Stable",     "Low",     "Renewal secured; light upsell opportunity", "Introduce new threat-intel module"),
-    ( 8, "HealthFirst Insurance",       "Insurance",           3200,    840000,  -150,  56, "Mature",        52,  "Declining",  "High",    "P1 ticket open 11 days; sentiment negative", "Engineering war room; daily updates"),
-    ( 9, "InnovateTech Solutions",      "Technology",          1200,    430000,  -240,  91, "Mature",        82,  "Improving",  "Low",     "High adoption; champion is net promoter", "Expand to EMEA business unit"),
-    (10, "JetStream Airlines",          "Transportation",      12000,   670000,  -120,  15, "At Risk",       31,  "Declining",  "High",    "Competitor POC underway; champion left; impl 6wks late", "CEO briefing + SWAT team"),
-    (11, "Kestrel Defense Systems",     "Defense",             6800,   1100000,  -730, 203, "Mature",        91,  "Stable",     "Low",     "Premier customer; zero churn signal",  "QBR + multi-year renewal discussion"),
-    (12, "LuminaCare Medical",          "Healthcare",           890,    380000,   -60,   8, "Onboarding",    29,  "Declining",  "High",    "PHI concern blocking go-live; CISO disengaged", "Legal + sec review escalation"),
-    (13, "MegaMart Wholesale",          "Retail",              7600,    520000,  -365, 134, "Mature",        76,  "Improving",  "Low",     "Adoption growing; new CISO is a champion", "Schedule platform deep-dive"),
-    (14, "NovaTech Systems",            "Technology",          2200,    760000,  -280,  61, "Mature",        69,  "Stable",     "Medium",  "Product gap in SIEM integration; roadmap request pending", "Engineering roadmap sync"),
-    (15, "OmniCloud Infrastructure",   "Technology",          4400,    890000,   -45,  29, "At Risk",       48,  "Declining",  "High",    "Low feature adoption; no exec sponsor; renewal imminent", "Rapid value demonstration"),
-    (16, "PrecisionMfg Solutions",      "Manufacturing",       1800,    340000,  -400, 145, "Mature",        80,  "Stable",     "Low",     "Steady usage; positive QBR last month", "Upsell supply chain module"),
-    (17, "QuantumLeap Finance",         "Financial Services",  2600,    620000,  -195,  72, "Mature",        73,  "Improving",  "Medium",  "New CISO onboarding; relationship reset needed", "CISO onboarding briefing"),
-    (18, "RedRock Mining",              "Energy",              3100,    410000,  -100,  19, "At Risk",       33,  "Declining",  "High",    "Champion left; replacement not engaged; OT security gap", "Identify + engage new champion"),
-    (19, "Silverline Media Group",      "Media",               1500,    280000,  -500, 180, "Mature",        65,  "Stable",     "Low",     "Steady account; minor roadmap asks",   "Annual check-in + renewal prep"),
-    (20, "TitanBuild Construction",     "Construction",        2900,    370000,  -130,  41, "Mature",        57,  "Declining",  "Medium",  "Adoption plateau; mid-tier risk; budget review", "Usage workshop + ROI case"),
-    (21, "UltraSecure Federal",         "Government",          5200,    930000,  -730, 118, "Mature",        88,  "Stable",     "Low",     "FedRAMP-aligned; strong compliance use case", "Expand to Agency 2 division"),
-    (22, "VantagePoint Capital",        "Financial Services",  1900,    750000,   -75,  52, "At Risk",       55,  "Declining",  "Medium",  "New procurement lead questioning value; CFO pressure", "Executive ROI briefing"),
-    (23, "WestCoast Pharma",            "Pharma",              3800,    580000,  -320,  83, "Mature",        77,  "Improving",  "Low",     "GxP milestone hit; expanding to 2nd site", "Site 2 kickoff preparation"),
-    (24, "XcelOps Consulting",          "Professional Services",600,    320000,   -50,  37, "Onboarding",    46,  "Stable",     "Medium",  "Small team; low adoption; needs more hands-on enablement", "Dedicated onboarding sprint"),
-    (25, "ZenithAero Systems",          "Aerospace",           7200,   1050000,  -600, 156, "Mature",        94,  "Improving",  "Low",     "Best-in-class deployment; expansion signed", "Case study + reference call"),
+    ( 1, "NovaPay",                 "Financial Services",  "NA",    4200,   980000,  -300,  52, "Mature",     86, "Improving", "Low",    "Fraud detection ROI proven; expansion underway",         "Prep multi-product expansion proposal"),
+    ( 2, "Sentinel Commerce",       "Ecommerce",           "NA",    3100,   540000,  -210,  88, "Mature",     79, "Stable",    "Low",    "Strong chargeback reduction; healthy adoption",          "Introduce account-takeover module"),
+    ( 3, "Orbit Travel Group",      "Travel",              "EMEA",  6800,   720000,  -180,  34, "At Risk",    41, "Declining", "High",   "Booking-fraud model drift; champion disengaged",         "Model retraining workshop + exec call"),
+    ( 4, "Horizon Health Systems",  "Healthcare",          "NA",    9400,  1250000,  -420, 140, "Mature",     91, "Stable",    "Low",    "Reference account; zero churn signal",                   "Multi-year renewal + case study"),
+    ( 5, "PrimeCart",               "Ecommerce",           "NA",    5200,   430000,   -90,  21, "At Risk",    38, "Declining", "High",   "Low utilization; no exec sponsor; renewal imminent",     "Rapid value demonstration sprint"),
+    ( 6, "SecureLedger",            "Financial Services",  "EMEA",  2600,   860000,  -240,  61, "Mature",     74, "Improving", "Medium", "New CISO conducting platform audit",                     "CISO alignment + ROI briefing"),
+    ( 7, "Velocity Marketplace",    "Marketplace",         "NA",    3400,   610000,  -150,  29, "At Risk",    44, "Declining", "High",   "Seller-fraud false positives spiking; trust eroding",    "Tuning war room + daily updates"),
+    ( 8, "BluePeak Retail",         "Retail",              "NA",    7600,   380000,  -365, 178, "Mature",     76, "Stable",    "Low",    "Steady usage; light upsell available",                   "Pitch store-level analytics add-on"),
+    ( 9, "Apex Interactive",        "Gaming",              "APAC",  1900,   470000,  -120,  47, "Onboarding", 35, "Declining", "High",   "Go-live stalled; anti-cheat integration blocked",        "Engineering escalation on integration"),
+    (10, "VitalCore Health",        "Healthcare",          "NA",    3200,   690000,  -200,  72, "Mature",     69, "Stable",    "Medium", "Adoption plateau; PHI workflow friction",                "Workflow optimization session"),
+    (11, "Kestrel Defense Systems", "Enterprise Technology","NA",   6800,  1400000,  -730, 203, "Mature",     93, "Stable",    "Low",    "Premier strategic account; net promoter",                "QBR + expansion to 2nd division"),
+    (12, "LuminaCare Medical",      "Healthcare",          "EMEA",   890,   360000,   -55,   8, "Onboarding", 27, "Declining", "High",   "PHI concern blocking go-live; CISO disengaged",          "Legal + security review escalation"),
+    (13, "ShopSphere",              "Ecommerce",           "APAC",  4100,   520000,  -300, 134, "Mature",     81, "Improving", "Low",    "Payment-fraud savings growing; new champion",            "Schedule platform deep-dive"),
+    (14, "NovaTech Systems",        "Enterprise Technology","NA",   2200,   760000,  -280,  61, "Mature",     66, "Stable",    "Medium", "SIEM integration gap; roadmap request pending",          "Engineering roadmap sync"),
+    (15, "OmniCloud Infrastructure","Enterprise Technology","NA",   4400,   910000,   -45,  26, "At Risk",    45, "Declining", "High",   "Low feature adoption; exec sponsor gone; renewal soon",  "Executive value realization plan"),
+    (16, "Sterling Trust Bank",     "Financial Services",  "NA",    8900,  1600000,  -500, 156, "Mature",     89, "Stable",    "Low",    "AML monitoring expanded; strong governance use",         "Annual exec business review"),
+    (17, "QuantumLeap Finance",     "Financial Services",  "EMEA",  2600,   620000,  -195,  72, "Mature",     71, "Improving", "Medium", "Relationship reset after sponsor change",                "Sponsor onboarding briefing"),
+    (18, "WanderStay Hotels",       "Travel",              "EMEA",  3100,   410000,  -100,  19, "At Risk",    33, "Declining", "High",   "Loyalty-fraud coverage gap; champion left",              "Identify and engage new champion"),
+    (19, "NeonPlay Studios",        "Gaming",              "NA",    1500,   280000,  -500, 180, "Mature",     64, "Stable",    "Low",    "Steady account; minor roadmap asks",                     "Annual check-in + renewal prep"),
+    (20, "Harbor Retail Group",     "Retail",              "NA",    2900,   370000,  -130,  41, "Mature",     56, "Declining", "Medium", "Adoption plateau; budget review pending",                "Usage workshop + ROI case"),
+    (21, "AssureGuard Insurance",   "Insurance",           "NA",    5200,   930000,  -730, 118, "Mature",     87, "Stable",    "Low",    "Claims-fraud ROI strong; compliance aligned",            "Expand to underwriting division"),
+    (22, "VantagePoint Capital",    "Financial Services",  "NA",    1900,   750000,   -75,  52, "At Risk",    54, "Declining", "Medium", "Procurement questioning value; CFO pressure",            "Executive ROI briefing"),
+    (23, "Meridian Capital",        "Financial Services",  "EMEA",  3400,   880000,  -320,  83, "Mature",     78, "Improving", "Low",    "Transaction-monitoring expansion live",                  "Plan phase-2 rollout"),
+    (24, "Brightwork Software",     "SaaS",                "NA",     600,   190000,   -50,  37, "Onboarding", 46, "Stable",    "Medium", "Small team; low adoption; needs enablement",             "Dedicated onboarding sprint"),
+    (25, "IronClad Systems",        "Enterprise Technology","NA",   7200,  1100000,  -600, 156, "Mature",     94, "Improving", "Low",    "Best-in-class deployment; expansion signed",             "Case study + reference call"),
+    (26, "CartNova",                "Ecommerce",           "LATAM", 2100,   240000,  -160,  64, "Mature",     70, "Stable",    "Low",    "Reliable mid-market account; promoter",                  "Offer annual prepay incentive"),
+    (27, "TradeHub",                "Marketplace",         "EMEA",  2800,   330000,  -110,  24, "At Risk",    42, "Declining", "High",   "Escalation backlog; SLA breaches mounting",              "Support war room; SLA recovery plan"),
+    (28, "CloudHarbor SaaS",        "SaaS",                "NA",    1700,   280000,  -220,  95, "Mature",     75, "Stable",    "Low",    "Healthy usage; advocate for product",                    "Invite to advisory board"),
+    (29, "Beacon Mutual",           "Insurance",           "NA",    4600,   640000,  -290,  77, "Mature",     68, "Stable",    "Medium", "Modest adoption; QBR overdue",                           "Schedule overdue QBR"),
+    (30, "SkyRoute Airlines",       "Travel",              "APAC", 12000,   980000,  -120,  15, "At Risk",    31, "Declining", "High",   "Competitor POC underway; champion left; impl late",      "CEO briefing + SWAT team"),
+    (31, "PixelForge Games",        "Gaming",              "EMEA",  2200,   350000,  -260,  88, "Mature",     72, "Improving", "Low",    "Payment-fraud reduction proven; growing usage",          "Upsell chargeback automation"),
+    (32, "BioNexus Health",         "Healthcare",          "NA",    2800,   720000,   -87,  87, "Expanding",  80, "Improving", "Low",    "Strong usage; expansion in progress",                    "Prep expansion proposal for QBR"),
+    (33, "DataVault Analytics",     "SaaS",                "NA",    3500,   950000,  -300, 112, "Mature",     88, "Stable",    "Low",    "Gold-standard customer; NPS 10",                         "Recruit as reference customer"),
+    (34, "GlobalEdge Retail",       "Retail",              "EMEA",  5500,   290000,  -420, 168, "Mature",     73, "Stable",    "Low",    "Renewal secured; light upsell opportunity",              "Introduce threat-intel module"),
+    (35, "Cobalt Payments",         "Financial Services",  "NA",    3900,   810000,  -140,  48, "At Risk",    47, "Declining", "High",   "Real-time scoring latency complaints; trust at risk",    "Performance remediation plan"),
+    (36, "BazaarOne",               "Marketplace",         "APAC",  4200,   560000,  -340,  98, "Mature",     76, "Improving", "Low",    "Seller-trust score adoption rising",                     "Expand to logistics fraud"),
+    (37, "HealthFirst Insurance",   "Insurance",           "NA",    3200,   840000,  -150,  56, "Mature",     51, "Declining", "High",   "P1 open 11 days; sentiment negative",                    "Engineering war room; daily updates"),
+    (38, "Evora Energy Partners",   "Enterprise Technology","EMEA", 2100,   560000,  -210,  67, "Mature",     67, "Stable",    "Medium", "Security review blocker delaying expansion",             "Expedite review sign-off"),
+    (39, "Quayside Logistics",      "Marketplace",         "NA",    1600,   310000,  -180,  23, "At Risk",    37, "Declining", "High",   "Implementation 9 weeks behind; exec disengaged",         "Escalate to VP immediately"),
+    (40, "Auric Bank",              "Financial Services",  "APAC",  6100,  1050000,  -380,  92, "Mature",     85, "Stable",    "Low",    "Cross-border fraud coverage strong",                     "Discuss regional expansion"),
+    (41, "FreshCart Markets",       "Retail",              "NA",    3300,   320000,  -240,  74, "Mature",     69, "Stable",    "Medium", "Adoption steady; feature gaps noted",                    "Roadmap review with product"),
+    (42, "Lumen Insurance Group",   "Insurance",           "EMEA",  4800,   700000,  -160,  44, "At Risk",    49, "Declining", "High",   "Claims-fraud model underperforming; renewal risk",       "Model performance deep-dive"),
+    (43, "PlaySphere",              "Gaming",              "NA",    1100,   210000,  -300, 120, "Mature",     71, "Improving", "Low",    "Account-takeover defense adopted well",                  "Offer expansion discount"),
+    (44, "Northwind Travel",        "Travel",              "NA",    2700,   480000,  -190,  68, "Mature",     65, "Stable",    "Medium", "Usage flat; exec engagement light",                      "Re-engage exec sponsor"),
+    (45, "Vertex SaaS",             "SaaS",                "APAC",  2000,   360000,  -130,  58, "Onboarding", 50, "Stable",    "Medium", "Onboarding slower than plan; needs enablement",          "Accelerate onboarding milestones"),
+    (46, "Crestline Capital",       "Financial Services",  "NA",    2400,   590000,  -270,  90, "Mature",     82, "Improving", "Low",    "AML automation delivering value",                        "Expand to sanctions screening"),
+    (47, "ZenMarket",               "Marketplace",         "EMEA",  3600,   440000,  -100,  28, "At Risk",    43, "Declining", "High",   "Trust-and-safety team overwhelmed; false positives high","Tuning engagement + exec review"),
+    (48, "Summit Health Plan",      "Insurance",           "NA",    5400,   770000,  -330,  96, "Mature",     79, "Stable",    "Low",    "Fraud-waste-abuse savings documented",                   "Build expansion business case"),
+    (49, "Pinnacle Gaming",         "Gaming",              "APAC",  2600,   400000,  -150,  35, "At Risk",    46, "Declining", "Medium", "Bonus-abuse coverage gap; mid-tier risk",                "Coverage gap remediation plan"),
+    (50, "Atlas Enterprise Cloud",  "Enterprise Technology","NA",   8200,  1300000,  -640, 170, "Mature",     90, "Stable",    "Low",    "Strategic platform standard; multi-region",              "Multi-year strategic renewal"),
 ]
 # fmt: on
+
+REGIONS = ["NA", "EMEA", "APAC", "LATAM"]
 
 CSM_OWNERS = [
     "Maya Rodriguez", "James Okafor", "Priya Nair", "Tyler Bennett",
@@ -103,10 +131,43 @@ def arr_fmt(arr):
 # 1. CUSTOMERS
 # ══════════════════════════════════════════════════════════════════════════════
 
+# Realistic, measurable security/fraud business outcomes by industry. Strong
+# outcomes are reserved for healthier accounts to keep the data internally
+# consistent (high adoption -> demonstrable ROI).
+ROI_OUTCOMES = {
+    "Financial Services": ["Fraud losses reduced {a}%", "Manual review queue cut {b}%", "False positives lowered {c}%", "AML alert triage time down {b}%"],
+    "Ecommerce":          ["Chargeback rate reduced {a}%", "Payment-fraud losses down {a}%", "Manual reviews reduced {b}%", "Checkout approval rate up {d}%"],
+    "Retail":             ["Return-fraud losses reduced {a}%", "Loss-prevention alerts triaged {b}% faster", "False positives lowered {c}%"],
+    "Travel":             ["Booking-fraud losses reduced {a}%", "Loyalty-abuse incidents down {a}%", "Manual reviews reduced {b}%"],
+    "Marketplace":        ["Seller-fraud incidents reduced {a}%", "Trust-and-safety review load down {b}%", "False positives lowered {c}%"],
+    "Healthcare":         ["Fraud-waste-abuse recoveries up {a}%", "Claims review time reduced {b}%", "Security incidents detected: {e}"],
+    "Insurance":          ["Claims-fraud losses reduced {a}%", "Investigator hours saved {b}%", "Detected {e} fraud rings this year"],
+    "Gaming":             ["Account-takeover incidents down {a}%", "Bonus-abuse losses reduced {a}%", "Manual reviews reduced {b}%"],
+    "SaaS":               ["Security incidents detected: {e}", "Analyst time saved {b}%", "False positive rate lowered {c}%"],
+    "Enterprise Technology": ["Security incidents detected: {e}", "Mean-time-to-detect reduced {b}%", "Analyst time saved {b}%"],
+}
+
+def _roi_outcome(industry, risk):
+    pool = ROI_OUTCOMES.get(industry, ROI_OUTCOMES["SaaS"])
+    tmpl = random.choice(pool)
+    # Stronger numbers for healthier accounts
+    if risk == "Low":
+        a, b, c, d, e = random.randint(34, 58), random.randint(40, 62), random.randint(45, 70), random.randint(6, 14), random.randint(9, 24)
+    elif risk == "Medium":
+        a, b, c, d, e = random.randint(18, 33), random.randint(22, 39), random.randint(25, 44), random.randint(3, 7), random.randint(4, 10)
+    else:
+        a, b, c, d, e = random.randint(6, 17), random.randint(8, 21), random.randint(10, 24), random.randint(1, 4), random.randint(1, 4)
+    return tmpl.format(a=a, b=b, c=c, d=d, e=e)
+
+def _tier(arr):
+    if arr >= 1_000_000: return "Strategic"
+    if arr >= 150_000:   return "Enterprise"
+    return "Mid-Market"
+
 def build_customers():
     customers = []
     for row in MASTER_CUSTOMERS:
-        (cid, name, industry, employees, arr, contract_offset, renewal_offset,
+        (cid, name, industry, region, employees, arr, contract_offset, renewal_offset,
          stage, health, trend, risk, primary_risk, next_action) = row
 
         csm   = random.choice(CSM_OWNERS)
@@ -153,14 +214,70 @@ def build_customers():
             else "Complete"
         )
 
+        # ── New CS / retention / expansion metrics (internally consistent) ─────
+        tier = _tier(arr)
+
+        # NPS: healthy accounts promote, at-risk detract
+        nps = {"Low": random.randint(8, 10), "Medium": random.randint(5, 7), "High": random.randint(-10, 4)}[risk]
+        nps_trend = {"Improving": "up", "Stable": "flat", "Declining": "down"}[trend]
+
+        # Net & Gross Revenue Retention — strong adoption/exec engagement -> higher NRR
+        nrr_pct = {"Low": random.randint(112, 138), "Medium": random.randint(98, 111), "High": random.randint(72, 97)}[risk]
+        grr_pct = {"Low": random.randint(96, 100), "Medium": random.randint(89, 96), "High": random.randint(70, 88)}[risk]
+
+        # Expansion pipeline & upsell likelihood
+        upsell_likelihood = {"Low": random.uniform(0.45, 0.85), "Medium": random.uniform(0.20, 0.44), "High": random.uniform(0.03, 0.18)}[risk]
+        upsell_likelihood = round(upsell_likelihood, 2)
+        expansion_pipeline_arr = 0
+        if risk == "Low" and random.random() > 0.35:
+            expansion_pipeline_arr = random.choice([40000, 60000, 80000, 120000, 180000, 250000])
+        elif risk == "Medium" and random.random() > 0.7:
+            expansion_pipeline_arr = random.choice([30000, 50000, 75000])
+
+        # Time to value / production (days). Onboarding accounts may not have hit TTV yet.
+        if stage == "Onboarding" and onboarding != "Complete":
+            ttv_days = None
+            ttp_days = None
+        else:
+            ttv_days = {"Low": random.randint(18, 42), "Medium": random.randint(43, 78), "High": random.randint(80, 150)}[risk]
+            ttp_days = ttv_days + random.randint(20, 60)
+
+        utilization_pct = max(5, min(100, adoption + random.randint(-6, 6)))
+
+        exec_engagement = {
+            "Low":    random.choice(["High", "High", "Medium"]),
+            "Medium": random.choice(["Medium", "Low"]),
+            "High":   ("None" if champion_status == "Left Company" else random.choice(["Low", "None"])),
+        }[risk]
+
+        # QBR cadence
+        last_qbr_days_ago = random.randint(20, 110)
+        qbr_completion = (
+            "Overdue" if last_qbr_days_ago > 90 or "qbr overdue" in primary_risk.lower()
+            else "On Track" if risk == "Low"
+            else "Scheduled"
+        )
+
+        usage_trend = {"Improving": "Growing", "Stable": "Steady", "Declining": "Declining"}[trend]
+
+        contract_term_months = random.choice([12, 12, 12, 24, 36] if tier != "Mid-Market" else [12, 12, 24])
+
+        # Cost to serve scales with support load (risk) and inversely with tier efficiency
+        cost_to_serve = int(arr * {"High": random.uniform(0.16, 0.24), "Medium": random.uniform(0.10, 0.15), "Low": random.uniform(0.05, 0.09)}[risk])
+
+        roi_outcome = _roi_outcome(industry, risk)
+
         customers.append({
             "id": cid,
             "name": name,
             "industry": industry,
+            "region": region,
+            "customer_tier": tier,
             "employee_count": employees,
             "arr": arr,
             "contract_start_date": days(contract_offset),
             "renewal_date": days(renewal_offset),
+            "contract_term_months": contract_term_months,
             "lifecycle_stage": stage,
             "health_score": health,
             "health_trend": trend,
@@ -173,11 +290,26 @@ def build_customers():
             "technical_sponsor": tech_sponsor,
             "business_sponsor": biz_sponsor,
             "adoption_score": adoption,
+            "utilization_pct": utilization_pct,
             "sentiment": sentiment,
+            "nps": nps,
+            "nps_trend": nps_trend,
             "risk_level": risk,
             "primary_risk_reason": primary_risk,
             "recommended_next_action": next_action,
             "renewal_risk_score": renewal_risk_score,
+            "nrr_pct": nrr_pct,
+            "grr_pct": grr_pct,
+            "upsell_likelihood": upsell_likelihood,
+            "expansion_pipeline_arr": expansion_pipeline_arr,
+            "time_to_first_value_days": ttv_days,
+            "time_to_production_days": ttp_days,
+            "executive_engagement": exec_engagement,
+            "qbr_completion": qbr_completion,
+            "last_qbr_date": past(last_qbr_days_ago),
+            "usage_trend": usage_trend,
+            "cost_to_serve": cost_to_serve,
+            "roi_outcome": roi_outcome,
             "onboarding_status": onboarding,
             "security_review_status": sec_review,
             "arr_formatted": arr_fmt(arr),
@@ -484,9 +616,8 @@ def build_renewals(customers):
         }
         renewal_stage = stage_map[risk]
 
-        expansion_arr = 0
-        if risk == "Low" and random.random() > 0.4:
-            expansion_arr = random.choice([50000, 75000, 100000, 150000, 200000])
+        # Tie renewal expansion to the customer-level expansion pipeline
+        expansion_arr = c.get("expansion_pipeline_arr", 0)
 
         discount_requested = (
             random.randint(5, 20) if risk in ("High","Medium") else
@@ -829,15 +960,22 @@ DROP TABLE IF EXISTS briefings;
 
 CREATE TABLE customers (
     id INTEGER PRIMARY KEY,
-    name TEXT, industry TEXT, employee_count INTEGER, arr INTEGER,
-    contract_start_date TEXT, renewal_date TEXT, lifecycle_stage TEXT,
-    health_score INTEGER, health_trend TEXT,
+    name TEXT, industry TEXT, region TEXT, customer_tier TEXT,
+    employee_count INTEGER, arr INTEGER,
+    contract_start_date TEXT, renewal_date TEXT, contract_term_months INTEGER,
+    lifecycle_stage TEXT, health_score INTEGER, health_trend TEXT,
     csm_owner TEXT, implementation_owner TEXT, executive_sponsor_internal TEXT,
     champion_name TEXT, champion_title TEXT, champion_status TEXT,
     technical_sponsor TEXT, business_sponsor TEXT,
-    adoption_score INTEGER, sentiment TEXT,
+    adoption_score INTEGER, utilization_pct INTEGER, sentiment TEXT,
+    nps INTEGER, nps_trend TEXT,
     risk_level TEXT, primary_risk_reason TEXT, recommended_next_action TEXT,
-    renewal_risk_score REAL, onboarding_status TEXT, security_review_status TEXT,
+    renewal_risk_score REAL, nrr_pct INTEGER, grr_pct INTEGER,
+    upsell_likelihood REAL, expansion_pipeline_arr INTEGER,
+    time_to_first_value_days INTEGER, time_to_production_days INTEGER,
+    executive_engagement TEXT, qbr_completion TEXT, last_qbr_date TEXT,
+    usage_trend TEXT, cost_to_serve INTEGER, roi_outcome TEXT,
+    onboarding_status TEXT, security_review_status TEXT,
     arr_formatted TEXT
 );
 
@@ -964,11 +1102,15 @@ def seed_database(customers, tickets, implementations, escalations, renewals,
         )
 
     ins("customers", customers, [
-        "id","name","industry","employee_count","arr","contract_start_date","renewal_date",
+        "id","name","industry","region","customer_tier","employee_count","arr",
+        "contract_start_date","renewal_date","contract_term_months",
         "lifecycle_stage","health_score","health_trend","csm_owner","implementation_owner",
         "executive_sponsor_internal","champion_name","champion_title","champion_status",
-        "technical_sponsor","business_sponsor","adoption_score","sentiment","risk_level",
-        "primary_risk_reason","recommended_next_action","renewal_risk_score",
+        "technical_sponsor","business_sponsor","adoption_score","utilization_pct","sentiment",
+        "nps","nps_trend","risk_level","primary_risk_reason","recommended_next_action",
+        "renewal_risk_score","nrr_pct","grr_pct","upsell_likelihood","expansion_pipeline_arr",
+        "time_to_first_value_days","time_to_production_days","executive_engagement",
+        "qbr_completion","last_qbr_date","usage_trend","cost_to_serve","roi_outcome",
         "onboarding_status","security_review_status","arr_formatted"
     ])
 

@@ -1,88 +1,88 @@
 [
   {
     "id": 1,
-    "customer_id": 1,
-    "customer_name": "Acme Industrial Corp",
-    "implementation_owner": "Keisha Monroe",
-    "overall_status": "Behind Schedule",
-    "pct_complete": 39,
-    "days_behind_schedule": 56,
-    "go_live_target": "2026-07-12",
+    "customer_id": 8,
+    "customer_name": "BluePeak Retail",
+    "implementation_owner": "Liam Chen",
+    "overall_status": "On Track",
+    "pct_complete": 87,
+    "days_behind_schedule": 0,
+    "go_live_target": "2026-07-27",
     "milestones": [
       {
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-10-05T17:51:18",
+        "completed_at": "2025-08-13T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-10-16T17:51:18",
+        "completed_at": "2025-08-24T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-10-26T17:51:18",
+        "completed_at": "2025-08-28T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
         "status": "Complete",
-        "completed_at": "2025-11-03T17:51:18",
+        "completed_at": "2025-09-11T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Initial Data Ingestion",
         "planned_days_from_start": 42,
-        "status": "In Progress",
-        "completed_at": null,
-        "blocker": "Scope change requires SOW amendment"
+        "status": "Complete",
+        "completed_at": "2025-09-16T13:07:39",
+        "blocker": null
       },
       {
         "milestone_name": "Pilot Group Onboarding (25 users)",
         "planned_days_from_start": 56,
-        "status": "Not Started",
-        "completed_at": null,
+        "status": "Complete",
+        "completed_at": "2025-10-03T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Detection Policy Configuration",
         "planned_days_from_start": 63,
-        "status": "Not Started",
-        "completed_at": null,
+        "status": "Complete",
+        "completed_at": "2025-10-14T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Integration Testing & QA",
         "planned_days_from_start": 77,
-        "status": "Not Started",
-        "completed_at": null,
+        "status": "Complete",
+        "completed_at": "2025-10-21T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Security Review Sign-off",
         "planned_days_from_start": 84,
-        "status": "Not Started",
-        "completed_at": null,
+        "status": "Complete",
+        "completed_at": "2025-11-04T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Full Production Rollout",
         "planned_days_from_start": 98,
-        "status": "Not Started",
-        "completed_at": null,
+        "status": "Complete",
+        "completed_at": "2025-11-10T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Hypercare Period (30 days)",
         "planned_days_from_start": 128,
-        "status": "Not Started",
+        "status": "In Progress",
         "completed_at": null,
         "blocker": null
       },
@@ -97,81 +97,81 @@
   },
   {
     "id": 2,
-    "customer_id": 2,
-    "customer_name": "BioNexus Health Systems",
-    "implementation_owner": "Marcus Williams",
-    "overall_status": "On Track",
-    "pct_complete": 81,
-    "days_behind_schedule": 0,
-    "go_live_target": "2026-06-12",
+    "customer_id": 9,
+    "customer_name": "Apex Interactive",
+    "implementation_owner": "Liam Chen",
+    "overall_status": "Stalled",
+    "pct_complete": 36,
+    "days_behind_schedule": 59,
+    "go_live_target": "2026-07-03",
     "milestones": [
       {
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-08-11T17:51:18",
+        "completed_at": "2025-10-14T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-08-18T17:51:18",
+        "completed_at": "2025-10-21T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-08-31T17:51:18",
+        "completed_at": "2025-10-26T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
         "status": "Complete",
-        "completed_at": "2025-09-07T17:51:18",
+        "completed_at": "2025-11-10T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Initial Data Ingestion",
         "planned_days_from_start": 42,
-        "status": "Complete",
-        "completed_at": "2025-09-18T17:51:18",
-        "blocker": null
+        "status": "In Progress",
+        "completed_at": null,
+        "blocker": "Customer data classification incomplete"
       },
       {
         "milestone_name": "Pilot Group Onboarding (25 users)",
         "planned_days_from_start": 56,
-        "status": "Complete",
-        "completed_at": "2025-09-30T17:51:18",
+        "status": "Not Started",
+        "completed_at": null,
         "blocker": null
       },
       {
         "milestone_name": "Detection Policy Configuration",
         "planned_days_from_start": 63,
-        "status": "Complete",
-        "completed_at": "2025-10-12T17:51:18",
+        "status": "Not Started",
+        "completed_at": null,
         "blocker": null
       },
       {
         "milestone_name": "Integration Testing & QA",
         "planned_days_from_start": 77,
-        "status": "Complete",
-        "completed_at": "2025-10-23T17:51:18",
+        "status": "Not Started",
+        "completed_at": null,
         "blocker": null
       },
       {
         "milestone_name": "Security Review Sign-off",
         "planned_days_from_start": 84,
-        "status": "Complete",
-        "completed_at": "2025-10-29T17:51:18",
+        "status": "Not Started",
+        "completed_at": null,
         "blocker": null
       },
       {
         "milestone_name": "Full Production Rollout",
         "planned_days_from_start": 98,
-        "status": "In Progress",
+        "status": "Not Started",
         "completed_at": null,
         "blocker": null
       },
@@ -193,48 +193,48 @@
   },
   {
     "id": 3,
-    "customer_id": 3,
-    "customer_name": "ClearPath Logistics",
-    "implementation_owner": "Marcus Williams",
-    "overall_status": "Behind Schedule",
-    "pct_complete": 37,
-    "days_behind_schedule": 35,
-    "go_live_target": "2026-08-17",
+    "customer_id": 12,
+    "customer_name": "LuminaCare Medical",
+    "implementation_owner": "Sofia Alvarez",
+    "overall_status": "Stalled",
+    "pct_complete": 29,
+    "days_behind_schedule": 45,
+    "go_live_target": "2026-06-17",
     "milestones": [
       {
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-09-15T17:51:18",
+        "completed_at": "2025-09-27T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-09-27T17:51:18",
+        "completed_at": "2025-10-02T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-10-03T17:51:18",
+        "completed_at": "2025-10-12T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
-        "status": "Complete",
-        "completed_at": "2025-10-16T17:51:18",
-        "blocker": null
+        "status": "In Progress",
+        "completed_at": null,
+        "blocker": "Key stakeholder unavailable for sign-off"
       },
       {
         "milestone_name": "Initial Data Ingestion",
         "planned_days_from_start": 42,
-        "status": "In Progress",
+        "status": "Not Started",
         "completed_at": null,
-        "blocker": "Security review committee not convened"
+        "blocker": null
       },
       {
         "milestone_name": "Pilot Group Onboarding (25 users)",
@@ -289,95 +289,95 @@
   },
   {
     "id": 4,
-    "customer_id": 5,
-    "customer_name": "Evora Energy Partners",
-    "implementation_owner": "Sofia Alvarez",
-    "overall_status": "Slight Delay",
-    "pct_complete": 68,
-    "days_behind_schedule": 15,
-    "go_live_target": "2026-08-16",
+    "customer_id": 19,
+    "customer_name": "NeonPlay Studios",
+    "implementation_owner": "Derek Walsh",
+    "overall_status": "On Track",
+    "pct_complete": 99,
+    "days_behind_schedule": 0,
+    "go_live_target": "2026-07-11",
     "milestones": [
       {
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-08-29T17:51:18",
+        "completed_at": "2025-08-14T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-09-02T17:51:18",
+        "completed_at": "2025-08-18T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-09-14T17:51:18",
+        "completed_at": "2025-08-31T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
         "status": "Complete",
-        "completed_at": "2025-09-25T17:51:18",
+        "completed_at": "2025-09-11T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Initial Data Ingestion",
         "planned_days_from_start": 42,
         "status": "Complete",
-        "completed_at": "2025-10-05T17:51:18",
+        "completed_at": "2025-09-21T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Pilot Group Onboarding (25 users)",
         "planned_days_from_start": 56,
         "status": "Complete",
-        "completed_at": "2025-10-14T17:51:18",
+        "completed_at": "2025-10-04T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Detection Policy Configuration",
         "planned_days_from_start": 63,
         "status": "Complete",
-        "completed_at": "2025-10-22T17:51:18",
+        "completed_at": "2025-10-10T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Integration Testing & QA",
         "planned_days_from_start": 77,
         "status": "Complete",
-        "completed_at": "2025-11-10T17:51:18",
+        "completed_at": "2025-10-23T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Security Review Sign-off",
         "planned_days_from_start": 84,
-        "status": "In Progress",
-        "completed_at": null,
+        "status": "Complete",
+        "completed_at": "2025-10-31T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Full Production Rollout",
         "planned_days_from_start": 98,
-        "status": "Not Started",
-        "completed_at": null,
+        "status": "Complete",
+        "completed_at": "2025-11-16T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Hypercare Period (30 days)",
         "planned_days_from_start": 128,
-        "status": "Not Started",
-        "completed_at": null,
+        "status": "Complete",
+        "completed_at": "2025-12-10T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "QBR #1 \u2014 90-Day Review",
         "planned_days_from_start": 180,
-        "status": "Not Started",
+        "status": "In Progress",
         "completed_at": null,
         "blocker": null
       }
@@ -385,88 +385,88 @@
   },
   {
     "id": 5,
-    "customer_id": 6,
-    "customer_name": "Fortress Bank NA",
-    "implementation_owner": "Liam Chen",
-    "overall_status": "Stalled",
-    "pct_complete": 44,
-    "days_behind_schedule": 42,
-    "go_live_target": "2026-08-21",
+    "customer_id": 23,
+    "customer_name": "Meridian Capital",
+    "implementation_owner": "Derek Walsh",
+    "overall_status": "On Track",
+    "pct_complete": 86,
+    "days_behind_schedule": 0,
+    "go_live_target": "2026-08-25",
     "milestones": [
       {
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-09-25T17:51:18",
+        "completed_at": "2025-08-14T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-09-29T17:51:18",
+        "completed_at": "2025-08-22T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-10-07T17:51:18",
+        "completed_at": "2025-09-01T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
         "status": "Complete",
-        "completed_at": "2025-10-27T17:51:18",
+        "completed_at": "2025-09-13T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Initial Data Ingestion",
         "planned_days_from_start": 42,
         "status": "Complete",
-        "completed_at": "2025-11-03T17:51:18",
+        "completed_at": "2025-09-20T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Pilot Group Onboarding (25 users)",
         "planned_days_from_start": 56,
-        "status": "In Progress",
-        "completed_at": null,
-        "blocker": "Customer data classification incomplete"
+        "status": "Complete",
+        "completed_at": "2025-10-01T13:07:39",
+        "blocker": null
       },
       {
         "milestone_name": "Detection Policy Configuration",
         "planned_days_from_start": 63,
-        "status": "Not Started",
-        "completed_at": null,
+        "status": "Complete",
+        "completed_at": "2025-10-09T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Integration Testing & QA",
         "planned_days_from_start": 77,
-        "status": "Not Started",
-        "completed_at": null,
+        "status": "Complete",
+        "completed_at": "2025-10-20T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Security Review Sign-off",
         "planned_days_from_start": 84,
-        "status": "Not Started",
-        "completed_at": null,
+        "status": "Complete",
+        "completed_at": "2025-10-30T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Full Production Rollout",
         "planned_days_from_start": 98,
-        "status": "Not Started",
-        "completed_at": null,
+        "status": "Complete",
+        "completed_at": "2025-11-18T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Hypercare Period (30 days)",
         "planned_days_from_start": 128,
-        "status": "Not Started",
+        "status": "In Progress",
         "completed_at": null,
         "blocker": null
       },
@@ -481,60 +481,60 @@
   },
   {
     "id": 6,
-    "customer_id": 10,
-    "customer_name": "JetStream Airlines",
+    "customer_id": 24,
+    "customer_name": "Brightwork Software",
     "implementation_owner": "Derek Walsh",
-    "overall_status": "Behind Schedule",
-    "pct_complete": 44,
-    "days_behind_schedule": 44,
-    "go_live_target": "2026-06-16",
+    "overall_status": "Slight Delay",
+    "pct_complete": 54,
+    "days_behind_schedule": 15,
+    "go_live_target": "2026-07-12",
     "milestones": [
       {
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-09-25T17:51:18",
+        "completed_at": "2025-08-31T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-10-04T17:51:18",
+        "completed_at": "2025-09-03T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-10-14T17:51:18",
+        "completed_at": "2025-09-10T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
         "status": "Complete",
-        "completed_at": "2025-10-27T17:51:18",
+        "completed_at": "2025-09-23T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Initial Data Ingestion",
         "planned_days_from_start": 42,
         "status": "Complete",
-        "completed_at": "2025-10-30T17:51:18",
+        "completed_at": "2025-10-05T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Pilot Group Onboarding (25 users)",
         "planned_days_from_start": 56,
-        "status": "In Progress",
-        "completed_at": null,
-        "blocker": "Key stakeholder unavailable for sign-off"
+        "status": "Complete",
+        "completed_at": "2025-10-15T13:07:39",
+        "blocker": null
       },
       {
         "milestone_name": "Detection Policy Configuration",
         "planned_days_from_start": 63,
-        "status": "Not Started",
+        "status": "In Progress",
         "completed_at": null,
         "blocker": null
       },
@@ -577,81 +577,81 @@
   },
   {
     "id": 7,
-    "customer_id": 11,
-    "customer_name": "Kestrel Defense Systems",
-    "implementation_owner": "Derek Walsh",
-    "overall_status": "On Track",
-    "pct_complete": 78,
-    "days_behind_schedule": 0,
-    "go_live_target": "2026-08-03",
+    "customer_id": 27,
+    "customer_name": "TradeHub",
+    "implementation_owner": "Liam Chen",
+    "overall_status": "Behind Schedule",
+    "pct_complete": 28,
+    "days_behind_schedule": 36,
+    "go_live_target": "2026-07-07",
     "milestones": [
       {
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-08-15T17:51:18",
+        "completed_at": "2025-09-18T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-08-25T17:51:18",
+        "completed_at": "2025-10-01T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-08-27T17:51:18",
+        "completed_at": "2025-10-04T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
-        "status": "Complete",
-        "completed_at": "2025-09-12T17:51:18",
-        "blocker": null
+        "status": "In Progress",
+        "completed_at": null,
+        "blocker": "Waiting on customer IT to provision service account"
       },
       {
         "milestone_name": "Initial Data Ingestion",
         "planned_days_from_start": 42,
-        "status": "Complete",
-        "completed_at": "2025-09-16T17:51:18",
+        "status": "Not Started",
+        "completed_at": null,
         "blocker": null
       },
       {
         "milestone_name": "Pilot Group Onboarding (25 users)",
         "planned_days_from_start": 56,
-        "status": "Complete",
-        "completed_at": "2025-09-28T17:51:18",
+        "status": "Not Started",
+        "completed_at": null,
         "blocker": null
       },
       {
         "milestone_name": "Detection Policy Configuration",
         "planned_days_from_start": 63,
-        "status": "Complete",
-        "completed_at": "2025-10-08T17:51:18",
+        "status": "Not Started",
+        "completed_at": null,
         "blocker": null
       },
       {
         "milestone_name": "Integration Testing & QA",
         "planned_days_from_start": 77,
-        "status": "Complete",
-        "completed_at": "2025-10-19T17:51:18",
+        "status": "Not Started",
+        "completed_at": null,
         "blocker": null
       },
       {
         "milestone_name": "Security Review Sign-off",
         "planned_days_from_start": 84,
-        "status": "Complete",
-        "completed_at": "2025-11-02T17:51:18",
+        "status": "Not Started",
+        "completed_at": null,
         "blocker": null
       },
       {
         "milestone_name": "Full Production Rollout",
         "planned_days_from_start": 98,
-        "status": "In Progress",
+        "status": "Not Started",
         "completed_at": null,
         "blocker": null
       },
@@ -673,67 +673,67 @@
   },
   {
     "id": 8,
-    "customer_id": 12,
-    "customer_name": "LuminaCare Medical",
+    "customer_id": 29,
+    "customer_name": "Beacon Mutual",
     "implementation_owner": "Derek Walsh",
-    "overall_status": "Stalled",
-    "pct_complete": 10,
-    "days_behind_schedule": 52,
-    "go_live_target": "2026-08-17",
+    "overall_status": "Slight Delay",
+    "pct_complete": 61,
+    "days_behind_schedule": 10,
+    "go_live_target": "2026-08-05",
     "milestones": [
       {
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-10-04T17:51:18",
+        "completed_at": "2025-08-28T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
-        "status": "In Progress",
-        "completed_at": null,
-        "blocker": "Scope change requires SOW amendment"
+        "status": "Complete",
+        "completed_at": "2025-08-28T13:07:39",
+        "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
-        "status": "Not Started",
-        "completed_at": null,
+        "status": "Complete",
+        "completed_at": "2025-09-10T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
-        "status": "Not Started",
-        "completed_at": null,
+        "status": "Complete",
+        "completed_at": "2025-09-20T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Initial Data Ingestion",
         "planned_days_from_start": 42,
-        "status": "Not Started",
-        "completed_at": null,
+        "status": "Complete",
+        "completed_at": "2025-09-27T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Pilot Group Onboarding (25 users)",
         "planned_days_from_start": 56,
-        "status": "Not Started",
-        "completed_at": null,
+        "status": "Complete",
+        "completed_at": "2025-10-17T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Detection Policy Configuration",
         "planned_days_from_start": 63,
-        "status": "Not Started",
-        "completed_at": null,
+        "status": "Complete",
+        "completed_at": "2025-10-23T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Integration Testing & QA",
         "planned_days_from_start": 77,
-        "status": "Not Started",
+        "status": "In Progress",
         "completed_at": null,
         "blocker": null
       },
@@ -769,60 +769,60 @@
   },
   {
     "id": 9,
-    "customer_id": 14,
-    "customer_name": "NovaTech Systems",
-    "implementation_owner": "Derek Walsh",
-    "overall_status": "Slight Delay",
-    "pct_complete": 55,
-    "days_behind_schedule": 17,
-    "go_live_target": "2026-06-25",
+    "customer_id": 30,
+    "customer_name": "SkyRoute Airlines",
+    "implementation_owner": "Marcus Williams",
+    "overall_status": "Behind Schedule",
+    "pct_complete": 32,
+    "days_behind_schedule": 37,
+    "go_live_target": "2026-08-10",
     "milestones": [
       {
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-09-03T17:51:18",
+        "completed_at": "2025-09-17T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-09-06T17:51:18",
+        "completed_at": "2025-09-24T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-09-13T17:51:18",
+        "completed_at": "2025-10-09T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
-        "status": "Complete",
-        "completed_at": "2025-10-01T17:51:18",
-        "blocker": null
+        "status": "In Progress",
+        "completed_at": null,
+        "blocker": "Customer data classification incomplete"
       },
       {
         "milestone_name": "Initial Data Ingestion",
         "planned_days_from_start": 42,
-        "status": "Complete",
-        "completed_at": "2025-10-01T17:51:18",
+        "status": "Not Started",
+        "completed_at": null,
         "blocker": null
       },
       {
         "milestone_name": "Pilot Group Onboarding (25 users)",
         "planned_days_from_start": 56,
-        "status": "Complete",
-        "completed_at": "2025-10-21T17:51:18",
+        "status": "Not Started",
+        "completed_at": null,
         "blocker": null
       },
       {
         "milestone_name": "Detection Policy Configuration",
         "planned_days_from_start": 63,
-        "status": "In Progress",
+        "status": "Not Started",
         "completed_at": null,
         "blocker": null
       },
@@ -865,67 +865,67 @@
   },
   {
     "id": 10,
-    "customer_id": 17,
-    "customer_name": "QuantumLeap Finance",
+    "customer_id": 39,
+    "customer_name": "Quayside Logistics",
     "implementation_owner": "Sofia Alvarez",
-    "overall_status": "Slight Delay",
-    "pct_complete": 62,
-    "days_behind_schedule": 15,
-    "go_live_target": "2026-08-06",
+    "overall_status": "Behind Schedule",
+    "pct_complete": 27,
+    "days_behind_schedule": 55,
+    "go_live_target": "2026-08-04",
     "milestones": [
       {
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-08-27T17:51:18",
+        "completed_at": "2025-10-06T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-09-07T17:51:18",
+        "completed_at": "2025-10-16T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-09-09T17:51:18",
+        "completed_at": "2025-10-19T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
-        "status": "Complete",
-        "completed_at": "2025-09-28T17:51:18",
-        "blocker": null
+        "status": "In Progress",
+        "completed_at": null,
+        "blocker": "Security review committee not convened"
       },
       {
         "milestone_name": "Initial Data Ingestion",
         "planned_days_from_start": 42,
-        "status": "Complete",
-        "completed_at": "2025-10-06T17:51:18",
+        "status": "Not Started",
+        "completed_at": null,
         "blocker": null
       },
       {
         "milestone_name": "Pilot Group Onboarding (25 users)",
         "planned_days_from_start": 56,
-        "status": "Complete",
-        "completed_at": "2025-10-20T17:51:18",
+        "status": "Not Started",
+        "completed_at": null,
         "blocker": null
       },
       {
         "milestone_name": "Detection Policy Configuration",
         "planned_days_from_start": 63,
-        "status": "Complete",
-        "completed_at": "2025-10-22T17:51:18",
+        "status": "Not Started",
+        "completed_at": null,
         "blocker": null
       },
       {
         "milestone_name": "Integration Testing & QA",
         "planned_days_from_start": 77,
-        "status": "In Progress",
+        "status": "Not Started",
         "completed_at": null,
         "blocker": null
       },
@@ -961,34 +961,34 @@
   },
   {
     "id": 11,
-    "customer_id": 18,
-    "customer_name": "RedRock Mining",
-    "implementation_owner": "Marcus Williams",
+    "customer_id": 42,
+    "customer_name": "Lumen Insurance Group",
+    "implementation_owner": "Sofia Alvarez",
     "overall_status": "Behind Schedule",
-    "pct_complete": 12,
-    "days_behind_schedule": 39,
-    "go_live_target": "2026-08-16",
+    "pct_complete": 24,
+    "days_behind_schedule": 54,
+    "go_live_target": "2026-06-15",
     "milestones": [
       {
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-09-23T17:51:18",
+        "completed_at": "2025-10-11T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
-        "status": "In Progress",
-        "completed_at": null,
-        "blocker": "Security review committee not convened"
+        "status": "Complete",
+        "completed_at": "2025-10-19T13:07:39",
+        "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
-        "status": "Not Started",
+        "status": "In Progress",
         "completed_at": null,
-        "blocker": null
+        "blocker": "Waiting on customer IT to provision service account"
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
@@ -1057,88 +1057,88 @@
   },
   {
     "id": 12,
-    "customer_id": 21,
-    "customer_name": "UltraSecure Federal",
-    "implementation_owner": "Sofia Alvarez",
-    "overall_status": "On Track",
-    "pct_complete": 85,
-    "days_behind_schedule": 0,
-    "go_live_target": "2026-06-17",
+    "customer_id": 45,
+    "customer_name": "Vertex SaaS",
+    "implementation_owner": "Keisha Monroe",
+    "overall_status": "Slight Delay",
+    "pct_complete": 71,
+    "days_behind_schedule": 13,
+    "go_live_target": "2026-07-03",
     "milestones": [
       {
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-08-10T17:51:18",
+        "completed_at": "2025-08-30T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-08-22T17:51:18",
+        "completed_at": "2025-08-31T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-08-25T17:51:18",
+        "completed_at": "2025-09-13T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
         "status": "Complete",
-        "completed_at": "2025-09-11T17:51:18",
+        "completed_at": "2025-09-21T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Initial Data Ingestion",
         "planned_days_from_start": 42,
         "status": "Complete",
-        "completed_at": "2025-09-21T17:51:18",
+        "completed_at": "2025-09-28T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Pilot Group Onboarding (25 users)",
         "planned_days_from_start": 56,
         "status": "Complete",
-        "completed_at": "2025-10-04T17:51:18",
+        "completed_at": "2025-10-14T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Detection Policy Configuration",
         "planned_days_from_start": 63,
         "status": "Complete",
-        "completed_at": "2025-10-13T17:51:18",
+        "completed_at": "2025-10-22T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Integration Testing & QA",
         "planned_days_from_start": 77,
         "status": "Complete",
-        "completed_at": "2025-10-26T17:51:18",
+        "completed_at": "2025-11-02T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Security Review Sign-off",
         "planned_days_from_start": 84,
-        "status": "Complete",
-        "completed_at": "2025-11-02T17:51:18",
+        "status": "In Progress",
+        "completed_at": null,
         "blocker": null
       },
       {
         "milestone_name": "Full Production Rollout",
         "planned_days_from_start": 98,
-        "status": "Complete",
-        "completed_at": "2025-11-12T17:51:18",
+        "status": "Not Started",
+        "completed_at": null,
         "blocker": null
       },
       {
         "milestone_name": "Hypercare Period (30 days)",
         "planned_days_from_start": 128,
-        "status": "In Progress",
+        "status": "Not Started",
         "completed_at": null,
         "blocker": null
       },
@@ -1153,61 +1153,61 @@
   },
   {
     "id": 13,
-    "customer_id": 24,
-    "customer_name": "XcelOps Consulting",
+    "customer_id": 49,
+    "customer_name": "Pinnacle Gaming",
     "implementation_owner": "Derek Walsh",
     "overall_status": "Slight Delay",
-    "pct_complete": 66,
-    "days_behind_schedule": 15,
-    "go_live_target": "2026-06-13",
+    "pct_complete": 64,
+    "days_behind_schedule": 7,
+    "go_live_target": "2026-07-09",
     "milestones": [
       {
         "milestone_name": "Kickoff & Scoping",
         "planned_days_from_start": 7,
         "status": "Complete",
-        "completed_at": "2025-08-29T17:51:18",
+        "completed_at": "2025-08-21T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Technical Discovery",
         "planned_days_from_start": 14,
         "status": "Complete",
-        "completed_at": "2025-09-09T17:51:18",
+        "completed_at": "2025-08-26T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Environment Provisioning",
         "planned_days_from_start": 21,
         "status": "Complete",
-        "completed_at": "2025-09-12T17:51:18",
+        "completed_at": "2025-09-06T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "SSO / Identity Provider Integration",
         "planned_days_from_start": 35,
         "status": "Complete",
-        "completed_at": "2025-09-28T17:51:18",
+        "completed_at": "2025-09-22T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Initial Data Ingestion",
         "planned_days_from_start": 42,
         "status": "Complete",
-        "completed_at": "2025-10-02T17:51:18",
+        "completed_at": "2025-09-25T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Pilot Group Onboarding (25 users)",
         "planned_days_from_start": 56,
         "status": "Complete",
-        "completed_at": "2025-10-21T17:51:18",
+        "completed_at": "2025-10-14T13:07:39",
         "blocker": null
       },
       {
         "milestone_name": "Detection Policy Configuration",
         "planned_days_from_start": 63,
         "status": "Complete",
-        "completed_at": "2025-10-28T17:51:18",
+        "completed_at": "2025-10-20T13:07:39",
         "blocker": null
       },
       {

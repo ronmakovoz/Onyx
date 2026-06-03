@@ -49,6 +49,29 @@ def get_portfolio_summary():
     avg_health = sum(c["health_score"] for c in customers) / len(customers) if customers else 0
     top_escalations = sorted(escalations, key=lambda e: (e["severity"] == "Critical", e["arr_at_risk"] or 0), reverse=True)[:5]
 
+    # ── Retention & expansion metrics (ARR-weighted) ──────────────────────────
+    def _wavg(field):
+        if not total_arr:
+            return 0.0
+        return sum((c.get(field) or 0) * c["arr"] for c in customers) / total_arr
+
+    nrr = round(_wavg("nrr_pct"), 1)
+    grr = round(_wavg("grr_pct"), 1)
+    expansion_pipeline_arr = sum(c.get("expansion_pipeline_arr") or 0 for c in customers)
+
+    # Renewal forecast = ARR-weighted (1 - renewal_risk) across accounts renewing in 90d
+    upcoming = [c for c in customers
+                if 0 <= (datetime.strptime(c["renewal_date"], "%Y-%m-%d").date() - today).days <= 90]
+    upcoming_arr = sum(c["arr"] for c in upcoming)
+    renewal_forecast_arr = sum(c["arr"] * (1 - (c.get("renewal_risk_score") or 0)) for c in upcoming)
+    renewal_forecast_pct = round(renewal_forecast_arr / upcoming_arr * 100, 1) if upcoming_arr else 100.0
+
+    churn_risk_pct = round(len(critical) / len(customers) * 100, 1) if customers else 0.0
+    avg_nps = round(sum(c.get("nps") or 0 for c in customers) / len(customers), 1) if customers else 0
+    avg_adoption = round(sum(c.get("adoption_score") or 0 for c in customers) / len(customers), 1) if customers else 0
+    ttv_vals = [c["time_to_first_value_days"] for c in customers if c.get("time_to_first_value_days")]
+    avg_ttv = round(sum(ttv_vals) / len(ttv_vals), 0) if ttv_vals else 0
+
     return {
         "total_customers":       len(customers),
         "total_arr":             total_arr,
@@ -60,6 +83,17 @@ def get_portfolio_summary():
         "renewals_next_90_days": renewals_90,
         "avg_health_score":      round(avg_health, 1),
         "top_escalations":       top_escalations,
+        # New executive CS metrics
+        "nrr_pct":               nrr,
+        "grr_pct":               grr,
+        "expansion_pipeline_arr": expansion_pipeline_arr,
+        "renewal_forecast_pct":  renewal_forecast_pct,
+        "renewal_forecast_arr":  round(renewal_forecast_arr),
+        "upcoming_renewal_arr":  upcoming_arr,
+        "churn_risk_pct":        churn_risk_pct,
+        "avg_nps":               avg_nps,
+        "avg_adoption":          avg_adoption,
+        "avg_time_to_value_days": int(avg_ttv),
     }
 
 

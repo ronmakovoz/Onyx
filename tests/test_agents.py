@@ -64,7 +64,7 @@ def portfolio_ctx():
 
 class TestDatabase:
     def test_customer_count(self, customers):
-        assert len(customers) == 25, f"Expected 25 customers, got {len(customers)}"
+        assert len(customers) == 50, f"Expected 50 customers, got {len(customers)}"
 
     def test_risk_distribution(self, customers):
         high   = sum(1 for c in customers if c["risk_level"] == "High")
