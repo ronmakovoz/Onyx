@@ -118,6 +118,10 @@ p, li { color: #3D3458; font-size: 0.85rem; margin: 0; }
     border-radius: 10px;
     padding: 12px 14px;
     box-shadow: 0 1px 4px rgba(27,16,64,0.05);
+    min-height: 92px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .kpi-label {
     font-size: 0.62rem; color: #6B6280; text-transform: uppercase;
@@ -1059,6 +1063,8 @@ if page == "Executive Dashboard":
     ]
     for col, card in zip(hero, hero_cards):
         col.markdown(card, unsafe_allow_html=True)
+
+    st.markdown("<div style='margin:14px 0 2px'></div>", unsafe_allow_html=True)
 
     # ── Secondary metrics (drill-in) ──────────────────────────────────────────
     with st.expander("More portfolio metrics"):
