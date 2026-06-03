@@ -20,6 +20,21 @@ from agents.agents import AGENT_REGISTRY, AGENT_DESCRIPTIONS, AGENT_MODEL_TIER
 from agents.model_router import route as _route
 from backend.database import fetchall
 
+AGENT_DISPLAY = {
+    "CustomerHealthAgent":       "Health Assessment",
+    "ImplementationAgent":       "Implementation Report",
+    "BriefingAgent":             "Executive Briefing",
+    "EscalationCommanderAgent":  "Escalation Command",
+    "SkeptikQAAgent":            "Skeptik QA Review",
+    "VPChiefOfStaffAgent":       "VP Weekly Review",
+    "ExpansionOpportunityAgent": "Expansion Opportunity",
+    "QBRPreparationAgent":       "QBR Preparation",
+    "SuccessPlanAgent":          "Success Plan",
+}
+
+def agent_display_name(name: str) -> str:
+    return AGENT_DISPLAY.get(name, name.replace("Agent", "").strip() or name)
+
 st.set_page_config(
     page_title="VP CX Agent OS",
     page_icon="🛡️",
@@ -306,6 +321,38 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
     font-size: 0.82rem;
 }
 
+/* Agent report card — refined typography for agent markdown output */
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) {
+    background: #FFFFFF !important;
+    border: 1px solid #E8E4DC !important;
+    border-radius: 14px !important;
+    box-shadow: 0 1px 6px rgba(27,16,64,0.05) !important;
+    padding: 6px 26px 18px !important;
+}
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) h1 {
+    font-size: 1.15rem !important; margin: 8px 0 2px !important; letter-spacing: -0.02em !important;
+}
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) h2 {
+    font-size: 0.82rem !important; font-weight: 700 !important; color: #6B6280 !important;
+    text-transform: uppercase !important; letter-spacing: 0.08em !important;
+    margin: 18px 0 6px !important; padding-bottom: 5px !important;
+    border-bottom: 1px solid #EFEBE4 !important;
+}
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) h3 {
+    font-size: 0.9rem !important; margin: 12px 0 4px !important; color: #1B1040 !important;
+}
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) p {
+    font-size: 0.88rem !important; line-height: 1.55 !important; color: #3D3458 !important; margin: 4px 0 !important;
+}
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) li {
+    font-size: 0.88rem !important; line-height: 1.5 !important; color: #3D3458 !important; margin: 3px 0 !important;
+}
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) strong { color: #1B1040 !important; }
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) em { color: #6B6280 !important; }
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) hr {
+    margin: 14px 0 !important; border-color: #EFEBE4 !important;
+}
+
 /* Spinner */
 [data-testid="stSpinner"] > div { border-top-color: #1B1040 !important; }
 
@@ -506,47 +553,40 @@ def model_tier_from_id(model_id):
 def tier_color(tier):
     return {"haiku": "#2D4A7A", "sonnet": "#3D3458", "opus": "#1B1040"}.get(tier, "#1B1040")
 
-def render_model_meta(result, expanded=False, nested=False):
-    """Renders the model/cost/confidence/tokens strip + routing rationale."""
+def render_meta_pills(result):
+    """Compact, subtle pill strip: model tier · confidence · cost · tokens."""
     tier  = result.get("model_tier") or model_tier_from_id(result.get("model_used",""))
     color = tier_color(tier)
     conf  = result.get("confidence_score", 0)
     conf_color = "#2D5A3D" if conf >= 0.75 else "#7A5C1E" if conf >= 0.55 else "#9B2335"
     disp  = result.get("model_display") or result.get("model_used","?")
+    mock_pill = ("<span style='background:#F5F0E8;color:#7A5C1E;border:1px solid #D8C89A;"
+                 "border-radius:20px;padding:2px 10px;font-size:0.68rem;font-weight:700'>MOCK</span>") if result.get("is_mock") else ""
 
-    meta_html = f"""<div style="display:flex;gap:0;background:#FFFFFF;border:1px solid #E8E4DC;border-radius:8px;padding:8px 14px;margin-bottom:6px;align-items:center">
-        <div style="flex:1;border-right:1px solid #E8E4DC;padding-right:14px;margin-right:14px">
-            <div class="kpi-label">Model</div>
-            <div style="color:{color};font-weight:700;font-size:0.88rem">{disp}</div>
-        </div>
-        <div style="flex:1;border-right:1px solid #E8E4DC;padding-right:14px;margin-right:14px">
-            <div class="kpi-label">Est. Cost</div>
-            <div style="color:#1B1040;font-weight:700;font-size:0.88rem">${result.get('estimated_cost_usd',0):.5f}</div>
-        </div>
-        <div style="flex:1;border-right:1px solid #E8E4DC;padding-right:14px;margin-right:14px">
-            <div class="kpi-label">Confidence</div>
-            <div style="color:{conf_color};font-weight:700;font-size:0.88rem">{conf:.0%}</div>
-        </div>
-        <div style="flex:1">
-            <div class="kpi-label">Tokens</div>
-            <div style="color:#6B6280;font-size:0.80rem">{result.get('input_tokens',0):,} in · {result.get('output_tokens',0):,} out</div>
-        </div>
+    pills = f"""<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:2px 0 10px">
+        <span style="background:#FFFFFF;border:1px solid {color};color:{color};border-radius:20px;padding:2px 11px;font-size:0.70rem;font-weight:700">{disp}</span>
+        <span style="color:#C8C2B8">·</span>
+        <span style="color:#6B6280;font-size:0.72rem">Confidence <b style="color:{conf_color}">{conf:.0%}</b></span>
+        <span style="color:#C8C2B8">·</span>
+        <span style="color:#6B6280;font-size:0.72rem">Est. cost <b style="color:#3D3458">${result.get('estimated_cost_usd',0):.4f}</b></span>
+        <span style="color:#C8C2B8">·</span>
+        <span style="color:#6B6280;font-size:0.72rem">{result.get('input_tokens',0):,} in · {result.get('output_tokens',0):,} out</span>
+        {mock_pill}
     </div>"""
-    st.markdown(meta_html, unsafe_allow_html=True)
+    st.markdown(pills, unsafe_allow_html=True)
 
-    if result.get("is_mock"):
-        st.info("Mock mode active — set `ANTHROPIC_API_KEY` for live Claude responses.", icon="ℹ️")
 
+def render_model_meta(result, expanded=False, nested=False):
+    """Backwards-compatible meta renderer used by some pages."""
+    render_meta_pills(result)
     rationale = result.get("model_rationale", "")
-    if rationale:
-        if nested:
-            st.markdown(f"<div style='font-size:0.75rem;color:#6B6280;font-style:italic;margin:2px 0 6px'><b style='color:#3D3458'>Routing:</b> {rationale}</div>", unsafe_allow_html=True)
-        else:
-            with st.expander("Model Routing Rationale", expanded=expanded):
-                st.markdown(f"<div style='color:#6B6280;font-size:0.85rem;font-style:italic'>{rationale}</div>", unsafe_allow_html=True)
+    if rationale and not nested:
+        with st.expander("Model routing rationale", expanded=expanded):
+            st.markdown(f"<div style='color:#6B6280;font-size:0.82rem;font-style:italic'>{rationale}</div>", unsafe_allow_html=True)
+
 
 def render_agent_output(result, show_structured=True, nested=False):
-    """Full agent result renderer: meta strip + markdown output.
+    """Full agent result renderer: compact meta + styled report card.
 
     Set nested=True when rendered inside an st.expander to avoid nesting
     expanders (which Streamlit disallows).
@@ -555,20 +595,30 @@ def render_agent_output(result, show_structured=True, nested=False):
         st.error(f"Agent error: {result['error']}")
         return
 
-    render_model_meta(result, nested=nested)
-    st.markdown("---")
+    render_meta_pills(result)
 
-    # Structured output panel
-    if show_structured and result.get("structured"):
-        if nested:
-            st.json(result["structured"], expanded=False)
-        else:
-            with st.expander("Structured Output (parsed)", expanded=False):
-                st.json(result["structured"])
+    # Output rendered inside a bordered container styled as an executive report
+    report = st.container(border=True)
+    with report:
+        st.markdown("<span class='agent-report-marker'></span>", unsafe_allow_html=True)
+        st.markdown(result.get("output_text", ""), unsafe_allow_html=False)
 
-    st.markdown(result.get("output_text",""), unsafe_allow_html=False)
-    ts = result.get("created_at","")[:16].replace("T"," ")
-    st.caption(f"Generated {ts} UTC · Run ID #{result.get('run_id','?')} · {result.get('agent_name','?')}")
+    ts = result.get("created_at", "")[:16].replace("T", " ")
+    st.caption(f"Generated {ts} UTC · Run #{result.get('run_id','?')} · {agent_display_name(result.get('agent_name',''))}")
+
+    # Details tucked away — routing rationale + parsed structured output
+    rationale = result.get("model_rationale", "")
+    has_struct = show_structured and result.get("structured")
+    if (rationale or has_struct) and not nested:
+        with st.expander("Run details · model routing & structured data", expanded=False):
+            if rationale:
+                st.markdown(f"<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px'>Why this model</div>", unsafe_allow_html=True)
+                st.markdown(f"<div style='color:#6B6280;font-size:0.82rem;font-style:italic;margin-bottom:10px'>{rationale}</div>", unsafe_allow_html=True)
+            if has_struct:
+                st.markdown(f"<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px'>Structured output</div>", unsafe_allow_html=True)
+                st.json(result["structured"], expanded=False)
+    elif has_struct and nested:
+        st.json(result["structured"], expanded=False)
 
 
 def page_header(title, subtitle=""):
@@ -1267,7 +1317,8 @@ elif page == "Customer 360":
     if recent_key:
         result = st.session_state[recent_key]
         agent_label = recent_key.split("_")[-1]
-        st.markdown(f"<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin:10px 0 6px'>{agent_label} Output</div>", unsafe_allow_html=True)
+        agent_nice  = agent_display_name(result.get("agent_name", agent_label))
+        st.markdown(f"<div style='font-size:0.78rem;font-weight:800;color:#1B1040;letter-spacing:-0.01em;margin:12px 0 4px'>{agent_nice}</div>", unsafe_allow_html=True)
 
         # Skeptik shows before/after
         if "SkeptikQAAgent" in recent_key:
@@ -1279,11 +1330,10 @@ elif page == "Customer 360":
                 bc, ac = st.columns(2)
                 with bc:
                     st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Original Output</div>", unsafe_allow_html=True)
-                    with st.container():
-                        st.markdown(f"<div class='skeptik-before'>", unsafe_allow_html=True)
+                    with st.container(border=True):
+                        st.markdown("<span class='agent-report-marker'></span>", unsafe_allow_html=True)
                         prior = st.session_state[prior_key]
-                        st.markdown(prior.get("output_text","")[:1200] + "...", unsafe_allow_html=False)
-                        st.markdown("</div>", unsafe_allow_html=True)
+                        st.markdown(prior.get("output_text", "")[:1200] + "...", unsafe_allow_html=False)
                 with ac:
                     st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Skeptik QA Review</div>", unsafe_allow_html=True)
                     render_agent_output(result)
@@ -1632,7 +1682,7 @@ elif page == "Agent Console":
         selected_agent = st.selectbox(
             "Agent",
             list(AGENT_INFO.keys()),
-            format_func=lambda x: f"{x} — {AGENT_INFO[x][1].capitalize()}",
+            format_func=lambda x: f"{agent_display_name(x)} — {AGENT_INFO[x][1].capitalize()}",
         )
         emoji, tier, desc = AGENT_INFO[selected_agent]
         color = tier_color(tier)
@@ -1649,7 +1699,7 @@ elif page == "Agent Console":
             <div style="color:#6B6280;font-size:0.72rem;margin-top:1px">{desc}</div>
         </div>""", unsafe_allow_html=True)
 
-        run_btn = st.button(f"▶ Run {selected_agent}", use_container_width=True, type="primary")
+        run_btn = st.button(f"Run {agent_display_name(selected_agent)}", use_container_width=True, type="primary")
 
         # Quick run info
         if selected_agent == "SkeptikQAAgent":
@@ -1717,15 +1767,17 @@ elif page == "Briefings":
                 bc, ac = st.columns(2)
                 with bc:
                     st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Original Briefing</div>", unsafe_allow_html=True)
-                    render_model_meta(r)
-                    st.markdown("---")
-                    st.markdown(f"<div class='skeptik-before'>{r.get('output_text','')}</div>", unsafe_allow_html=True)
+                    render_meta_pills(r)
+                    with st.container(border=True):
+                        st.markdown("<span class='agent-report-marker'></span>", unsafe_allow_html=True)
+                        st.markdown(r.get("output_text", ""), unsafe_allow_html=False)
                 with ac:
                     st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Skeptik QA Review</div>", unsafe_allow_html=True)
                     skeptik = st.session_state["ceo_skeptik"]
-                    render_model_meta(skeptik)
-                    st.markdown("---")
-                    st.markdown(f"<div class='skeptik-after'>{skeptik.get('output_text','')}</div>", unsafe_allow_html=True)
+                    render_meta_pills(skeptik)
+                    with st.container(border=True):
+                        st.markdown("<span class='agent-report-marker'></span>", unsafe_allow_html=True)
+                        st.markdown(skeptik.get("output_text", ""), unsafe_allow_html=False)
 
                 if r.get("output_text"):
                     export_button(r["output_text"] + "\n\n---\n\n## Skeptik QA Review\n\n" + skeptik.get("output_text",""),
