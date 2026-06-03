@@ -19,6 +19,15 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 
+# set_page_config must be the FIRST Streamlit command in the script (before any
+# other st.* call, including st.secrets access below).
+st.set_page_config(
+    page_title="VP CX Agent OS",
+    page_icon="🛡️",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
+
 # Bridge: if ANTHROPIC_API_KEY isn't already in the environment, pull it from
 # Streamlit secrets (.streamlit/secrets.toml locally, or the Secrets box on
 # Streamlit Cloud). Absent everywhere → the app stays in mock mode.
@@ -57,13 +66,6 @@ AGENT_DISPLAY = {
 
 def agent_display_name(name: str) -> str:
     return AGENT_DISPLAY.get(name, name.replace("Agent", "").strip() or name)
-
-st.set_page_config(
-    page_title="VP CX Agent OS",
-    page_icon="🛡️",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
 
 # ── Global styles — Onyx brand (light, pink-lavender, dark navy) ───────────────
 st.markdown("""
