@@ -28,21 +28,24 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Resolve the real Anthropic key ONCE per session and stash it in session_state.
-# The Mock/Live toggle mutates os.environ on every rerun (popping the key in mock
-# mode), so we must not rely on os.environ as the persistent store — otherwise the
-# key "disappears" after the first rerun. st.secrets is only consulted if the env
-# var is absent, which avoids the "No secrets found" error box on hosts (e.g.
-# Hugging Face) that inject the key as an environment variable.
-if "_real_api_key" not in st.session_state:
-    _key = os.environ.get("ANTHROPIC_API_KEY", "")
-    if not _key:
+# Resolve the real Anthropic key ONCE per *process* and cache it. The Mock/Live
+# toggle mutates os.environ (popping the key in mock mode), and os.environ is
+# shared across every session in the process — so reading it on each rerun would
+# lose the key globally as soon as any session sits in mock mode. st.cache_resource
+# captures the key on first call (env still intact) and returns it thereafter for
+# all sessions, without re-touching st.secrets (avoids the "No secrets found"
+# error box on hosts like Hugging Face that inject the key as an env var).
+@st.cache_resource
+def _resolve_real_api_key():
+    key = os.environ.get("ANTHROPIC_API_KEY", "")
+    if not key:
         try:
-            _key = st.secrets["ANTHROPIC_API_KEY"]
+            key = st.secrets["ANTHROPIC_API_KEY"]
         except Exception:
-            _key = ""
-    st.session_state["_real_api_key"] = _key
-_REAL_API_KEY = st.session_state["_real_api_key"]
+            key = ""
+    return key
+
+_REAL_API_KEY = _resolve_real_api_key()
 
 from backend.crud import (
     get_all_customers, get_customer_360, get_portfolio_summary,
