@@ -69,9 +69,15 @@ st.markdown("""
     background: #F5F2EE !important;
     min-height: 100vh;
 }
-/* Main (right) pane — light → soft Onyx pink/lavender gradient */
+/* Main (right) pane — light → soft Onyx pink/lavender gradient.
+   Anchored to the viewport (fixed) so the gradient looks identical whether the
+   page is short or grows long after running an agent — it no longer "darkens"
+   as content height increases. */
 [data-testid="stMain"] {
     background: linear-gradient(160deg, #FFFFFF 0%, #FDF4F8 30%, #FAEFF6 58%, #F4EAF6 100%) !important;
+    background-attachment: fixed !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
 }
 
 /* Tighter main content padding */
