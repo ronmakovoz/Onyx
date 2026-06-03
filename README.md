@@ -3,9 +3,8 @@ title: Onyx CX Agent OS
 emoji: 🛡️
 colorFrom: purple
 colorTo: pink
-sdk: streamlit
-sdk_version: 1.39.0
-app_file: frontend/app.py
+sdk: docker
+app_port: 7860
 pinned: false
 ---
 
