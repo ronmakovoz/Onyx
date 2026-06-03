@@ -80,7 +80,7 @@ st.markdown("""
 h1 { color: #1B1040 !important; font-weight: 800 !important; font-size: 1.6rem !important; letter-spacing: -0.03em !important; margin-bottom: 0 !important; }
 h2 { color: #1B1040 !important; font-weight: 700 !important; font-size: 1.1rem !important; letter-spacing: -0.02em !important; margin: 0 !important; }
 h3 { color: #1B1040 !important; font-weight: 600 !important; font-size: 0.95rem !important; margin: 0 !important; }
-p, li { color: #3D3458; font-size: 0.85rem; margin: 0; }
+:not(button) > p, li { color: #3D3458; font-size: 0.85rem; margin: 0; }
 .stMarkdown p { color: #3D3458; font-size: 0.85rem; }
 
 /* Cards — compact */
@@ -384,6 +384,15 @@ button[data-testid="stBaseButton-primary"] p,
 button[data-testid="stBaseButton-primaryFormSubmit"] p {
     color: #FFFFFF !important;
 }
+/* Belt-and-suspenders: any button with navy background → white text */
+button[style*="background: rgb(27, 16, 64)"] *,
+button[style*="background-color: rgb(27, 16, 64)"] *,
+.stButton button[kind="primary"] *,
+.stButton button[kind="primary"] p,
+.stButton button[kind="primaryFormSubmit"] *,
+.stButton button[kind="primaryFormSubmit"] p,
+[data-testid*="stBaseButton-primary"] *,
+[data-testid*="stBaseButton-primary"] p { color: #FFFFFF !important; }
 </style>
 """, unsafe_allow_html=True)
 
