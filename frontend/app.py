@@ -75,7 +75,7 @@ st.markdown("""
 }
 
 /* Tighter main content padding */
-[data-testid="stMainBlockContainer"] { padding: 1rem 1.8rem 2rem !important; max-width: 1500px; }
+[data-testid="stMainBlockContainer"] { padding: 1.4rem 1.8rem 2.5rem !important; max-width: 1500px; }
 [data-testid="stVerticalBlockBorderWrapper"] > div { gap: 0.35rem !important; }
 
 /* Sidebar — compact */
@@ -389,10 +389,10 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
 /* Line chart */
 [data-testid="stVegaLiteChart"] { background: #FFFFFF !important; border-radius: 10px !important; border: 1px solid #E8E4DC !important; padding: 6px !important; }
 
-/* Reduce vertical gaps between streamlit elements */
-.element-container { margin-bottom: 0.3rem !important; }
-.stVerticalBlock { gap: 0.4rem !important; }
-div[data-testid="column"] > div { gap: 0.4rem !important; }
+/* Vertical gaps between streamlit elements */
+.element-container { margin-bottom: 0.55rem !important; }
+.stVerticalBlock { gap: 0.55rem !important; }
+div[data-testid="column"] > div { gap: 0.55rem !important; }
 
 /* Tooltips — compact dark pill instead of full-width white slab */
 [data-testid="stTooltipContent"] {
@@ -1337,6 +1337,7 @@ elif page == "Customer 360":
   {plan_html}
 </div>""", unsafe_allow_html=True)
 
+    st.markdown("<div style='margin:8px 0'></div>", unsafe_allow_html=True)
     # ── Outcome tracking: did we act on the AI's recommendation? ───────────────
     action = get_action_status(cid)
     cur_status = action.get("status", "Open")
@@ -1373,10 +1374,10 @@ elif page == "Customer 360":
                      type="primary" if cur_status == "Dismissed" else "secondary"):
             set_action_status(cid, "Dismissed"); st.rerun()
 
-    st.markdown("<div style='margin:12px 0 0'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='margin:16px 0 4px'></div>", unsafe_allow_html=True)
 
     # ── Agent action bar ──────────────────────────────────────────────────────
-    st.markdown("<div style='font-size:0.68rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Run Agents</div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size:0.68rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Run Agents</div>", unsafe_allow_html=True)
     triggered = None
     row_a = st.columns(5)
     row_b = st.columns(5)
