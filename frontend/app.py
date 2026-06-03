@@ -1094,21 +1094,13 @@ if page == "Executive Dashboard":
 
     st.markdown("<div style='margin:14px 0 4px'></div>", unsafe_allow_html=True)
 
-    # ── Full portfolio table + scan ───────────────────────────────────────────
-    tbl_col, scan_col = st.columns([4, 1])
-    with scan_col:
-        if st.button("AI Health Scan", use_container_width=True, type="primary",
-                     help="Run CustomerHealthAgent across the full portfolio (Claude Haiku)"):
-            with st.spinner("Scanning all customers..."):
-                scan = call_portfolio_health()
-            st.session_state["portfolio_scan"] = scan
-    with tbl_col:
-        st.markdown(
-            "<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;"
-            "letter-spacing:0.10em;margin-bottom:8px'>Customer Portfolio"
-            " <span style=\"font-weight:400;text-transform:none;letter-spacing:0\">— select a row to open the account</span></div>",
-            unsafe_allow_html=True
-        )
+    # ── Full portfolio table ──────────────────────────────────────────────────
+    st.markdown(
+        "<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;"
+        "letter-spacing:0.10em;margin-bottom:8px'>Customer Portfolio"
+        " <span style=\"font-weight:400;text-transform:none;letter-spacing:0\">— select a row to open the account</span></div>",
+        unsafe_allow_html=True
+    )
 
     df = pd.DataFrame(customers)
     df["Risk"]     = df["risk_level"].map({"High": "High", "Medium": "Medium", "Low": "Healthy"})
@@ -1133,33 +1125,6 @@ if page == "Executive Dashboard":
         st.session_state["nav_page"]       = "Customer 360"
         st.rerun()
 
-    # ── Portfolio scan results ────────────────────────────────────────────────
-    if "portfolio_scan" in st.session_state and "error" not in st.session_state["portfolio_scan"]:
-        scan = st.session_state["portfolio_scan"]
-        st.markdown("<div style='margin:16px 0 8px'></div>", unsafe_allow_html=True)
-        st.markdown(
-            "<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;"
-            "letter-spacing:0.10em;margin-bottom:8px'>AI Health Scan Results"
-            " <span style=\"font-weight:400;text-transform:none;letter-spacing:0;color:#9B93A8\">"
-            "— CustomerHealthAgent · Claude Haiku</span></div>",
-            unsafe_allow_html=True
-        )
-        st.markdown(
-            f"<div style='font-size:0.76rem;color:#2D5A3D;font-weight:600;margin-bottom:6px'>"
-            f"Scanned {scan.get('customers_scanned',0)} customers · "
-            f"Total cost ${scan.get('total_cost_usd',0):.4f}</div>", unsafe_allow_html=True)
-        scan_df = pd.DataFrame(scan["results"])
-        scan_df["Score"]    = scan_df["health_score"]
-        scan_df["Risk"]     = scan_df["risk_level"]
-        scan_df["Conf"]     = scan_df["confidence_score"].map(lambda x: f"{x:.0%}")
-        scan_df["Cost"]     = scan_df["estimated_cost_usd"].map(lambda x: f"${x:.5f}")
-        scan_df["Top Risk"] = scan_df["top_risk_drivers"].map(lambda x: x[0][:55] if x else "")
-        st.dataframe(
-            scan_df[["customer_name","Score","Risk","Conf","Cost","Top Risk"]].rename(
-                columns={"customer_name": "Customer"}
-            ),
-            use_container_width=True, height=300
-        )
 
 
 # ══════════════════════════════════════════════════════════════════════════════
