@@ -122,6 +122,7 @@ Industry: {industry}
 CSM: {csm_owner}
 Implementation Owner: {implementation_owner}
 Champion: {champion_name} — Status: {champion_status}
+Account-level Primary Risk (anchor your narrative to this): {primary_risk_reason}
 
 === IMPLEMENTATION STATE ===
 Overall Status: {impl_status}

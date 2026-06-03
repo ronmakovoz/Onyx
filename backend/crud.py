@@ -154,3 +154,79 @@ def get_cost_summary():
         "by_model":    rows,
         "grand_total": total["total"] if total and total["total"] else 0.0,
     }
+
+
+# ── Recommendation / action-outcome layer ────────────────────────────────────
+# Tracks whether the AI's recommended action for each account was acted on,
+# so the app can show ROI on the AI itself (not just generate analysis).
+
+VALID_ACTION_STATUSES = ("Open", "In Progress", "Done", "Dismissed")
+
+
+def _ensure_action_table():
+    execute(
+        """CREATE TABLE IF NOT EXISTS recommendation_actions (
+               customer_id INTEGER PRIMARY KEY,
+               status      TEXT NOT NULL DEFAULT 'Open',
+               note        TEXT DEFAULT '',
+               updated_at  TEXT
+           )"""
+    )
+
+
+def get_action_status(customer_id: int) -> dict:
+    _ensure_action_table()
+    row = fetchone("SELECT * FROM recommendation_actions WHERE customer_id = ?", (customer_id,))
+    return row or {"customer_id": customer_id, "status": "Open", "note": "", "updated_at": None}
+
+
+def set_action_status(customer_id: int, status: str, note: str = "") -> None:
+    _ensure_action_table()
+    if status not in VALID_ACTION_STATUSES:
+        status = "Open"
+    execute(
+        """INSERT INTO recommendation_actions (customer_id, status, note, updated_at)
+           VALUES (?,?,?,?)
+           ON CONFLICT(customer_id) DO UPDATE SET
+               status=excluded.status, note=excluded.note, updated_at=excluded.updated_at""",
+        (customer_id, status, note, datetime.now().isoformat())
+    )
+
+
+def get_action_summary() -> dict:
+    """Portfolio-wide outcome metrics for the AI recommendations."""
+    _ensure_action_table()
+    customers = fetchall("SELECT id, arr, risk_level FROM customers")
+    actions   = {a["customer_id"]: a for a in fetchall("SELECT * FROM recommendation_actions")}
+
+    at_risk = [c for c in customers if c["risk_level"] in ("High", "Medium")]
+    at_risk_total_arr = sum(c["arr"] for c in at_risk)
+
+    closed = in_progress = dismissed = 0
+    arr_protected = 0
+    for c in at_risk:
+        a = actions.get(c["id"])
+        if not a:
+            continue
+        if a["status"] == "Done":
+            closed += 1
+            arr_protected += c["arr"]
+        elif a["status"] == "In Progress":
+            in_progress += 1
+            arr_protected += c["arr"]
+        elif a["status"] == "Dismissed":
+            dismissed += 1
+
+    actioned = closed + in_progress
+    coverage_pct = round(actioned / len(at_risk) * 100, 1) if at_risk else 0.0
+    return {
+        "at_risk_accounts":   len(at_risk),
+        "at_risk_total_arr":  at_risk_total_arr,
+        "actions_closed":     closed,
+        "actions_in_progress": in_progress,
+        "actions_dismissed":  dismissed,
+        "actions_actioned":   actioned,
+        "coverage_pct":       coverage_pct,
+        "arr_protected":      arr_protected,
+    }
+

@@ -27,7 +27,8 @@ _REAL_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 
 from backend.crud import (
     get_all_customers, get_customer_360, get_portfolio_summary,
-    save_agent_run, save_briefing, get_agent_runs, get_briefings, get_cost_summary
+    save_agent_run, save_briefing, get_agent_runs, get_briefings, get_cost_summary,
+    get_action_status, set_action_status, get_action_summary
 )
 from backend.context_builder import build_customer_context, build_portfolio_context
 from agents.agents import AGENT_REGISTRY, AGENT_DESCRIPTIONS, AGENT_MODEL_TIER
@@ -1015,7 +1016,7 @@ if page == "Executive Dashboard":
     ok_c      = summary.get('healthy_count', 0)
     total_c   = max(summary.get('total_customers', 1), 1)
 
-    # ── Top KPI bar (two rows of 4) ───────────────────────────────────────────
+    # ── Metric values ─────────────────────────────────────────────────────────
     nrr  = summary.get("nrr_pct", 0)
     grr  = summary.get("grr_pct", 0)
     fc   = summary.get("renewal_forecast_pct", 0)
@@ -1024,6 +1025,7 @@ if page == "Executive Dashboard":
     ttv  = summary.get("avg_time_to_value_days", 0)
     adopt = summary.get("avg_adoption", 0)
     esc_n = summary.get("open_escalations", 0)
+    act   = get_action_summary()
 
     d_nrr   = mom_delta("nrr", 3.0)
     d_grr   = mom_delta("grr", 2.0)
@@ -1033,30 +1035,10 @@ if page == "Executive Dashboard":
     d_adopt = mom_delta("adoption", 4.0)
     d_esc   = mom_delta("escalations", 2.0)
 
-    row1 = st.columns(4)
-    row1_cards = [
-        kpi_card("Net Revenue Retention", f"{nrr}%", "ARR-weighted", d_nrr[0], d_nrr[1], good_when="up"),
-        kpi_card("Gross Revenue Retention", f"{grr}%", "ARR-weighted", d_grr[0], d_grr[1], good_when="up"),
-        kpi_card("Renewal Forecast (90d)", f"{fc}%", f"${summary.get('upcoming_renewal_arr',0)/1e6:.1f}M up for renewal", d_fc[0], d_fc[1], good_when="up"),
-        kpi_card("Churn Risk", f"{churn}%", f"{hi_c} accounts high-risk", None, "down", good_when="down"),
-    ]
-    for col, card in zip(row1, row1_cards):
-        col.markdown(card, unsafe_allow_html=True)
-
-    row2 = st.columns(4)
-    row2_cards = [
-        kpi_card("Expansion Pipeline", f"${exp/1e6:.1f}M", "open upsell ARR", d_exp[0], d_exp[1], good_when="up"),
-        kpi_card("Avg Time to Value", f"{ttv}d", "to first value", d_ttv[0], d_ttv[1], good_when="down"),
-        kpi_card("Product Adoption", f"{adopt:.0f}%", "portfolio average", d_adopt[0], d_adopt[1], good_when="up"),
-        kpi_card("Open Escalations", str(esc_n), f"NPS {summary.get('avg_nps',0)} avg", d_esc[0], d_esc[1], good_when="down"),
-    ]
-    for col, card in zip(row2, row2_cards):
-        col.markdown(card, unsafe_allow_html=True)
-
-    # ── AI Executive Summary ──────────────────────────────────────────────────
+    # ── AI Executive Summary (narrative first — the "so what") ─────────────────
     st.markdown(f"""
 <div style="background:linear-gradient(135deg,#1B1040 0%,#2D2154 100%);border-radius:12px;
-     padding:16px 20px;margin:16px 0 18px">
+     padding:16px 20px;margin:2px 0 16px">
   <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
     <span style="font-size:0.62rem;font-weight:700;color:#B9AEE0;text-transform:uppercase;letter-spacing:0.12em">AI Executive Summary</span>
     <span style="font-size:0.58rem;color:#8579B0;background:#ffffff14;padding:2px 8px;border-radius:20px">Weekly · auto-generated</span>
@@ -1064,6 +1046,34 @@ if page == "Executive Dashboard":
   <div style="color:#F0EDF7;font-size:0.92rem;line-height:1.65">{build_exec_summary(summary, customers)}</div>
 </div>
 """, unsafe_allow_html=True)
+
+    # ── 5 hero KPIs ───────────────────────────────────────────────────────────
+    hero = st.columns(5)
+    hero_cards = [
+        kpi_card("Net Revenue Retention", f"{nrr}%", "ARR-weighted", d_nrr[0], d_nrr[1], good_when="up"),
+        kpi_card("ARR at Risk", f"${arr_risk/1e6:.1f}M", f"{hi_c} high · {med_c} medium", None, "down", good_when="down"),
+        kpi_card("Renewal Forecast (90d)", f"{fc}%", f"${summary.get('upcoming_renewal_arr',0)/1e6:.1f}M up for renewal", d_fc[0], d_fc[1], good_when="up"),
+        kpi_card("Expansion Pipeline", f"${exp/1e6:.1f}M", "open upsell ARR", d_exp[0], d_exp[1], good_when="up"),
+        kpi_card("AI Actions Taken", f"{act['actions_actioned']}/{act['at_risk_accounts']}",
+                 f"${act['arr_protected']/1e6:.1f}M ARR protected · {act['coverage_pct']:.0f}% of at-risk"),
+    ]
+    for col, card in zip(hero, hero_cards):
+        col.markdown(card, unsafe_allow_html=True)
+
+    # ── Secondary metrics (drill-in) ──────────────────────────────────────────
+    with st.expander("More portfolio metrics"):
+        m = st.columns(5)
+        more_cards = [
+            kpi_card("Gross Revenue Retention", f"{grr}%", "ARR-weighted", d_grr[0], d_grr[1], good_when="up"),
+            kpi_card("Avg Time to Value", f"{ttv}d", "to first value", d_ttv[0], d_ttv[1], good_when="down"),
+            kpi_card("Product Adoption", f"{adopt:.0f}%", "portfolio average", d_adopt[0], d_adopt[1], good_when="up"),
+            kpi_card("Open Escalations", str(esc_n), f"NPS {summary.get('avg_nps',0)} avg", d_esc[0], d_esc[1], good_when="down"),
+            kpi_card("Churn Risk", f"{churn}%", f"{hi_c} accounts high-risk", None, "down", good_when="down"),
+        ]
+        for col, card in zip(m, more_cards):
+            col.markdown(card, unsafe_allow_html=True)
+
+    st.markdown("<div style='margin:6px 0 4px'></div>", unsafe_allow_html=True)
 
     # ── At-Risk Accounts + Expansion Opportunities ────────────────────────────
     col_risk, col_exp = st.columns(2)
@@ -1103,61 +1113,59 @@ if page == "Executive Dashboard":
   <div style="font-size:0.74rem;color:#3D3458;margin-top:3px;line-height:1.4"><b style="color:#1B1040">Next:</b> {c['recommended_next_action']}</div>
 </div>""", unsafe_allow_html=True)
 
-    # ── Customer Health Heatmap ───────────────────────────────────────────────
-    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin:8px 0 8px'>Customer Health Heatmap</div>", unsafe_allow_html=True)
-    tiles = []
-    for c in sorted(customers, key=lambda c: c["health_score"]):
-        hc = health_color(c["health_score"])
-        initials = "".join(w[0] for w in c["name"].split()[:2]).upper()
-        tiles.append(
-            f"<div title=\"{c['name']} — health {c['health_score']}, {c['risk_level']} risk\" "
-            f"style='flex:0 0 auto;width:60px;height:46px;background:{hc};border-radius:7px;"
-            f"display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff'>"
-            f"<div style='font-size:0.72rem;font-weight:800;line-height:1'>{c['health_score']}</div>"
-            f"<div style='font-size:0.52rem;opacity:0.85;margin-top:1px'>{initials}</div></div>"
+    # ── Drill-in: health heatmap + full portfolio table ───────────────────────
+    with st.expander("Drill in — health heatmap & full portfolio"):
+        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin:2px 0 8px'>Customer Health Heatmap</div>", unsafe_allow_html=True)
+        tiles = []
+        for c in sorted(customers, key=lambda c: c["health_score"]):
+            hc = health_color(c["health_score"])
+            initials = "".join(w[0] for w in c["name"].split()[:2]).upper()
+            tiles.append(
+                f"<div title=\"{c['name']} — health {c['health_score']}, {c['risk_level']} risk\" "
+                f"style='flex:0 0 auto;width:60px;height:46px;background:{hc};border-radius:7px;"
+                f"display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff'>"
+                f"<div style='font-size:0.72rem;font-weight:800;line-height:1'>{c['health_score']}</div>"
+                f"<div style='font-size:0.52rem;opacity:0.85;margin-top:1px'>{initials}</div></div>"
+            )
+        st.markdown(
+            "<div style='display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px'>" + "".join(tiles) + "</div>"
+            "<div style='display:flex;gap:16px;font-size:0.66rem;color:#6B6280'>"
+            "<span><span style='display:inline-block;width:9px;height:9px;background:#9B2335;border-radius:2px;margin-right:4px'></span>Critical (&lt;40)</span>"
+            "<span><span style='display:inline-block;width:9px;height:9px;background:#7A5C1E;border-radius:2px;margin-right:4px'></span>At Risk (40–59)</span>"
+            "<span><span style='display:inline-block;width:9px;height:9px;background:#2D5A3D;border-radius:2px;margin-right:4px'></span>Healthy (60+)</span>"
+            "</div>",
+            unsafe_allow_html=True
         )
-    st.markdown(
-        "<div style='display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px'>" + "".join(tiles) + "</div>"
-        "<div style='display:flex;gap:16px;font-size:0.66rem;color:#6B6280'>"
-        "<span><span style='display:inline-block;width:9px;height:9px;background:#9B2335;border-radius:2px;margin-right:4px'></span>Critical (&lt;40)</span>"
-        "<span><span style='display:inline-block;width:9px;height:9px;background:#7A5C1E;border-radius:2px;margin-right:4px'></span>At Risk (40–59)</span>"
-        "<span><span style='display:inline-block;width:9px;height:9px;background:#2D5A3D;border-radius:2px;margin-right:4px'></span>Healthy (60+)</span>"
-        "</div>",
-        unsafe_allow_html=True
-    )
 
-    st.markdown("<div style='margin:14px 0 4px'></div>", unsafe_allow_html=True)
+        st.markdown(
+            "<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;"
+            "letter-spacing:0.10em;margin:14px 0 8px'>Customer Portfolio"
+            " <span style=\"font-weight:400;text-transform:none;letter-spacing:0\">— select a row to open the account</span></div>",
+            unsafe_allow_html=True
+        )
 
-    # ── Full portfolio table ──────────────────────────────────────────────────
-    st.markdown(
-        "<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;"
-        "letter-spacing:0.10em;margin-bottom:8px'>Customer Portfolio"
-        " <span style=\"font-weight:400;text-transform:none;letter-spacing:0\">— select a row to open the account</span></div>",
-        unsafe_allow_html=True
-    )
+        df = pd.DataFrame(customers)
+        df["Risk"]     = df["risk_level"].map({"High": "High", "Medium": "Medium", "Low": "Healthy"})
+        df["ARR"]      = df["arr"].map(lambda x: f"${x:,.0f}")
+        df["Health"]   = df["health_score"]
+        df["NRR"]      = df["nrr_pct"].map(lambda x: f"{x}%")
+        df["Adoption"] = df["adoption_score"].map(lambda x: f"{x}%")
+        df["Tier"]     = df["customer_tier"]
+        df["Renewal"]  = df["renewal_date"]
+        disp = df[["name","industry","Tier","region","ARR","Health","NRR","Adoption","Renewal","Risk"]].rename(
+            columns={"name": "Customer", "industry": "Industry", "region": "Region"}
+        )
+        disp = disp.sort_values("Health")
 
-    df = pd.DataFrame(customers)
-    df["Risk"]     = df["risk_level"].map({"High": "High", "Medium": "Medium", "Low": "Healthy"})
-    df["ARR"]      = df["arr"].map(lambda x: f"${x:,.0f}")
-    df["Health"]   = df["health_score"]
-    df["NRR"]      = df["nrr_pct"].map(lambda x: f"{x}%")
-    df["Adoption"] = df["adoption_score"].map(lambda x: f"{x}%")
-    df["Tier"]     = df["customer_tier"]
-    df["Renewal"]  = df["renewal_date"]
-    disp = df[["name","industry","Tier","region","ARR","Health","NRR","Adoption","Renewal","Risk"]].rename(
-        columns={"name": "Customer", "industry": "Industry", "region": "Region"}
-    )
-    disp = disp.sort_values("Health")
-
-    sel = st.dataframe(disp, use_container_width=True, height=420,
-                       on_select="rerun", selection_mode="single-row")
-    if sel and sel.get("selection", {}).get("rows"):
-        ridx   = sel["selection"]["rows"][0]
-        chosen = customers[disp.index[ridx]]
-        st.session_state["selected_cid"]   = chosen["id"]
-        st.session_state["selected_cname"] = chosen["name"]
-        st.session_state["nav_page"]       = "Customer 360"
-        st.rerun()
+        sel = st.dataframe(disp, use_container_width=True, height=420,
+                           on_select="rerun", selection_mode="single-row")
+        if sel and sel.get("selection", {}).get("rows"):
+            ridx   = sel["selection"]["rows"][0]
+            chosen = customers[disp.index[ridx]]
+            st.session_state["selected_cid"]   = chosen["id"]
+            st.session_state["selected_cname"] = chosen["name"]
+            st.session_state["nav_page"]       = "Customer 360"
+            st.rerun()
 
 
 
@@ -1319,6 +1327,42 @@ elif page == "Customer 360":
   <div style="font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Recommended Action Plan</div>
   {plan_html}
 </div>""", unsafe_allow_html=True)
+
+    # ── Outcome tracking: did we act on the AI's recommendation? ───────────────
+    action = get_action_status(cid)
+    cur_status = action.get("status", "Open")
+    status_meta = {
+        "Open":        ("#7A5C1E", "#FDF8EE", "Not yet actioned"),
+        "In Progress": ("#2D4A7A", "#EEF2FB", "In progress"),
+        "Done":        ("#2D5A3D", "#EFF6F1", "Closed — action taken"),
+        "Dismissed":   ("#6B6280", "#F0EEEA", "Dismissed"),
+    }
+    scolor, sbg, slabel = status_meta.get(cur_status, status_meta["Open"])
+    when = (action.get("updated_at") or "")[:16].replace("T", " ")
+
+    ac_l, ac_r = st.columns([1.5, 2.5])
+    with ac_l:
+        st.markdown(
+            f"<div style='background:{sbg};border:1px solid {scolor}33;border-radius:10px;padding:10px 14px'>"
+            f"<div style='font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em'>Recommendation Status</div>"
+            f"<div style='font-size:0.95rem;font-weight:800;color:{scolor};margin-top:3px'>{slabel}</div>"
+            f"<div style='font-size:0.64rem;color:#9B93A8;margin-top:2px'>{('updated '+when) if when else 'no action logged yet'}</div>"
+            f"</div>", unsafe_allow_html=True)
+    with ac_r:
+        st.markdown("<div style='font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px'>Log Outcome</div>", unsafe_allow_html=True)
+        b1, b2, b3, b4 = st.columns(4)
+        if b1.button("Open", use_container_width=True, key="act_open",
+                     type="primary" if cur_status == "Open" else "secondary"):
+            set_action_status(cid, "Open"); st.rerun()
+        if b2.button("In Progress", use_container_width=True, key="act_prog",
+                     type="primary" if cur_status == "In Progress" else "secondary"):
+            set_action_status(cid, "In Progress"); st.rerun()
+        if b3.button("Done", use_container_width=True, key="act_done",
+                     type="primary" if cur_status == "Done" else "secondary"):
+            set_action_status(cid, "Done"); st.rerun()
+        if b4.button("Dismiss", use_container_width=True, key="act_dismiss",
+                     type="primary" if cur_status == "Dismissed" else "secondary"):
+            set_action_status(cid, "Dismissed"); st.rerun()
 
     st.markdown("<div style='margin:12px 0 0'></div>", unsafe_allow_html=True)
 
