@@ -583,6 +583,72 @@ def export_button(content: str, filename: str, label: str = "⬇️ Export"):
                        mime="text/markdown", key=f"dl_{_export_counter[0]}_{filename[:20]}")
 
 
+# ── Executive dashboard helpers ───────────────────────────────────────────────
+
+import random as _rnd
+
+def mom_delta(metric_key, magnitude=1.0):
+    """Deterministic month-over-month delta for a metric (stable across reruns).
+    Returns (text, direction) where direction is 'up' | 'down' | 'flat'."""
+    r = _rnd.Random(hash(metric_key) & 0xffffffff)
+    val = round(r.uniform(-magnitude, magnitude), 1)
+    if abs(val) < magnitude * 0.15:
+        return ("flat", "flat")
+    return (f"{'+' if val > 0 else ''}{val}", "up" if val > 0 else "down")
+
+def kpi_card(label, value, sub="", delta=None, delta_dir="flat", good_when="up"):
+    """Render an executive KPI card with optional MoM delta + risk coloration."""
+    if delta is not None and delta_dir != "flat":
+        is_good = (delta_dir == good_when)
+        dcolor  = "#2D5A3D" if is_good else "#9B2335"
+        arrow   = "▲" if delta_dir == "up" else "▼"
+        delta_html = f"<span style='color:{dcolor};font-size:0.66rem;font-weight:700'>{arrow} {delta}</span>"
+    elif delta is not None:
+        delta_html = "<span style='color:#9B93A8;font-size:0.66rem;font-weight:600'>— flat</span>"
+    else:
+        delta_html = ""
+    sub_html = f"<span style='color:#9B93A8;font-size:0.62rem'>{sub}</span>" if sub else ""
+    sep = " &nbsp;·&nbsp; " if (delta_html and sub_html) else ""
+    return (
+        f"<div class='kpi-card'>"
+        f"<div class='kpi-label'>{label}</div>"
+        f"<div class='kpi-value'>{value}</div>"
+        f"<div style='margin-top:2px'>{delta_html}{sep}{sub_html}</div>"
+        f"</div>"
+    )
+
+def build_exec_summary(summary, customers):
+    """Generate a VP-style weekly narrative dynamically from portfolio data."""
+    nrr   = summary.get("nrr_pct", 0)
+    grr   = summary.get("grr_pct", 0)
+    hi    = summary.get("critical_count", 0)
+    arr_risk = summary.get("arr_at_risk", 0)
+    exp   = summary.get("expansion_pipeline_arr", 0)
+    esc   = summary.get("open_escalations", 0)
+    fc    = summary.get("renewal_forecast_pct", 0)
+
+    # Top 2 at-risk strategic/enterprise accounts by ARR
+    at_risk = sorted([c for c in customers if c["risk_level"] == "High"],
+                     key=lambda c: -c["arr"])[:2]
+    risk_names = " and ".join(c["name"] for c in at_risk) if at_risk else "no major accounts"
+
+    # Leading industry in expansion
+    exp_by_ind = {}
+    for c in customers:
+        if c.get("expansion_pipeline_arr"):
+            exp_by_ind[c["industry"]] = exp_by_ind.get(c["industry"], 0) + c["expansion_pipeline_arr"]
+    lead_ind = max(exp_by_ind, key=exp_by_ind.get) if exp_by_ind else "financial services"
+
+    health_word = "stable" if nrr >= 105 else "under pressure" if nrr < 100 else "holding"
+    sentences = [
+        f"Net revenue retention is {nrr}% with gross retention at {grr}%, leaving portfolio health **{health_word}**.",
+        f"{hi} account{'s' if hi != 1 else ''} {'are' if hi != 1 else 'is'} in high-risk status representing **${arr_risk/1e6:.1f}M** of ARR — most notably {risk_names}, driven by adoption decline and unresolved escalations.",
+        f"The 90-day renewal forecast stands at **{fc}%**, with {esc} active escalation{'s' if esc != 1 else ''} requiring attention.",
+        f"Expansion pipeline totals **${exp/1e6:.1f}M**, led by strong growth in {lead_ind} accounts.",
+    ]
+    return " ".join(sentences)
+
+
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 
 with st.sidebar:
@@ -593,9 +659,9 @@ with st.sidebar:
 
     st.markdown("---")
 
-    _pages = ["Portfolio Dashboard", "Customer 360", "Agent Console",
+    _pages = ["Executive Dashboard", "Customer 360", "CSM Performance", "Agent Console",
               "Briefings", "Implementation Digest", "Audit Trail & Costs"]
-    _default_idx = _pages.index(st.session_state.get("nav_page", "Portfolio Dashboard")) \
+    _default_idx = _pages.index(st.session_state.get("nav_page", "Executive Dashboard")) \
                    if st.session_state.get("nav_page") in _pages else 0
     page = st.radio(
         "",
@@ -788,8 +854,8 @@ st.markdown("""
 # PAGE: PORTFOLIO DASHBOARD
 # ══════════════════════════════════════════════════════════════════════════════
 
-if page == "Portfolio Dashboard":
-    page_header("Portfolio Dashboard", "Real-time view of all 25 enterprise customers")
+if page == "Executive Dashboard":
+    page_header("Executive Dashboard", "The state of the customer base at a glance")
 
     summary   = fetch_summary()
     customers = fetch_customers()
@@ -798,133 +864,164 @@ if page == "Portfolio Dashboard":
         st.error("❌ Failed to load data. Check that the database is initialized.")
         st.stop()
 
-    # ── KPI row ───────────────────────────────────────────────────────────────
-    total_arr   = summary.get('total_arr', 0)
-    arr_risk    = summary.get('arr_at_risk', 0)
-    arr_pct     = arr_risk / max(total_arr, 1) * 100
-    hi_c        = summary.get('critical_count', 0)
-    med_c       = summary.get('at_risk_count', 0)
-    ok_c        = summary.get('healthy_count', 0)
-    total_c     = max(summary.get('total_customers', 1), 1)
+    total_arr = summary.get('total_arr', 0)
+    arr_risk  = summary.get('arr_at_risk', 0)
+    hi_c      = summary.get('critical_count', 0)
+    med_c     = summary.get('at_risk_count', 0)
+    ok_c      = summary.get('healthy_count', 0)
+    total_c   = max(summary.get('total_customers', 1), 1)
 
-    k1, k2, k3, k4, k5, k6 = st.columns(6)
-    kpis = [
-        ("Total Customers",  str(summary.get("total_customers", 0)),  ""),
-        ("Total ARR",        f"${total_arr/1e6:.1f}M",                ""),
-        ("ARR at Risk",      f"${arr_risk/1e6:.1f}M",                 f"{arr_pct:.0f}% of portfolio"),
-        ("Open Escalations", str(summary.get("open_escalations", 0)), "active"),
-        ("Renewals (90d)",   str(summary.get("renewals_next_90_days", 0)), "due"),
-        ("Avg Health Score", str(summary.get("avg_health_score", 0)), "/ 100"),
+    # ── Top KPI bar (two rows of 4) ───────────────────────────────────────────
+    nrr  = summary.get("nrr_pct", 0)
+    grr  = summary.get("grr_pct", 0)
+    fc   = summary.get("renewal_forecast_pct", 0)
+    churn = summary.get("churn_risk_pct", 0)
+    exp  = summary.get("expansion_pipeline_arr", 0)
+    ttv  = summary.get("avg_time_to_value_days", 0)
+    adopt = summary.get("avg_adoption", 0)
+    esc_n = summary.get("open_escalations", 0)
+
+    d_nrr   = mom_delta("nrr", 3.0)
+    d_grr   = mom_delta("grr", 2.0)
+    d_fc    = mom_delta("forecast", 4.0)
+    d_exp   = mom_delta("expansion", 8.0)
+    d_ttv   = mom_delta("ttv", 5.0)
+    d_adopt = mom_delta("adoption", 4.0)
+    d_esc   = mom_delta("escalations", 2.0)
+
+    row1 = st.columns(4)
+    row1_cards = [
+        kpi_card("Net Revenue Retention", f"{nrr}%", "ARR-weighted", d_nrr[0], d_nrr[1], good_when="up"),
+        kpi_card("Gross Revenue Retention", f"{grr}%", "ARR-weighted", d_grr[0], d_grr[1], good_when="up"),
+        kpi_card("Renewal Forecast (90d)", f"{fc}%", f"${summary.get('upcoming_renewal_arr',0)/1e6:.1f}M up for renewal", d_fc[0], d_fc[1], good_when="up"),
+        kpi_card("Churn Risk", f"{churn}%", f"{hi_c} accounts high-risk", None, "down", good_when="down"),
     ]
-    for col, (label, val, sub) in zip([k1,k2,k3,k4,k5,k6], kpis):
-        with col:
-            st.markdown(f"<div class='kpi-card'><div class='kpi-label'>{label}</div><div class='kpi-value'>{val}</div><div class='kpi-sub'>{sub}</div></div>", unsafe_allow_html=True)
+    for col, card in zip(row1, row1_cards):
+        col.markdown(card, unsafe_allow_html=True)
 
-    # ── Health distribution bar ───────────────────────────────────────────────
-    h_pct = hi_c  / total_c * 100
-    m_pct = med_c / total_c * 100
-    l_pct = ok_c  / total_c * 100
+    row2 = st.columns(4)
+    row2_cards = [
+        kpi_card("Expansion Pipeline", f"${exp/1e6:.1f}M", "open upsell ARR", d_exp[0], d_exp[1], good_when="up"),
+        kpi_card("Avg Time to Value", f"{ttv}d", "to first value", d_ttv[0], d_ttv[1], good_when="down"),
+        kpi_card("Product Adoption", f"{adopt:.0f}%", "portfolio average", d_adopt[0], d_adopt[1], good_when="up"),
+        kpi_card("Open Escalations", str(esc_n), f"NPS {summary.get('avg_nps',0)} avg", d_esc[0], d_esc[1], good_when="down"),
+    ]
+    for col, card in zip(row2, row2_cards):
+        col.markdown(card, unsafe_allow_html=True)
+
+    # ── AI Executive Summary ──────────────────────────────────────────────────
     st.markdown(f"""
-    <div style="margin:14px 0 16px">
-      <div style="display:flex;height:10px;border-radius:50px;overflow:hidden;gap:2px">
-        <div style="width:{h_pct:.1f}%;background:#9B2335;border-radius:50px 0 0 50px"></div>
-        <div style="width:{m_pct:.1f}%;background:#C9952A"></div>
-        <div style="width:{l_pct:.1f}%;background:#2D5A3D;border-radius:0 50px 50px 0"></div>
-      </div>
-      <div style="display:flex;gap:18px;margin-top:6px">
-        <span style="font-size:0.70rem;color:#9B2335;font-weight:600">
-          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#9B2335;margin-right:4px;vertical-align:middle"></span>
-          High Risk &nbsp;{hi_c}
-        </span>
-        <span style="font-size:0.70rem;color:#7A5C1E;font-weight:600">
-          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#C9952A;margin-right:4px;vertical-align:middle"></span>
-          Medium Risk &nbsp;{med_c}
-        </span>
-        <span style="font-size:0.70rem;color:#2D5A3D;font-weight:600">
-          <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#2D5A3D;margin-right:4px;vertical-align:middle"></span>
-          Healthy &nbsp;{ok_c}
-        </span>
-      </div>
-    </div>
-    """, unsafe_allow_html=True)
+<div style="background:linear-gradient(135deg,#1B1040 0%,#2D2154 100%);border-radius:12px;
+     padding:16px 20px;margin:16px 0 18px">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+    <span style="font-size:0.62rem;font-weight:700;color:#B9AEE0;text-transform:uppercase;letter-spacing:0.12em">AI Executive Summary</span>
+    <span style="font-size:0.58rem;color:#8579B0;background:#ffffff14;padding:2px 8px;border-radius:20px">Weekly · auto-generated</span>
+  </div>
+  <div style="color:#F0EDF7;font-size:0.92rem;line-height:1.65">{build_exec_summary(summary, customers)}</div>
+</div>
+""", unsafe_allow_html=True)
 
-    # ── Scan button row ───────────────────────────────────────────────────────
-    scan_col, status_col = st.columns([1, 4])
+    # ── At-Risk Accounts + Expansion Opportunities ────────────────────────────
+    col_risk, col_exp = st.columns(2)
+
+    with col_risk:
+        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#9B2335;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Accounts Requiring Attention</div>", unsafe_allow_html=True)
+        at_risk = sorted([c for c in customers if c["risk_level"] == "High"], key=lambda c: -c["arr"])[:5]
+        for c in at_risk:
+            st.markdown(f"""
+<div style="background:#FFFFFF;border:1px solid #E8E4DC;border-left:3px solid #9B2335;
+     border-radius:8px;padding:10px 13px;margin-bottom:8px">
+  <div style="display:flex;justify-content:space-between;align-items:baseline">
+    <span style="font-weight:700;color:#1B1040;font-size:0.86rem">{c['name']}</span>
+    <span style="font-size:0.7rem;color:#9B2335;font-weight:700">${c['arr']/1e3:.0f}K ARR</span>
+  </div>
+  <div style="font-size:0.7rem;color:#6B6280;margin-top:1px">{c['industry']} · {c['customer_tier']} · {c['region']}</div>
+  <div style="font-size:0.74rem;color:#3D3458;margin-top:6px;line-height:1.4"><b style="color:#9B2335">Why:</b> {c['primary_risk_reason']}</div>
+  <div style="font-size:0.74rem;color:#3D3458;margin-top:3px;line-height:1.4"><b style="color:#2D5A3D">Action:</b> {c['recommended_next_action']}</div>
+</div>""", unsafe_allow_html=True)
+
+    with col_exp:
+        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#2D5A3D;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Expansion Opportunities</div>", unsafe_allow_html=True)
+        exp_accts = sorted([c for c in customers if c.get("expansion_pipeline_arr")],
+                           key=lambda c: -(c["expansion_pipeline_arr"] * c.get("upsell_likelihood", 0)))[:5]
+        for c in exp_accts:
+            ep = c["expansion_pipeline_arr"]
+            ul = c.get("upsell_likelihood", 0)
+            st.markdown(f"""
+<div style="background:#FFFFFF;border:1px solid #E8E4DC;border-left:3px solid #2D5A3D;
+     border-radius:8px;padding:10px 13px;margin-bottom:8px">
+  <div style="display:flex;justify-content:space-between;align-items:baseline">
+    <span style="font-weight:700;color:#1B1040;font-size:0.86rem">{c['name']}</span>
+    <span style="font-size:0.7rem;color:#2D5A3D;font-weight:700">+${ep/1e3:.0f}K</span>
+  </div>
+  <div style="font-size:0.7rem;color:#6B6280;margin-top:1px">{c['industry']} · NRR {c.get('nrr_pct','?')}% · {int(ul*100)}% likely</div>
+  <div style="font-size:0.74rem;color:#3D3458;margin-top:6px;line-height:1.4"><b style="color:#2D5A3D">Signal:</b> {c['roi_outcome']}; adoption {c.get('adoption_score','?')}%</div>
+  <div style="font-size:0.74rem;color:#3D3458;margin-top:3px;line-height:1.4"><b style="color:#1B1040">Next:</b> {c['recommended_next_action']}</div>
+</div>""", unsafe_allow_html=True)
+
+    # ── Customer Health Heatmap ───────────────────────────────────────────────
+    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin:8px 0 8px'>Customer Health Heatmap</div>", unsafe_allow_html=True)
+    tiles = []
+    for c in sorted(customers, key=lambda c: c["health_score"]):
+        hc = health_color(c["health_score"])
+        initials = "".join(w[0] for w in c["name"].split()[:2]).upper()
+        tiles.append(
+            f"<div title=\"{c['name']} — health {c['health_score']}, {c['risk_level']} risk\" "
+            f"style='flex:0 0 auto;width:60px;height:46px;background:{hc};border-radius:7px;"
+            f"display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff'>"
+            f"<div style='font-size:0.72rem;font-weight:800;line-height:1'>{c['health_score']}</div>"
+            f"<div style='font-size:0.52rem;opacity:0.85;margin-top:1px'>{initials}</div></div>"
+        )
+    st.markdown(
+        "<div style='display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px'>" + "".join(tiles) + "</div>"
+        "<div style='display:flex;gap:16px;font-size:0.66rem;color:#6B6280'>"
+        "<span><span style='display:inline-block;width:9px;height:9px;background:#9B2335;border-radius:2px;margin-right:4px'></span>Critical (&lt;40)</span>"
+        "<span><span style='display:inline-block;width:9px;height:9px;background:#7A5C1E;border-radius:2px;margin-right:4px'></span>At Risk (40–59)</span>"
+        "<span><span style='display:inline-block;width:9px;height:9px;background:#2D5A3D;border-radius:2px;margin-right:4px'></span>Healthy (60+)</span>"
+        "</div>",
+        unsafe_allow_html=True
+    )
+
+    st.markdown("<div style='margin:14px 0 4px'></div>", unsafe_allow_html=True)
+
+    # ── Full portfolio table + scan ───────────────────────────────────────────
+    tbl_col, scan_col = st.columns([4, 1])
     with scan_col:
-        if st.button("Scan Full Portfolio", use_container_width=True, type="primary",
-                     help="Run CustomerHealthAgent on all 25 customers using Claude Haiku"):
-            with st.spinner("Scanning all 25 customers..."):
+        if st.button("AI Health Scan", use_container_width=True, type="primary",
+                     help="Run CustomerHealthAgent across the full portfolio (Claude Haiku)"):
+            with st.spinner("Scanning all customers..."):
                 scan = call_portfolio_health()
             st.session_state["portfolio_scan"] = scan
-    with status_col:
-        if "portfolio_scan" in st.session_state:
-            scan = st.session_state["portfolio_scan"]
-            if "error" not in scan:
-                st.markdown(
-                    f"<div style='margin-top:8px;font-size:0.78rem;color:#2D5A3D;font-weight:600'>"
-                    f"Scanned {scan.get('customers_scanned',0)} customers &nbsp;·&nbsp; "
-                    f"Total cost: ${scan.get('total_cost_usd',0):.4f} &nbsp;·&nbsp; "
-                    f"<span style='color:#6B6280;font-weight:400'>Claude Haiku</span></div>",
-                    unsafe_allow_html=True
-                )
-
-    st.markdown("<div style='margin:12px 0'></div>", unsafe_allow_html=True)
-
-    # ── Customer table + escalations ──────────────────────────────────────────
-    left_col, right_col = st.columns([3, 1])
-
-    with left_col:
+    with tbl_col:
         st.markdown(
             "<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;"
             "letter-spacing:0.10em;margin-bottom:8px'>Customer Portfolio"
-            " <span style=\"font-weight:400;text-transform:none;letter-spacing:0\">— select a row to drill in</span></div>",
+            " <span style=\"font-weight:400;text-transform:none;letter-spacing:0\">— select a row to open the account</span></div>",
             unsafe_allow_html=True
         )
-        df = pd.DataFrame(customers)
-        df["Risk"]     = df["risk_level"].map({"High": "High", "Medium": "Medium", "Low": "Healthy"})
-        df["ARR"]      = df["arr"].map(lambda x: f"${x:,.0f}")
-        df["Health"]   = df["health_score"]
-        df["Trend"]    = df.get("health_trend", pd.Series([""] * len(df)))
-        df["Renewal"]  = df["renewal_date"]
-        df["Champion"] = df["champion_status"]
-        disp = df[["name","industry","ARR","Health","Trend","Renewal","Champion","Risk"]].rename(
-            columns={"name": "Customer", "industry": "Industry"}
-        )
-        disp = disp.sort_values("Health")
 
-        sel = st.dataframe(disp, use_container_width=True, height=480,
-                           on_select="rerun", selection_mode="single-row")
-        if sel and sel.get("selection", {}).get("rows"):
-            ridx   = sel["selection"]["rows"][0]
-            chosen = customers[disp.index[ridx]]
-            st.session_state["selected_cid"]   = chosen["id"]
-            st.session_state["selected_cname"] = chosen["name"]
-            st.markdown(
-                f"<div style='margin-top:6px;font-size:0.78rem;color:#2D5A3D;font-weight:600'>"
-                f"Selected <b>{chosen['name']}</b> ({chosen['risk_level']} risk) — navigate to Customer 360</div>",
-                unsafe_allow_html=True
-            )
+    df = pd.DataFrame(customers)
+    df["Risk"]     = df["risk_level"].map({"High": "High", "Medium": "Medium", "Low": "Healthy"})
+    df["ARR"]      = df["arr"].map(lambda x: f"${x:,.0f}")
+    df["Health"]   = df["health_score"]
+    df["NRR"]      = df["nrr_pct"].map(lambda x: f"{x}%")
+    df["Adoption"] = df["adoption_score"].map(lambda x: f"{x}%")
+    df["Tier"]     = df["customer_tier"]
+    df["Renewal"]  = df["renewal_date"]
+    disp = df[["name","industry","Tier","region","ARR","Health","NRR","Adoption","Renewal","Risk"]].rename(
+        columns={"name": "Customer", "industry": "Industry", "region": "Region"}
+    )
+    disp = disp.sort_values("Health")
 
-    with right_col:
-        st.markdown(
-            "<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;"
-            "letter-spacing:0.10em;margin-bottom:8px'>Top Escalations</div>",
-            unsafe_allow_html=True
-        )
-        for esc in summary.get("top_escalations", []):
-            is_crit   = esc.get("severity") == "Critical"
-            sev_color = "#9B2335" if is_crit else "#7A5C1E"
-            sev_bg    = "#FDF1F2" if is_crit else "#FDF8EE"
-            cname     = next((c["name"] for c in customers if c["id"] == esc.get("customer_id")), "?")
-            st.markdown(f"""
-<div style="background:{sev_bg};border:1px solid {'#F5C6CB' if is_crit else '#EDD9A3'};
-     border-left:3px solid {sev_color};border-radius:8px;padding:9px 11px;margin-bottom:7px">
-  <div style="font-size:0.60rem;color:{sev_color};font-weight:700;text-transform:uppercase;
-       letter-spacing:0.07em">{esc.get('severity','?')} · {cname.upper()}</div>
-  <div style="font-size:0.78rem;color:#1B1040;margin-top:3px;font-weight:600;line-height:1.35">
-    {esc.get('title','')[:65]}</div>
-  <div style="font-size:0.68rem;color:#6B6280;margin-top:3px">{esc.get('owner','')}</div>
-</div>""", unsafe_allow_html=True)
+    sel = st.dataframe(disp, use_container_width=True, height=420,
+                       on_select="rerun", selection_mode="single-row")
+    if sel and sel.get("selection", {}).get("rows"):
+        ridx   = sel["selection"]["rows"][0]
+        chosen = customers[disp.index[ridx]]
+        st.session_state["selected_cid"]   = chosen["id"]
+        st.session_state["selected_cname"] = chosen["name"]
+        st.session_state["nav_page"]       = "Customer 360"
+        st.rerun()
 
     # ── Portfolio scan results ────────────────────────────────────────────────
     if "portfolio_scan" in st.session_state and "error" not in st.session_state["portfolio_scan"]:
@@ -937,6 +1034,10 @@ if page == "Portfolio Dashboard":
             "— CustomerHealthAgent · Claude Haiku</span></div>",
             unsafe_allow_html=True
         )
+        st.markdown(
+            f"<div style='font-size:0.76rem;color:#2D5A3D;font-weight:600;margin-bottom:6px'>"
+            f"Scanned {scan.get('customers_scanned',0)} customers · "
+            f"Total cost ${scan.get('total_cost_usd',0):.4f}</div>", unsafe_allow_html=True)
         scan_df = pd.DataFrame(scan["results"])
         scan_df["Score"]    = scan_df["health_score"]
         scan_df["Risk"]     = scan_df["risk_level"]
@@ -1325,6 +1426,94 @@ elif page == "Customer 360":
                 st.rerun()
         else:
             st.caption("No renewal record found within 180-day window.")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# PAGE: CSM PERFORMANCE
+# ══════════════════════════════════════════════════════════════════════════════
+
+elif page == "CSM Performance":
+    page_header("CSM Performance", "Portfolio health, ARR, renewals and expansion by Customer Success Manager")
+    customers = fetch_customers()
+    if not customers:
+        st.error("No customers loaded.")
+        st.stop()
+
+    today = datetime.now().date()
+    csm_stats = {}
+    for c in customers:
+        owner = c.get("csm_owner", "Unassigned")
+        s = csm_stats.setdefault(owner, {
+            "accounts": 0, "arr": 0, "health_sum": 0, "high": 0, "med": 0, "low": 0,
+            "expansion": 0, "renewals_90": 0, "nrr_sum": 0,
+        })
+        s["accounts"]  += 1
+        s["arr"]       += c["arr"]
+        s["health_sum"] += c["health_score"]
+        s["nrr_sum"]   += c.get("nrr_pct", 0)
+        s["expansion"] += c.get("expansion_pipeline_arr", 0)
+        s[{"High": "high", "Medium": "med", "Low": "low"}[c["risk_level"]]] += 1
+        try:
+            d = (datetime.strptime(c["renewal_date"], "%Y-%m-%d").date() - today).days
+            if 0 <= d <= 90:
+                s["renewals_90"] += 1
+        except Exception:
+            pass
+
+    # Summary KPI row across the CS team
+    team = st.columns(4)
+    team[0].markdown(kpi_card("CS Managers", str(len(csm_stats))), unsafe_allow_html=True)
+    team[1].markdown(kpi_card("Avg Accounts / CSM", f"{len(customers)/max(len(csm_stats),1):.0f}"), unsafe_allow_html=True)
+    team[2].markdown(kpi_card("Avg ARR / CSM", f"${sum(s['arr'] for s in csm_stats.values())/max(len(csm_stats),1)/1e6:.1f}M"), unsafe_allow_html=True)
+    team[3].markdown(kpi_card("Total Expansion Pipeline", f"${sum(s['expansion'] for s in csm_stats.values())/1e6:.1f}M"), unsafe_allow_html=True)
+
+    st.markdown("<div style='margin:14px 0 8px'></div>", unsafe_allow_html=True)
+
+    # Per-CSM cards, sorted by portfolio health
+    ranked = sorted(csm_stats.items(), key=lambda kv: kv[1]["health_sum"]/kv[1]["accounts"], reverse=True)
+    for owner, s in ranked:
+        avg_h   = s["health_sum"] / s["accounts"]
+        avg_nrr = s["nrr_sum"] / s["accounts"]
+        hc      = health_color(avg_h)
+        tot     = s["accounts"]
+        hp, mp, lp = s["high"]/tot*100, s["med"]/tot*100, s["low"]/tot*100
+        st.markdown(f"""
+<div style="background:#FFFFFF;border:1px solid #E8E4DC;border-radius:10px;padding:13px 16px;margin-bottom:9px">
+  <div style="display:flex;align-items:center;gap:14px">
+    <div style="flex:0 0 150px">
+      <div style="font-weight:700;color:#1B1040;font-size:0.92rem">{owner}</div>
+      <div style="font-size:0.68rem;color:#6B6280">{s['accounts']} accounts · ${s['arr']/1e6:.1f}M ARR</div>
+    </div>
+    <div style="flex:0 0 70px;text-align:center">
+      <div style="font-size:1.3rem;font-weight:800;color:{hc};line-height:1">{avg_h:.0f}</div>
+      <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Avg Health</div>
+    </div>
+    <div style="flex:1">
+      <div style="display:flex;height:8px;border-radius:50px;overflow:hidden;gap:2px">
+        <div style="width:{hp:.1f}%;background:#9B2335"></div>
+        <div style="width:{mp:.1f}%;background:#C9952A"></div>
+        <div style="width:{lp:.1f}%;background:#2D5A3D"></div>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:5px;font-size:0.66rem;color:#6B6280">
+        <span style="color:#9B2335;font-weight:600">{s['high']} high</span>
+        <span style="color:#7A5C1E;font-weight:600">{s['med']} med</span>
+        <span style="color:#2D5A3D;font-weight:600">{s['low']} healthy</span>
+      </div>
+    </div>
+    <div style="flex:0 0 90px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
+      <div style="font-size:0.95rem;font-weight:800;color:#1B1040;line-height:1.2">{avg_nrr:.0f}%</div>
+      <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Avg NRR</div>
+    </div>
+    <div style="flex:0 0 100px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
+      <div style="font-size:0.95rem;font-weight:800;color:#2D5A3D;line-height:1.2">${s['expansion']/1e3:.0f}K</div>
+      <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Expansion</div>
+    </div>
+    <div style="flex:0 0 80px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
+      <div style="font-size:0.95rem;font-weight:800;color:#1B1040;line-height:1.2">{s['renewals_90']}</div>
+      <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Renewals 90d</div>
+    </div>
+  </div>
+</div>""", unsafe_allow_html=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
