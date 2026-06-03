@@ -69,9 +69,9 @@ st.markdown("""
     background: #F5F2EE !important;
     min-height: 100vh;
 }
-/* Main (right) pane — soft Onyx pink → lavender gradient */
+/* Main (right) pane — light → soft Onyx pink/lavender gradient */
 [data-testid="stMain"] {
-    background: linear-gradient(160deg, #FBE9F1 0%, #F4EAF6 38%, #F1ECF2 68%, #F5F2EE 100%) !important;
+    background: linear-gradient(160deg, #FFFFFF 0%, #FDF4F8 30%, #FAEFF6 58%, #F4EAF6 100%) !important;
 }
 
 /* Tighter main content padding */
