@@ -329,27 +329,27 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
     box-shadow: 0 1px 6px rgba(27,16,64,0.05) !important;
     padding: 6px 26px 18px !important;
 }
-[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) h1 {
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] h1 {
     font-size: 1.15rem !important; margin: 8px 0 2px !important; letter-spacing: -0.02em !important;
 }
-[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) h2 {
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] h2 {
     font-size: 0.82rem !important; font-weight: 700 !important; color: #6B6280 !important;
     text-transform: uppercase !important; letter-spacing: 0.08em !important;
     margin: 18px 0 6px !important; padding-bottom: 5px !important;
     border-bottom: 1px solid #EFEBE4 !important;
 }
-[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) h3 {
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] h3 {
     font-size: 0.9rem !important; margin: 12px 0 4px !important; color: #1B1040 !important;
 }
-[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) p {
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] p {
     font-size: 0.88rem !important; line-height: 1.55 !important; color: #3D3458 !important; margin: 4px 0 !important;
 }
-[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) li {
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] li {
     font-size: 0.88rem !important; line-height: 1.5 !important; color: #3D3458 !important; margin: 3px 0 !important;
 }
-[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) strong { color: #1B1040 !important; }
-[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) em { color: #6B6280 !important; }
-[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) hr {
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] strong { color: #1B1040 !important; }
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] em { color: #6B6280 !important; }
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] hr {
     margin: 14px 0 !important; border-color: #EFEBE4 !important;
 }
 
@@ -371,6 +371,19 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
 .element-container { margin-bottom: 0.3rem !important; }
 .stVerticalBlock { gap: 0.4rem !important; }
 div[data-testid="column"] > div { gap: 0.4rem !important; }
+
+/* ── Final guaranteed overrides: white text on dark surfaces ── */
+.stTabs [data-baseweb="tab-list"] button[aria-selected="true"],
+.stTabs [data-baseweb="tab-list"] button[aria-selected="true"] *,
+.stTabs [data-baseweb="tab-list"] button[aria-selected="true"] p {
+    color: #FFFFFF !important; fill: #FFFFFF !important;
+}
+.stButton > button[kind="primary"] p,
+.stButton > button[kind="primaryFormSubmit"] p,
+button[data-testid="stBaseButton-primary"] p,
+button[data-testid="stBaseButton-primaryFormSubmit"] p {
+    color: #FFFFFF !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
