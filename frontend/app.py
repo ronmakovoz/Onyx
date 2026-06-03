@@ -386,6 +386,21 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
 .stVerticalBlock { gap: 0.4rem !important; }
 div[data-testid="column"] > div { gap: 0.4rem !important; }
 
+/* Tooltips — compact dark pill instead of full-width white slab */
+[data-testid="stTooltipContent"] {
+    background: #1B1040 !important;
+    color: #FFFFFF !important;
+    border-radius: 8px !important;
+    padding: 8px 12px !important;
+    font-size: 0.74rem !important;
+    line-height: 1.4 !important;
+    max-width: 260px !important;
+    box-shadow: 0 4px 16px rgba(27,16,64,0.25) !important;
+    border: none !important;
+}
+[data-testid="stTooltipContent"] p,
+[data-testid="stTooltipContent"] * { color: #FFFFFF !important; font-size: 0.74rem !important; }
+
 /* ── Final guaranteed overrides: white text on dark surfaces ── */
 .stTabs [data-baseweb="tab-list"] button[aria-selected="true"],
 .stTabs [data-baseweb="tab-list"] button[aria-selected="true"] *,
@@ -747,8 +762,7 @@ def build_exec_summary(summary, customers):
 with st.sidebar:
     # ── Mock / Live API toggle (top-left) ─────────────────────────────────────
     if _REAL_API_KEY:
-        live = st.toggle("Live Anthropic API", value=st.session_state.get("live_api", False),
-                         help="On → real Claude calls (incurs cost). Off → mock responses.")
+        live = st.toggle("Live Anthropic API", value=st.session_state.get("live_api", False))
         st.session_state["live_api"] = live
         if live:
             os.environ["ANTHROPIC_API_KEY"] = _REAL_API_KEY
