@@ -11,6 +11,16 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 
+# Bridge: if ANTHROPIC_API_KEY isn't already in the environment, pull it from
+# Streamlit secrets (.streamlit/secrets.toml locally, or the Secrets box on
+# Streamlit Cloud). Absent everywhere → the app stays in mock mode.
+if not os.environ.get("ANTHROPIC_API_KEY"):
+    try:
+        if "ANTHROPIC_API_KEY" in st.secrets:
+            os.environ["ANTHROPIC_API_KEY"] = st.secrets["ANTHROPIC_API_KEY"]
+    except Exception:
+        pass
+
 from backend.crud import (
     get_all_customers, get_customer_360, get_portfolio_summary,
     save_agent_run, save_briefing, get_agent_runs, get_briefings, get_cost_summary
