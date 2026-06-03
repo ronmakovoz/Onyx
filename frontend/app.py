@@ -21,6 +21,10 @@ if not os.environ.get("ANTHROPIC_API_KEY"):
     except Exception:
         pass
 
+# Remember the real key so the sidebar Mock/Live toggle can enable or disable
+# live calls at runtime by adding/removing it from the environment.
+_REAL_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+
 from backend.crud import (
     get_all_customers, get_customer_360, get_portfolio_summary,
     save_agent_run, save_briefing, get_agent_runs, get_briefings, get_cost_summary
@@ -741,6 +745,22 @@ def build_exec_summary(summary, customers):
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 
 with st.sidebar:
+    # ── Mock / Live API toggle (top-left) ─────────────────────────────────────
+    if _REAL_API_KEY:
+        live = st.toggle("Live Anthropic API", value=st.session_state.get("live_api", False),
+                         help="On → real Claude calls (incurs cost). Off → mock responses.")
+        st.session_state["live_api"] = live
+        if live:
+            os.environ["ANTHROPIC_API_KEY"] = _REAL_API_KEY
+            st.markdown("<div style='font-size:0.66rem;color:#2D5A3D;font-weight:700;margin:-4px 0 6px'>● LIVE — calling Claude</div>", unsafe_allow_html=True)
+        else:
+            os.environ.pop("ANTHROPIC_API_KEY", None)
+            st.markdown("<div style='font-size:0.66rem;color:#7A5C1E;font-weight:700;margin:-4px 0 6px'>● MOCK — no API calls</div>", unsafe_allow_html=True)
+    else:
+        os.environ.pop("ANTHROPIC_API_KEY", None)
+        st.session_state["live_api"] = False
+        st.markdown("<div style='font-size:0.66rem;color:#7A5C1E;font-weight:700;margin:0 0 6px'>● MOCK — set ANTHROPIC_API_KEY to enable live</div>", unsafe_allow_html=True)
+
     if st.button("About the Agents", use_container_width=True, key="sb_about", type="secondary"):
         st.session_state["show_agent_guide"] = True
 
