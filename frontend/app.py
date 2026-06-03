@@ -69,7 +69,10 @@ st.markdown("""
     background: #F5F2EE !important;
     min-height: 100vh;
 }
-[data-testid="stMain"] { background: transparent !important; }
+/* Main (right) pane — soft Onyx pink → lavender gradient */
+[data-testid="stMain"] {
+    background: linear-gradient(160deg, #FBE9F1 0%, #F4EAF6 38%, #F1ECF2 68%, #F5F2EE 100%) !important;
+}
 
 /* Tighter main content padding */
 [data-testid="stMainBlockContainer"] { padding: 1rem 1.8rem 2rem !important; max-width: 1500px; }
