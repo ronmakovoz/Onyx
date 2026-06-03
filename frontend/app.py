@@ -80,7 +80,7 @@ st.markdown("""
 h1 { color: #1B1040 !important; font-weight: 800 !important; font-size: 1.6rem !important; letter-spacing: -0.03em !important; margin-bottom: 0 !important; }
 h2 { color: #1B1040 !important; font-weight: 700 !important; font-size: 1.1rem !important; letter-spacing: -0.02em !important; margin: 0 !important; }
 h3 { color: #1B1040 !important; font-weight: 600 !important; font-size: 0.95rem !important; margin: 0 !important; }
-:not(button) > p, li { color: #3D3458; font-size: 0.85rem; margin: 0; }
+p, li { color: #3D3458; font-size: 0.85rem; margin: 0; }
 .stMarkdown p { color: #3D3458; font-size: 0.85rem; }
 
 /* Cards — compact */
@@ -384,15 +384,18 @@ button[data-testid="stBaseButton-primary"] p,
 button[data-testid="stBaseButton-primaryFormSubmit"] p {
     color: #FFFFFF !important;
 }
-/* Belt-and-suspenders: any button with navy background → white text */
-button[style*="background: rgb(27, 16, 64)"] *,
-button[style*="background-color: rgb(27, 16, 64)"] *,
-.stButton button[kind="primary"] *,
-.stButton button[kind="primary"] p,
-.stButton button[kind="primaryFormSubmit"] *,
-.stButton button[kind="primaryFormSubmit"] p,
-[data-testid*="stBaseButton-primary"] *,
-[data-testid*="stBaseButton-primary"] p { color: #FFFFFF !important; }
+/* Bulletproof primary-button text — covers Streamlit 1.39 (baseButton-*) and
+   1.40+ (stBaseButton-*) testids, and forces -webkit-text-fill-color which
+   otherwise visually overrides `color` regardless of !important. */
+button[kind="primary"], button[kind="primary"] *,
+button[kind="primaryFormSubmit"], button[kind="primaryFormSubmit"] *,
+[data-testid="baseButton-primary"], [data-testid="baseButton-primary"] *,
+[data-testid="baseButton-primaryFormSubmit"], [data-testid="baseButton-primaryFormSubmit"] *,
+[data-testid="stBaseButton-primary"], [data-testid="stBaseButton-primary"] *,
+[data-testid="stBaseButton-primaryFormSubmit"], [data-testid="stBaseButton-primaryFormSubmit"] * {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -712,11 +715,12 @@ def build_exec_summary(summary, customers):
     lead_ind = max(exp_by_ind, key=exp_by_ind.get) if exp_by_ind else "financial services"
 
     health_word = "stable" if nrr >= 105 else "under pressure" if nrr < 100 else "holding"
+    b = lambda t: f"<strong style='color:#FFFFFF;font-weight:700'>{t}</strong>"
     sentences = [
-        f"Net revenue retention is {nrr}% with gross retention at {grr}%, leaving portfolio health **{health_word}**.",
-        f"{hi} account{'s' if hi != 1 else ''} {'are' if hi != 1 else 'is'} in high-risk status representing **${arr_risk/1e6:.1f}M** of ARR — most notably {risk_names}, driven by adoption decline and unresolved escalations.",
-        f"The 90-day renewal forecast stands at **{fc}%**, with {esc} active escalation{'s' if esc != 1 else ''} requiring attention.",
-        f"Expansion pipeline totals **${exp/1e6:.1f}M**, led by strong growth in {lead_ind} accounts.",
+        f"Net revenue retention is {nrr}% with gross retention at {grr}%, leaving portfolio health {b(health_word)}.",
+        f"{hi} account{'s' if hi != 1 else ''} {'are' if hi != 1 else 'is'} in high-risk status representing {b(f'${arr_risk/1e6:.1f}M')} of ARR — most notably {risk_names}, driven by adoption decline and unresolved escalations.",
+        f"The 90-day renewal forecast stands at {b(f'{fc}%')}, with {esc} active escalation{'s' if esc != 1 else ''} requiring attention.",
+        f"Expansion pipeline totals {b(f'${exp/1e6:.1f}M')}, led by strong growth in {lead_ind} accounts.",
     ]
     return " ".join(sentences)
 
