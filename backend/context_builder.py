@@ -80,6 +80,23 @@ def build_customer_context(customer_id: int) -> dict:
         "meeting_notes":           notes_str,
         "renewal_stage":           renewal_data.get("renewal_stage", "Not Started"),
         "expansion_arr":           renewal_data.get("expansion_arr", 0),
+        # ── New CS / retention / expansion signals ───────────────────────────
+        "customer_tier":           c.get("customer_tier", "Enterprise"),
+        "region":                  c.get("region", "NA"),
+        "nrr_pct":                 c.get("nrr_pct", 0),
+        "grr_pct":                 c.get("grr_pct", 0),
+        "nps":                     c.get("nps", 0),
+        "nps_trend":               c.get("nps_trend", "flat"),
+        "utilization_pct":         c.get("utilization_pct", 0),
+        "time_to_first_value_days":c.get("time_to_first_value_days"),
+        "time_to_production_days": c.get("time_to_production_days"),
+        "executive_engagement":    c.get("executive_engagement", "Unknown"),
+        "qbr_completion":          c.get("qbr_completion", "Unknown"),
+        "usage_trend":             c.get("usage_trend", "Steady"),
+        "expansion_pipeline_arr":  c.get("expansion_pipeline_arr", 0),
+        "upsell_likelihood":       c.get("upsell_likelihood", 0),
+        "roi_outcome":             c.get("roi_outcome", ""),
+        "cost_to_serve":           c.get("cost_to_serve", 0),
     }
 
 
@@ -134,4 +151,12 @@ def build_portfolio_context() -> dict:
         "renewal_pipeline": renewal_pipeline_str,
         "arr_at_risk":      summary["arr_at_risk"],
         "risk_pct":         round(summary["arr_at_risk"] / summary["total_arr"] * 100, 1) if summary["total_arr"] else 0,
+        # ── Retention & expansion KPIs ───────────────────────────────────────
+        "nrr_pct":              summary.get("nrr_pct", 0),
+        "grr_pct":              summary.get("grr_pct", 0),
+        "expansion_pipeline_arr": summary.get("expansion_pipeline_arr", 0),
+        "renewal_forecast_pct": summary.get("renewal_forecast_pct", 0),
+        "churn_risk_pct":       summary.get("churn_risk_pct", 0),
+        "avg_nps":              summary.get("avg_nps", 0),
+        "avg_adoption":         summary.get("avg_adoption", 0),
     }

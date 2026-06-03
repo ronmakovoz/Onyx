@@ -1106,7 +1106,8 @@ elif page == "Customer 360":
           <div style="font-size:1.25rem;font-weight:800;color:#1B1040;letter-spacing:-0.02em;line-height:1.2">
             {c['name']}</div>
           <div style="color:#6B6280;font-size:0.75rem;margin-top:3px">
-            {c['industry']} &nbsp;·&nbsp; {c.get('employee_count','?'):,} employees &nbsp;·&nbsp;
+            {c['industry']} &nbsp;·&nbsp; {c.get('customer_tier','?')} &nbsp;·&nbsp; {c.get('region','?')} &nbsp;·&nbsp;
+            {c.get('employee_count','?'):,} employees &nbsp;·&nbsp;
             <span style="font-weight:700;color:#1B1040">${c['arr']:,} ARR</span>
           </div>
           <div style="margin-top:10px;padding:8px 12px;background:#F5F2EE;border-radius:8px;font-size:0.78rem;color:#3D3458;line-height:1.5">
@@ -1147,9 +1148,70 @@ elif page == "Customer 360":
           <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Champion</div>
           <div style="font-size:0.82rem;font-weight:700;color:{champ_color};line-height:1.4">{champ_status}</div>
         </div>
+        <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:70px">
+          <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">NRR</div>
+          <div style="font-size:1.05rem;font-weight:800;color:{'#2D5A3D' if c.get('nrr_pct',0)>=105 else '#7A5C1E' if c.get('nrr_pct',0)>=98 else '#9B2335'};line-height:1.3">{c.get('nrr_pct','?')}%</div>
+        </div>
+        <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:70px">
+          <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">NPS</div>
+          <div style="font-size:1.05rem;font-weight:800;color:{'#2D5A3D' if c.get('nps',0)>=8 else '#7A5C1E' if c.get('nps',0)>=5 else '#9B2335'};line-height:1.3">{c.get('nps','?')}</div>
+        </div>
+        <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:90px">
+          <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Time to Value</div>
+          <div style="font-size:1.05rem;font-weight:800;color:#1B1040;line-height:1.3">{(str(c['time_to_first_value_days'])+'d') if c.get('time_to_first_value_days') else '—'}</div>
+        </div>
       </div>
     </div>
     """, unsafe_allow_html=True)
+
+    # ── Renewal prediction + ROI + recommended action plan ───────────────────
+    rr      = c.get("renewal_risk_score", 0)
+    renew_conf = round((1 - rr) * 100)
+    rconf_color = "#2D5A3D" if renew_conf >= 70 else "#7A5C1E" if renew_conf >= 45 else "#9B2335"
+    rverdict = "Likely to Renew" if renew_conf >= 70 else "Renewal at Risk" if renew_conf < 45 else "Needs Attention"
+    # Build a concrete action plan from the account's signals
+    plan = []
+    if c.get("champion_status") == "Left Company":
+        plan.append("Identify and recruit a new executive champion")
+    if escs:
+        plan.append(f"Resolve {len(escs)} open escalation{'s' if len(escs)!=1 else ''} with daily exec updates")
+    if open_tickets >= 3:
+        plan.append(f"Clear support backlog ({open_tickets} open tickets)")
+    if c.get("adoption_score", 100) < 50:
+        plan.append("Run an adoption workshop to drive feature activation")
+    if c.get("qbr_completion") == "Overdue":
+        plan.append("Schedule the overdue QBR with the economic buyer")
+    if c.get("expansion_pipeline_arr"):
+        plan.append(f"Advance ${c['expansion_pipeline_arr']/1e3:.0f}K expansion opportunity")
+    if not plan:
+        plan = ["Maintain cadence; pursue reference and advocacy opportunities"]
+    plan = plan[:4]
+    plan_html = "".join(f"<div style='font-size:0.76rem;color:#3D3458;margin-top:5px;line-height:1.35'>{i+1}. {step}</div>" for i, step in enumerate(plan))
+
+    rp1, rp2, rp3 = st.columns([1, 1, 1.4])
+    with rp1:
+        st.markdown(f"""
+<div style="background:#FFFFFF;border:1px solid #E8E4DC;border-radius:10px;padding:12px 14px;height:100%">
+  <div style="font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Renewal Prediction</div>
+  <div style="font-size:1.6rem;font-weight:900;color:{rconf_color};line-height:1.1;margin-top:4px">{renew_conf}%</div>
+  <div style="font-size:0.74rem;font-weight:700;color:{rconf_color}">{rverdict}</div>
+  <div style="font-size:0.68rem;color:#6B6280;margin-top:4px">{renewal_days}d to renewal · {c.get('forecast_category', renewal.get('forecast_category','—') if renewal else '—')}</div>
+</div>""", unsafe_allow_html=True)
+    with rp2:
+        st.markdown(f"""
+<div style="background:#FFFFFF;border:1px solid #E8E4DC;border-radius:10px;padding:12px 14px;height:100%">
+  <div style="font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Proven Business Outcome</div>
+  <div style="font-size:0.92rem;font-weight:700;color:#2D5A3D;line-height:1.3;margin-top:6px">{c.get('roi_outcome','—')}</div>
+  <div style="font-size:0.68rem;color:#6B6280;margin-top:6px">Utilization {c.get('utilization_pct','?')}% · Exec engagement {c.get('executive_engagement','?')}</div>
+</div>""", unsafe_allow_html=True)
+    with rp3:
+        st.markdown(f"""
+<div style="background:#FFFFFF;border:1px solid #E8E4DC;border-radius:10px;padding:12px 14px;height:100%">
+  <div style="font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Recommended Action Plan</div>
+  {plan_html}
+</div>""", unsafe_allow_html=True)
+
+    st.markdown("<div style='margin:12px 0 0'></div>", unsafe_allow_html=True)
 
     # ── Agent action bar ──────────────────────────────────────────────────────
     st.markdown("<div style='font-size:0.68rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Run Agents</div>", unsafe_allow_html=True)
