@@ -798,16 +798,20 @@ with st.sidebar:
 
     _pages = ["Executive Dashboard", "Customer 360", "CSM Performance", "Agent Console",
               "Briefings", "Implementation Digest", "Audit Trail & Costs"]
-    _default_idx = _pages.index(st.session_state.get("nav_page", "Executive Dashboard")) \
-                   if st.session_state.get("nav_page") in _pages else 0
+    # Single source of truth: the radio's own key holds the current page.
+    # Programmatic navigation from other pages stages "_pending_nav" and reruns;
+    # we apply it here (before the widget is instantiated) to avoid Streamlit's
+    # "cannot modify a widget key after instantiation" error.
+    if "_pending_nav" in st.session_state:
+        st.session_state["nav_page"] = st.session_state.pop("_pending_nav")
+    if st.session_state.get("nav_page") not in _pages:
+        st.session_state["nav_page"] = "Executive Dashboard"
     page = st.radio(
         "",
         _pages,
-        index=_default_idx,
         label_visibility="collapsed",
-        key="nav_radio"
+        key="nav_page",
     )
-    st.session_state["nav_page"] = page
 
     st.markdown("---")
     summary = fetch_summary()
@@ -994,7 +998,7 @@ if "quick_run" in st.session_state:
     with st.spinner(f"Running {agent_name}..."):
         result = call_agent(agent_name, cid)
     st.session_state["console_result"] = result
-    st.session_state["nav_page"] = "Agent Console"
+    st.session_state["_pending_nav"] = "Agent Console"
     st.rerun()
 
 
@@ -1179,7 +1183,7 @@ if page == "Executive Dashboard":
             chosen = customers[disp.index[ridx]]
             st.session_state["selected_cid"]   = chosen["id"]
             st.session_state["selected_cname"] = chosen["name"]
-            st.session_state["nav_page"]       = "Customer 360"
+            st.session_state["_pending_nav"]   = "Customer 360"
             st.rerun()
 
 
