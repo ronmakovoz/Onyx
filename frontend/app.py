@@ -1403,18 +1403,26 @@ elif page == "Customer 360":
                 triggered = aname
 
     if triggered:
-        with st.spinner(f"Running {triggered}..."):
+        with st.spinner(f"Running {agent_display_name(triggered)}…"):
             result = call_agent(triggered, cid)
         st.session_state[f"360_result_{cid}_{triggered}"] = result
+        # Track which agent was last run for this customer so the freshest
+        # result always renders, even when an agent is re-run (which overwrites
+        # its key in place rather than appending it to session_state).
+        st.session_state[f"360_last_{cid}"] = triggered
 
-    # Show most recent result for this customer
-    recent_key = next(
-        (k for k in reversed(list(st.session_state.keys()))
-         if k.startswith(f"360_result_{cid}_")), None
-    )
+    # Show the result for the most recently triggered agent on this customer
+    last_agent = st.session_state.get(f"360_last_{cid}")
+    recent_key = f"360_result_{cid}_{last_agent}" if last_agent else None
+    if not (recent_key and recent_key in st.session_state):
+        # Fallback: any stored result for this customer
+        recent_key = next(
+            (k for k in reversed(list(st.session_state.keys()))
+             if k.startswith(f"360_result_{cid}_")), None
+        )
     if recent_key:
         result = st.session_state[recent_key]
-        agent_label = recent_key.split("_")[-1]
+        agent_label = recent_key.split(f"360_result_{cid}_")[-1]
         agent_nice  = agent_display_name(result.get("agent_name", agent_label))
         st.markdown(f"<div style='font-size:0.78rem;font-weight:800;color:#1B1040;letter-spacing:-0.01em;margin:12px 0 4px'>{agent_nice}</div>", unsafe_allow_html=True)
 
