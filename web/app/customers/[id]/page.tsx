@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
 import {
   getJSON,
   postJSON,
   AgentResult,
+  Customer,
   fmtUSD,
   fmtK,
   riskColor,
@@ -67,8 +69,10 @@ function HealthChart({ history }: { history: { date: string; health_score: numbe
 
 export default function CustomerDetailPage() {
   const params = useParams<{ id: string }>();
+  const router = useRouter();
   const cid = Number(params.id);
 
+  const [allCustomers, setAllCustomers] = useState<Customer[]>([]);
   const [data, setData] = useState<any>(null);
   const [tab, setTab] = useState("Overview");
   const [action, setAction] = useState<any>(null);
@@ -80,6 +84,10 @@ export default function CustomerDetailPage() {
     getJSON(`/api/customers/${cid}/360`).then(setData).catch(() => setData({}));
     getJSON(`/api/actions/${cid}`).then(setAction).catch(() => {});
   }, [cid]);
+
+  useEffect(() => {
+    getJSON<Customer[]>("/api/customers").then(setAllCustomers).catch(() => {});
+  }, []);
 
   if (!data) return <Spinner label="Loading account…" />;
   if (!data.customer) return <div className="text-red text-sm">Customer not found.</div>;
@@ -163,8 +171,34 @@ export default function CustomerDetailPage() {
   return (
     <div>
       {/* Hero */}
-      <div className="text-[0.64rem] font-bold text-faint uppercase tracking-[0.14em]">Customer 360</div>
-      <h1 className="text-[1.75rem] font-extrabold text-navy tracking-tight mb-3">{c.name}</h1>
+      <div className="flex items-end justify-between gap-4 mb-3 flex-wrap">
+        <div>
+          <Link
+            href="/customers"
+            className="text-[0.72rem] font-semibold text-muted hover:text-navy"
+          >
+            ← All customers
+          </Link>
+          <div className="text-[0.64rem] font-bold text-faint uppercase tracking-[0.14em] mt-1">
+            Customer 360
+          </div>
+          <h1 className="text-[1.75rem] font-extrabold text-navy tracking-tight">{c.name}</h1>
+        </div>
+        {allCustomers.length ? (
+          <select
+            value={cid}
+            onChange={(e) => router.push(`/customers/${e.target.value}`)}
+            className="bg-white border border-[#E0D8E8] rounded-xl px-3 py-2 text-[0.88rem] text-navy shadow-card outline-none hover:border-[#B9AEE0] max-w-[340px]"
+            aria-label="Switch account"
+          >
+            {allCustomers.map((cu) => (
+              <option key={cu.id} value={cu.id}>
+                {cu.name} · {cu.risk_level === "Low" ? "Healthy" : `${cu.risk_level} risk`}
+              </option>
+            ))}
+          </select>
+        ) : null}
+      </div>
 
       <div
         className="bg-white border border-line rounded-xl px-5 py-4 mb-4"
