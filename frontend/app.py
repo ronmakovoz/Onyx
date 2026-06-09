@@ -1311,7 +1311,7 @@ elif page == "Customer 360":
     # Header row: customer name IS the page title; account picker on the right.
     # The picker column is rendered first (Streamlit fills columns in code
     # order) so the title can reflect the selection within the same run.
-    head_l, head_r = st.columns([2.2, 1.3])
+    head_l, head_r = st.columns([2.2, 1.3], vertical_alignment="center")
     with head_r:
         cid = st.selectbox(
             "Switch account",
