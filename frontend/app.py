@@ -1314,14 +1314,6 @@ elif page == "Customer 360":
           <div style="font-size:1.05rem;font-weight:800;color:{risk_color};line-height:1.3">{c.get('renewal_risk_score',0):.0%}</div>
         </div>
         <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:80px">
-          <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Open Tickets</div>
-          <div style="font-size:1.05rem;font-weight:800;color:#1B1040;line-height:1.3">{open_tickets}</div>
-        </div>
-        <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:80px">
-          <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Escalations</div>
-          <div style="font-size:1.05rem;font-weight:800;color:{'#9B2335' if escs else '#2D5A3D'};line-height:1.3">{len(escs)}</div>
-        </div>
-        <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:80px">
           <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Renewal</div>
           <div style="font-size:1.05rem;font-weight:800;color:#1B1040;line-height:1.3">{renewal_days}d</div>
         </div>
@@ -1337,186 +1329,184 @@ elif page == "Customer 360":
           <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">NPS</div>
           <div style="font-size:1.05rem;font-weight:800;color:{'#2D5A3D' if c.get('nps',0)>=8 else '#7A5C1E' if c.get('nps',0)>=5 else '#9B2335'};line-height:1.3">{c.get('nps','?')}</div>
         </div>
-        <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:90px">
-          <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Time to Value</div>
-          <div style="font-size:1.05rem;font-weight:800;color:#1B1040;line-height:1.3">{(str(c['time_to_first_value_days'])+'d') if c.get('time_to_first_value_days') else '—'}</div>
-        </div>
       </div>
     </div>
     """, unsafe_allow_html=True)
 
-    # ── Renewal prediction + ROI + recommended action plan ───────────────────
-    rr      = c.get("renewal_risk_score", 0)
-    renew_conf = round((1 - rr) * 100)
-    rconf_color = "#2D5A3D" if renew_conf >= 70 else "#7A5C1E" if renew_conf >= 45 else "#9B2335"
-    rverdict = "Likely to Renew" if renew_conf >= 70 else "Renewal at Risk" if renew_conf < 45 else "Needs Attention"
-    # Build a concrete action plan from the account's signals
-    plan = []
-    if c.get("champion_status") == "Left Company":
-        plan.append("Identify and recruit a new executive champion")
-    if escs:
-        plan.append(f"Resolve {len(escs)} open escalation{'s' if len(escs)!=1 else ''} with daily exec updates")
-    if open_tickets >= 3:
-        plan.append(f"Clear support backlog ({open_tickets} open tickets)")
-    if c.get("adoption_score", 100) < 50:
-        plan.append("Run an adoption workshop to drive feature activation")
-    if c.get("qbr_completion") == "Overdue":
-        plan.append("Schedule the overdue QBR with the economic buyer")
-    if c.get("expansion_pipeline_arr"):
-        plan.append(f"Advance ${c['expansion_pipeline_arr']/1e3:.0f}K expansion opportunity")
-    if not plan:
-        plan = ["Maintain cadence; pursue reference and advocacy opportunities"]
-    plan = plan[:4]
-    plan_html = "".join(f"<div style='font-size:0.76rem;color:#3D3458;margin-top:5px;line-height:1.35'>{i+1}. {step}</div>" for i, step in enumerate(plan))
+    # ── Tabbed layout — everything below the hero lives in a tab ──────────────
+    tab_over, tab_ai, tab_use, tab_impl, tab_support, tab_people, tab_renew = st.tabs(
+        ["Overview", "AI Agents", "Usage & Health", "Implementation", "Support", "People", "Renewal"]
+    )
+    # Merged tabs: Support = tickets + escalations, People = stakeholders + notes.
+    tab_tick = tab_escs = tab_support
+    tab_stk = tab_notes = tab_people
 
-    rp1, rp2, rp3 = st.columns([1, 1, 1.4])
-    with rp1:
-        st.markdown(f"""
+    with tab_over:
+        # ── Renewal prediction + ROI + recommended action plan ────────────────
+        rr      = c.get("renewal_risk_score", 0)
+        renew_conf = round((1 - rr) * 100)
+        rconf_color = "#2D5A3D" if renew_conf >= 70 else "#7A5C1E" if renew_conf >= 45 else "#9B2335"
+        rverdict = "Likely to Renew" if renew_conf >= 70 else "Renewal at Risk" if renew_conf < 45 else "Needs Attention"
+        # Build a concrete action plan from the account's signals
+        plan = []
+        if c.get("champion_status") == "Left Company":
+            plan.append("Identify and recruit a new executive champion")
+        if escs:
+            plan.append(f"Resolve {len(escs)} open escalation{'s' if len(escs)!=1 else ''} with daily exec updates")
+        if open_tickets >= 3:
+            plan.append(f"Clear support backlog ({open_tickets} open tickets)")
+        if c.get("adoption_score", 100) < 50:
+            plan.append("Run an adoption workshop to drive feature activation")
+        if c.get("qbr_completion") == "Overdue":
+            plan.append("Schedule the overdue QBR with the economic buyer")
+        if c.get("expansion_pipeline_arr"):
+            plan.append(f"Advance ${c['expansion_pipeline_arr']/1e3:.0f}K expansion opportunity")
+        if not plan:
+            plan = ["Maintain cadence; pursue reference and advocacy opportunities"]
+        plan = plan[:4]
+        plan_html = "".join(f"<div style='font-size:0.76rem;color:#3D3458;margin-top:5px;line-height:1.35'>{i+1}. {step}</div>" for i, step in enumerate(plan))
+
+        rp1, rp2, rp3 = st.columns([1, 1, 1.4])
+        with rp1:
+            st.markdown(f"""
 <div style="background:#FFFFFF;border:1px solid #E8E4DC;border-radius:10px;padding:12px 14px;height:100%">
   <div style="font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Renewal Prediction</div>
   <div style="font-size:1.6rem;font-weight:900;color:{rconf_color};line-height:1.1;margin-top:4px">{renew_conf}%</div>
   <div style="font-size:0.74rem;font-weight:700;color:{rconf_color}">{rverdict}</div>
   <div style="font-size:0.68rem;color:#6B6280;margin-top:4px">{renewal_days}d to renewal · {c.get('forecast_category', renewal.get('forecast_category','—') if renewal else '—')}</div>
 </div>""", unsafe_allow_html=True)
-    with rp2:
-        st.markdown(f"""
+        with rp2:
+            st.markdown(f"""
 <div style="background:#FFFFFF;border:1px solid #E8E4DC;border-radius:10px;padding:12px 14px;height:100%">
   <div style="font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Proven Business Outcome</div>
   <div style="font-size:0.92rem;font-weight:700;color:#2D5A3D;line-height:1.3;margin-top:6px">{c.get('roi_outcome','—')}</div>
   <div style="font-size:0.68rem;color:#6B6280;margin-top:6px">Utilization {c.get('utilization_pct','?')}% · Exec engagement {c.get('executive_engagement','?')}</div>
 </div>""", unsafe_allow_html=True)
-    with rp3:
-        st.markdown(f"""
+        with rp3:
+            st.markdown(f"""
 <div style="background:#FFFFFF;border:1px solid #E8E4DC;border-radius:10px;padding:12px 14px;height:100%">
   <div style="font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Recommended Action Plan</div>
   {plan_html}
 </div>""", unsafe_allow_html=True)
 
-    st.markdown("<div style='margin:8px 0'></div>", unsafe_allow_html=True)
-    # ── Outcome tracking: did we act on the AI's recommendation? ───────────────
-    action = get_action_status(cid)
-    cur_status = action.get("status", "Open")
-    status_meta = {
-        "Open":        ("#7A5C1E", "#FDF8EE", "Not yet actioned"),
-        "In Progress": ("#2D4A7A", "#EEF2FB", "In progress"),
-        "Done":        ("#2D5A3D", "#EFF6F1", "Closed — action taken"),
-        "Dismissed":   ("#6B6280", "#F0EEEA", "Dismissed"),
-    }
-    scolor, sbg, slabel = status_meta.get(cur_status, status_meta["Open"])
-    when = (action.get("updated_at") or "")[:16].replace("T", " ")
+        st.markdown("<div style='margin:8px 0'></div>", unsafe_allow_html=True)
+        # ── Outcome tracking: did we act on the AI's recommendation? ──────────
+        action = get_action_status(cid)
+        cur_status = action.get("status", "Open")
+        status_meta = {
+            "Open":        ("#7A5C1E", "#FDF8EE", "Not yet actioned"),
+            "In Progress": ("#2D4A7A", "#EEF2FB", "In progress"),
+            "Done":        ("#2D5A3D", "#EFF6F1", "Closed — action taken"),
+            "Dismissed":   ("#6B6280", "#F0EEEA", "Dismissed"),
+        }
+        scolor, sbg, slabel = status_meta.get(cur_status, status_meta["Open"])
+        when = (action.get("updated_at") or "")[:16].replace("T", " ")
 
-    ac_l, ac_r = st.columns([1.5, 2.5])
-    with ac_l:
-        st.markdown(
-            f"<div style='background:{sbg};border:1px solid {scolor}33;border-radius:10px;padding:10px 14px'>"
-            f"<div style='font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em'>Recommendation Status</div>"
-            f"<div style='font-size:0.95rem;font-weight:800;color:{scolor};margin-top:3px'>{slabel}</div>"
-            f"<div style='font-size:0.64rem;color:#9B93A8;margin-top:2px'>{('updated '+when) if when else 'no action logged yet'}</div>"
-            f"</div>", unsafe_allow_html=True)
-    with ac_r:
-        st.markdown("<div style='font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px'>Log Outcome</div>", unsafe_allow_html=True)
-        b1, b2, b3, b4 = st.columns(4)
-        if b1.button("Open", use_container_width=True, key="act_open",
-                     type="primary" if cur_status == "Open" else "secondary"):
-            set_action_status(cid, "Open"); st.rerun()
-        if b2.button("In Progress", use_container_width=True, key="act_prog",
-                     type="primary" if cur_status == "In Progress" else "secondary"):
-            set_action_status(cid, "In Progress"); st.rerun()
-        if b3.button("Done", use_container_width=True, key="act_done",
-                     type="primary" if cur_status == "Done" else "secondary"):
-            set_action_status(cid, "Done"); st.rerun()
-        if b4.button("Dismiss", use_container_width=True, key="act_dismiss",
-                     type="primary" if cur_status == "Dismissed" else "secondary"):
-            set_action_status(cid, "Dismissed"); st.rerun()
+        ac_l, ac_r = st.columns([1.5, 2.5])
+        with ac_l:
+            st.markdown(
+                f"<div style='background:{sbg};border:1px solid {scolor}33;border-radius:10px;padding:10px 14px'>"
+                f"<div style='font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em'>Recommendation Status</div>"
+                f"<div style='font-size:0.95rem;font-weight:800;color:{scolor};margin-top:3px'>{slabel}</div>"
+                f"<div style='font-size:0.64rem;color:#9B93A8;margin-top:2px'>{('updated '+when) if when else 'no action logged yet'}</div>"
+                f"</div>", unsafe_allow_html=True)
+        with ac_r:
+            st.markdown("<div style='font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px'>Log Outcome</div>", unsafe_allow_html=True)
+            b1, b2, b3, b4 = st.columns(4)
+            if b1.button("Open", use_container_width=True, key="act_open",
+                         type="primary" if cur_status == "Open" else "secondary"):
+                set_action_status(cid, "Open"); st.rerun()
+            if b2.button("In Progress", use_container_width=True, key="act_prog",
+                         type="primary" if cur_status == "In Progress" else "secondary"):
+                set_action_status(cid, "In Progress"); st.rerun()
+            if b3.button("Done", use_container_width=True, key="act_done",
+                         type="primary" if cur_status == "Done" else "secondary"):
+                set_action_status(cid, "Done"); st.rerun()
+            if b4.button("Dismiss", use_container_width=True, key="act_dismiss",
+                         type="primary" if cur_status == "Dismissed" else "secondary"):
+                set_action_status(cid, "Dismissed"); st.rerun()
 
-    st.markdown("<div style='margin:16px 0 4px'></div>", unsafe_allow_html=True)
+    with tab_ai:
+        # ── Agent action bar — grouped by workflow ────────────────────────────
+        triggered = None
+        agent_groups = [
+            ("Assess", [
+                ("CustomerHealthAgent", "Health Assessment",     "secondary"),
+                ("ImplementationAgent", "Implementation Report", "secondary"),
+            ]),
+            ("Grow", [
+                ("ExpansionOpportunityAgent", "Expansion Opportunity", "secondary"),
+                ("QBRPreparationAgent",       "Prepare QBR",           "secondary"),
+                ("SuccessPlanAgent",          "Build Success Plan",    "secondary"),
+            ]),
+            ("Communicate & Respond", [
+                ("BriefingAgent",            "Generate CEO Briefing", "primary"),
+                ("EscalationCommanderAgent", "Escalation Commander",  "primary"),
+            ]),
+            ("Verify", [
+                ("SkeptikQAAgent", "Skeptik QA Review", "secondary"),
+            ]),
+        ]
+        group_cols = st.columns(4)
+        for col, (group_label, group_btns) in zip(group_cols, agent_groups):
+            with col:
+                st.markdown(f"<div style='font-size:0.60rem;font-weight:700;color:#9B93A8;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:4px'>{group_label}</div>", unsafe_allow_html=True)
+                for aname, label, btype in group_btns:
+                    if st.button(label, use_container_width=True, type=btype, key=f"360_{aname}"):
+                        triggered = aname
 
-    # ── Agent action bar — grouped by workflow ────────────────────────────────
-    st.markdown("<div style='font-size:0.68rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Run Agents</div>", unsafe_allow_html=True)
-    triggered = None
-    agent_groups = [
-        ("Assess", [
-            ("CustomerHealthAgent", "Health Assessment",     "secondary"),
-            ("ImplementationAgent", "Implementation Report", "secondary"),
-        ]),
-        ("Grow", [
-            ("ExpansionOpportunityAgent", "Expansion Opportunity", "secondary"),
-            ("QBRPreparationAgent",       "Prepare QBR",           "secondary"),
-            ("SuccessPlanAgent",          "Build Success Plan",    "secondary"),
-        ]),
-        ("Communicate & Respond", [
-            ("BriefingAgent",            "Generate CEO Briefing", "primary"),
-            ("EscalationCommanderAgent", "Escalation Commander",  "primary"),
-        ]),
-        ("Verify", [
-            ("SkeptikQAAgent", "Skeptik QA Review", "secondary"),
-        ]),
-    ]
-    group_cols = st.columns(4)
-    for col, (group_label, group_btns) in zip(group_cols, agent_groups):
-        with col:
-            st.markdown(f"<div style='font-size:0.60rem;font-weight:700;color:#9B93A8;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:4px'>{group_label}</div>", unsafe_allow_html=True)
-            for aname, label, btype in group_btns:
-                if st.button(label, use_container_width=True, type=btype, key=f"360_{aname}"):
-                    triggered = aname
+        if triggered:
+            with st.spinner(f"Running {agent_display_name(triggered)}…"):
+                result = call_agent(triggered, cid)
+            st.session_state[f"360_result_{cid}_{triggered}"] = result
+            # Track which agent was last run for this customer so the freshest
+            # result always renders, even when an agent is re-run (which overwrites
+            # its key in place rather than appending it to session_state).
+            st.session_state[f"360_last_{cid}"] = triggered
 
-    if triggered:
-        with st.spinner(f"Running {agent_display_name(triggered)}…"):
-            result = call_agent(triggered, cid)
-        st.session_state[f"360_result_{cid}_{triggered}"] = result
-        # Track which agent was last run for this customer so the freshest
-        # result always renders, even when an agent is re-run (which overwrites
-        # its key in place rather than appending it to session_state).
-        st.session_state[f"360_last_{cid}"] = triggered
-
-    # Show the result for the most recently triggered agent on this customer
-    last_agent = st.session_state.get(f"360_last_{cid}")
-    recent_key = f"360_result_{cid}_{last_agent}" if last_agent else None
-    if not (recent_key and recent_key in st.session_state):
-        # Fallback: any stored result for this customer
-        recent_key = next(
-            (k for k in reversed(list(st.session_state.keys()))
-             if k.startswith(f"360_result_{cid}_")), None
-        )
-    if recent_key:
-        result = st.session_state[recent_key]
-        agent_label = recent_key.split(f"360_result_{cid}_")[-1]
-        agent_nice  = agent_display_name(result.get("agent_name", agent_label))
-        st.markdown(f"<div style='font-size:0.78rem;font-weight:800;color:#1B1040;letter-spacing:-0.01em;margin:12px 0 4px'>{agent_nice}</div>", unsafe_allow_html=True)
-
-        # Skeptik shows before/after
-        if "SkeptikQAAgent" in recent_key:
-            prior_key = next(
+        # Show the result for the most recently triggered agent on this customer
+        last_agent = st.session_state.get(f"360_last_{cid}")
+        recent_key = f"360_result_{cid}_{last_agent}" if last_agent else None
+        if not (recent_key and recent_key in st.session_state):
+            # Fallback: any stored result for this customer
+            recent_key = next(
                 (k for k in reversed(list(st.session_state.keys()))
-                 if k.startswith(f"360_result_{cid}_") and "Skeptik" not in k), None
+                 if k.startswith(f"360_result_{cid}_")), None
             )
-            if prior_key:
-                bc, ac = st.columns(2)
-                with bc:
-                    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Original Output</div>", unsafe_allow_html=True)
-                    with st.container(border=True):
-                        st.markdown("<span class='agent-report-marker'></span>", unsafe_allow_html=True)
-                        prior = st.session_state[prior_key]
-                        st.markdown(prior.get("output_text", "")[:1200] + "...", unsafe_allow_html=False)
-                with ac:
-                    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Skeptik QA Review</div>", unsafe_allow_html=True)
+        if recent_key:
+            result = st.session_state[recent_key]
+            agent_label = recent_key.split(f"360_result_{cid}_")[-1]
+            agent_nice  = agent_display_name(result.get("agent_name", agent_label))
+            st.markdown(f"<div style='font-size:0.78rem;font-weight:800;color:#1B1040;letter-spacing:-0.01em;margin:12px 0 4px'>{agent_nice}</div>", unsafe_allow_html=True)
+
+            # Skeptik shows before/after
+            if "SkeptikQAAgent" in recent_key:
+                prior_key = next(
+                    (k for k in reversed(list(st.session_state.keys()))
+                     if k.startswith(f"360_result_{cid}_") and "Skeptik" not in k), None
+                )
+                if prior_key:
+                    bc, ac = st.columns(2)
+                    with bc:
+                        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Original Output</div>", unsafe_allow_html=True)
+                        with st.container(border=True):
+                            st.markdown("<span class='agent-report-marker'></span>", unsafe_allow_html=True)
+                            prior = st.session_state[prior_key]
+                            st.markdown(prior.get("output_text", "")[:1200] + "...", unsafe_allow_html=False)
+                    with ac:
+                        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Skeptik QA Review</div>", unsafe_allow_html=True)
+                        render_agent_output(result)
+                else:
                     render_agent_output(result)
             else:
                 render_agent_output(result)
+
+            # Export button for briefings
+            if "Briefing" in recent_key or "Escalation" in recent_key:
+                fn = f"{c['name'].replace(' ','_')}_{agent_label}_{datetime.now().strftime('%Y%m%d')}.md"
+                export_button(result.get("output_text",""), fn)
         else:
-            render_agent_output(result)
-
-        # Export button for briefings
-        if "Briefing" in recent_key or "Escalation" in recent_key:
-            fn = f"{c['name'].replace(' ','_')}_{agent_label}_{datetime.now().strftime('%Y%m%d')}.md"
-            export_button(result.get("output_text",""), fn)
-
-    st.markdown("---")
-
-    # ── Tabbed detail view ────────────────────────────────────────────────────
-    tab_use, tab_impl, tab_tick, tab_escs, tab_stk, tab_notes, tab_renew = st.tabs(
-        ["Usage & Health", "Implementation", "Tickets", "Escalations", "Stakeholders", "Notes", "Renewal"]
-    )
+            st.caption("Pick an agent above — results appear here and stay while you browse the other tabs.")
 
     with tab_use:
         mrow = metrics[0] if metrics else {}
@@ -1630,6 +1620,7 @@ elif page == "Customer 360":
 </div>""", unsafe_allow_html=True)
 
     with tab_tick:
+        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Support Tickets</div>", unsafe_allow_html=True)
         open_t    = [t for t in tickets if t["status"] != "Resolved"]
         closed_t  = [t for t in tickets if t["status"] == "Resolved"]
         st.markdown(f"<div style='font-size:0.78rem;font-weight:700;color:#1B1040;margin-bottom:6px'>{len(open_t)} Open <span style=\"color:#6B6280;font-weight:400\">· {len(closed_t)} Resolved</span></div>", unsafe_allow_html=True)
@@ -1647,6 +1638,7 @@ elif page == "Customer 360":
             </div>""", unsafe_allow_html=True)
 
     with tab_escs:
+        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin:14px 0 6px'>Escalations</div>", unsafe_allow_html=True)
         if not escs:
             st.markdown("<div style='font-size:0.78rem;color:#2D5A3D;padding:8px 0'>No active escalations.</div>", unsafe_allow_html=True)
         for e in escs:
@@ -1673,6 +1665,7 @@ elif page == "Customer 360":
 </div>""", unsafe_allow_html=True)
 
     with tab_stk:
+        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Stakeholders</div>", unsafe_allow_html=True)
         role_colors = {"Champion":"#1B1040","Technical Sponsor":"#3D3458","Business Sponsor":"#5C4A1E",
                        "Executive Sponsor":"#2D3A4A","Economic Buyer":"#9B2335"}
         role_bg = {"Champion":"#EAE6E0","Technical Sponsor":"#EDEAF4","Business Sponsor":"#F0EBE0",
@@ -1697,6 +1690,7 @@ elif page == "Customer 360":
             </div>""", unsafe_allow_html=True)
 
     with tab_notes:
+        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin:14px 0 6px'>Meeting Notes</div>", unsafe_allow_html=True)
         sent_colors = {"Positive":"#2D5A3D","Neutral":"#6B6280","Negative":"#9B2335"}
         for n in notes:
             sc = sent_colors.get(n.get("sentiment_signal",""),"#6B6280")
@@ -1738,6 +1732,8 @@ elif page == "Customer 360":
                 with st.spinner("Generating CEO Briefing (Sonnet)..."):
                     result = call_agent("BriefingAgent", cid)
                 st.session_state[f"360_result_{cid}_BriefingAgent"] = result
+                st.session_state[f"360_last_{cid}"] = "BriefingAgent"
+                st.toast("Briefing ready — see the AI Agents tab.")
                 st.rerun()
         else:
             st.caption("No renewal record found within 180-day window.")
