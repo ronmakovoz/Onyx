@@ -108,9 +108,11 @@ html, body, [data-testid="stAppViewContainer"] {
 [data-testid="stSidebar"] span { color: #3D3458 !important; }
 [data-testid="stSidebar"] .stRadio label { color: #1B1040 !important; font-weight: 500 !important; font-size: 0.82rem !important; }
 
-/* Hide decorations */
+/* Hide decorations + the Deploy/menu toolbar (overlaps page content) */
 [data-testid="stDecoration"] { display: none !important; }
 [data-testid="stHeader"] { background: transparent !important; }
+[data-testid="stToolbar"] { display: none !important; }
+#MainMenu { visibility: hidden !important; }
 
 /* Typography — tighter */
 h1 { color: #1B1040 !important; font-weight: 800 !important; font-size: 1.6rem !important; letter-spacing: -0.03em !important; margin-bottom: 0 !important; }
