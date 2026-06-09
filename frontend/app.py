@@ -252,52 +252,63 @@ button[data-testid="stBaseButton-secondary"] *,
     box-shadow: 0 1px 4px rgba(27,16,64,0.04);
 }
 
-/* Tabs — slim pill */
+/* Tabs — modern underline style */
 .stTabs [data-baseweb="tab-list"] {
-    background: #E8E4DC !important;
-    border-radius: 50px !important;
-    padding: 3px !important;
-    gap: 1px !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    gap: 6px !important;
     border: none !important;
+    border-bottom: 1px solid #E0D8E8 !important;
 }
 .stTabs [data-baseweb="tab"] {
-    border-radius: 50px !important;
+    border-radius: 8px 8px 0 0 !important;
     color: #6B6280 !important;
     font-weight: 600 !important;
-    font-size: 0.82rem !important;
-    padding: 6px 16px !important;
+    font-size: 0.88rem !important;
+    padding: 8px 14px !important;
     background: transparent !important;
     white-space: nowrap !important;
 }
+.stTabs [data-baseweb="tab"]:hover { color: #1B1040 !important; background: #F4EAF6 !important; }
 .stTabs [aria-selected="true"] {
-    background: #1B1040 !important;
-    box-shadow: 0 1px 4px rgba(27,16,64,0.22) !important;
+    background: transparent !important;
+    box-shadow: none !important;
 }
 .stTabs [aria-selected="true"],
 .stTabs [aria-selected="true"] * {
-    color: #FFFFFF !important;
-    fill: #FFFFFF !important;
+    color: #1B1040 !important;
+    fill: #1B1040 !important;
+    font-weight: 700 !important;
+}
+.stTabs [data-baseweb="tab-highlight"] {
+    background-color: #1B1040 !important;
+    height: 3px !important;
+    border-radius: 3px 3px 0 0 !important;
 }
 .stTabs [data-baseweb="tab-panel"] {
     background: transparent !important;
-    padding-top: 10px !important;
+    padding-top: 14px !important;
 }
 .stTabs [data-baseweb="tab-border"] { display: none !important; }
 
-/* Selectbox trigger */
+/* Selectbox trigger — modern rounded field */
 [data-baseweb="select"] > div {
     background: #FFFFFF !important;
-    border: 1.5px solid #D8D3C8 !important;
-    border-radius: 8px !important;
+    border: 1px solid #E0D8E8 !important;
+    border-radius: 12px !important;
     color: #1B1040 !important;
-    min-height: 36px !important;
-    font-size: 0.82rem !important;
+    min-height: 42px !important;
+    font-size: 0.88rem !important;
+    box-shadow: 0 1px 4px rgba(27,16,64,0.06) !important;
+    transition: border-color 0.12s ease, box-shadow 0.12s ease !important;
 }
+[data-baseweb="select"] > div:hover { border-color: #B9AEE0 !important; }
 [data-baseweb="select"] > div:focus-within {
     border-color: #1B1040 !important;
-    box-shadow: 0 0 0 2px rgba(27,16,64,0.10) !important;
+    box-shadow: 0 0 0 3px rgba(27,16,64,0.10) !important;
 }
-[data-baseweb="select"] span { color: #1B1040 !important; font-size: 0.82rem !important; }
+[data-baseweb="select"] span { color: #1B1040 !important; font-size: 0.88rem !important; }
 
 /* Dropdown list popup */
 [data-baseweb="popover"] { z-index: 9999 !important; }
@@ -501,11 +512,11 @@ div[data-testid="column"] > div { gap: 0.55rem !important; }
 [data-testid="stTooltipContent"] p,
 [data-testid="stTooltipContent"] * { color: #FFFFFF !important; font-size: 0.74rem !important; }
 
-/* ── Final guaranteed overrides: white text on dark surfaces ── */
+/* ── Final guaranteed overrides ── */
 .stTabs [data-baseweb="tab-list"] button[aria-selected="true"],
 .stTabs [data-baseweb="tab-list"] button[aria-selected="true"] *,
 .stTabs [data-baseweb="tab-list"] button[aria-selected="true"] p {
-    color: #FFFFFF !important; fill: #FFFFFF !important;
+    color: #1B1040 !important; fill: #1B1040 !important;
 }
 .stButton > button[kind="primary"] p,
 .stButton > button[kind="primaryFormSubmit"] p,
@@ -1289,7 +1300,6 @@ if page == "Executive Dashboard":
 # ══════════════════════════════════════════════════════════════════════════════
 
 elif page == "Customer 360":
-    page_header("Customer 360")
     customers = fetch_customers()
     if not customers:
         st.error("No customers loaded.")
@@ -1298,13 +1308,25 @@ elif page == "Customer 360":
     cmap = {c["id"]: c for c in customers}
     default_id = st.session_state.get("selected_cid", customers[0]["id"])
 
-    cid = st.selectbox(
-        "Select customer",
-        options=[c["id"] for c in customers],
-        format_func=lambda x: f"{cmap[x]['name']} — {cmap[x]['industry']} · ${cmap[x]['arr']:,} · {risk_icon(cmap[x].get('risk_level','?'))}",
-        index=next((i for i, c in enumerate(customers) if c["id"] == default_id), 0),
-    )
+    # Header row: customer name IS the page title; account picker on the right.
+    # The picker column is rendered first (Streamlit fills columns in code
+    # order) so the title can reflect the selection within the same run.
+    head_l, head_r = st.columns([2.2, 1.3])
+    with head_r:
+        cid = st.selectbox(
+            "Switch account",
+            options=[c["id"] for c in customers],
+            format_func=lambda x: f"{cmap[x]['name']} · {risk_icon(cmap[x].get('risk_level','?'))}",
+            index=next((i for i, c in enumerate(customers) if c["id"] == default_id), 0),
+            label_visibility="collapsed",
+        )
     st.session_state["selected_cid"] = cid
+    with head_l:
+        st.markdown(f"""
+<div style="border-bottom:none;padding-bottom:0">
+  <div style="font-size:0.64rem;font-weight:700;color:#9B93A8;text-transform:uppercase;letter-spacing:0.14em">Customer 360</div>
+  <h1 style="margin:0">{cmap[cid]['name']}</h1>
+</div>""", unsafe_allow_html=True)
 
     data = fetch_360(cid)
     if not data or not data.get("customer"):
@@ -1335,9 +1357,7 @@ elif page == "Customer 360":
                 border-left:4px solid {risk_color};padding:16px 20px;margin-bottom:14px">
       <div style="display:flex;align-items:flex-start;gap:20px">
         <div style="flex:1;min-width:0">
-          <div style="font-size:1.25rem;font-weight:800;color:#1B1040;letter-spacing:-0.02em;line-height:1.2">
-            {c['name']}</div>
-          <div style="color:#6B6280;font-size:0.75rem;margin-top:3px">
+          <div style="color:#6B6280;font-size:0.8rem">
             {c['industry']} &nbsp;·&nbsp; {c.get('customer_tier','?')} &nbsp;·&nbsp; {c.get('region','?')} &nbsp;·&nbsp;
             {c.get('employee_count','?'):,} employees &nbsp;·&nbsp;
             <span style="font-weight:700;color:#1B1040">${c['arr']:,} ARR</span>
@@ -1478,33 +1498,33 @@ elif page == "Customer 360":
                 set_action_status(cid, "Dismissed"); st.rerun()
 
     with tab_ai:
-        # ── Agent action bar — grouped by workflow ────────────────────────────
+        # ── Single agent picker — grouped options, one Run action ─────────────
         triggered = None
-        agent_groups = [
-            ("Assess", [
-                ("CustomerHealthAgent", "Health Assessment",     "secondary"),
-                ("ImplementationAgent", "Implementation Report", "secondary"),
-            ]),
-            ("Grow", [
-                ("ExpansionOpportunityAgent", "Expansion Opportunity", "secondary"),
-                ("QBRPreparationAgent",       "Prepare QBR",           "secondary"),
-                ("SuccessPlanAgent",          "Build Success Plan",    "secondary"),
-            ]),
-            ("Communicate & Respond", [
-                ("BriefingAgent",            "Generate CEO Briefing", "primary"),
-                ("EscalationCommanderAgent", "Escalation Commander",  "primary"),
-            ]),
-            ("Verify", [
-                ("SkeptikQAAgent", "Skeptik QA Review", "secondary"),
-            ]),
+        agent_menu = [
+            ("CustomerHealthAgent",       "Assess",  "Health Assessment"),
+            ("ImplementationAgent",       "Assess",  "Implementation Report"),
+            ("ExpansionOpportunityAgent", "Grow",    "Expansion Opportunity"),
+            ("QBRPreparationAgent",       "Grow",    "Prepare QBR"),
+            ("SuccessPlanAgent",          "Grow",    "Build Success Plan"),
+            ("BriefingAgent",             "Communicate", "Generate CEO Briefing"),
+            ("EscalationCommanderAgent",  "Respond", "Escalation Commander"),
+            ("SkeptikQAAgent",            "Verify",  "Skeptik QA Review"),
         ]
-        group_cols = st.columns(4)
-        for col, (group_label, group_btns) in zip(group_cols, agent_groups):
-            with col:
-                st.markdown(f"<div style='font-size:0.60rem;font-weight:700;color:#9B93A8;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:4px'>{group_label}</div>", unsafe_allow_html=True)
-                for aname, label, btype in group_btns:
-                    if st.button(label, use_container_width=True, type=btype, key=f"360_{aname}"):
-                        triggered = aname
+        menu_map = {a: (g, l) for a, g, l in agent_menu}
+        pk_l, pk_r = st.columns([3, 1])
+        with pk_l:
+            chosen_agent = st.selectbox(
+                "Agent", [a for a, _, _ in agent_menu],
+                format_func=lambda a: f"{menu_map[a][0]} · {menu_map[a][1]}",
+                key=f"360_agent_pick_{cid}", label_visibility="collapsed",
+            )
+        with pk_r:
+            if st.button("Run Agent", use_container_width=True, type="primary", key="360_run_agent"):
+                triggered = chosen_agent
+        st.markdown(
+            f"<div style='font-size:0.78rem;color:#6B6280;margin:-2px 0 8px'>{AGENT_DESCRIPTIONS.get(chosen_agent, '')}</div>",
+            unsafe_allow_html=True,
+        )
 
         if triggered:
             with st.spinner(f"Running {agent_display_name(triggered)}…"):
