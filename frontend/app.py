@@ -2108,34 +2108,65 @@ elif page == "Implementation Digest":
         )
         st.markdown(f"<div style='display:flex;gap:10px;margin:14px 0 18px'>{cells}</div>", unsafe_allow_html=True)
 
-        # ── Single clean table — sorted by risk ─────────────────────────────────
+        # Concrete next step per project, derived from its delivery signals
+        def impl_next_action(r):
+            if not r["kicked_off"]:
+                return "Schedule kickoff this week"
+            if r["active_blockers"]:
+                blk = r["active_blockers"][0]
+                return f"Clear blocker: {blk[:60]}" + ("…" if len(blk) > 60 else "")
+            if r["days_behind_schedule"] > 30:
+                return "Escalate to exec sponsor and re-baseline the plan"
+            if r["days_behind_schedule"] > 0:
+                return f"Run recovery plan to make up {r['days_behind_schedule']}d"
+            if r["days_to_go_live"] is not None and r["days_to_go_live"] < 0:
+                return "Go-live overdue — set a new committed date"
+            if r["days_to_go_live"] is not None and r["days_to_go_live"] <= 30:
+                return "Confirm go-live readiness checklist"
+            return "On track — maintain weekly cadence"
+
+        # ── This week's priorities — top at-risk projects with their action ──────
+        worst = [r for r in rows if r["launch_confidence"] in ("Very Low", "Low")][:3]
+        if worst:
+            cells = "".join(
+                f"<div style='flex:1;background:#FFFFFF;border:1px solid #E8E4DC;border-left:3px solid "
+                f"{conf_colors.get(r['launch_confidence'], '#1B1040')};border-radius:10px;padding:12px 14px'>"
+                f"<div style='display:flex;justify-content:space-between;align-items:baseline'>"
+                f"<span style='font-weight:700;color:#1B1040;font-size:0.88rem'>{r['customer_name']}</span>"
+                f"<span style='font-size:0.66rem;font-weight:700;color:{conf_colors.get(r['launch_confidence'],'#1B1040')}'>{r['launch_confidence']} confidence</span></div>"
+                f"<div style='font-size:0.70rem;color:#6B6280;margin-top:2px'>{int(r['pct_complete'])}% complete · "
+                f"{('on time' if r['days_behind_schedule']==0 else str(r['days_behind_schedule'])+'d behind')} · owner {r['implementation_owner']}</div>"
+                f"<div style='font-size:0.78rem;color:#1B1040;font-weight:600;margin-top:7px'>→ {impl_next_action(r)}</div>"
+                f"</div>"
+                for r in worst
+            )
+            st.markdown(
+                "<div style='font-size:0.72rem;font-weight:700;color:#9B2335;text-transform:uppercase;"
+                "letter-spacing:0.10em;margin-bottom:8px'>This Week's Priorities</div>"
+                f"<div style='display:flex;gap:10px;margin-bottom:18px'>{cells}</div>",
+                unsafe_allow_html=True,
+            )
+
+        # ── Project table — sorted by risk, essentials only ──────────────────────
         st.markdown(
             "<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;"
-            "letter-spacing:0.10em;margin-bottom:8px'>Project Status "
-            "<span style='font-weight:400;text-transform:none;letter-spacing:0'>— sorted by risk; select a row for the AI analysis</span></div>",
+            "letter-spacing:0.10em;margin-bottom:8px'>All Projects "
+            "<span style='font-weight:400;text-transform:none;letter-spacing:0'>— sorted by risk; select a row for the full timeline and AI analysis</span></div>",
             unsafe_allow_html=True,
         )
 
-        conf_badge = {"Very Low": "Very Low", "Low": "Low", "Medium": "Medium", "High": "High"}
         table_rows = []
         for r in rows:
-            kickoff = r["kickoff_date"] or ("In progress" if r["kicked_off"] else "Not started")
-            dps     = f"{r['days_post_signature']}d" if r["days_post_signature"] is not None else "—"
-            dtg     = (f"{r['days_to_go_live']}d" if r["days_to_go_live"] is not None and r["days_to_go_live"] >= 0
-                       else (f"{abs(r['days_to_go_live'])}d overdue" if r["days_to_go_live"] is not None else "—"))
-            behind  = "On time" if r["days_behind_schedule"] == 0 else f"{r['days_behind_schedule']}d behind"
+            behind = "On time" if r["days_behind_schedule"] == 0 else f"{r['days_behind_schedule']}d behind"
             table_rows.append({
-                "Customer":        r["customer_name"],
-                "Risk":            conf_badge.get(r["launch_confidence"], r["launch_confidence"]),
-                "Status":          r["overall_status"],
-                "Complete":        int(r["pct_complete"]),
-                "Milestones":      f"{r['milestones_complete']}/{r['milestones_total']}",
-                "Kickoff":         kickoff,
-                "Contract Age":    dps,
-                "Go-Live Target":  r["go_live_target"] or "—",
-                "To Go-Live":      dtg,
-                "Schedule":        behind,
-                "Owner":           r["implementation_owner"],
+                "Customer":           r["customer_name"],
+                "Confidence":         r["launch_confidence"],
+                "Complete":           int(r["pct_complete"]),
+                "Milestones":         f"{r['milestones_complete']}/{r['milestones_total']}",
+                "Go-Live":            r["go_live_target"] or "—",
+                "Schedule":           behind,
+                "Recommended Action": impl_next_action(r),
+                "Owner":              r["implementation_owner"],
             })
         df = pd.DataFrame(table_rows)
 
@@ -2143,13 +2174,16 @@ elif page == "Implementation Digest":
             df, use_container_width=True, hide_index=True, height=min(70 + 36 * n, 520),
             on_select="rerun", selection_mode="single-row",
             column_config={
-                "Complete": st.column_config.ProgressColumn(
+                "Customer":   st.column_config.TextColumn("Customer", width="medium"),
+                "Confidence": st.column_config.TextColumn("Launch Confidence", width="small",
+                              help="Heuristic launch confidence from schedule, blockers and progress"),
+                "Complete":   st.column_config.ProgressColumn(
                     "Complete", min_value=0, max_value=100, format="%d%%", width="small"),
-                "Customer": st.column_config.TextColumn("Customer", width="medium"),
-                "Risk":     st.column_config.TextColumn("Launch Confidence", width="small"),
-                "Go-Live Target": st.column_config.TextColumn("Go-Live", width="small"),
-                "Contract Age":   st.column_config.TextColumn("Contract Age", help="Days since the contract was signed"),
-                "To Go-Live":     st.column_config.TextColumn("To Go-Live", help="Days remaining until the go-live target"),
+                "Milestones": st.column_config.TextColumn("Milestones", width="small"),
+                "Go-Live":    st.column_config.TextColumn("Go-Live", width="small"),
+                "Schedule":   st.column_config.TextColumn("Schedule", width="small"),
+                "Recommended Action": st.column_config.TextColumn("Recommended Action", width="large"),
+                "Owner":      st.column_config.TextColumn("Owner", width="small"),
             },
         )
 
@@ -2180,6 +2214,7 @@ elif page == "Implementation Digest":
   <div style="font-size:0.78rem;color:#3D3458;line-height:1.5"><b style="color:#2D5A3D">Implemented:</b> {done}</div>
   <div style="font-size:0.78rem;color:#3D3458;line-height:1.5;margin-top:3px"><b style="color:#7A5C1E">In progress:</b> {wip}</div>
   <div style="font-size:0.78rem;color:#3D3458;line-height:1.5;margin-top:3px"><b style="color:#9B2335">Blockers:</b> {blk}</div>
+  <div style="margin-top:10px;padding:9px 12px;background:#F4EAF6;border-radius:8px;font-size:0.82rem;color:#1B1040;font-weight:600">Recommended action: {impl_next_action(r)}</div>
 </div>""", unsafe_allow_html=True)
 
             ai_key = f"impl_ai_{r['customer_id']}"
