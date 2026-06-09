@@ -399,8 +399,11 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
     font-size: 0.82rem;
 }
 
-/* Agent report card — executive document treatment */
-[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) {
+/* Agent report card — executive document treatment.
+   :has(.agent-report-marker) alone matches EVERY ancestor wrapper of the
+   report (nested cards/watermarks); the :not(:has(...)) clause restricts the
+   styling to the innermost container that directly holds the marker. */
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker):not(:has([data-testid="stVerticalBlockBorderWrapper"] .agent-report-marker)) {
     background: linear-gradient(180deg, #FDFBF7 0%, #FFFFFF 120px) !important;
     border: 1px solid #E0D8E8 !important;
     border-top: 4px solid #1B1040 !important;
@@ -409,8 +412,15 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
     padding: 14px 30px 22px !important;
     position: relative !important;
 }
+/* Neutralize ancestor wrappers that merely contain a report deeper down */
+[data-testid="stVerticalBlockBorderWrapper"]:has([data-testid="stVerticalBlockBorderWrapper"] .agent-report-marker) {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
 /* Watermark-style brand mark in the report's top-right corner */
-[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker)::after {
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker):not(:has([data-testid="stVerticalBlockBorderWrapper"] .agent-report-marker))::after {
     content: "ONYX";
     position: absolute;
     top: 14px;
