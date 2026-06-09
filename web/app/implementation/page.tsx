@@ -16,8 +16,15 @@ import AgentReport from "@/components/AgentReport";
 export default function ImplementationPage() {
   const [rows, setRows] = useState<ImplRow[] | null>(null);
   const [selIdx, setSelIdx] = useState(0);
+  const [open, setOpen] = useState(false);
   const [running, setRunning] = useState(false);
   const [result, setResult] = useState<AgentResult | null>(null);
+
+  const openProject = (i: number) => {
+    setSelIdx(i);
+    setResult(null);
+    setOpen(true);
+  };
 
   useEffect(() => {
     getJSON<ImplRow[]>("/api/implementation/overview").then(setRows).catch(() => setRows([]));
@@ -142,7 +149,7 @@ export default function ImplementationPage() {
             return (
               <div
                 key={r.customer_id}
-                onClick={() => setSelIdx(i)}
+                onClick={() => openProject(i)}
                 className="grid grid-cols-[1.5fr_1fr_1.2fr_0.65fr_0.85fr_0.95fr_2.2fr_1fr] gap-3 px-[18px] py-[13px] items-center border-t border-[#F0EBE7] text-[0.82rem] cursor-pointer hover:bg-[#FBF7FA]"
               >
                 <div className="font-bold text-navy">{r.customer_name}</div>
@@ -176,84 +183,91 @@ export default function ImplementationPage() {
         </div>
       </div>
 
-      {/* Deep dive */}
-      <div className="flex items-center justify-between gap-4 mb-2">
-        <SectionLabel className="!mb-0">Project Deep Dive</SectionLabel>
-        <select
-          value={selIdx}
-          onChange={(e) => {
-            setSelIdx(Number(e.target.value));
-            setResult(null);
-          }}
-          className="bg-white border border-[#E0D8E8] rounded-xl px-3 py-2 text-[0.88rem] text-navy shadow-card outline-none"
-        >
-          {rows.map((r, i) => (
-            <option key={r.customer_id} value={i}>
-              {r.customer_name}
-            </option>
-          ))}
-        </select>
-      </div>
+      {/* Slide-over: project deep dive */}
+      {open ? (
+        <div className="fixed inset-0 z-50">
+          <div
+            className="absolute inset-0 bg-navy/30 backdrop-blur-[2px]"
+            onClick={() => setOpen(false)}
+          />
+          <div className="absolute right-0 top-0 h-full w-full max-w-[640px] bg-white shadow-2xl overflow-y-auto">
+            <div
+              className="sticky top-0 bg-white border-b border-line px-6 py-4 flex items-center justify-between z-10"
+              style={{ borderTop: `4px solid ${selCc}` }}
+            >
+              <div>
+                <div className="text-[0.62rem] font-bold text-faint uppercase tracking-[0.12em]">
+                  Project Deep Dive
+                </div>
+                <div className="text-[1.15rem] font-extrabold text-navy leading-tight">
+                  {sel.customer_name}
+                </div>
+                <div className="text-[0.74rem] font-bold mt-[2px]" style={{ color: selCc }}>
+                  {sel.launch_confidence} launch confidence · {sel.overall_status}
+                </div>
+              </div>
+              <button
+                onClick={() => setOpen(false)}
+                className="rounded-full border border-line w-8 h-8 flex items-center justify-center text-muted hover:text-navy hover:border-navy text-[1rem] leading-none"
+                aria-label="Close"
+              >
+                ×
+              </button>
+            </div>
 
-      <div
-        className="bg-white border border-line rounded-xl px-5 py-4"
-        style={{ borderLeft: `4px solid ${selCc}` }}
-      >
-        <div className="flex justify-between items-baseline mb-[10px] flex-wrap gap-2">
-          <div className="text-[1.05rem] font-extrabold text-navy">{sel.customer_name}</div>
-          <div className="text-[0.8rem] font-bold" style={{ color: selCc }}>
-            {sel.launch_confidence} launch confidence · {sel.overall_status}
-          </div>
-        </div>
-        <div className="flex gap-[10px] flex-wrap mb-3">
-          {(
-            [
-              ["Kicked Off", sel.kickoff_date ? `Yes · ${sel.kickoff_date}` : sel.kicked_off ? "In progress" : "Not started", "#1B1040"],
-              ["Contract Age", sel.days_post_signature !== null ? `${sel.days_post_signature} days` : "—", "#1B1040"],
-              ["Go-Live Target", sel.go_live_target || "—", "#1B1040"],
-              ["To Go-Live", sel.days_to_go_live !== null ? `${sel.days_to_go_live} days` : "—", "#1B1040"],
-              ["Schedule", sel.days_behind_schedule === 0 ? "On time" : `${sel.days_behind_schedule}d behind`, sel.days_behind_schedule === 0 ? "#2D5A3D" : "#9B2335"],
-              ["Milestones", `${sel.milestones_complete} / ${sel.milestones_total} complete`, "#1B1040"],
-            ] as [string, string, string][]
-          ).map(([lbl, val, color]) => (
-            <div key={lbl} className="bg-chip rounded-lg px-[13px] py-[7px]">
-              <div className="text-[0.58rem] font-bold text-muted uppercase tracking-[0.08em]">{lbl}</div>
-              <div className="text-[0.92rem] font-extrabold" style={{ color }}>
-                {val}
+            <div className="px-6 py-5">
+              <div className="grid grid-cols-2 gap-[10px] mb-4">
+                {(
+                  [
+                    ["Kicked Off", sel.kickoff_date ? `Yes · ${sel.kickoff_date}` : sel.kicked_off ? "In progress" : "Not started", "#1B1040"],
+                    ["Contract Age", sel.days_post_signature !== null ? `${sel.days_post_signature} days` : "—", "#1B1040"],
+                    ["Go-Live Target", sel.go_live_target || "—", "#1B1040"],
+                    ["To Go-Live", sel.days_to_go_live !== null ? `${sel.days_to_go_live} days` : "—", "#1B1040"],
+                    ["Schedule", sel.days_behind_schedule === 0 ? "On time" : `${sel.days_behind_schedule}d behind`, sel.days_behind_schedule === 0 ? "#2D5A3D" : "#9B2335"],
+                    ["Milestones", `${sel.milestones_complete} / ${sel.milestones_total} complete`, "#1B1040"],
+                  ] as [string, string, string][]
+                ).map(([lbl, val, color]) => (
+                  <div key={lbl} className="bg-chip rounded-lg px-[13px] py-[8px]">
+                    <div className="text-[0.58rem] font-bold text-muted uppercase tracking-[0.08em]">{lbl}</div>
+                    <div className="text-[0.92rem] font-extrabold" style={{ color }}>
+                      {val}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="text-[0.8rem] text-ink leading-relaxed">
+                <b className="text-green">Implemented:</b> {sel.completed_milestones.join(", ") || "None yet"}
+              </div>
+              <div className="text-[0.8rem] text-ink leading-relaxed mt-1">
+                <b className="text-amber">In progress:</b> {sel.in_progress_milestones.join(", ") || "—"}
+              </div>
+              <div className="text-[0.8rem] text-ink leading-relaxed mt-1">
+                <b className="text-red">Blockers:</b>{" "}
+                {sel.active_blockers.length ? sel.active_blockers.join(" · ") : "None recorded"}
+              </div>
+              <div className="mt-3 px-3 py-[9px] bg-lavender rounded-lg text-[0.84rem] text-navy font-semibold">
+                Recommended action: {implNextAction(sel)}
+              </div>
+
+              <div className="mt-4">
+                <button
+                  onClick={runAnalysis}
+                  disabled={running}
+                  className="bg-navy text-white rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#2D1A5E] disabled:opacity-60"
+                >
+                  {running ? "Analysing…" : "Generate AI analysis"}
+                </button>
+                {running ? <Spinner label={`Analysing ${sel.customer_name}…`} /> : null}
+                {result && !running ? (
+                  <div className="mt-3">
+                    <AgentReport result={result} />
+                  </div>
+                ) : null}
               </div>
             </div>
-          ))}
-        </div>
-        <div className="text-[0.78rem] text-ink leading-relaxed">
-          <b className="text-green">Implemented:</b> {sel.completed_milestones.join(", ") || "None yet"}
-        </div>
-        <div className="text-[0.78rem] text-ink leading-relaxed mt-[3px]">
-          <b className="text-amber">In progress:</b> {sel.in_progress_milestones.join(", ") || "—"}
-        </div>
-        <div className="text-[0.78rem] text-ink leading-relaxed mt-[3px]">
-          <b className="text-red">Blockers:</b>{" "}
-          {sel.active_blockers.length ? sel.active_blockers.join(" · ") : "None recorded"}
-        </div>
-        <div className="mt-[10px] px-3 py-[9px] bg-lavender rounded-lg text-[0.82rem] text-navy font-semibold">
-          Recommended action: {implNextAction(sel)}
-        </div>
-      </div>
-
-      <div className="mt-3">
-        <button
-          onClick={runAnalysis}
-          disabled={running}
-          className="bg-navy text-white rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#2D1A5E] disabled:opacity-60"
-        >
-          {running ? "Analysing…" : "Generate AI analysis"}
-        </button>
-        {running ? <Spinner label={`Analysing ${sel.customer_name}…`} /> : null}
-        {result && !running ? (
-          <div className="mt-3">
-            <AgentReport result={result} />
           </div>
-        ) : null}
-      </div>
+        </div>
+      ) : null}
     </div>
   );
 }
