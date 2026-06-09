@@ -39,10 +39,17 @@ st.set_page_config(
 def _resolve_real_api_key():
     key = os.environ.get("ANTHROPIC_API_KEY", "")
     if not key:
-        try:
-            key = st.secrets["ANTHROPIC_API_KEY"]
-        except Exception:
-            key = ""
+        # Only touch st.secrets when a secrets file exists — accessing it
+        # otherwise renders a red "No secrets found" banner in the app.
+        _candidates = [
+            os.path.join(os.path.expanduser("~"), ".streamlit", "secrets.toml"),
+            os.path.join(os.getcwd(), ".streamlit", "secrets.toml"),
+        ]
+        if any(os.path.exists(p) for p in _candidates):
+            try:
+                key = st.secrets["ANTHROPIC_API_KEY"]
+            except Exception:
+                key = ""
     return key
 
 _REAL_API_KEY = _resolve_real_api_key()
@@ -84,12 +91,22 @@ st.markdown("""
    broke painting during reruns/scrolls, flashing the page white. The app
    container spans the viewport and never scrolls, so the gradient is stable
    no matter how long the page gets or what reruns. */
-html, body, [data-testid="stAppViewContainer"] {
-    background: linear-gradient(160deg, #FFFFFF 0%, #FDF4F8 30%, #FAEFF6 58%, #F4EAF6 100%) !important;
-    min-height: 100vh;
-}
-[data-testid="stMain"] {
+html, .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"],
+[data-testid="stMainBlockContainer"] {
     background: transparent !important;
+}
+/* Solid brand fallback — even if the gradient layer ever fails, the page is
+   never stark white. */
+body { background: #FBF3F8 !important; }
+/* Gradient painted on a fixed full-viewport layer BEHIND all content.
+   position:fixed + z-index:-1 is immune to scroll containers, reruns, and
+   content height changes. */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(160deg, #FFFFFF 0%, #FDF4F8 30%, #FAEFF6 58%, #F4EAF6 100%);
 }
 
 /* Tighter main content padding */
