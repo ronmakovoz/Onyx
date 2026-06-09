@@ -2006,7 +2006,7 @@ elif page == "Implementation Digest":
                 "Customer":        r["customer_name"],
                 "Risk":            conf_badge.get(r["launch_confidence"], r["launch_confidence"]),
                 "Status":          r["overall_status"],
-                "Complete":        r["pct_complete"] / 100.0,
+                "Complete":        int(r["pct_complete"]),
                 "Milestones":      f"{r['milestones_complete']}/{r['milestones_total']}",
                 "Kickoff":         kickoff,
                 "After Signing":   dps,
@@ -2022,9 +2022,9 @@ elif page == "Implementation Digest":
             on_select="rerun", selection_mode="single-row",
             column_config={
                 "Complete": st.column_config.ProgressColumn(
-                    "Complete", min_value=0, max_value=1, format="%.0f%%", width="small"),
+                    "Complete", min_value=0, max_value=100, format="%d%%", width="small"),
                 "Customer": st.column_config.TextColumn("Customer", width="medium"),
-                "Risk":     st.column_config.TextColumn("Launch Risk", width="small"),
+                "Risk":     st.column_config.TextColumn("Launch Confidence", width="small"),
                 "Go-Live Target": st.column_config.TextColumn("Go-Live", width="small"),
                 "After Signing":  st.column_config.TextColumn("Kickoff +Signing", help="Days between contract signature and implementation kickoff"),
                 "To Go-Live":     st.column_config.TextColumn("To Go-Live", help="Days remaining until the go-live target"),

@@ -467,11 +467,20 @@ def build_implementations(customers):
             else 0
         )
 
+        # Anchor milestone completion to the contract start so the timeline is
+        # internally consistent: kickoff lands a few days AFTER signing, later
+        # milestones progress from there (plus any schedule slippage).
+        _contract_start = datetime.fromisoformat(c["contract_start_date"])
+
         for idx, (mname, planned_days) in enumerate(ALL_MILESTONES):
             if idx < done_count:
                 mstatus = "Complete"
                 actual_offset = planned_days + (days_behind if risk != "Low" else 0) + random.randint(-3, 5)
-                completed_at = past(max(1, 300 - actual_offset))
+                _done_dt = _contract_start + timedelta(days=actual_offset)
+                # Completed milestones must be in the past
+                if _done_dt > datetime.now():
+                    _done_dt = datetime.now() - timedelta(days=random.randint(1, 5))
+                completed_at = _done_dt.strftime("%Y-%m-%dT%H:%M:%S")
             elif idx == done_count:
                 mstatus = "In Progress"
                 completed_at = None
