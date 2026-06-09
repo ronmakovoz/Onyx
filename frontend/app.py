@@ -79,20 +79,17 @@ st.markdown("""
 
 * { font-family: 'Inter', sans-serif !important; }
 
-/* Page background */
-[data-testid="stAppViewContainer"] {
-    background: #F5F2EE !important;
+/* Page background — gradient lives on the NON-scrolling app container.
+   Putting it on stMain (a scroll container) with background-attachment:fixed
+   broke painting during reruns/scrolls, flashing the page white. The app
+   container spans the viewport and never scrolls, so the gradient is stable
+   no matter how long the page gets or what reruns. */
+html, body, [data-testid="stAppViewContainer"] {
+    background: linear-gradient(160deg, #FFFFFF 0%, #FDF4F8 30%, #FAEFF6 58%, #F4EAF6 100%) !important;
     min-height: 100vh;
 }
-/* Main (right) pane — light → soft Onyx pink/lavender gradient.
-   Anchored to the viewport (fixed) so the gradient looks identical whether the
-   page is short or grows long after running an agent — it no longer "darkens"
-   as content height increases. */
 [data-testid="stMain"] {
-    background: linear-gradient(160deg, #FFFFFF 0%, #FDF4F8 30%, #FAEFF6 58%, #F4EAF6 100%) !important;
-    background-attachment: fixed !important;
-    background-size: cover !important;
-    background-repeat: no-repeat !important;
+    background: transparent !important;
 }
 
 /* Tighter main content padding */
