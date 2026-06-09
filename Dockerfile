@@ -1,26 +1,32 @@
-FROM python:3.11-slim
+# Onyx CX Agent OS — Next.js frontend + FastAPI backend in one container
+# (Hugging Face Spaces exposes a single port; Next serves on 7860 and
+# proxies /api/* to uvicorn on 8000 via next.config.js rewrites.)
+
+FROM node:20-slim
+
+# Python runtime for the FastAPI backend + agents
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3 python3-venv \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# System deps (kept minimal)
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
+# Python deps (cached layer)
+COPY api/requirements.txt api/requirements.txt
+RUN python3 -m venv /venv && /venv/bin/pip install --no-cache-dir -r api/requirements.txt
 
-# Install Python dependencies first (better layer caching)
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Node deps (cached layer)
+COPY web/package.json web/package-lock.json web/
+RUN cd web && npm ci
 
-# Copy the app
+# App source
 COPY . .
 
-# Hugging Face Spaces routes traffic to port 7860
+# Build the Next.js production bundle
+RUN cd web && npm run build
+
+ENV NODE_ENV=production
 EXPOSE 7860
 
-# Streamlit config for container hosting
-ENV STREAMLIT_SERVER_PORT=7860 \
-    STREAMLIT_SERVER_ADDRESS=0.0.0.0 \
-    STREAMLIT_SERVER_HEADLESS=true \
-    STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
-
-CMD ["streamlit", "run", "frontend/app.py", "--server.port=7860", "--server.address=0.0.0.0"]
+# Start FastAPI (internal :8000), then Next.js on the public port
+CMD ["bash", "-c", "/venv/bin/python -m uvicorn api.main:app --host 0.0.0.0 --port 8000 & cd web && npx next start -p 7860 -H 0.0.0.0"]
