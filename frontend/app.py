@@ -131,44 +131,44 @@ body::before {
 [data-testid="stToolbar"] { display: none !important; }
 #MainMenu { visibility: hidden !important; }
 
-/* Typography — tighter */
-h1 { color: #1B1040 !important; font-weight: 800 !important; font-size: 1.6rem !important; letter-spacing: -0.03em !important; margin-bottom: 0 !important; }
-h2 { color: #1B1040 !important; font-weight: 700 !important; font-size: 1.1rem !important; letter-spacing: -0.02em !important; margin: 0 !important; }
-h3 { color: #1B1040 !important; font-weight: 600 !important; font-size: 0.95rem !important; margin: 0 !important; }
-p, li { color: #3D3458; font-size: 0.85rem; margin: 0; }
-.stMarkdown p { color: #3D3458; font-size: 0.85rem; }
+/* Typography — exec-readable scale */
+h1 { color: #1B1040 !important; font-weight: 800 !important; font-size: 1.75rem !important; letter-spacing: -0.03em !important; margin-bottom: 0 !important; }
+h2 { color: #1B1040 !important; font-weight: 700 !important; font-size: 1.15rem !important; letter-spacing: -0.02em !important; margin: 0 !important; }
+h3 { color: #1B1040 !important; font-weight: 600 !important; font-size: 1.0rem !important; margin: 0 !important; }
+p, li { color: #3D3458; font-size: 0.88rem; margin: 0; }
+.stMarkdown p { color: #3D3458; font-size: 0.88rem; }
 
-/* Cards — compact */
+/* Cards */
 .card {
     background: #FFFFFF;
     border: 1px solid #E8E4DC;
-    border-radius: 10px;
-    padding: 11px 14px;
-    margin-bottom: 6px;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
     box-shadow: 0 1px 4px rgba(27,16,64,0.05);
 }
 .card-red    { border-left: 3px solid #9B2335; }
 .card-yellow { border-left: 3px solid #7A5C1E; }
 .card-green  { border-left: 3px solid #2D5A3D; }
 
-/* KPI cards — compact */
+/* KPI cards */
 .kpi-card {
     background: #FFFFFF;
     border: 1px solid #E8E4DC;
-    border-radius: 10px;
-    padding: 12px 14px;
+    border-radius: 12px;
+    padding: 16px 18px;
     box-shadow: 0 1px 4px rgba(27,16,64,0.05);
-    min-height: 92px;
+    min-height: 102px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 .kpi-label {
-    font-size: 0.62rem; color: #6B6280; text-transform: uppercase;
-    letter-spacing: 0.10em; margin-bottom: 2px; font-weight: 700;
+    font-size: 0.66rem; color: #6B6280; text-transform: uppercase;
+    letter-spacing: 0.10em; margin-bottom: 3px; font-weight: 700;
 }
-.kpi-value { font-size: 1.55rem; font-weight: 800; color: #1B1040; line-height: 1.1; }
-.kpi-sub   { font-size: 0.68rem; color: #6B6280; margin-top: 1px; }
+.kpi-value { font-size: 1.7rem; font-weight: 800; color: #1B1040; line-height: 1.1; }
+.kpi-sub   { font-size: 0.72rem; color: #6B6280; margin-top: 2px; }
 
 /* Badges */
 .badge {
@@ -264,8 +264,8 @@ button[data-testid="stBaseButton-secondary"] *,
     border-radius: 50px !important;
     color: #6B6280 !important;
     font-weight: 600 !important;
-    font-size: 0.75rem !important;
-    padding: 4px 12px !important;
+    font-size: 0.82rem !important;
+    padding: 6px 16px !important;
     background: transparent !important;
     white-space: nowrap !important;
 }
@@ -345,29 +345,46 @@ summary { color: #1B1040 !important; font-weight: 600 !important; }
 hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
 
 /* Sidebar radio nav — hide radio circles, style as clean nav links */
-[data-testid="stSidebar"] .stRadio > div { gap: 2px !important; }
+[data-testid="stSidebar"] .stRadio > div { gap: 3px !important; }
 [data-testid="stSidebar"] .stRadio > div > label {
-    border-radius: 6px !important;
-    padding: 7px 10px !important;
+    border-radius: 8px !important;
+    padding: 8px 12px !important;
     margin-bottom: 0 !important;
     transition: background 0.12s ease !important;
-    font-size: 0.82rem !important;
+    font-size: 0.88rem !important;
     font-weight: 500 !important;
     color: #3D3458 !important;
     display: flex !important;
+    flex-wrap: wrap !important;
     align-items: center !important;
     cursor: pointer !important;
 }
 [data-testid="stSidebar"] .stRadio > div > label:hover { background: #EDE9E4 !important; color: #1B1040 !important; }
 /* Hide the actual radio circle */
 [data-testid="stSidebar"] .stRadio > div > label > div:first-child { display: none !important; }
-/* Highlight selected item */
+/* Highlight selected item — left accent bar + tint */
 [data-testid="stSidebar"] .stRadio > div > label[data-baseweb="radio"]:has(input:checked),
-[data-testid="stSidebar"] .stRadio [aria-checked="true"] ~ label,
 [data-testid="stSidebar"] .stRadio > div > label:has(input[type="radio"]:checked) {
-    background: #E8E4DC !important;
+    background: #F4EAF6 !important;
+    box-shadow: inset 3px 0 0 #1B1040 !important;
     color: #1B1040 !important;
     font-weight: 700 !important;
+}
+/* Workflow section labels above nav groups (pages 1, 5, 7) */
+[data-testid="stSidebar"] .stRadio > div > label:nth-child(1)::before { content: "Monitor"; }
+[data-testid="stSidebar"] .stRadio > div > label:nth-child(5)::before { content: "Deliver"; margin-top: 10px; }
+[data-testid="stSidebar"] .stRadio > div > label:nth-child(7)::before { content: "Govern"; margin-top: 10px; }
+[data-testid="stSidebar"] .stRadio > div > label:nth-child(1)::before,
+[data-testid="stSidebar"] .stRadio > div > label:nth-child(5)::before,
+[data-testid="stSidebar"] .stRadio > div > label:nth-child(7)::before {
+    display: block;
+    width: 100%;
+    font-size: 0.60rem;
+    font-weight: 700;
+    color: #9B93A8;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 4px;
 }
 
 /* Skeptik boxes */
@@ -737,8 +754,17 @@ def render_agent_output(result, show_structured=True, nested=False):
 
 
 def page_header(title, subtitle=""):
-    sub = f"<div style='color:#6B6280;font-size:0.82rem;margin-bottom:14px'>{subtitle}</div>" if subtitle else "<div style='margin-bottom:8px'></div>"
-    st.markdown(f"<h1 style='margin-bottom:2px'>{title}</h1>{sub}", unsafe_allow_html=True)
+    today = datetime.now().strftime("%A, %B %d, %Y")
+    sub = f"<div style='color:#6B6280;font-size:0.84rem;margin-top:2px'>{subtitle}</div>" if subtitle else ""
+    st.markdown(f"""
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;
+     border-bottom:1px solid #E8E4DC;padding-bottom:12px;margin-bottom:16px">
+  <div><h1 style="margin:0">{title}</h1>{sub}</div>
+  <div style="text-align:right;flex-shrink:0">
+    <div style="font-size:0.70rem;color:#9B93A8">{today}</div>
+    <div style="font-size:0.66rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-top:2px">Onyx · Secure AI Control Plane</div>
+  </div>
+</div>""", unsafe_allow_html=True)
 
 
 _export_counter = [0]
@@ -2135,32 +2161,32 @@ elif page == "Audit Trail & Costs":
     runs  = fetch_audit(limit=100)
 
     # ── Cost summary ──────────────────────────────────────────────────────────
-    c1, c2, c3, c4 = st.columns(4)
-    with c1: st.metric("Total Spend", f"${costs.get('grand_total',0):.4f}")
-    with c2: st.metric("Total Runs", len(runs))
-    with c3: st.metric("Avg Cost / Run", f"${costs.get('grand_total',0)/max(len(runs),1):.5f}")
-    with c4:
-        mock_count = sum(1 for r in runs if not r.get("model_used",""))
-        st.metric("Live / Mock", f"{len(runs)-mock_count} / {len(runs)}")
+    mock_count = sum(1 for r in runs if not r.get("model_used",""))
+    cc = st.columns(4)
+    cc[0].markdown(kpi_card("Total Spend", f"${costs.get('grand_total',0):.4f}", "all agent runs"), unsafe_allow_html=True)
+    cc[1].markdown(kpi_card("Total Runs", str(len(runs)), "last 100 shown"), unsafe_allow_html=True)
+    cc[2].markdown(kpi_card("Avg Cost / Run", f"${costs.get('grand_total',0)/max(len(runs),1):.5f}"), unsafe_allow_html=True)
+    cc[3].markdown(kpi_card("Live / Mock", f"{len(runs)-mock_count} / {len(runs)}", "runs using real API"), unsafe_allow_html=True)
 
     # ── By model ──────────────────────────────────────────────────────────────
-    st.markdown("---")
-    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Spend by Model</div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin:16px 0 8px'>Spend by Model</div>", unsafe_allow_html=True)
     by_model = costs.get("by_model", [])
     if by_model:
+        mrows = []
         for row in by_model:
-            tier   = model_tier_from_id(row.get("model_used",""))
-            color  = tier_color(tier)
-            mc1, mc2, mc3, mc4 = st.columns([3, 1, 1, 1])
-            with mc1:
-                st.markdown(f"<span style='color:{color};font-weight:700'>{tier.capitalize()}</span> "
-                            f"<span style='color:#6B6280;font-size:0.75rem'>{row.get('model_used','')}</span>",
-                            unsafe_allow_html=True)
-            with mc2: st.metric("Runs", row.get("run_count",0))
-            with mc3:
-                total_tok = (row.get("total_input_tokens") or 0) + (row.get("total_output_tokens") or 0)
-                st.metric("Tokens", f"{total_tok:,}")
-            with mc4: st.metric("Cost", f"${row.get('total_cost',0) or 0:.5f}")
+            tier = model_tier_from_id(row.get("model_used",""))
+            total_tok = (row.get("total_input_tokens") or 0) + (row.get("total_output_tokens") or 0)
+            mrows.append({
+                "Tier":   tier.capitalize(),
+                "Model":  row.get("model_used",""),
+                "Runs":   row.get("run_count",0),
+                "Tokens": f"{total_tok:,}",
+                "Cost":   f"${row.get('total_cost',0) or 0:.5f}",
+            })
+        st.dataframe(pd.DataFrame(mrows), use_container_width=True, hide_index=True,
+                     height=45 + 36 * len(mrows))
+    else:
+        st.caption("No live runs recorded yet.")
 
     # ── Filter bar ────────────────────────────────────────────────────────────
     st.markdown("---")
