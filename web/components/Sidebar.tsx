@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const GROUPS: { label: string; items: { name: string; href: string }[] }[] = [
   {
@@ -64,11 +65,79 @@ export default function Sidebar() {
           </nav>
         </div>
       ))}
-      <div className="px-3 mt-6 text-[0.62rem] text-faint leading-relaxed">
+      <ModeToggle />
+      <div className="px-3 mt-4 text-[0.62rem] text-faint leading-relaxed">
         Onyx · Secure AI Control Plane
         <br />
         Synthetic demo data
       </div>
     </aside>
+  );
+}
+
+function ModeToggle() {
+  const [live, setLive] = useState(false);
+  const [available, setAvailable] = useState(false);
+  const [busy, setBusy] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/mode")
+      .then((r) => r.json())
+      .then((d) => {
+        setLive(d.live);
+        setAvailable(d.available);
+      })
+      .catch(() => {});
+  }, []);
+
+  const toggle = async () => {
+    if (!available || busy) return;
+    setBusy(true);
+    try {
+      const r = await fetch("/api/mode", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ live: !live }),
+      });
+      const d = await r.json();
+      setLive(d.live);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div className="px-3 mt-6 pt-4 border-t border-line">
+      <button
+        onClick={toggle}
+        disabled={!available || busy}
+        className="flex items-center gap-2.5 w-full disabled:cursor-not-allowed"
+        title={available ? "Toggle between mock data and live Claude calls" : "Set ANTHROPIC_API_KEY on the API server to enable live mode"}
+      >
+        <span
+          className={`relative inline-block w-9 h-5 rounded-full transition-colors ${
+            live ? "bg-navy" : "bg-[#D8D3C8]"
+          } ${!available ? "opacity-40" : ""}`}
+        >
+          <span
+            className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-all ${
+              live ? "left-[18px]" : "left-0.5"
+            }`}
+          />
+        </span>
+        <span className="text-[0.78rem] font-semibold text-ink">Live Anthropic API</span>
+      </button>
+      <div
+        className={`mt-1.5 text-[0.64rem] font-bold ${
+          live ? "text-green" : "text-amber"
+        }`}
+      >
+        {live
+          ? "LIVE — calling Claude"
+          : available
+          ? "MOCK — no API calls"
+          : "MOCK — set ANTHROPIC_API_KEY to enable live"}
+      </div>
+    </div>
   );
 }

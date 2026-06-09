@@ -33,6 +33,12 @@ from backend.database import fetchall
 from agents.agents import AGENT_REGISTRY, AGENT_DESCRIPTIONS, AGENT_MODEL_TIER
 from agents.model_router import route as _route
 
+# Capture the real key once at startup; the Mock/Live toggle mutates os.environ
+# (agents read ANTHROPIC_API_KEY at run time), so this is the only safe copy.
+_REAL_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+# Default to mock mode until explicitly toggled live
+os.environ.pop("ANTHROPIC_API_KEY", None)
+
 app = FastAPI(title="Onyx CX Agent OS API")
 
 app.add_middleware(
@@ -41,6 +47,29 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+class ModeUpdate(BaseModel):
+    live: bool
+
+
+@app.get("/api/mode")
+def get_mode():
+    return {
+        "live": bool(os.environ.get("ANTHROPIC_API_KEY")),
+        "available": bool(_REAL_API_KEY),
+    }
+
+
+@app.post("/api/mode")
+def set_mode(body: ModeUpdate):
+    if body.live and not _REAL_API_KEY:
+        raise HTTPException(status_code=400, detail="ANTHROPIC_API_KEY not configured on the API server")
+    if body.live:
+        os.environ["ANTHROPIC_API_KEY"] = _REAL_API_KEY
+    else:
+        os.environ.pop("ANTHROPIC_API_KEY", None)
+    return get_mode()
 
 
 @app.get("/api/summary")
