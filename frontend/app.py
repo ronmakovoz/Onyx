@@ -399,22 +399,37 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
     font-size: 0.82rem;
 }
 
-/* Agent report card — refined typography for agent markdown output */
+/* Agent report card — executive document treatment */
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) {
-    background: #FFFFFF !important;
-    border: 1px solid #E8E4DC !important;
+    background: linear-gradient(180deg, #FDFBF7 0%, #FFFFFF 120px) !important;
+    border: 1px solid #E0D8E8 !important;
+    border-top: 4px solid #1B1040 !important;
     border-radius: 14px !important;
-    box-shadow: 0 1px 6px rgba(27,16,64,0.05) !important;
-    padding: 6px 26px 18px !important;
+    box-shadow: 0 10px 30px rgba(27,16,64,0.10), 0 2px 6px rgba(27,16,64,0.05) !important;
+    padding: 14px 30px 22px !important;
+    position: relative !important;
+}
+/* Watermark-style brand mark in the report's top-right corner */
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker)::after {
+    content: "ONYX";
+    position: absolute;
+    top: 14px;
+    right: 20px;
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    color: #D8CFE4;
 }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] h1 {
-    font-size: 1.15rem !important; margin: 8px 0 2px !important; letter-spacing: -0.02em !important;
+    font-size: 1.2rem !important; margin: 8px 0 4px !important; letter-spacing: -0.02em !important;
+    padding-bottom: 8px !important; border-bottom: 2px solid #1B1040 !important;
 }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] h2 {
-    font-size: 0.82rem !important; font-weight: 700 !important; color: #6B6280 !important;
-    text-transform: uppercase !important; letter-spacing: 0.08em !important;
-    margin: 18px 0 6px !important; padding-bottom: 5px !important;
-    border-bottom: 1px solid #EFEBE4 !important;
+    font-size: 0.80rem !important; font-weight: 800 !important; color: #1B1040 !important;
+    text-transform: uppercase !important; letter-spacing: 0.10em !important;
+    margin: 20px 0 8px !important; padding: 5px 10px !important;
+    background: #F4EAF6 !important; border-radius: 6px !important;
+    border-bottom: none !important; display: inline-block !important;
 }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] h3 {
     font-size: 0.9rem !important; margin: 12px 0 4px !important; color: #1B1040 !important;
