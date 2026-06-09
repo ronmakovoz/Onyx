@@ -791,8 +791,9 @@ def build_exec_summary(summary, customers):
 with st.sidebar:
     st.markdown("<div style='padding:10px 0 6px'><span style='font-size:1.3rem;font-weight:900;color:#1B1040;letter-spacing:-0.04em'>ONYX</span><span style='font-size:0.65rem;font-weight:700;color:#6B6280;letter-spacing:0.12em;margin-left:8px;vertical-align:middle'>CX AGENT OS</span></div>", unsafe_allow_html=True)
 
-    _pages = ["Executive Dashboard", "Customer 360", "CSM Performance", "Agent Console",
-              "Briefings", "Implementation Digest", "Audit Trail & Costs"]
+    # Ordered to follow the exec workflow: monitor → inspect → deliver → report → govern
+    _pages = ["Executive Dashboard", "Customer 360", "Implementation Digest", "CSM Performance",
+              "Briefings", "Agent Console", "Audit Trail & Costs"]
     # Single source of truth: the radio's own key holds the current page.
     # Programmatic navigation from other pages stages "_pending_nav" and reruns;
     # we apply it here (before the widget is instantiated) to avoid Streamlit's
@@ -1401,25 +1402,36 @@ elif page == "Customer 360":
 
     st.markdown("<div style='margin:16px 0 4px'></div>", unsafe_allow_html=True)
 
-    # ── Agent action bar ──────────────────────────────────────────────────────
+    # ── Agent action bar — grouped by workflow ────────────────────────────────
     st.markdown("<div style='font-size:0.68rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Run Agents</div>", unsafe_allow_html=True)
     triggered = None
-    row_a = st.columns(5)
-    row_b = st.columns(5)
-    btns = [
-        (row_a[0], "CustomerHealthAgent",       "Health Assessment",      "secondary"),
-        (row_a[1], "ImplementationAgent",       "Implementation Report",  "secondary"),
-        (row_a[2], "BriefingAgent",             "Generate CEO Briefing",  "primary"),
-        (row_a[3], "EscalationCommanderAgent",  "Escalation Commander",   "primary"),
-        (row_a[4], "SkeptikQAAgent",            "Skeptik QA Review",      "secondary"),
-        (row_b[0], "ExpansionOpportunityAgent", "Expansion Opportunity",  "secondary"),
-        (row_b[1], "QBRPreparationAgent",       "Prepare QBR",            "secondary"),
-        (row_b[2], "SuccessPlanAgent",          "Build Success Plan",     "secondary"),
+    agent_groups = [
+        ("Assess", [
+            ("CustomerHealthAgent", "Health Assessment",     "secondary"),
+            ("ImplementationAgent", "Implementation Report", "secondary"),
+        ]),
+        ("Grow", [
+            ("ExpansionOpportunityAgent", "Expansion Opportunity", "secondary"),
+            ("QBRPreparationAgent",       "Prepare QBR",           "secondary"),
+            ("SuccessPlanAgent",          "Build Success Plan",    "secondary"),
+        ]),
+        ("Communicate & Respond", [
+            ("BriefingAgent",            "Generate CEO Briefing", "primary"),
+            ("EscalationCommanderAgent", "Escalation Commander",  "primary"),
+        ]),
+        ("Verify", [
+            ("SkeptikQAAgent", "Skeptik QA Review", "secondary"),
+        ]),
     ]
-    for col, aname, label, btype in btns:
+    group_cols = st.columns([2, 3, 2, 1.4])
+    for col, (group_label, group_btns) in zip(group_cols, agent_groups):
         with col:
-            if st.button(label, use_container_width=True, type=btype, key=f"360_{aname}"):
-                triggered = aname
+            st.markdown(f"<div style='font-size:0.60rem;font-weight:700;color:#9B93A8;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:4px'>{group_label}</div>", unsafe_allow_html=True)
+            bcols = st.columns(len(group_btns))
+            for bcol, (aname, label, btype) in zip(bcols, group_btns):
+                with bcol:
+                    if st.button(label, use_container_width=True, type=btype, key=f"360_{aname}"):
+                        triggered = aname
 
     if triggered:
         with st.spinner(f"Running {agent_display_name(triggered)}…"):
@@ -1788,16 +1800,17 @@ elif page == "Agent Console":
     customers = fetch_customers()
     cmap = {c["id"]: c for c in customers}
 
+    # Ordered by workflow group: Assess → Grow → Communicate & Respond → Verify → Portfolio
     AGENT_INFO = {
-        "CustomerHealthAgent":       ("", "haiku",  "Scanning & risk scoring"),
-        "ImplementationAgent":       ("", "sonnet", "Milestone synthesis & planning"),
-        "BriefingAgent":             ("", "sonnet", "Executive briefing generation"),
-        "EscalationCommanderAgent":  ("", "opus",   "Crisis management & battle plan"),
-        "SkeptikQAAgent":            ("", "opus",   "Adversarial output review"),
-        "VPChiefOfStaffAgent":       ("", "opus",   "Weekly portfolio operating review"),
-        "ExpansionOpportunityAgent": ("", "sonnet", "Upsell discovery & ARR uplift"),
-        "QBRPreparationAgent":       ("", "sonnet", "Quarterly business review prep"),
-        "SuccessPlanAgent":          ("", "sonnet", "30/60/90 success planning"),
+        "CustomerHealthAgent":       ("Assess",      "haiku",  "Scanning & risk scoring"),
+        "ImplementationAgent":       ("Assess",      "sonnet", "Milestone synthesis & planning"),
+        "ExpansionOpportunityAgent": ("Grow",        "sonnet", "Upsell discovery & ARR uplift"),
+        "QBRPreparationAgent":       ("Grow",        "sonnet", "Quarterly business review prep"),
+        "SuccessPlanAgent":          ("Grow",        "sonnet", "30/60/90 success planning"),
+        "BriefingAgent":             ("Communicate", "sonnet", "Executive briefing generation"),
+        "EscalationCommanderAgent":  ("Respond",     "opus",   "Crisis management & battle plan"),
+        "SkeptikQAAgent":            ("Verify",      "opus",   "Adversarial output review"),
+        "VPChiefOfStaffAgent":       ("Portfolio",   "opus",   "Weekly portfolio operating review"),
     }
 
     left_col, right_col = st.columns([1, 2])
@@ -1807,9 +1820,9 @@ elif page == "Agent Console":
         selected_agent = st.selectbox(
             "Agent",
             list(AGENT_INFO.keys()),
-            format_func=lambda x: f"{agent_display_name(x)} — {AGENT_INFO[x][1].capitalize()}",
+            format_func=lambda x: f"{AGENT_INFO[x][0]} · {agent_display_name(x)} — {AGENT_INFO[x][1].capitalize()}",
         )
-        emoji, tier, desc = AGENT_INFO[selected_agent]
+        group, tier, desc = AGENT_INFO[selected_agent]
         color = tier_color(tier)
 
         needs_cust = selected_agent != "VPChiefOfStaffAgent"
@@ -1822,6 +1835,7 @@ elif page == "Agent Console":
             <div class="kpi-label">ROUTED TO</div>
             <div style="color:{color};font-weight:800;font-size:0.95rem">{tier.capitalize()}</div>
             <div style="color:#6B6280;font-size:0.72rem;margin-top:1px">{desc}</div>
+            <div style="color:#9B93A8;font-size:0.66rem;margin-top:4px;text-transform:uppercase;letter-spacing:0.08em">{group} workflow</div>
         </div>""", unsafe_allow_html=True)
 
         run_btn = st.button(f"Run {agent_display_name(selected_agent)}", use_container_width=True, type="primary")
