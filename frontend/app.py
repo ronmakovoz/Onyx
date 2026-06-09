@@ -620,8 +620,8 @@ def fetch_costs():
 # ── UI utilities ──────────────────────────────────────────────────────────────
 
 def risk_icon(level):
-    return {"High": "🔴", "Medium": "🟡", "Low": "🟢",
-            "Critical": "🔴", "At Risk": "🟡", "Healthy": "🟢"}.get(level, "⚪")
+    return {"High": "High risk", "Medium": "Medium risk", "Low": "Healthy",
+            "Critical": "Critical", "At Risk": "At risk", "Healthy": "Healthy"}.get(level, "")
 
 def health_color(score):
     if score < 40: return "#9B2335"
@@ -713,7 +713,7 @@ def page_header(title, subtitle=""):
 
 
 _export_counter = [0]
-def export_button(content: str, filename: str, label: str = "⬇️ Export"):
+def export_button(content: str, filename: str, label: str = "Export"):
     _export_counter[0] += 1
     st.download_button(label=label, data=content, file_name=filename,
                        mime="text/markdown", key=f"dl_{_export_counter[0]}_{filename[:20]}")
@@ -789,27 +789,7 @@ def build_exec_summary(summary, customers):
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 
 with st.sidebar:
-    # ── Mock / Live API toggle (top-left) ─────────────────────────────────────
-    if _REAL_API_KEY:
-        live = st.toggle("Live Anthropic API", value=st.session_state.get("live_api", False))
-        st.session_state["live_api"] = live
-        if live:
-            os.environ["ANTHROPIC_API_KEY"] = _REAL_API_KEY
-            st.markdown("<div style='font-size:0.66rem;color:#2D5A3D;font-weight:700;margin:-4px 0 6px'>● LIVE — calling Claude</div>", unsafe_allow_html=True)
-        else:
-            os.environ.pop("ANTHROPIC_API_KEY", None)
-            st.markdown("<div style='font-size:0.66rem;color:#7A5C1E;font-weight:700;margin:-4px 0 6px'>● MOCK — no API calls</div>", unsafe_allow_html=True)
-    else:
-        os.environ.pop("ANTHROPIC_API_KEY", None)
-        st.session_state["live_api"] = False
-        st.markdown("<div style='font-size:0.66rem;color:#7A5C1E;font-weight:700;margin:0 0 6px'>● MOCK — set ANTHROPIC_API_KEY to enable live</div>", unsafe_allow_html=True)
-
-    if st.button("About the Agents", use_container_width=True, key="sb_about", type="secondary"):
-        st.session_state["show_agent_guide"] = True
-
-    st.markdown("<div style='padding:8px 0 4px'><span style='font-size:1.3rem;font-weight:900;color:#1B1040;letter-spacing:-0.04em'>ONYX</span><span style='font-size:0.65rem;font-weight:700;color:#6B6280;letter-spacing:0.12em;margin-left:8px;vertical-align:middle'>CX AGENT OS</span></div>", unsafe_allow_html=True)
-
-    st.markdown("---")
+    st.markdown("<div style='padding:10px 0 6px'><span style='font-size:1.3rem;font-weight:900;color:#1B1040;letter-spacing:-0.04em'>ONYX</span><span style='font-size:0.65rem;font-weight:700;color:#6B6280;letter-spacing:0.12em;margin-left:8px;vertical-align:middle'>CX AGENT OS</span></div>", unsafe_allow_html=True)
 
     _pages = ["Executive Dashboard", "Customer 360", "CSM Performance", "Agent Console",
               "Briefings", "Implementation Digest", "Audit Trail & Costs"]
@@ -879,6 +859,26 @@ with st.sidebar:
         if st.button("Health Check", use_container_width=True, key="sb_health", type="secondary"):
             st.session_state["quick_run"] = ("CustomerHealthAgent", qcust)
             st.rerun()
+
+    st.markdown("---")
+
+    # ── Footer controls: data mode + agent guide ──────────────────────────────
+    if _REAL_API_KEY:
+        live = st.toggle("Live Anthropic API", value=st.session_state.get("live_api", False))
+        st.session_state["live_api"] = live
+        if live:
+            os.environ["ANTHROPIC_API_KEY"] = _REAL_API_KEY
+            st.markdown("<div style='font-size:0.66rem;color:#2D5A3D;font-weight:700;margin:-4px 0 6px'>LIVE — calling Claude</div>", unsafe_allow_html=True)
+        else:
+            os.environ.pop("ANTHROPIC_API_KEY", None)
+            st.markdown("<div style='font-size:0.66rem;color:#7A5C1E;font-weight:700;margin:-4px 0 6px'>MOCK — no API calls</div>", unsafe_allow_html=True)
+    else:
+        os.environ.pop("ANTHROPIC_API_KEY", None)
+        st.session_state["live_api"] = False
+        st.markdown("<div style='font-size:0.66rem;color:#7A5C1E;font-weight:700;margin:0 0 6px'>MOCK — set ANTHROPIC_API_KEY to enable live</div>", unsafe_allow_html=True)
+
+    if st.button("About the Agents", use_container_width=True, key="sb_about", type="secondary"):
+        st.session_state["show_agent_guide"] = True
 
 
 
@@ -1038,7 +1038,7 @@ if page == "Executive Dashboard":
     customers = fetch_customers()
 
     if not summary or not customers:
-        st.error("❌ Failed to load data. Check that the database is initialized.")
+        st.error("Failed to load data. Check that the database is initialized.")
         st.stop()
 
     total_arr = summary.get('total_arr', 0)
@@ -1220,7 +1220,7 @@ elif page == "Customer 360":
     cid = st.selectbox(
         "Select customer",
         options=[c["id"] for c in customers],
-        format_func=lambda x: f"{risk_icon(cmap[x].get('risk_level','?'))} {cmap[x]['name']} — {cmap[x]['industry']} · ${cmap[x]['arr']:,}",
+        format_func=lambda x: f"{cmap[x]['name']} — {cmap[x]['industry']} · ${cmap[x]['arr']:,} · {risk_icon(cmap[x].get('risk_level','?'))}",
         index=next((i for i, c in enumerate(customers) if c["id"] == default_id), 0),
     )
     st.session_state["selected_cid"] = cid
@@ -1582,15 +1582,15 @@ elif page == "Customer 360":
         st.markdown(f"<div style='font-size:0.78rem;font-weight:700;color:#1B1040;margin-bottom:6px'>{len(open_t)} Open <span style=\"color:#6B6280;font-weight:400\">· {len(closed_t)} Resolved</span></div>", unsafe_allow_html=True)
         for t in sorted(tickets, key=lambda x: ("P1P2P3P4".index(x["severity"]) if x["severity"] in "P1P2P3P4" else 9, x["status"] == "Resolved")):
             sc = {"P1":"#9B2335","P2":"#7A5C1E","P3":"#5C4A1E","P4":"#6B6280"}.get(t["severity"],"#6B6280")
-            si = "🔴" if t["status"]=="Open" else "🔄" if t["status"]=="In Progress" else "✅"
+            st_color = {"Open": "#9B2335", "In Progress": "#7A5C1E"}.get(t["status"], "#2D5A3D")
             st.markdown(f"""<div class="card">
                 <div style="display:flex;justify-content:space-between;align-items:center">
                     <span style="background:{sc}18;color:{sc};font-weight:700;font-size:0.72rem;padding:2px 8px;border-radius:20px;border:1px solid {sc}44">{t['severity']}</span>
-                    <span style="color:#6B6280;font-size:0.75rem">{si} {t['status']}</span>
+                    <span style="color:{st_color};font-size:0.72rem;font-weight:700">{t['status']}</span>
                 </div>
                 <div style="color:#1B1040;font-size:0.88rem;margin-top:6px;font-weight:500">{t['title']}</div>
                 <div style="color:#6B6280;font-size:0.72rem;margin-top:3px">Opened {t['opened_at'][:10]} · Assignee: {t.get('assignee','?')}</div>
-                {f'<div style="color:#7A5C1E;font-size:0.72rem;margin-top:2px">⚠️ {t["escalation_reference"]}</div>' if t.get("escalation_reference") else ''}
+                {f'<div style="color:#7A5C1E;font-size:0.72rem;margin-top:2px">{t["escalation_reference"]}</div>' if t.get("escalation_reference") else ''}
             </div>""", unsafe_allow_html=True)
 
     with tab_escs:
@@ -1624,18 +1624,18 @@ elif page == "Customer 360":
                        "Executive Sponsor":"#2D3A4A","Economic Buyer":"#9B2335"}
         role_bg = {"Champion":"#EAE6E0","Technical Sponsor":"#EDEAF4","Business Sponsor":"#F0EBE0",
                    "Executive Sponsor":"#E8EBF0","Economic Buyer":"#F5ECEC"}
-        eng_icons = {"High":"🟢","Medium":"🟡","Low":"🔴","None":"⚫"}
+        eng_colors = {"High":"#2D5A3D","Medium":"#7A5C1E","Low":"#9B2335","None":"#6B6280"}
         for s in stk:
             rc = role_colors.get(s["role"],"#6B6280")
             rb = role_bg.get(s["role"],"#EAE6E0")
-            ei = eng_icons.get(s.get("engagement_level",""),"?")
+            ec = eng_colors.get(s.get("engagement_level",""),"#6B6280")
             st.markdown(f"""<div class="card">
                 <div style="display:flex;justify-content:space-between;align-items:flex-start">
                     <div>
                         <span style="font-weight:700;color:#1B1040;font-size:0.95rem">{s['name']}</span>
                         <div style="font-size:0.80rem;color:#6B6280;margin-top:1px">{s['title']}</div>
                     </div>
-                    <span style="font-size:0.72rem;color:#6B6280">{ei} {s.get('engagement_level','?')}</span>
+                    <span style="font-size:0.72rem;color:{ec};font-weight:700">{s.get('engagement_level','?')} engagement</span>
                 </div>
                 <div style="margin-top:6px;display:flex;align-items:center;gap:8px">
                     <span style="background:{rb};color:{rc};font-size:0.72rem;font-weight:700;padding:2px 8px;border-radius:20px">{s['role']}</span>
@@ -1659,7 +1659,7 @@ elif page == "Customer 360":
                     <span style="background:{sent_bg};color:{sc};font-size:0.70rem;font-weight:700;padding:2px 8px;border-radius:20px">{n.get('sentiment_signal','?')}</span>
                 </div>
                 <div style="color:#1B1040;font-size:0.88rem;margin-top:6px;line-height:1.5">{n['summary']}</div>
-                <div style="color:#6B6280;font-size:0.72rem;margin-top:4px">👥 {n.get('attendees_internal','?')} · {n.get('attendees_customer','?')}</div>
+                <div style="color:#6B6280;font-size:0.72rem;margin-top:4px">Attendees: {n.get('attendees_internal','?')} · {n.get('attendees_customer','?')}</div>
                 {('<div style="margin-top:6px">' + ''.join(f'<div style="font-size:0.75rem;color:#3D3458;margin-top:2px">→ {a}</div>' for a in actions) + '</div>') if actions else ''}
             </div>""", unsafe_allow_html=True)
 
@@ -1678,7 +1678,7 @@ elif page == "Customer 360":
                 <div style="margin-top:4px">Risk Score: <b style="color:{rc_color}">{c.get('renewal_risk_score',0):.0%}</b></div>
                 <div style="margin-top:4px">Commercial Note: {renewal.get('commercial_terms_note','?')}</div>
                 <div style="margin-top:4px;color:#6B6280">Procurement Contact: {renewal.get('procurement_contact','?')}</div>
-                <div style="color:#6B6280">Exec Involvement Required: {'✅ Yes' if renewal.get('requires_exec_involvement') else 'No'}</div>
+                <div style="color:#6B6280">Exec Involvement Required: {'Yes' if renewal.get('requires_exec_involvement') else 'No'}</div>
             </div>""", unsafe_allow_html=True)
 
             if st.button("Generate CEO Briefing for Renewal", type="primary"):
@@ -1816,7 +1816,7 @@ elif page == "Agent Console":
         sel_cid = None
         if needs_cust:
             sel_cid = st.selectbox("Customer", list(cmap.keys()),
-                                   format_func=lambda x: f"{risk_icon(cmap[x].get('risk_level','?'))} {cmap[x]['name']}")
+                                   format_func=lambda x: f"{cmap[x]['name']} · {risk_icon(cmap[x].get('risk_level','?'))}")
 
         st.markdown(f"""<div class="card" style="margin-top:8px;border-left:3px solid {color};padding:9px 12px">
             <div class="kpi-label">ROUTED TO</div>
@@ -1828,9 +1828,9 @@ elif page == "Agent Console":
 
         # Quick run info
         if selected_agent == "SkeptikQAAgent":
-            st.info("ℹ️ Skeptik requires a prior agent run for the selected customer.", icon="🔍")
+            st.caption("Skeptik requires a prior agent run for the selected customer.")
         if selected_agent == "VPChiefOfStaffAgent":
-            st.info("ℹ️ Portfolio-wide — no customer selection needed.", icon="📊")
+            st.caption("Portfolio-wide — no customer selection needed.")
 
     with right_col:
         if run_btn:
@@ -1868,7 +1868,7 @@ elif page == "Briefings":
             sel_cid = st.selectbox(
                 "Customer for briefing",
                 [c["id"] for c in customers],
-                format_func=lambda x: f"{risk_icon(cmap[x].get('risk_level','?'))} {cmap[x]['name']} — ${cmap[x]['arr']:,}",
+                format_func=lambda x: f"{cmap[x]['name']} — ${cmap[x]['arr']:,} · {risk_icon(cmap[x].get('risk_level','?'))}",
                 key="brief_cid",
             )
             if st.button("Generate CEO Briefing", use_container_width=True, type="primary"):
@@ -1907,7 +1907,7 @@ elif page == "Briefings":
                 if r.get("output_text"):
                     export_button(r["output_text"] + "\n\n---\n\n## Skeptik QA Review\n\n" + skeptik.get("output_text",""),
                                   f"CEO_Briefing_{sel_cid}_{datetime.now().strftime('%Y%m%d')}.md",
-                                  "⬇️ Export Briefing + QA Review")
+                                  "Export Briefing + QA Review")
             else:
                 render_agent_output(r)
                 if r.get("output_text"):
@@ -1994,7 +1994,7 @@ elif page == "Implementation Digest":
             unsafe_allow_html=True,
         )
 
-        conf_badge = {"Very Low": "🔴 Very Low", "Low": "🟠 Low", "Medium": "🟡 Medium", "High": "🟢 High"}
+        conf_badge = {"Very Low": "Very Low", "Low": "Low", "Medium": "Medium", "High": "High"}
         table_rows = []
         for r in rows:
             kickoff = r["kickoff_date"] or ("In progress" if r["kicked_off"] else "Not started")
@@ -2049,7 +2049,7 @@ elif page == "Implementation Digest":
   </div>
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
     <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Kicked Off</div><div style="font-size:0.92rem;font-weight:800;color:#1B1040">{('Yes · '+r['kickoff_date']) if r['kickoff_date'] else ('In progress' if r['kicked_off'] else 'Not started')}</div></div>
-    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Days After Signing</div><div style="font-size:0.92rem;font-weight:800;color:#1B1040">{(str(r['days_post_signature'])+' days') if r['days_post_signature'] is not None else '—'}</div></div>
+    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Contract Age</div><div style="font-size:0.92rem;font-weight:800;color:#1B1040">{(str(r['days_post_signature'])+' days') if r['days_post_signature'] is not None else '—'}</div></div>
     <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Go-Live Target</div><div style="font-size:0.92rem;font-weight:800;color:#1B1040">{r['go_live_target'] or '—'}</div></div>
     <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">To Go-Live</div><div style="font-size:0.92rem;font-weight:800;color:#1B1040">{(str(r['days_to_go_live'])+' days') if r['days_to_go_live'] is not None else '—'}</div></div>
     <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Schedule</div><div style="font-size:0.92rem;font-weight:800;color:{'#2D5A3D' if r['days_behind_schedule']==0 else '#9B2335'}">{'On time' if r['days_behind_schedule']==0 else str(r['days_behind_schedule'])+'d behind'}</div></div>
@@ -2061,7 +2061,7 @@ elif page == "Implementation Digest":
 </div>""", unsafe_allow_html=True)
 
             ai_key = f"impl_ai_{r['customer_id']}"
-            if st.button("🤖 Generate AI analysis", type="primary", key=f"impl_ai_btn_{r['customer_id']}"):
+            if st.button("Generate AI analysis", type="primary", key=f"impl_ai_btn_{r['customer_id']}"):
                 with st.spinner(f"Analysing {r['customer_name']}…"):
                     st.session_state[ai_key] = call_agent("ImplementationAgent", r["customer_id"])
             if ai_key in st.session_state:
@@ -2153,4 +2153,4 @@ elif page == "Audit Trail & Costs":
 
             if run.get("output_text"):
                 fn = f"AgentRun_{run['id']}_{run['agent_name']}.md"
-                export_button(run["output_text"], fn, "⬇️ Export")
+                export_button(run["output_text"], fn, "Export")
