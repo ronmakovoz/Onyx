@@ -2009,7 +2009,7 @@ elif page == "Implementation Digest":
                 "Complete":        int(r["pct_complete"]),
                 "Milestones":      f"{r['milestones_complete']}/{r['milestones_total']}",
                 "Kickoff":         kickoff,
-                "After Signing":   dps,
+                "Contract Age":    dps,
                 "Go-Live Target":  r["go_live_target"] or "—",
                 "To Go-Live":      dtg,
                 "Schedule":        behind,
@@ -2026,7 +2026,7 @@ elif page == "Implementation Digest":
                 "Customer": st.column_config.TextColumn("Customer", width="medium"),
                 "Risk":     st.column_config.TextColumn("Launch Confidence", width="small"),
                 "Go-Live Target": st.column_config.TextColumn("Go-Live", width="small"),
-                "After Signing":  st.column_config.TextColumn("Kickoff +Signing", help="Days between contract signature and implementation kickoff"),
+                "Contract Age":   st.column_config.TextColumn("Contract Age", help="Days since the contract was signed"),
                 "To Go-Live":     st.column_config.TextColumn("To Go-Live", help="Days remaining until the go-live target"),
             },
         )
