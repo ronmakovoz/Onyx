@@ -225,7 +225,7 @@ Contributing: champion departure removed internal advocacy; implementation delay
 P1 ticket backlog demonstrates ongoing product reliability concerns.
 
 ## Customer Impact
-Customer's security operations are partially dependent on Onyx. Delays and outages are creating \
+Customer's AI agent governance and runtime protection are partially dependent on Onyx. Delays and outages are creating \
 measurable operational risk for their team. Their CISO is aware and losing patience. \
 A competitor has already run a POC, suggesting active evaluation is underway.
 
@@ -365,7 +365,7 @@ Combined ARR: $1.56M. Prepare terms options for CFO review.
 21 unresolved P1 tickets across portfolio is unsustainable. Name owners by EOD Wednesday.
 4. **[VP CX — This week]** Identify champion replacements for 3 customers with departed champions. \
 Dark accounts churn silently. This is the highest-probability churn signal in the portfolio.
-5. **[VP Product — This week]** SIEM integration gap is now cited in 2 separate accounts as a churn signal. \
+5. **[VP Product — This week]** CNAPP discovery-source integration gap is now cited in 2 separate accounts as a churn signal. \
 This needs a roadmap decision, not another "we're evaluating it" response.
 
 ---
@@ -381,8 +381,8 @@ This needs a roadmap decision, not another "we're evaluating it" response.
 - Scope creep in 2 active implementations — SOW amendments not initiated — AEs need to act now
 
 ## Product Feedback Themes (From Meeting Notes This Week)
-1. **SIEM integration gaps** — mentioned by 2 customers as blocking full value realization
-2. **Alert fatigue** — false positive rate > 40% is being cited in renewal risk conversations
+1. **Discovery-source integration gaps (CNAPP/SASE)** — mentioned by 2 customers as blocking full value realization
+2. **Guardian intervention fatigue** — false positive rate > 40% is being cited in renewal risk conversations
 3. **Report export limitations** — 3 customers requested PDF compliance report improvements
 4. **Mobile app performance** — 2 enterprise accounts with field security teams flagging this
 
@@ -394,7 +394,7 @@ This needs a roadmap decision, not another "we're evaluating it" response.
 ## Cross-Functional Asks
 | Ask | For Team | Owner | Due |
 |-----|----------|-------|-----|
-| SIEM roadmap decision | Product | VP Product | 1 week |
+| CNAPP discovery-source roadmap decision | Product | VP Product | 1 week |
 | P1 ticket SLA enforcement | Engineering | VP Eng | 48 hours |
 | Commercial flexibility approval | Finance | CFO | 72 hours |
 | Fast Path security review process | Legal/Compliance | General Counsel | 2 weeks |
@@ -407,7 +407,7 @@ This needs a roadmap decision, not another "we're evaluating it" response.
 concentrated in {ctx.get('critical_count',0)} high-risk accounts requiring immediate executive attention.** \
 The highest-priority actions are a personal VP CX call to JetStream Airlines today and engineering \
 resource allocation for 21 open P1 tickets by Wednesday. \
-Two product gaps — SIEM integration and alert fatigue — are now appearing in renewal risk conversations \
+Two product gaps — CNAPP discovery-source integration and Guardian false-positive fatigue — are now appearing in renewal risk conversations \
 and require a roadmap decision from Product this week.
 
 ---
@@ -419,8 +419,8 @@ def _mock_expansion(ctx):
     arr  = ctx.get("arr", 0)
     pipe = ctx.get("expansion_pipeline_arr", 0) or int(arr * 0.2)
     modules = random.sample([
-        "Account Takeover Defense", "Real-Time Transaction Scoring", "Case Management Automation",
-        "Threat Intelligence Feed", "Identity Graph", "Chargeback Automation", "Sanctions Screening",
+        "AI-SPM", "Runtime Protection", "Guardian Agent Pro",
+        "LLM Routing & Cost Optimization", "MCP Supply-Chain Security", "AI ROI Analytics", "Shadow AI Discovery Plus",
     ], 3)
     return f"""# Expansion Opportunity — {name}
 *Expansion Opportunity Agent · {datetime.now().strftime('%B %d, %Y')}*
@@ -428,7 +428,7 @@ def _mock_expansion(ctx):
 ## Expansion Thesis
 {name} ({ctx.get('industry','Enterprise')}) is a **{ctx.get('health_trend','Stable')}** account with NRR at \
 **{ctx.get('nrr_pct','?')}%** and adoption at **{ctx.get('adoption_score','?')}%**. The proven outcome — \
-*{ctx.get('roi_outcome','measurable fraud reduction')}* — creates a credible basis to expand coverage into \
+*{ctx.get('roi_outcome','measurable AI risk reduction')}* — creates a credible basis to expand governance into \
 adjacent risk surfaces. Executive engagement is **{ctx.get('executive_engagement','Medium')}**.
 
 ## Recommended Modules

@@ -1517,13 +1517,13 @@ elif page == "Customer 360":
             usage_items = [
                 ("Daily Active Users", str(int(mrow.get("dau",0))),
                  f"<span style='color:{trend_color};font-size:0.68rem'>{trend_sign}{dau_trend:.0%} vs 30d</span>"),
-                ("Asset Coverage",    f"{int(mrow.get('asset_coverage_pct',0))}%", ""),
-                ("Features Active",   f"{int(mrow.get('features_enabled',0))}/18", ""),
-                ("False Positive Rate", f"{mrow.get('false_positive_rate',0):.0%}", ""),
-                ("API Calls (30d)",   f"{int(mrow.get('api_calls_last_30d',0)):,}", ""),
-                ("Alerts (30d)",      str(int(mrow.get("alerts_generated_last_30d",0))), ""),
+                ("AI Asset Coverage", f"{int(mrow.get('asset_coverage_pct',0))}%", ""),
+                ("Modules Active",    f"{int(mrow.get('features_enabled',0))}/18", ""),
+                ("Guardian False-Positive Rate", f"{mrow.get('false_positive_rate',0):.0%}", ""),
+                ("Prompts Inspected (30d)", f"{int(mrow.get('api_calls_last_30d',0)):,}", ""),
+                ("Guardian Interventions (30d)", str(int(mrow.get("alerts_generated_last_30d",0))), ""),
                 ("Logins (7d)",       str(int(mrow.get("unique_logins_last_7d",0))), ""),
-                ("Agents Deployed",   str(int(mrow.get("agents_deployed",0))), ""),
+                ("AI Agents Governed", str(int(mrow.get("agents_deployed",0))), ""),
             ]
             cols = st.columns(4)
             for i, (lbl, val, sub) in enumerate(usage_items):
