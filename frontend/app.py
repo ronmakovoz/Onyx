@@ -789,28 +789,30 @@ def build_exec_summary(summary, customers):
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 
 with st.sidebar:
-    # ── Brand ─────────────────────────────────────────────────────────────────
-    st.markdown(
-        "<div style='padding:6px 0 2px;display:flex;align-items:baseline;gap:8px'>"
-        "<span style='font-size:1.35rem;font-weight:900;color:#1B1040;letter-spacing:-0.04em'>ONYX</span>"
-        "<span style='font-size:0.62rem;font-weight:700;color:#6B6280;letter-spacing:0.14em'>CX AGENT OS</span>"
-        "</div>",
-        unsafe_allow_html=True,
-    )
-    st.markdown("<div style='border-bottom:1px solid #E8E4DC;margin:6px 0 10px'></div>", unsafe_allow_html=True)
+    # ── Mock / Live API toggle (top-left) ─────────────────────────────────────
+    if _REAL_API_KEY:
+        live = st.toggle("Live Anthropic API", value=st.session_state.get("live_api", False))
+        st.session_state["live_api"] = live
+        if live:
+            os.environ["ANTHROPIC_API_KEY"] = _REAL_API_KEY
+            st.markdown("<div style='font-size:0.66rem;color:#2D5A3D;font-weight:700;margin:-4px 0 6px'>● LIVE — calling Claude</div>", unsafe_allow_html=True)
+        else:
+            os.environ.pop("ANTHROPIC_API_KEY", None)
+            st.markdown("<div style='font-size:0.66rem;color:#7A5C1E;font-weight:700;margin:-4px 0 6px'>● MOCK — no API calls</div>", unsafe_allow_html=True)
+    else:
+        os.environ.pop("ANTHROPIC_API_KEY", None)
+        st.session_state["live_api"] = False
+        st.markdown("<div style='font-size:0.66rem;color:#7A5C1E;font-weight:700;margin:0 0 6px'>● MOCK — set ANTHROPIC_API_KEY to enable live</div>", unsafe_allow_html=True)
 
-    # ── Navigation (icon-labelled for quick scanning) ─────────────────────────
+    if st.button("About the Agents", use_container_width=True, key="sb_about", type="secondary"):
+        st.session_state["show_agent_guide"] = True
+
+    st.markdown("<div style='padding:8px 0 4px'><span style='font-size:1.3rem;font-weight:900;color:#1B1040;letter-spacing:-0.04em'>ONYX</span><span style='font-size:0.65rem;font-weight:700;color:#6B6280;letter-spacing:0.12em;margin-left:8px;vertical-align:middle'>CX AGENT OS</span></div>", unsafe_allow_html=True)
+
+    st.markdown("---")
+
     _pages = ["Executive Dashboard", "Customer 360", "CSM Performance", "Agent Console",
               "Briefings", "Implementation Digest", "Audit Trail & Costs"]
-    _nav_icons = {
-        "Executive Dashboard":  "📊",
-        "Customer 360":         "🏢",
-        "CSM Performance":      "📈",
-        "Agent Console":        "🤖",
-        "Briefings":            "📋",
-        "Implementation Digest":"🚀",
-        "Audit Trail & Costs":  "🧾",
-    }
     # Single source of truth: the radio's own key holds the current page.
     # Programmatic navigation from other pages stages "_pending_nav" and reruns;
     # we apply it here (before the widget is instantiated) to avoid Streamlit's
@@ -822,7 +824,6 @@ with st.sidebar:
     page = st.radio(
         "",
         _pages,
-        format_func=lambda p: f"{_nav_icons.get(p, '•')} {p}",
         label_visibility="collapsed",
         key="nav_page",
     )
@@ -879,26 +880,6 @@ with st.sidebar:
             st.session_state["quick_run"] = ("CustomerHealthAgent", qcust)
             st.rerun()
 
-    # ── Footer: API mode + agent guide ────────────────────────────────────────
-    # (Rendered last for a clean nav, but still executes before the page body so
-    #  the Mock/Live toggle controls os.environ for this run's agent calls.)
-    st.markdown("---")
-    if st.button("ℹ️  About the Agents", use_container_width=True, key="sb_about", type="secondary"):
-        st.session_state["show_agent_guide"] = True
-
-    if _REAL_API_KEY:
-        live = st.toggle("Live Anthropic API", value=st.session_state.get("live_api", False))
-        st.session_state["live_api"] = live
-        if live:
-            os.environ["ANTHROPIC_API_KEY"] = _REAL_API_KEY
-            st.markdown("<div style='font-size:0.66rem;color:#2D5A3D;font-weight:700;margin:-2px 0 4px'>● LIVE — calling Claude</div>", unsafe_allow_html=True)
-        else:
-            os.environ.pop("ANTHROPIC_API_KEY", None)
-            st.markdown("<div style='font-size:0.66rem;color:#7A5C1E;font-weight:700;margin:-2px 0 4px'>● MOCK — no API calls</div>", unsafe_allow_html=True)
-    else:
-        os.environ.pop("ANTHROPIC_API_KEY", None)
-        st.session_state["live_api"] = False
-        st.markdown("<div style='font-size:0.66rem;color:#7A5C1E;font-weight:700;margin:2px 0 4px'>● MOCK — set ANTHROPIC_API_KEY to enable live</div>", unsafe_allow_html=True)
 
 
 @st.dialog("Agent Guide", width="large")
