@@ -1822,12 +1822,18 @@ elif page == "CSM Performance":
         st.stop()
 
     today = datetime.now().date()
+    # Open escalations per customer (one query for the whole page)
+    esc_counts = {row["customer_id"]: row["n"] for row in fetchall(
+        "SELECT customer_id, COUNT(*) AS n FROM escalations WHERE status != 'Resolved' GROUP BY customer_id"
+    )}
     csm_stats = {}
     for c in customers:
         owner = c.get("csm_owner", "Unassigned")
         s = csm_stats.setdefault(owner, {
             "accounts": 0, "arr": 0, "health_sum": 0, "high": 0, "med": 0, "low": 0,
             "expansion": 0, "renewals_90": 0, "nrr_sum": 0,
+            "arr_risk": 0, "qbr_overdue": 0, "champ_gap": 0, "escalations": 0,
+            "at_risk_n": 0, "actioned": 0,
         })
         s["accounts"]  += 1
         s["arr"]       += c["arr"]
@@ -1835,6 +1841,18 @@ elif page == "CSM Performance":
         s["nrr_sum"]   += c.get("nrr_pct", 0)
         s["expansion"] += c.get("expansion_pipeline_arr", 0)
         s[{"High": "high", "Medium": "med", "Low": "low"}[c["risk_level"]]] += 1
+        s["escalations"] += esc_counts.get(c["id"], 0)
+        if c["risk_level"] == "High":
+            s["arr_risk"] += c["arr"]
+        if c.get("qbr_completion") == "Overdue":
+            s["qbr_overdue"] += 1
+        if c.get("champion_status") in ("Disengaged", "Left Company"):
+            s["champ_gap"] += 1
+        # AI recommendation follow-through on at-risk accounts
+        if c["risk_level"] in ("High", "Medium"):
+            s["at_risk_n"] += 1
+            if get_action_status(c["id"]).get("status") in ("In Progress", "Done"):
+                s["actioned"] += 1
         try:
             d = (datetime.strptime(c["renewal_date"], "%Y-%m-%d").date() - today).days
             if 0 <= d <= 90:
@@ -1842,12 +1860,37 @@ elif page == "CSM Performance":
         except Exception:
             pass
 
+    def csm_focus(s):
+        """One coaching insight per CSM, picking the dominant issue."""
+        issues = []
+        if s["arr_risk"]:
+            issues.append(f"${s['arr_risk']/1e6:.1f}M ARR at risk")
+        if s["at_risk_n"] and s["actioned"] / s["at_risk_n"] < 0.5:
+            issues.append(f"only {s['actioned']}/{s['at_risk_n']} at-risk accounts actioned")
+        if s["qbr_overdue"]:
+            issues.append(f"{s['qbr_overdue']} overdue QBR{'s' if s['qbr_overdue'] != 1 else ''}")
+        if s["champ_gap"]:
+            issues.append(f"champion gap at {s['champ_gap']} account{'s' if s['champ_gap'] != 1 else ''}")
+        if s["escalations"]:
+            issues.append(f"{s['escalations']} open escalation{'s' if s['escalations'] != 1 else ''}")
+        if not issues:
+            return ("#2D5A3D", "Book is healthy — push expansion and references")
+        return ("#9B2335", "Coach on: " + " · ".join(issues[:3]))
+
     # Summary KPI row across the CS team
+    total_arr_risk  = sum(s["arr_risk"] for s in csm_stats.values())
+    total_at_risk_n = sum(s["at_risk_n"] for s in csm_stats.values())
+    total_actioned  = sum(s["actioned"] for s in csm_stats.values())
+    total_qbr_od    = sum(s["qbr_overdue"] for s in csm_stats.values())
     team = st.columns(4)
-    team[0].markdown(kpi_card("CS Managers", str(len(csm_stats))), unsafe_allow_html=True)
-    team[1].markdown(kpi_card("Avg Accounts / CSM", f"{len(customers)/max(len(csm_stats),1):.0f}"), unsafe_allow_html=True)
-    team[2].markdown(kpi_card("Avg ARR / CSM", f"${sum(s['arr'] for s in csm_stats.values())/max(len(csm_stats),1)/1e6:.1f}M"), unsafe_allow_html=True)
-    team[3].markdown(kpi_card("Total Expansion Pipeline", f"${sum(s['expansion'] for s in csm_stats.values())/1e6:.1f}M"), unsafe_allow_html=True)
+    team[0].markdown(kpi_card("CS Managers", str(len(csm_stats)),
+                              f"{len(customers)/max(len(csm_stats),1):.0f} accounts · ${sum(s['arr'] for s in csm_stats.values())/max(len(csm_stats),1)/1e6:.1f}M ARR avg per CSM"), unsafe_allow_html=True)
+    team[1].markdown(kpi_card("ARR at Risk (team)", f"${total_arr_risk/1e6:.1f}M",
+                              "in high-risk accounts"), unsafe_allow_html=True)
+    team[2].markdown(kpi_card("AI Action Follow-Through", f"{total_actioned}/{total_at_risk_n}",
+                              "at-risk accounts actioned"), unsafe_allow_html=True)
+    team[3].markdown(kpi_card("Engagement Hygiene", str(total_qbr_od),
+                              "overdue QBRs across the team"), unsafe_allow_html=True)
 
     st.markdown("<div style='margin:14px 0 8px'></div>", unsafe_allow_html=True)
 
@@ -1883,10 +1926,14 @@ elif page == "CSM Performance":
       </div>
     </div>
     <div style="flex:0 0 90px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
+      <div style="font-size:0.95rem;font-weight:800;color:{'#9B2335' if s['arr_risk'] else '#2D5A3D'};line-height:1.2">${s['arr_risk']/1e6:.1f}M</div>
+      <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">ARR at Risk</div>
+    </div>
+    <div style="flex:0 0 80px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
       <div style="font-size:0.95rem;font-weight:800;color:#1B1040;line-height:1.2">{avg_nrr:.0f}%</div>
       <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Avg NRR</div>
     </div>
-    <div style="flex:0 0 100px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
+    <div style="flex:0 0 90px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
       <div style="font-size:0.95rem;font-weight:800;color:#2D5A3D;line-height:1.2">${s['expansion']/1e3:.0f}K</div>
       <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Expansion</div>
     </div>
@@ -1894,7 +1941,12 @@ elif page == "CSM Performance":
       <div style="font-size:0.95rem;font-weight:800;color:#1B1040;line-height:1.2">{s['renewals_90']}</div>
       <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Renewals 90d</div>
     </div>
+    <div style="flex:0 0 100px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
+      <div style="font-size:0.95rem;font-weight:800;color:{'#2D5A3D' if (not s['at_risk_n'] or s['actioned']/s['at_risk_n'] >= 0.5) else '#9B2335'};line-height:1.2">{s['actioned']}/{s['at_risk_n']}</div>
+      <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Risk Actioned</div>
+    </div>
   </div>
+  <div style="margin-top:9px;padding:7px 12px;background:{('#EFF6F1' if csm_focus(s)[0]=='#2D5A3D' else '#FDF6F3')};border-radius:8px;font-size:0.76rem;font-weight:600;color:{csm_focus(s)[0]}">{csm_focus(s)[1]}</div>
 </div>""", unsafe_allow_html=True)
 
 
