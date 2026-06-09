@@ -172,12 +172,14 @@ p, li { color: #3D3458; font-size: 0.85rem; margin: 0; }
     border-radius: 50px !important;
     font-weight: 600 !important;
     font-size: 0.78rem !important;
-    padding: 0.32rem 1.1rem !important;
+    padding: 0.34rem 0.8rem !important;
     height: auto !important;
     min-height: 0 !important;
     line-height: 1.4 !important;
     transition: all 0.15s ease !important;
     white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
 }
 /* Primary — dark navy, always white text (cover kind + stBaseButton testid) */
 .stButton > button[kind="primary"],
@@ -407,8 +409,19 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
 .stProgress > div > div > div { background: #E8E4DC !important; border-radius: 4px !important; }
 .stProgress { margin: 4px 0 !important; }
 
-/* Line chart */
-[data-testid="stVegaLiteChart"] { background: #FFFFFF !important; border-radius: 10px !important; border: 1px solid #E8E4DC !important; padding: 6px !important; }
+/* Line chart — white card, chart clipped inside the rounded border */
+[data-testid="stVegaLiteChart"], [data-testid="stArrowVegaLiteChart"] {
+    background: #FFFFFF !important;
+    border-radius: 10px !important;
+    border: 1px solid #E8E4DC !important;
+    padding: 10px 12px 4px !important;
+    overflow: hidden !important;
+    width: 100% !important;
+}
+[data-testid="stVegaLiteChart"] canvas, [data-testid="stArrowVegaLiteChart"] canvas {
+    background: #FFFFFF !important;
+    max-width: 100% !important;
+}
 
 /* Vertical gaps between streamlit elements */
 .element-container { margin-bottom: 0.55rem !important; }
@@ -1423,15 +1436,13 @@ elif page == "Customer 360":
             ("SkeptikQAAgent", "Skeptik QA Review", "secondary"),
         ]),
     ]
-    group_cols = st.columns([2, 3, 2, 1.4])
+    group_cols = st.columns(4)
     for col, (group_label, group_btns) in zip(group_cols, agent_groups):
         with col:
             st.markdown(f"<div style='font-size:0.60rem;font-weight:700;color:#9B93A8;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:4px'>{group_label}</div>", unsafe_allow_html=True)
-            bcols = st.columns(len(group_btns))
-            for bcol, (aname, label, btype) in zip(bcols, group_btns):
-                with bcol:
-                    if st.button(label, use_container_width=True, type=btype, key=f"360_{aname}"):
-                        triggered = aname
+            for aname, label, btype in group_btns:
+                if st.button(label, use_container_width=True, type=btype, key=f"360_{aname}"):
+                    triggered = aname
 
     if triggered:
         with st.spinner(f"Running {agent_display_name(triggered)}…"):
@@ -1520,10 +1531,24 @@ elif page == "Customer 360":
 
         if history:
             st.markdown("<div style='margin-top:14px;font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>30-Day Health Trend</div>", unsafe_allow_html=True)
+            import altair as alt
             hdf = pd.DataFrame(history)[["date","health_score"]].copy()
             hdf["date"] = pd.to_datetime(hdf["date"])
             hdf = hdf.sort_values("date")
-            st.line_chart(hdf.set_index("date")["health_score"], height=140, use_container_width=True)
+            chart = (
+                alt.Chart(hdf)
+                .mark_line(color="#1B1040", strokeWidth=2.2, point=alt.OverlayMarkDef(color="#1B1040", size=18))
+                .encode(
+                    x=alt.X("date:T", axis=alt.Axis(title=None, grid=False, labelColor="#6B6280", domainColor="#E8E4DC", tickColor="#E8E4DC", format="%b %d")),
+                    y=alt.Y("health_score:Q", scale=alt.Scale(domain=[0, 100]),
+                            axis=alt.Axis(title=None, labelColor="#6B6280", gridColor="#F0EDE7", domainOpacity=0, tickOpacity=0)),
+                    tooltip=[alt.Tooltip("date:T", title="Date", format="%b %d"),
+                             alt.Tooltip("health_score:Q", title="Health")],
+                )
+                .properties(height=160, background="#FFFFFF")
+                .configure_view(strokeWidth=0)
+            )
+            st.altair_chart(chart, use_container_width=True, theme=None)
 
         sec = c.get('security_review_status','?')
         sec_color = {"Complete":"#2D5A3D","In Progress":"#7A5C1E","Blocked":"#9B2335","Not Started":"#6B6280"}.get(sec,"#6B6280")
