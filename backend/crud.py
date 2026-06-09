@@ -97,6 +97,98 @@ def get_portfolio_summary():
     }
 
 
+def get_implementation_overview():
+    """Fast, LLM-free implementation health across all active projects.
+
+    Returns one row per implementation with the timeline + delivery KPIs the
+    digest needs (kickoff status/date, days after signing, go-live target and
+    countdown, days behind, milestones completed, launch-confidence risk).
+    Pure SQL so the digest page renders instantly — the AI narrative is fetched
+    on demand per project, not for the whole portfolio up front.
+    """
+    from datetime import date
+
+    def _parse(d):
+        if not d:
+            return None
+        try:
+            return datetime.fromisoformat(str(d)).date()
+        except Exception:
+            try:
+                return datetime.strptime(str(d)[:10], "%Y-%m-%d").date()
+            except Exception:
+                return None
+
+    today = date.today()
+    impls = fetchall("SELECT * FROM implementations")
+    out = []
+    for im in impls:
+        cust  = fetchone("SELECT * FROM customers WHERE id = ?", (im["customer_id"],)) or {}
+        miles = fetchall(
+            "SELECT * FROM implementation_milestones WHERE implementation_id = ? "
+            "ORDER BY planned_days_from_start", (im["id"],)
+        )
+
+        total_ms     = len(miles)
+        completed_ms = [m for m in miles if m["status"] == "Complete"]
+        done_names   = [m["milestone_name"] for m in completed_ms]
+        in_progress  = [m["milestone_name"] for m in miles if m["status"] == "In Progress"]
+        blockers     = [m["blocker"] for m in miles if m.get("blocker")]
+
+        # Kickoff = the earliest milestone (typically "Kickoff & Scoping")
+        kickoff      = miles[0] if miles else None
+        kicked_off   = bool(kickoff and kickoff["status"] in ("Complete", "In Progress"))
+        kickoff_date = _parse(kickoff["completed_at"]) if (kickoff and kickoff["status"] == "Complete") else None
+
+        sig_date  = _parse(cust.get("contract_start_date"))
+        days_post_signature = (kickoff_date - sig_date).days if (kickoff_date and sig_date) else None
+        # Guard against synthetic date inconsistencies (kickoff logged before signing)
+        if days_post_signature is not None and days_post_signature < 0:
+            days_post_signature = None
+
+        go_live   = _parse(im.get("go_live_target"))
+        days_to_go_live = (go_live - today).days if go_live else None
+
+        behind = im.get("days_behind_schedule", 0) or 0
+        status = im.get("overall_status", "Unknown")
+        pct    = im.get("pct_complete", 0) or 0
+
+        # Launch-confidence risk model (LLM-free heuristic)
+        if behind > 30 or status == "Stalled":
+            conf = "Very Low"
+        elif behind > 14:
+            conf = "Low"
+        elif behind > 3 or pct < 55:
+            conf = "Medium"
+        else:
+            conf = "High"
+
+        out.append({
+            "customer_id":          im["customer_id"],
+            "customer_name":        im.get("customer_name") or cust.get("name", "?"),
+            "implementation_owner": im.get("implementation_owner", "—"),
+            "overall_status":       status,
+            "pct_complete":         pct,
+            "days_behind_schedule": behind,
+            "kicked_off":           kicked_off,
+            "kickoff_date":         kickoff_date.isoformat() if kickoff_date else None,
+            "days_post_signature":  days_post_signature,
+            "contract_start_date":  sig_date.isoformat() if sig_date else None,
+            "go_live_target":       go_live.isoformat() if go_live else None,
+            "days_to_go_live":      days_to_go_live,
+            "milestones_total":     total_ms,
+            "milestones_complete":  len(completed_ms),
+            "completed_milestones": done_names,
+            "in_progress_milestones": in_progress,
+            "active_blockers":      blockers,
+            "launch_confidence":    conf,
+        })
+
+    conf_rank = {"Very Low": 0, "Low": 1, "Medium": 2, "High": 3}
+    out.sort(key=lambda r: (conf_rank.get(r["launch_confidence"], 2), -r["days_behind_schedule"]))
+    return out
+
+
 def save_agent_run(result) -> int:
     run_id = execute(
         """INSERT INTO agent_runs

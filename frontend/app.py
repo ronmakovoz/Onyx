@@ -50,7 +50,7 @@ _REAL_API_KEY = _resolve_real_api_key()
 from backend.crud import (
     get_all_customers, get_customer_360, get_portfolio_summary,
     save_agent_run, save_briefing, get_agent_runs, get_briefings, get_cost_summary,
-    get_action_status, set_action_status, get_action_summary
+    get_action_status, set_action_status, get_action_summary, get_implementation_overview
 )
 from backend.context_builder import build_customer_context, build_portfolio_context
 from agents.agents import AGENT_REGISTRY, AGENT_DESCRIPTIONS, AGENT_MODEL_TIER
@@ -1952,116 +1952,125 @@ elif page == "Briefings":
 # ══════════════════════════════════════════════════════════════════════════════
 
 elif page == "Implementation Digest":
-    page_header("Implementation Digest", "Weekly implementation health across all active projects")
+    page_header("Implementation Digest", "Delivery health and timeline across all active implementations")
 
-    conf_order  = {"Very Low": 0, "Low": 1, "Medium": 2, "High": 3}
     conf_colors = {"Very Low": "#9B2335", "Low": "#C8642A", "Medium": "#7A5C1E", "High": "#2D5A3D"}
-    conf_bg     = {"Very Low": "#FDF1F2", "Low": "#FDF5F0", "Medium": "#FDFAF0", "High": "#F0FAF4"}
-    status_colors = {
-        "On Track": "#2D5A3D", "Slight Delay": "#7A5C1E",
-        "Behind Schedule": "#C8642A", "Stalled": "#9B2335", "At Risk": "#9B2335",
-    }
 
-    if st.button("Run Implementation Digest", use_container_width=False, type="primary"):
-        with st.spinner("Analysing all active implementation projects..."):
-            digest = call_impl_digest()
-        st.session_state["impl_digest"] = digest
+    # Pure-SQL overview — instant, no LLM calls. The AI narrative is on demand below.
+    rows = get_implementation_overview()
 
-    if "impl_digest" not in st.session_state:
-        st.markdown("""
-        <div style="border:2px dashed #D8D3C8;border-radius:14px;padding:48px;text-align:center;background:#FFFFFF;margin-top:12px">
-            <div style="font-size:1rem;font-weight:700;color:#1B1040">Run the weekly digest to review implementation health</div>
-            <div style="margin-top:6px;font-size:0.82rem;color:#6B6280">ImplementationAgent (Sonnet) analyses every active project and surfaces blockers, delays, and confidence signals</div>
-        </div>""", unsafe_allow_html=True)
+    if not rows:
+        st.info("No active implementations found.")
     else:
-        digest = st.session_state["impl_digest"]
-        if "error" in digest:
-            st.error(f"Error: {digest['error']}")
+        n        = len(rows)
+        at_risk  = sum(1 for r in rows if r["launch_confidence"] in ("Very Low", "Low"))
+        medium   = sum(1 for r in rows if r["launch_confidence"] == "Medium")
+        on_track = sum(1 for r in rows if r["launch_confidence"] == "High")
+        avg_pct  = int(sum(r["pct_complete"] for r in rows) / max(n, 1))
+        not_kicked = sum(1 for r in rows if not r["kicked_off"])
+
+        # ── KPI bar ────────────────────────────────────────────────────────────
+        kpis = [
+            ("Active Projects", str(n),         "#1B1040", "#FFFFFF", "#E8E4DC"),
+            ("At Risk",         str(at_risk),   "#9B2335", "#FDF1F2", "#F0C8CC"),
+            ("Medium Conf.",    str(medium),    "#7A5C1E", "#FDFAF0", "#E8DCA0"),
+            ("On Track",        str(on_track),  "#2D5A3D", "#F0FAF4", "#A8D8B8"),
+            ("Avg Completion",  f"{avg_pct}%",  "#1B1040", "#FFFFFF", "#E8E4DC"),
+            ("Not Kicked Off",  str(not_kicked),"#6B6280", "#FFFFFF", "#E8E4DC"),
+        ]
+        cells = "".join(
+            f"<div style='flex:1;background:{bg};border:1px solid {bd};border-radius:10px;padding:14px 16px'>"
+            f"<div style='font-size:0.64rem;font-weight:700;color:{c};text-transform:uppercase;letter-spacing:0.08em'>{label}</div>"
+            f"<div style='font-size:1.5rem;font-weight:800;color:{c};margin-top:4px'>{val}</div></div>"
+            for label, val, c, bg, bd in kpis
+        )
+        st.markdown(f"<div style='display:flex;gap:10px;margin:14px 0 18px'>{cells}</div>", unsafe_allow_html=True)
+
+        # ── Single clean table — sorted by risk ─────────────────────────────────
+        st.markdown(
+            "<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;"
+            "letter-spacing:0.10em;margin-bottom:8px'>Project Status "
+            "<span style='font-weight:400;text-transform:none;letter-spacing:0'>— sorted by risk; select a row for the AI analysis</span></div>",
+            unsafe_allow_html=True,
+        )
+
+        conf_badge = {"Very Low": "🔴 Very Low", "Low": "🟠 Low", "Medium": "🟡 Medium", "High": "🟢 High"}
+        table_rows = []
+        for r in rows:
+            kickoff = r["kickoff_date"] or ("In progress" if r["kicked_off"] else "Not started")
+            dps     = f"{r['days_post_signature']}d" if r["days_post_signature"] is not None else "—"
+            dtg     = (f"{r['days_to_go_live']}d" if r["days_to_go_live"] is not None and r["days_to_go_live"] >= 0
+                       else (f"{abs(r['days_to_go_live'])}d overdue" if r["days_to_go_live"] is not None else "—"))
+            behind  = "On time" if r["days_behind_schedule"] == 0 else f"{r['days_behind_schedule']}d behind"
+            table_rows.append({
+                "Customer":        r["customer_name"],
+                "Risk":            conf_badge.get(r["launch_confidence"], r["launch_confidence"]),
+                "Status":          r["overall_status"],
+                "Complete":        r["pct_complete"] / 100.0,
+                "Milestones":      f"{r['milestones_complete']}/{r['milestones_total']}",
+                "Kickoff":         kickoff,
+                "After Signing":   dps,
+                "Go-Live Target":  r["go_live_target"] or "—",
+                "To Go-Live":      dtg,
+                "Schedule":        behind,
+                "Owner":           r["implementation_owner"],
+            })
+        df = pd.DataFrame(table_rows)
+
+        sel = st.dataframe(
+            df, use_container_width=True, hide_index=True, height=min(70 + 36 * n, 520),
+            on_select="rerun", selection_mode="single-row",
+            column_config={
+                "Complete": st.column_config.ProgressColumn(
+                    "Complete", min_value=0, max_value=1, format="%.0f%%", width="small"),
+                "Customer": st.column_config.TextColumn("Customer", width="medium"),
+                "Risk":     st.column_config.TextColumn("Launch Risk", width="small"),
+                "Go-Live Target": st.column_config.TextColumn("Go-Live", width="small"),
+                "After Signing":  st.column_config.TextColumn("Kickoff +Signing", help="Days between contract signature and implementation kickoff"),
+                "To Go-Live":     st.column_config.TextColumn("To Go-Live", help="Days remaining until the go-live target"),
+            },
+        )
+
+        # ── Selected project: detail panel + on-demand AI analysis ───────────────
+        sel_idx = sel["selection"]["rows"][0] if sel and sel.get("selection", {}).get("rows") else None
+        if sel_idx is not None:
+            r  = rows[sel_idx]
+            cc = conf_colors.get(r["launch_confidence"], "#1B1040")
+
+            done = ", ".join(r["completed_milestones"]) or "None yet"
+            wip  = ", ".join(r["in_progress_milestones"]) or "—"
+            blk  = " · ".join(r["active_blockers"]) if r["active_blockers"] else "None recorded"
+
+            st.markdown(f"""
+<div style="background:#FFFFFF;border:1px solid #E8E4DC;border-left:4px solid {cc};border-radius:12px;padding:16px 20px;margin-top:6px">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
+    <div style="font-size:1.05rem;font-weight:800;color:#1B1040">{r['customer_name']}</div>
+    <div style="font-size:0.8rem;font-weight:700;color:{cc}">{r['launch_confidence']} launch confidence · {r['overall_status']}</div>
+  </div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Kicked Off</div><div style="font-size:0.92rem;font-weight:800;color:#1B1040">{('Yes · '+r['kickoff_date']) if r['kickoff_date'] else ('In progress' if r['kicked_off'] else 'Not started')}</div></div>
+    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Days After Signing</div><div style="font-size:0.92rem;font-weight:800;color:#1B1040">{(str(r['days_post_signature'])+' days') if r['days_post_signature'] is not None else '—'}</div></div>
+    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Go-Live Target</div><div style="font-size:0.92rem;font-weight:800;color:#1B1040">{r['go_live_target'] or '—'}</div></div>
+    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">To Go-Live</div><div style="font-size:0.92rem;font-weight:800;color:#1B1040">{(str(r['days_to_go_live'])+' days') if r['days_to_go_live'] is not None else '—'}</div></div>
+    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Schedule</div><div style="font-size:0.92rem;font-weight:800;color:{'#2D5A3D' if r['days_behind_schedule']==0 else '#9B2335'}">{'On time' if r['days_behind_schedule']==0 else str(r['days_behind_schedule'])+'d behind'}</div></div>
+    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Milestones</div><div style="font-size:0.92rem;font-weight:800;color:#1B1040">{r['milestones_complete']} / {r['milestones_total']} complete</div></div>
+  </div>
+  <div style="font-size:0.78rem;color:#3D3458;line-height:1.5"><b style="color:#2D5A3D">Implemented:</b> {done}</div>
+  <div style="font-size:0.78rem;color:#3D3458;line-height:1.5;margin-top:3px"><b style="color:#7A5C1E">In progress:</b> {wip}</div>
+  <div style="font-size:0.78rem;color:#3D3458;line-height:1.5;margin-top:3px"><b style="color:#9B2335">Blockers:</b> {blk}</div>
+</div>""", unsafe_allow_html=True)
+
+            ai_key = f"impl_ai_{r['customer_id']}"
+            if st.button("🤖 Generate AI analysis", type="primary", key=f"impl_ai_btn_{r['customer_id']}"):
+                with st.spinner(f"Analysing {r['customer_name']}…"):
+                    st.session_state[ai_key] = call_agent("ImplementationAgent", r["customer_id"])
+            if ai_key in st.session_state:
+                res = st.session_state[ai_key]
+                render_agent_output(res)
+                export_button(res.get("output_text", ""),
+                              f"Impl_{r['customer_name'].replace(' ','_')}_{datetime.now().strftime('%Y%m%d')}.md")
         else:
-            results = digest.get("results", [])
-            at_risk  = sum(1 for r in results if r["launch_confidence"] in ("Very Low", "Low"))
-            on_track = sum(1 for r in results if r["launch_confidence"] == "High")
-            medium   = sum(1 for r in results if r["launch_confidence"] == "Medium")
-            avg_pct  = int(sum(r["pct_complete"] for r in results) / max(len(results), 1))
-
-            # ── KPI bar ───────────────────────────────────────────────────────
-            kpi_html = f"""
-            <div style="display:flex;gap:12px;margin:16px 0 20px">
-              <div style="flex:1;background:#FFFFFF;border:1px solid #E8E4DC;border-radius:10px;padding:16px 20px">
-                <div style="font-size:0.68rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.09em">Projects</div>
-                <div style="font-size:1.6rem;font-weight:800;color:#1B1040;margin-top:4px">{len(results)}</div>
-              </div>
-              <div style="flex:1;background:#FDF1F2;border:1px solid #F0C8CC;border-radius:10px;padding:16px 20px">
-                <div style="font-size:0.68rem;font-weight:700;color:#9B2335;text-transform:uppercase;letter-spacing:0.09em">At Risk</div>
-                <div style="font-size:1.6rem;font-weight:800;color:#9B2335;margin-top:4px">{at_risk}</div>
-              </div>
-              <div style="flex:1;background:#FDFAF0;border:1px solid #E8DCA0;border-radius:10px;padding:16px 20px">
-                <div style="font-size:0.68rem;font-weight:700;color:#7A5C1E;text-transform:uppercase;letter-spacing:0.09em">Medium Confidence</div>
-                <div style="font-size:1.6rem;font-weight:800;color:#7A5C1E;margin-top:4px">{medium}</div>
-              </div>
-              <div style="flex:1;background:#F0FAF4;border:1px solid #A8D8B8;border-radius:10px;padding:16px 20px">
-                <div style="font-size:0.68rem;font-weight:700;color:#2D5A3D;text-transform:uppercase;letter-spacing:0.09em">On Track</div>
-                <div style="font-size:1.6rem;font-weight:800;color:#2D5A3D;margin-top:4px">{on_track}</div>
-              </div>
-              <div style="flex:1;background:#FFFFFF;border:1px solid #E8E4DC;border-radius:10px;padding:16px 20px">
-                <div style="font-size:0.68rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.09em">Avg Completion</div>
-                <div style="font-size:1.6rem;font-weight:800;color:#1B1040;margin-top:4px">{avg_pct}%</div>
-              </div>
-            </div>"""
-            st.markdown(kpi_html, unsafe_allow_html=True)
-
-            # ── Project cards ─────────────────────────────────────────────────
-            st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:10px'>Project Status — sorted by risk</div>", unsafe_allow_html=True)
-
-            for r in sorted(results, key=lambda x: conf_order.get(x["launch_confidence"], 2)):
-                conf      = r["launch_confidence"]
-                cc        = conf_colors.get(conf, "#1B1040")
-                cbg       = conf_bg.get(conf, "#FFFFFF")
-                sc        = status_colors.get(r["overall_status"], "#1B1040")
-                pct       = r["pct_complete"]
-                bar_color = cc
-
-                blockers_html = ""
-                for b in r.get("active_blockers", [])[:2]:
-                    blockers_html += f"<div style='display:flex;align-items:flex-start;gap:6px;margin-top:6px'><span style='color:#C8642A;font-size:0.75rem;margin-top:1px'>&#9654;</span><span style='font-size:0.78rem;color:#3D3458;line-height:1.4'>{b[:100]}</span></div>"
-
-                intervention = r.get("recommended_intervention", "")
-                if intervention:
-                    intervention_html = f"<div style='margin-top:10px;padding:8px 10px;background:#F5F2EE;border-radius:6px;font-size:0.78rem;color:#3D3458;line-height:1.45'><span style='font-weight:700;color:#1B1040'>Recommended: </span>{intervention[:140]}</div>"
-                else:
-                    intervention_html = ""
-
-                card_html = f"""
-                <div style="background:#FFFFFF;border:1px solid #E8E4DC;border-radius:12px;padding:18px 22px;margin-bottom:10px;border-left:4px solid {cc}">
-                  <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
-                    <div style="flex:1;min-width:0">
-                      <div style="font-size:0.95rem;font-weight:700;color:#1B1040;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{r['customer_name']}</div>
-                      <div style="margin-top:3px;font-size:0.78rem;font-weight:600;color:{sc}">{r['overall_status']}</div>
-                    </div>
-                    <div style="text-align:center;min-width:90px">
-                      <div style="font-size:0.65rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Completion</div>
-                      <div style="font-size:1.25rem;font-weight:800;color:#1B1040">{pct}%</div>
-                      <div style="height:4px;background:#E8E4DC;border-radius:2px;margin-top:4px;width:80px">
-                        <div style="height:4px;background:{bar_color};border-radius:2px;width:{pct}%"></div>
-                      </div>
-                    </div>
-                    <div style="text-align:center;min-width:110px;padding:8px 14px;background:{cbg};border-radius:8px">
-                      <div style="font-size:0.65rem;font-weight:700;color:{cc};text-transform:uppercase;letter-spacing:0.08em">Launch Confidence</div>
-                      <div style="font-size:1rem;font-weight:800;color:{cc};margin-top:2px">{conf}</div>
-                    </div>
-                  </div>
-                  {blockers_html}
-                  {intervention_html}
-                </div>"""
-                st.markdown(card_html, unsafe_allow_html=True)
-
-                # Detail expander (clean, no model metadata clutter)
-                with st.expander(f"Full analysis — {r['customer_name']}", expanded=False):
-                    cust_result = call_agent("ImplementationAgent", r["customer_id"])
-                    output_text = cust_result.get("output_text", "")
-                    if output_text:
-                        st.markdown(output_text)
-                    export_button(output_text, f"Impl_{r['customer_name'].replace(' ','_')}_{datetime.now().strftime('%Y%m%d')}.md")
+            st.caption("Select a project row above to see its full timeline and generate the AI analysis on demand.")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
