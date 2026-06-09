@@ -2199,48 +2199,62 @@ elif page == "Implementation Digest":
                 unsafe_allow_html=True,
             )
 
-        # ── Project table — sorted by risk, essentials only ──────────────────────
+        # ── Project table — custom modern list, sorted by risk ──────────────────
         st.markdown(
             "<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;"
             "letter-spacing:0.10em;margin-bottom:8px'>All Projects "
-            "<span style='font-weight:400;text-transform:none;letter-spacing:0'>— sorted by risk; select a row for the full timeline and AI analysis</span></div>",
+            "<span style='font-weight:400;text-transform:none;letter-spacing:0'>— sorted by risk</span></div>",
             unsafe_allow_html=True,
         )
 
-        table_rows = []
+        conf_bg = {"Very Low": "#FDF1F2", "Low": "#FDF3EC", "Medium": "#FDF8EE", "High": "#EFF6F1"}
+        grid = "grid-template-columns: 1.5fr 1fr 1.2fr 0.65fr 0.85fr 0.95fr 2.2fr 1fr;"
+        head = (
+            f"<div style='display:grid;{grid}gap:12px;padding:10px 18px;"
+            f"font-size:0.62rem;font-weight:700;color:#9B93A8;text-transform:uppercase;letter-spacing:0.10em'>"
+            f"<div>Customer</div><div>Confidence</div><div>Progress</div><div>Stones</div>"
+            f"<div>Go-Live</div><div>Schedule</div><div>Recommended Action</div><div>Owner</div></div>"
+        )
+        body = []
         for r in rows:
-            behind = "On time" if r["days_behind_schedule"] == 0 else f"{r['days_behind_schedule']}d behind"
-            table_rows.append({
-                "Customer":           r["customer_name"],
-                "Confidence":         r["launch_confidence"],
-                "Complete":           int(r["pct_complete"]),
-                "Milestones":         f"{r['milestones_complete']}/{r['milestones_total']}",
-                "Go-Live":            r["go_live_target"] or "—",
-                "Schedule":           behind,
-                "Recommended Action": impl_next_action(r),
-                "Owner":              r["implementation_owner"],
-            })
-        df = pd.DataFrame(table_rows)
-
-        sel = st.dataframe(
-            df, use_container_width=True, hide_index=True, height=min(70 + 36 * n, 520),
-            on_select="rerun", selection_mode="single-row",
-            column_config={
-                "Customer":   st.column_config.TextColumn("Customer", width="medium"),
-                "Confidence": st.column_config.TextColumn("Launch Confidence", width="small",
-                              help="Heuristic launch confidence from schedule, blockers and progress"),
-                "Complete":   st.column_config.ProgressColumn(
-                    "Complete", min_value=0, max_value=100, format="%d%%", width="small"),
-                "Milestones": st.column_config.TextColumn("Milestones", width="small"),
-                "Go-Live":    st.column_config.TextColumn("Go-Live", width="small"),
-                "Schedule":   st.column_config.TextColumn("Schedule", width="small"),
-                "Recommended Action": st.column_config.TextColumn("Recommended Action", width="large"),
-                "Owner":      st.column_config.TextColumn("Owner", width="small"),
-            },
+            cc_   = conf_colors.get(r["launch_confidence"], "#1B1040")
+            cbg   = conf_bg.get(r["launch_confidence"], "#F5F2EE")
+            pct   = int(r["pct_complete"])
+            behind = ("<span style='color:#2D5A3D;font-weight:600'>On time</span>"
+                      if r["days_behind_schedule"] == 0
+                      else f"<span style='color:#9B2335;font-weight:600'>{r['days_behind_schedule']}d behind</span>")
+            body.append(
+                f"<div style='display:grid;{grid}gap:12px;padding:13px 18px;align-items:center;"
+                f"border-top:1px solid #F0EBE7;font-size:0.82rem' "
+                f"onmouseover=\"this.style.background='#FBF7FA'\" onmouseout=\"this.style.background='transparent'\">"
+                f"<div style='font-weight:700;color:#1B1040'>{r['customer_name']}</div>"
+                f"<div><span style='background:{cbg};color:{cc_};font-size:0.68rem;font-weight:700;"
+                f"padding:3px 10px;border-radius:20px;white-space:nowrap'>{r['launch_confidence']}</span></div>"
+                f"<div style='display:flex;align-items:center;gap:8px'>"
+                f"<div style='flex:1;height:6px;background:#EFEAE5;border-radius:6px;overflow:hidden'>"
+                f"<div style='width:{pct}%;height:100%;background:{cc_};border-radius:6px'></div></div>"
+                f"<span style='font-size:0.72rem;font-weight:700;color:#3D3458;min-width:30px'>{pct}%</span></div>"
+                f"<div style='color:#3D3458'>{r['milestones_complete']}/{r['milestones_total']}</div>"
+                f"<div style='color:#3D3458'>{r['go_live_target'] or '—'}</div>"
+                f"<div>{behind}</div>"
+                f"<div style='color:#1B1040;font-weight:500'>{impl_next_action(r)}</div>"
+                f"<div style='color:#6B6280'>{r['implementation_owner']}</div>"
+                f"</div>"
+            )
+        st.markdown(
+            f"<div style='background:#FFFFFF;border:1px solid #E8E4DC;border-radius:14px;"
+            f"box-shadow:0 1px 6px rgba(27,16,64,0.05);overflow:hidden;margin-bottom:16px'>{head}{''.join(body)}</div>",
+            unsafe_allow_html=True,
         )
 
         # ── Selected project: detail panel + on-demand AI analysis ───────────────
-        sel_idx = sel["selection"]["rows"][0] if sel and sel.get("selection", {}).get("rows") else None
+        proj_names = [r["customer_name"] for r in rows]
+        dt_l, dt_r = st.columns([2.4, 1.2], vertical_alignment="center")
+        with dt_l:
+            st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em'>Project Deep Dive</div>", unsafe_allow_html=True)
+        with dt_r:
+            sel_name = st.selectbox("Project", proj_names, key="impl_proj_pick", label_visibility="collapsed")
+        sel_idx = proj_names.index(sel_name)
         if sel_idx is not None:
             r  = rows[sel_idx]
             cc = conf_colors.get(r["launch_confidence"], "#1B1040")
@@ -2278,8 +2292,6 @@ elif page == "Implementation Digest":
                 render_agent_output(res)
                 export_button(res.get("output_text", ""),
                               f"Impl_{r['customer_name'].replace(' ','_')}_{datetime.now().strftime('%Y%m%d')}.md")
-        else:
-            st.caption("Select a project row above to see its full timeline and generate the AI analysis on demand.")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
