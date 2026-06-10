@@ -571,6 +571,16 @@ Onyx's standard implementation methodology is a 12-milestone track (planned day 
 11. Hypercare Period — 30 days (day 128)
 12. QBR #1 — 90-Day Review (day 180)
 
+How Onyx deploys and integrates (use this when writing scope, objectives, and prerequisites):
+- Unified Control Plane: one console for every AI agent and model across SaaS, cloud, endpoint,
+  and code. Discovery integrates with the customer's browser, AI platforms, CNAPP, SASE, and EDR
+  sources so nothing is invisible.
+- Flexible Deployment: cloud, hybrid, or self-hosted options for sensitive data residency
+  requirements. Deploys in hours with support for AWS VPC, Bedrock Gateway, and custom proxy
+  configurations.
+- Seamless Integrations: 100+ pre-built integrations with agent platforms, frontier model
+  providers, SIEMs, and cloud platforms — including AWS, GCP, Azure, OpenAI, and Anthropic.
+
 Rules:
 - This is a CLIENT-FACING document. Confident, partnership-toned, zero internal jargon, no risk
   scores or internal risk labels. Never expose internal fields like "churn risk" or "health score".

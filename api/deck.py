@@ -98,7 +98,30 @@ def render_kickoff_deck(structured: dict, ctx: dict) -> str:
       <div class="label">Scope &amp; objectives</div>
       <div class="grid-2">{_card_list(scope, "◆")}</div>""")
 
-    # ── Slide 3: Engagement Team ──────────────────────────────────────────────
+    # ── Slide 3: How Onyx deploys (standard integration story) ───────────────
+    pillars = [
+        ("Unified Control Plane",
+         f"One console for every AI agent and model across SaaS, cloud, endpoint, and code. "
+         f"We integrate with {_esc(customer)}'s browser, AI platforms, CNAPP, SASE, and EDR "
+         f"discovery sources so nothing is invisible."),
+        ("Flexible Deployment",
+         "Cloud, hybrid, or self-hosted options for sensitive data residency requirements. "
+         "Deploy in hours with support for AWS VPC, Bedrock Gateway, and custom proxy configurations."),
+        ("Seamless Integrations",
+         "Connect to any agent platform, frontier model provider, SIEM, or cloud platform with "
+         "100+ pre-built integrations — including AWS, GCP, Azure, OpenAI, Anthropic, and more."),
+    ]
+    pillar_cards = "".join(
+        f'<div class="pillar"><div class="pillar-title">{t}</div><div class="pillar-body">{b}</div></div>'
+        for t, b in pillars
+    )
+    s2b = _slide(f"""
+      <h2>Deploy in hours. Scale without limits.</h2>
+      <p class="lede">Onyx meets you where you are — whether you're running on-prem, in the cloud,
+      or in a hybrid environment. Built for security-first enterprises from day one.</p>
+      <div class="grid-3">{pillar_cards}</div>""")
+
+    # ── Slide 4: Engagement Team ──────────────────────────────────────────────
     team_cards = ""
     for item in team:
         role, name, resp = _split_row(item, 3)
@@ -154,7 +177,7 @@ def render_kickoff_deck(structured: dict, ctx: dict) -> str:
         <div class="title-sub">Onyx Security ✕ {_esc(customer)} · {date_str}</div>
       </div>""", "center")
 
-    slides = s1 + s2 + s3 + s4 + s5 + s6 + s7
+    slides = s1 + s2 + s2b + s3 + s4 + s5 + s6 + s7
 
     return f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
@@ -192,6 +215,10 @@ def render_kickoff_deck(structured: dict, ctx: dict) -> str:
   .card-icon {{ color:#7C5CBF; font-weight:800; font-size:14px; padding-top:2px; }}
   .team-card {{ background:#FFFFFF; border:1px solid #E9E3DA; border-radius:14px; padding:18px;
     box-shadow:0 1px 3px rgba(27,16,64,0.04); }}
+  .pillar {{ background:#FAEDF0; border:1px solid #F0DDE2; border-radius:16px; padding:26px 24px; }}
+  .pillar-title {{ font-size:22px; font-weight:800; letter-spacing:-0.01em; color:#16131F;
+    margin-bottom:10px; }}
+  .pillar-body {{ font-size:14.5px; line-height:1.6; color:#3D3458; }}
   .team-role {{ font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;
     color:#6B6280; margin-top:12px; }}
   .team-name {{ font-size:19px; font-weight:800; color:#16131F; margin:2px 0 6px; }}
