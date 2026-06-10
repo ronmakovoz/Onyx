@@ -9,6 +9,7 @@ Open in a browser to present (arrow keys / scroll), or print to PDF
 """
 
 import html
+import math
 import re
 from datetime import datetime
 
@@ -64,6 +65,58 @@ def _card_list(items: list, icon: str = "→") -> str:
         f'<div class="card"><span class="card-icon">{icon}</span><div>{_esc(i)}</div></div>'
         for i in items
     )
+
+
+# ── Content-aware slide packing ───────────────────────────────────────────────
+# Slides are fixed 1280×720; live model output is much longer than mock output,
+# so lists must be measured and split across slides instead of overflowing.
+
+_COL_BUDGET = 520   # usable px for cards in one column of a two-column slide
+_FULL_BUDGET = 500  # usable px for full-width cards under an h2
+
+
+def _card_h(text: str, chars_per_line: int) -> int:
+    lines = max(1, math.ceil(len(str(text)) / chars_per_line))
+    return 44 + lines * 23 + 12  # padding + text lines + gap
+
+
+def _col_h(items: list) -> int:
+    return sum(_card_h(i, 50) for i in items)
+
+
+def _chunk_full(items: list, budget: int = _FULL_BUDGET) -> list[list]:
+    """Split items into chunks that each fit a full-width slide."""
+    chunks, cur, h = [], [], 0
+    for it in items:
+        ih = _card_h(it, 105)
+        if cur and h + ih > budget:
+            chunks.append(cur)
+            cur, h = [], 0
+        cur.append(it)
+        h += ih
+    if cur:
+        chunks.append(cur)
+    return chunks
+
+
+def _list_section_slides(heading: str, items: list, icon: str = "→") -> str:
+    """One or more full-width slides for a list, chunked to fit."""
+    out = ""
+    for n, chunk in enumerate(_chunk_full(items)):
+        h = heading if n == 0 else f"{heading} (cont.)"
+        out += _slide(f"<h2>{h}</h2>{_card_list(chunk, icon)}")
+    return out
+
+
+def _two_lists_slides(h_a: str, items_a: list, icon_a: str,
+                      h_b: str, items_b: list, icon_b: str) -> str:
+    """Side-by-side columns when both lists fit; separate chunked slides otherwise."""
+    if _col_h(items_a) <= _COL_BUDGET and _col_h(items_b) <= _COL_BUDGET:
+        return _slide(
+            f'<div class="cols"><div><h2>{h_a}</h2>{_card_list(items_a, icon_a)}</div>'
+            f'<div><h2>{h_b}</h2>{_card_list(items_b, icon_b)}</div></div>'
+        )
+    return _list_section_slides(h_a, items_a, icon_a) + _list_section_slides(h_b, items_b, icon_b)
 
 
 AGENT_DECK_TITLES = {
@@ -149,8 +202,13 @@ def render_generic_deck(agent_name: str, structured: dict, ctx: dict) -> str:
                 sections.append((heading, f'<p class="lede">{_esc(val)}</p>', 1))
         elif isinstance(val, list):
             icon = "✓" if any(k in field for k in ("positive", "metric", "value", "proof")) else "→"
-            weight = 2 if len(val) > 5 else 1
-            sections.append((heading, _card_list(val[:10], icon), weight))
+            if _col_h(val) <= _COL_BUDGET:
+                sections.append((heading, _card_list(val, icon), 1))
+            else:
+                # Too tall for a shared slide — full-width chunks, one per slide
+                for n, chunk in enumerate(_chunk_full(val)):
+                    h = heading if n == 0 else f"{heading} (cont.)"
+                    sections.append((h, _card_list(chunk, icon), 2))
 
     if stats:
         tiles = "".join(
@@ -217,12 +275,21 @@ def render_kickoff_deck(structured: dict, ctx: dict) -> str:
         <div class="title-date">{date_str}</div>
       </div>""", "center")
 
-    # ── Slide 2: Vision + Scope ───────────────────────────────────────────────
-    s2 = _slide(f"""
-      <h2>Our partnership</h2>
-      <p class="lede">{_esc(vision)}</p>
-      <div class="label">Scope &amp; objectives</div>
-      <div class="grid-2">{_card_list(scope, "◆")}</div>""")
+    # ── Slide 2: Vision + Scope (scope moves to its own slide when long) ─────
+    grid2_h = sum(
+        max(_card_h(a, 50), _card_h(b, 50) if b is not None else 0)
+        for a, b in zip(scope[0::2], list(scope[1::2]) + [None])
+    )
+    vision_h = math.ceil(len(vision) / 105) * 26
+    if vision_h + 40 + grid2_h <= 500:
+        s2 = _slide(f"""
+          <h2>Our partnership</h2>
+          <p class="lede">{_esc(vision)}</p>
+          <div class="label">Scope &amp; objectives</div>
+          <div class="grid-2">{_card_list(scope, "◆")}</div>""")
+    else:
+        s2 = _slide(f'<h2>Our partnership</h2><p class="lede">{_esc(vision)}</p>')
+        s2 += _list_section_slides("Scope & objectives", scope, "◆")
 
     # ── Slide 3: How Onyx deploys (standard integration story) ───────────────
     pillars = [
@@ -282,19 +349,21 @@ def render_kickoff_deck(structured: dict, ctx: dict) -> str:
       <table class="timeline"><thead><tr><th>Phase</th><th>Milestone</th><th>Target</th><th>Owner</th></tr></thead>
       <tbody>{tl_rows}</tbody></table>""")
 
-    # ── Slide 5: Success Metrics + First 30 Days ─────────────────────────────
-    s5 = _slide(f"""
-      <div class="cols">
-        <div><h2>How we measure success</h2>{_card_list(metrics, "✓")}</div>
-        <div><h2>The first 30 days</h2>{_card_list(first30, "→")}</div>
-      </div>""")
+    # ── Slide 5: Success Metrics + First 30 Days (split when long) ──────────
+    s5 = _two_lists_slides("How we measure success", metrics, "✓",
+                           "The first 30 days", first30, "→")
 
-    # ── Slide 6: Governance + Prerequisites ──────────────────────────────────
-    s6 = _slide(f"""
-      <div class="cols">
-        <div><h2>Communication &amp; governance</h2><p class="lede">{_esc(governance)}</p></div>
-        <div><h2>What we need from you</h2>{_card_list(prereqs, "◆")}</div>
-      </div>""")
+    # ── Slide 6: Governance + Prerequisites (split when long) ───────────────
+    gov_h = 62 + math.ceil(len(governance) / 50) * 26
+    if gov_h <= _COL_BUDGET and _col_h(prereqs) <= _COL_BUDGET:
+        s6 = _slide(f"""
+          <div class="cols">
+            <div><h2>Communication &amp; governance</h2><p class="lede">{_esc(governance)}</p></div>
+            <div><h2>What we need from you</h2>{_card_list(prereqs, "◆")}</div>
+          </div>""")
+    else:
+        s6 = _slide(f'<h2>Communication &amp; governance</h2><p class="lede">{_esc(governance)}</p>')
+        s6 += _list_section_slides("What we need from you", prereqs, "◆")
 
     # ── Slide 7: Closing ──────────────────────────────────────────────────────
     s7 = _slide(f"""
