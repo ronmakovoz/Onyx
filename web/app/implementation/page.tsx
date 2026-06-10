@@ -134,7 +134,7 @@ export default function ImplementationPage() {
       </SectionLabel>
       <div className="bg-white border border-line rounded-[14px] shadow-card overflow-x-auto mb-5">
         <div className="min-w-[1000px]">
-          <div className="grid grid-cols-[1.5fr_1fr_1.2fr_0.65fr_0.85fr_0.95fr_2.2fr_1fr] gap-3 px-[18px] py-[10px] text-[0.62rem] font-bold text-faint uppercase tracking-[0.10em]">
+          <div className="grid grid-cols-[1.5fr_1fr_1.2fr_0.65fr_0.85fr_0.95fr_2.2fr_1fr_0.6fr] gap-3 px-[18px] py-[10px] text-[0.62rem] font-bold text-faint uppercase tracking-[0.10em]">
             <div>Customer</div>
             <div>Confidence</div>
             <div>Progress</div>
@@ -143,6 +143,7 @@ export default function ImplementationPage() {
             <div>Schedule</div>
             <div>Recommended Action</div>
             <div>Owner</div>
+            <div>Kickoff</div>
           </div>
           {rows.map((r, i) => {
             const cc = confColors[r.launch_confidence] || "#1B1040";
@@ -150,7 +151,7 @@ export default function ImplementationPage() {
               <div
                 key={r.customer_id}
                 onClick={() => openProject(i)}
-                className="grid grid-cols-[1.5fr_1fr_1.2fr_0.65fr_0.85fr_0.95fr_2.2fr_1fr] gap-3 px-[18px] py-[13px] items-center border-t border-[#F0EBE7] text-[0.82rem] cursor-pointer hover:bg-[#FBF7FA]"
+                className="grid grid-cols-[1.5fr_1fr_1.2fr_0.65fr_0.85fr_0.95fr_2.2fr_1fr_0.6fr] gap-3 px-[18px] py-[13px] items-center border-t border-[#F0EBE7] text-[0.82rem] cursor-pointer hover:bg-[#FBF7FA]"
               >
                 <div className="font-bold text-navy">{r.customer_name}</div>
                 <div>
@@ -177,6 +178,17 @@ export default function ImplementationPage() {
                 </div>
                 <div className="text-navy font-medium">{implNextAction(r)}</div>
                 <div className="text-muted">{r.implementation_owner}</div>
+                <div>
+                  <a
+                    href={`/api/customers/${r.customer_id}/kickoff-deck`}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="text-[0.72rem] font-bold text-navy underline decoration-[#C8B8E8] underline-offset-2 hover:decoration-navy whitespace-nowrap"
+                  >
+                    Deck ↗
+                  </a>
+                </div>
               </div>
             );
           })}

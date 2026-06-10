@@ -246,10 +246,30 @@ def run_deck(run_id: int):
 
 
 @app.get("/api/customers/{customer_id}/kickoff-deck", response_class=HTMLResponse)
-def kickoff_deck(customer_id: int):
-    """Run the KickoffDeckAgent and render the result as a branded HTML slide deck."""
+def kickoff_deck(customer_id: int, fresh: bool = False):
+    """Render the customer's kickoff deck as branded HTML slides.
+
+    Reuses the most recent saved KickoffDeckAgent run so the link opens
+    instantly (a live generation can take a minute). Pass ?fresh=1 to force
+    a new generation.
+    """
+    from backend.database import fetchone
+    from dataclasses import asdict
+
     context = build_customer_context(customer_id)
     agent = AGENT_REGISTRY["KickoffDeckAgent"]()
+
+    if not fresh:
+        prior = fetchone(
+            """SELECT output_text FROM agent_runs
+               WHERE agent_name = 'KickoffDeckAgent' AND customer_id = ?
+               ORDER BY created_at DESC LIMIT 1""",
+            (customer_id,),
+        )
+        if prior and prior.get("output_text"):
+            structured = agent.parse_structured(prior["output_text"], context)
+            return render_kickoff_deck(asdict(structured) if structured else {}, context)
+
     result = agent.run(context, customer_id=customer_id)
     save_agent_run(result)
     structured = result.to_dict().get("structured") or {}
