@@ -376,6 +376,70 @@ def render_kickoff_deck(structured: dict, ctx: dict) -> str:
     return _page(f"Implementation Kickoff — {customer}", slides)
 
 
+def render_deck_loading(customer: str, customer_id: int, live: bool) -> str:
+    """Branded interstitial shown while the deck is generated.
+
+    Fires the agent run from the browser, then reloads the deck URL —
+    which then serves the freshly saved run instantly.
+    """
+    eta = "30–90 seconds" if live else "a few seconds"
+    mode = "Live — calling Claude" if live else "Mock mode"
+    return f"""<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Generating deck — {_esc(customer)} · Onyx Security</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * {{ margin:0; padding:0; box-sizing:border-box; font-family:'Inter',sans-serif; }}
+  body {{ min-height:100vh; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg,#F8F4EF 0%,#F5F0EA 55%,#F3EDEF 100%); }}
+  .box {{ text-align:center; padding:40px; }}
+  .wordmark {{ font-size:26px; font-weight:800; letter-spacing:0.04em; color:#16131F;
+    margin-bottom:36px; }}
+  h1 {{ font-size:32px; font-weight:800; letter-spacing:-0.02em; color:#16131F;
+    margin-bottom:12px; }}
+  .sub {{ font-size:15px; color:#6B6280; margin-bottom:6px; }}
+  .mode {{ display:inline-block; margin-top:18px; font-size:11px; font-weight:800;
+    letter-spacing:0.10em; text-transform:uppercase; color:#7C5CBF; background:#EDE7F8;
+    padding:4px 14px; border-radius:999px; }}
+  .dots {{ margin:34px auto 0; display:flex; gap:10px; justify-content:center; }}
+  .dot {{ width:12px; height:12px; border-radius:50%; background:#7C5CBF;
+    animation:pulse 1.2s ease-in-out infinite; }}
+  .dot:nth-child(2) {{ animation-delay:0.2s; }}
+  .dot:nth-child(3) {{ animation-delay:0.4s; }}
+  @keyframes pulse {{ 0%,100% {{ opacity:0.25; transform:scale(0.85); }}
+    50% {{ opacity:1; transform:scale(1.15); }} }}
+  .err {{ display:none; margin-top:24px; color:#9B2335; font-size:14px; font-weight:600; }}
+</style></head>
+<body><div class="box">
+  <div class="wordmark">onyx</div>
+  <h1>Building the kickoff deck for {_esc(customer)}</h1>
+  <div class="sub">The agent is assembling the deck from this account's data — usually {eta}.</div>
+  <div class="sub">This page will refresh automatically when it's ready.</div>
+  <span class="mode">{mode}</span>
+  <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+  <div class="err" id="err"></div>
+</div>
+<script>
+fetch("/api/agents/run", {{
+  method: "POST",
+  headers: {{ "Content-Type": "application/json" }},
+  body: JSON.stringify({{ agent_name: "KickoffDeckAgent", customer_id: {customer_id} }}),
+}})
+  .then((r) => r.json())
+  .then((d) => {{
+    if (d.error) throw new Error(d.error);
+    location.replace("/api/customers/{customer_id}/kickoff-deck");
+  }})
+  .catch((e) => {{
+    const el = document.getElementById("err");
+    el.style.display = "block";
+    el.textContent = "Generation failed: " + e.message + " — refresh to retry.";
+  }});
+</script>
+</body></html>"""
+
+
 def _page(title: str, slides: str) -> str:
     return f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">

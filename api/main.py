@@ -24,7 +24,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 
-from api.deck import render_kickoff_deck, render_generic_deck
+from api.deck import render_kickoff_deck, render_generic_deck, render_deck_loading
 
 from backend.crud import (
     get_all_customers, get_customer_360, get_portfolio_summary,
@@ -250,8 +250,10 @@ def kickoff_deck(customer_id: int, fresh: bool = False):
     """Render the customer's kickoff deck as branded HTML slides.
 
     Reuses the most recent saved KickoffDeckAgent run so the link opens
-    instantly (a live generation can take a minute). Pass ?fresh=1 to force
-    a new generation.
+    instantly. When no run exists (or ?fresh=1), serves a branded loading
+    page that triggers the generation from the browser and reloads when
+    done — a live Claude call can take a minute, and a blank page would
+    look broken.
     """
     from backend.database import fetchone
     from dataclasses import asdict
@@ -270,10 +272,8 @@ def kickoff_deck(customer_id: int, fresh: bool = False):
             structured = agent.parse_structured(prior["output_text"], context)
             return render_kickoff_deck(asdict(structured) if structured else {}, context)
 
-    result = agent.run(context, customer_id=customer_id)
-    save_agent_run(result)
-    structured = result.to_dict().get("structured") or {}
-    return render_kickoff_deck(structured, context)
+    live = bool(os.environ.get("ANTHROPIC_API_KEY"))
+    return render_deck_loading(context.get("customer_name", "Customer"), customer_id, live)
 
 
 @app.get("/api/csm/overview")
