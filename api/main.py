@@ -24,7 +24,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 
-from api.deck import render_kickoff_deck
+from api.deck import render_kickoff_deck, render_generic_deck
 
 from backend.crud import (
     get_all_customers, get_customer_360, get_portfolio_summary,
@@ -210,6 +210,39 @@ def run_agent(req: AgentRunRequest):
         raise
     except Exception as e:
         return {"error": str(e)}
+
+
+@app.get("/api/runs/{run_id}/deck", response_class=HTMLResponse)
+def run_deck(run_id: int):
+    """Render any saved agent run as a branded slide deck.
+
+    Structured output isn't persisted, so it is re-parsed from the saved
+    output_text using the agent's own parser.
+    """
+    from backend.database import fetchone
+    from dataclasses import asdict
+
+    run = fetchone("SELECT * FROM agent_runs WHERE id = ?", (run_id,))
+    if not run:
+        raise HTTPException(status_code=404, detail="Run not found")
+
+    agent_name = run["agent_name"]
+    if agent_name not in AGENT_REGISTRY:
+        raise HTTPException(status_code=400, detail=f"Unknown agent: {agent_name}")
+
+    cid = run.get("customer_id")
+    if agent_name == "VPChiefOfStaffAgent" or cid is None:
+        context = build_portfolio_context()
+    else:
+        context = build_customer_context(cid)
+
+    agent = AGENT_REGISTRY[agent_name]()
+    structured = agent.parse_structured(run["output_text"] or "", context)
+    structured_dict = asdict(structured) if structured else {}
+
+    if agent_name == "KickoffDeckAgent":
+        return render_kickoff_deck(structured_dict, context)
+    return render_generic_deck(agent_name, structured_dict, context)
 
 
 @app.get("/api/customers/{customer_id}/kickoff-deck", response_class=HTMLResponse)

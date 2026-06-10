@@ -66,6 +66,132 @@ def _card_list(items: list, icon: str = "→") -> str:
     )
 
 
+AGENT_DECK_TITLES = {
+    "CustomerHealthAgent":       "Customer Health Assessment",
+    "ImplementationAgent":       "Implementation Report",
+    "BriefingAgent":             "Executive Briefing",
+    "EscalationCommanderAgent":  "Escalation Command Plan",
+    "SkeptikQAAgent":            "Skeptik QA Review",
+    "VPChiefOfStaffAgent":       "VP Weekly Review",
+    "ExpansionOpportunityAgent": "Expansion Opportunity",
+    "QBRPreparationAgent":       "Quarterly Business Review",
+    "SuccessPlanAgent":          "Success Plan",
+}
+
+
+def _humanize(field: str) -> str:
+    words = field.replace("_", " ").strip()
+    fixes = {"arr": "ARR", "qbr": "QBR", "ceo": "CEO", "nrr": "NRR", "30 60 90": "30 / 60 / 90",
+             "2wks": "2 weeks", "48h": "48 hours", "5": "5"}
+    out = []
+    for w in words.split():
+        out.append(fixes.get(w.lower(), w))
+    s = " ".join(out)
+    return s[:1].upper() + s[1:]
+
+
+def _md_table_to_html(text: str) -> str:
+    """Convert a string containing a markdown table into prose + an HTML table."""
+    table_rows, prose = [], []
+    for line in text.splitlines():
+        s = line.strip()
+        if s.startswith("|"):
+            if set(s) <= {"|", "-", " ", ":"}:
+                continue  # separator row
+            cells = [c.strip() for c in s.strip("|").split("|")]
+            table_rows.append(cells)
+        elif s:
+            prose.append(s)
+    out = ""
+    if prose:
+        out += f'<p class="lede">{_esc(" ".join(prose))}</p>'
+    if table_rows:
+        head = "".join(f"<th>{_esc(c)}</th>" for c in table_rows[0])
+        body = "".join(
+            "<tr>" + "".join(f"<td>{_esc(c)}</td>" for c in row) + "</tr>"
+            for row in table_rows[1:]
+        )
+        out += f'<table class="timeline"><thead><tr>{head}</tr></thead><tbody>{body}</tbody></table>'
+    return out
+
+
+def render_generic_deck(agent_name: str, structured: dict, ctx: dict) -> str:
+    """Render any agent's structured output as a branded slide deck.
+
+    Short scalar fields become stat tiles on an "At a glance" slide; string
+    fields become statement paragraphs (markdown tables converted to real
+    tables); list fields become card grids packed two sections per slide.
+    """
+    customer = ctx.get("customer_name") or "Portfolio"
+    title = AGENT_DECK_TITLES.get(agent_name, agent_name.replace("Agent", " Report"))
+    date_str = datetime.now().strftime("%B %Y")
+
+    # Build sections in dataclass field order
+    stats: list[tuple[str, str]] = []          # (label, value) → "At a glance" tiles
+    sections: list[tuple[str, str, int]] = []  # (heading, html, weight 1..2)
+    for field, val in structured.items():
+        if val in (None, "", [], 0) or isinstance(val, bool):
+            continue
+        heading = _humanize(field)
+        if isinstance(val, (int, float)):
+            if "arr" in field:
+                stats.append((heading, f"${val:,.0f}"))
+            elif "confidence" in field and val <= 1:
+                stats.append((heading, f"{val:.0%}"))
+            else:
+                stats.append((heading, f"{val:,}" if isinstance(val, int) else str(val)))
+        elif isinstance(val, str):
+            if "|" in val and val.count("|") >= 4:
+                sections.append((heading, _md_table_to_html(val), 2))
+            elif len(val) <= 60 and "\n" not in val:
+                stats.append((heading, val))
+            else:
+                sections.append((heading, f'<p class="lede">{_esc(val)}</p>', 1))
+        elif isinstance(val, list):
+            icon = "✓" if any(k in field for k in ("positive", "metric", "value", "proof")) else "→"
+            weight = 2 if len(val) > 5 else 1
+            sections.append((heading, _card_list(val[:10], icon), weight))
+
+    if stats:
+        tiles = "".join(
+            f'<div class="stat-tile"><div class="stat-label">{_esc(l)}</div>'
+            f'<div class="stat-value">{_esc(v)}</div></div>'
+            for l, v in stats[:8]
+        )
+        sections.insert(0, ("At a glance", f'<div class="stat-grid">{tiles}</div>', 2))
+
+    # Pack sections into slides — max weight 2 per slide
+    slides_html = ""
+    i = 0
+    while i < len(sections):
+        h1s, b1, w1 = sections[i]
+        if w1 >= 2 or i + 1 >= len(sections) or sections[i + 1][2] >= 2:
+            slides_html += _slide(f"<h2>{h1s}</h2>{b1}")
+            i += 1
+        else:
+            h2s, b2, _ = sections[i + 1]
+            slides_html += _slide(
+                f'<div class="cols"><div><h2>{h1s}</h2>{b1}</div><div><h2>{h2s}</h2>{b2}</div></div>'
+            )
+            i += 2
+
+    title_slide = _slide(f"""
+      <div class="title-wrap">
+        <div class="lockup"><span class="lockup-onyx">onyx</span><span class="lockup-x">✕</span><span class="lockup-cust">{_esc(customer)}</span></div>
+        <h1 class="display">{_esc(title)}</h1>
+        <div class="title-sub">{_esc(customer)} · Prepared by Onyx CX Agent OS</div>
+        <div class="title-date">{date_str} · INTERNAL</div>
+      </div>""", "center")
+
+    closing = _slide(f"""
+      <div class="title-wrap">
+        <h1 class="display">Questions?</h1>
+        <div class="title-sub">Onyx Security · {date_str}</div>
+      </div>""", "center")
+
+    return _page(f"{title} — {customer}", title_slide + slides_html + closing)
+
+
 def render_kickoff_deck(structured: dict, ctx: dict) -> str:
     customer = ctx.get("customer_name", "Customer")
     industry = ctx.get("industry", "")
@@ -178,10 +304,13 @@ def render_kickoff_deck(structured: dict, ctx: dict) -> str:
       </div>""", "center")
 
     slides = s1 + s2 + s2b + s3 + s4 + s5 + s6 + s7
+    return _page(f"Implementation Kickoff — {customer}", slides)
 
+
+def _page(title: str, slides: str) -> str:
     return f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
-<title>Implementation Kickoff — {_esc(customer)} · Onyx Security</title>
+<title>{_esc(title)} · Onyx Security</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -219,6 +348,14 @@ def render_kickoff_deck(structured: dict, ctx: dict) -> str:
   .pillar-title {{ font-size:22px; font-weight:800; letter-spacing:-0.01em; color:#16131F;
     margin-bottom:10px; }}
   .pillar-body {{ font-size:14.5px; line-height:1.6; color:#3D3458; }}
+  .bigstat {{ font-size:72px; font-weight:800; letter-spacing:-0.03em; color:#16131F; }}
+  .stat-grid {{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }}
+  .stat-tile {{ background:#FFFFFF; border:1px solid #E9E3DA; border-radius:14px;
+    padding:20px 22px; box-shadow:0 1px 3px rgba(27,16,64,0.04); }}
+  .stat-label {{ font-size:11px; font-weight:800; text-transform:uppercase;
+    letter-spacing:0.10em; color:#6B6280; margin-bottom:8px; }}
+  .stat-value {{ font-size:26px; font-weight:800; letter-spacing:-0.02em; color:#16131F;
+    line-height:1.15; }}
   .team-role {{ font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;
     color:#6B6280; margin-top:12px; }}
   .team-name {{ font-size:19px; font-weight:800; color:#16131F; margin:2px 0 6px; }}

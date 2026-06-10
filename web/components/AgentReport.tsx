@@ -72,8 +72,18 @@ export default function AgentReport({
         </div>
       </div>
       {result.run_id ? (
-        <div className="text-[0.70rem] text-muted mt-2">
-          Generated {ts} UTC · Run #{result.run_id} · {agentDisplayName(result.agent_name || "")}
+        <div className="flex items-center gap-3 mt-2">
+          <span className="text-[0.70rem] text-muted">
+            Generated {ts} UTC · Run #{result.run_id} · {agentDisplayName(result.agent_name || "")}
+          </span>
+          <a
+            href={`/api/runs/${result.run_id}/deck`}
+            target="_blank"
+            rel="noreferrer"
+            className="text-[0.70rem] font-bold text-navy underline decoration-[#C8B8E8] underline-offset-2 hover:decoration-navy"
+          >
+            Open as deck ↗
+          </a>
         </div>
       ) : null}
       {result.model_rationale ? (
