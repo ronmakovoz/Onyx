@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: #fbf3f8;
+  color: #3d3458;
+}
+
+/* Onyx brand gradient — fixed full-viewport layer behind all content */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(160deg, #ffffff 0%, #fdf4f8 30%, #faeff6 58%, #f4eaf6 100%);
+}
+
+/* ── Agent report executive-document markdown styling ── */
+.agent-report h1 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #1b1040;
+  letter-spacing: -0.02em;
+  margin: 8px 0 4px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #1b1040;
+}
+.agent-report h2 {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #1b1040;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 20px 0 8px;
+  padding: 5px 10px;
+  background: #f4eaf6;
+  border-radius: 6px;
+  display: inline-block;
+}
+.agent-report h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 12px 0 4px;
+  color: #1b1040;
+}
+.agent-report p {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: #3d3458;
+  margin: 4px 0;
+}
+.agent-report ul,
+.agent-report ol {
+  padding-left: 1.3rem;
+  margin: 4px 0;
+}
+.agent-report ul {
+  list-style: disc;
+}
+.agent-report ol {
+  list-style: decimal;
+}
+.agent-report li {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #3d3458;
+  margin: 3px 0;
+}
+.agent-report strong {
+  color: #1b1040;
+}
+.agent-report em {
+  color: #6b6280;
+}
+.agent-report hr {
+  margin: 14px 0;
+  border-color: #efebe4;
+}
+.agent-report table {
+  font-size: 0.82rem;
+  border-collapse: collapse;
+  margin: 8px 0;
+}
+.agent-report th,
+.agent-report td {
+  border: 1px solid #e8e4dc;
+  padding: 4px 10px;
+}
+.agent-report code {
+  background: #f5f2ee;
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-size: 0.8rem;
+}

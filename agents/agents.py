@@ -13,6 +13,7 @@ from agents.outputs import (
     HealthOutput, ImplementationOutput, BriefingOutput,
     EscalationOutput, SkeptikOutput, VPReviewOutput,
     ExpansionOutput, QBRPrepOutput, SuccessPlanOutput,
+    KickoffDeckOutput,
     BullCaseOutput, BearCaseOutput, SynthesisOutput,
 )
 from prompts.templates import (
@@ -25,6 +26,7 @@ from prompts.templates import (
     EXPANSION_SYSTEM, EXPANSION_USER,
     QBR_SYSTEM, QBR_USER,
     SUCCESSPLAN_SYSTEM, SUCCESSPLAN_USER,
+    KICKOFF_SYSTEM, KICKOFF_USER,
     BULL_SYSTEM, BULL_USER,
     BEAR_SYSTEM, BEAR_USER,
     SYNTHESIS_SYSTEM, SYNTHESIS_USER,
@@ -48,6 +50,22 @@ def _extract_list(text: str, header: str, max_items: int = 5) -> list[str]:
         if len(items) >= max_items:
             break
     return items
+
+
+def _extract_table_rows(text: str, header: str, max_items: int = 12) -> list[str]:
+    """Extract markdown table data rows under a header as 'cell — cell — cell' strings."""
+    block = _extract_section(text, header)
+    rows = []
+    for line in block.splitlines():
+        line = line.strip()
+        if not line.startswith("|") or set(line) <= {"|", "-", " ", ":"}:
+            continue
+        cells = [c.strip() for c in line.strip("|").split("|")]
+        if cells and not all(c.replace("-", "").strip() == "" for c in cells):
+            rows.append(" — ".join(c for c in cells if c))
+        if len(rows) >= max_items + 1:
+            break
+    return rows[1:max_items + 1] if rows else []  # drop header row
 
 
 def _extract_section(text: str, header: str) -> str:
@@ -314,6 +332,36 @@ class SuccessPlanAgent(BaseAgent):
         )
 
 
+class KickoffDeckAgent(BaseAgent):
+    name = "KickoffDeckAgent"
+
+    def build_prompt(self, ctx: dict) -> tuple[str, str]:
+        return KICKOFF_SYSTEM, KICKOFF_USER.format(**ctx)
+
+    def parse_structured(self, text: str, ctx: dict) -> KickoffDeckOutput:
+        return KickoffDeckOutput(
+            partnership_vision=_extract_section(text, "Welcome & Partnership Vision")[:400],
+            engagement_team=_extract_table_rows(text, "Engagement Team", 8)
+                            or _extract_list(text, "Engagement Team", 8),
+            scope_objectives=_extract_list(text, "Scope & Objectives"),
+            timeline=_extract_table_rows(text, "Implementation Timeline", 12)
+                     or _extract_list(text, "Implementation Timeline", 12),
+            success_metrics=_extract_list(text, "Success Metrics"),
+            first_30_days=_extract_list(text, "First 30 Days", 8),
+            governance=_extract_section(text, "Communication & Governance")[:400],
+            customer_prerequisites=_extract_list(text, "What We Need From You"),
+        )
+
+    def _estimate_confidence(self, ctx: dict) -> float:
+        # Deck generation is templated against known milestone methodology — high floor
+        base = 0.86
+        if ctx.get("go_live_target") in (None, "Not set"):
+            base -= 0.06  # timeline must be assumed rather than anchored
+        if ctx.get("champion_status") in ("Left Company", "Disengaged"):
+            base -= 0.04
+        return round(max(0.65, min(0.95, base + random.uniform(-0.03, 0.03))), 2)
+
+
 def _extract_renewal_probability(text: str, fallback: int = 50) -> int:
     m = re.search(r"(?:Renewal Probability[^:]*:\s*)\*?\*?(\d+)(?:–(\d+))?%", text)
     if m:
@@ -439,6 +487,7 @@ def run_red_team_debate(customer_id: int, context: dict) -> dict:
     }
 
 
+
 # ── Registry ──────────────────────────────────────────────────────────────────
 
 AGENT_REGISTRY = {
@@ -451,6 +500,7 @@ AGENT_REGISTRY = {
     "ExpansionOpportunityAgent": ExpansionOpportunityAgent,
     "QBRPreparationAgent":      QBRPreparationAgent,
     "SuccessPlanAgent":         SuccessPlanAgent,
+    "KickoffDeckAgent":         KickoffDeckAgent,
     "BullCaseAgent":            BullCaseAgent,
     "BearCaseAgent":            BearCaseAgent,
     "SynthesisAgent":           SynthesisAgent,
@@ -466,6 +516,7 @@ AGENT_DESCRIPTIONS = {
     "ExpansionOpportunityAgent": "Finds evidence-backed upsell opportunities and quantifies ARR uplift.",
     "QBRPreparationAgent":      "Auto-generates an executive-ready Quarterly Business Review briefing.",
     "SuccessPlanAgent":         "Builds a time-phased 30/60/90 success plan for an account.",
+    "KickoffDeckAgent":         "Generates a client-facing implementation kickoff deck tailored to the account.",
     "BullCaseAgent":            "Argues the strongest evidence-based case for renewal and account growth.",
     "BearCaseAgent":            "Argues the strongest evidence-based case for churn risk.",
     "SynthesisAgent":           "Synthesizes bull and bear cases into a calibrated renewal probability.",
@@ -481,6 +532,7 @@ AGENT_MODEL_TIER = {
     "ExpansionOpportunityAgent": "sonnet",
     "QBRPreparationAgent":      "sonnet",
     "SuccessPlanAgent":         "sonnet",
+    "KickoffDeckAgent":         "sonnet",
     "BullCaseAgent":            "sonnet",
     "BearCaseAgent":            "sonnet",
     "SynthesisAgent":           "opus",

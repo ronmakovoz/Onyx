@@ -212,8 +212,9 @@ def render_debate(bull: dict, bear: dict, synth: dict, ctx: dict) -> str:
 </div></body></html>"""
 
 
-def render_debate_loading(customer_name: str, customer_id: int) -> str:
-    """Branded interstitial that fires the debate run via JS, then reloads."""
+def render_debate_loading(customer_name: str, customer_id: int, api_prefix: str = "") -> str:
+    """Branded interstitial that fires the debate run via JS, then reloads.
+    api_prefix: '' for backend/main.py routes, '/api' for api/main.py routes."""
     name = html.escape(customer_name)
     return f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
@@ -238,8 +239,8 @@ def render_debate_loading(customer_name: str, customer_id: int) -> str:
 const stages = ["Opening arguments…","Bull case building…","Bear case attacking…","Cross-examination…","Synthesis judging the debate…"];
 let i = 0;
 setInterval(() => {{ i = (i + 1) % stages.length; document.getElementById("stage").textContent = stages[i]; }}, 4000);
-fetch("/agents/run-red-team-debate?customer_id={customer_id}", {{ method: "POST" }})
+fetch("{api_prefix}/agents/run-red-team-debate?customer_id={customer_id}", {{ method: "POST" }})
   .then(r => {{ if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); }})
-  .then(() => location.replace("/customers/{customer_id}/debate"))
+  .then(() => location.replace("{api_prefix}/customers/{customer_id}/debate"))
   .catch(e => {{ document.getElementById("stage").textContent = "Debate failed: " + e.message; }});
 </script></body></html>"""

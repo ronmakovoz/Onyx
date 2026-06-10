@@ -225,7 +225,7 @@ Contributing: champion departure removed internal advocacy; implementation delay
 P1 ticket backlog demonstrates ongoing product reliability concerns.
 
 ## Customer Impact
-Customer's security operations are partially dependent on Onyx. Delays and outages are creating \
+Customer's AI agent governance and runtime protection are partially dependent on Onyx. Delays and outages are creating \
 measurable operational risk for their team. Their CISO is aware and losing patience. \
 A competitor has already run a POC, suggesting active evaluation is underway.
 
@@ -365,7 +365,7 @@ Combined ARR: $1.56M. Prepare terms options for CFO review.
 21 unresolved P1 tickets across portfolio is unsustainable. Name owners by EOD Wednesday.
 4. **[VP CX — This week]** Identify champion replacements for 3 customers with departed champions. \
 Dark accounts churn silently. This is the highest-probability churn signal in the portfolio.
-5. **[VP Product — This week]** SIEM integration gap is now cited in 2 separate accounts as a churn signal. \
+5. **[VP Product — This week]** CNAPP discovery-source integration gap is now cited in 2 separate accounts as a churn signal. \
 This needs a roadmap decision, not another "we're evaluating it" response.
 
 ---
@@ -381,8 +381,8 @@ This needs a roadmap decision, not another "we're evaluating it" response.
 - Scope creep in 2 active implementations — SOW amendments not initiated — AEs need to act now
 
 ## Product Feedback Themes (From Meeting Notes This Week)
-1. **SIEM integration gaps** — mentioned by 2 customers as blocking full value realization
-2. **Alert fatigue** — false positive rate > 40% is being cited in renewal risk conversations
+1. **Discovery-source integration gaps (CNAPP/SASE)** — mentioned by 2 customers as blocking full value realization
+2. **Guardian intervention fatigue** — false positive rate > 40% is being cited in renewal risk conversations
 3. **Report export limitations** — 3 customers requested PDF compliance report improvements
 4. **Mobile app performance** — 2 enterprise accounts with field security teams flagging this
 
@@ -394,7 +394,7 @@ This needs a roadmap decision, not another "we're evaluating it" response.
 ## Cross-Functional Asks
 | Ask | For Team | Owner | Due |
 |-----|----------|-------|-----|
-| SIEM roadmap decision | Product | VP Product | 1 week |
+| CNAPP discovery-source roadmap decision | Product | VP Product | 1 week |
 | P1 ticket SLA enforcement | Engineering | VP Eng | 48 hours |
 | Commercial flexibility approval | Finance | CFO | 72 hours |
 | Fast Path security review process | Legal/Compliance | General Counsel | 2 weeks |
@@ -407,7 +407,7 @@ This needs a roadmap decision, not another "we're evaluating it" response.
 concentrated in {ctx.get('critical_count',0)} high-risk accounts requiring immediate executive attention.** \
 The highest-priority actions are a personal VP CX call to JetStream Airlines today and engineering \
 resource allocation for 21 open P1 tickets by Wednesday. \
-Two product gaps — SIEM integration and alert fatigue — are now appearing in renewal risk conversations \
+Two product gaps — CNAPP discovery-source integration and Guardian false-positive fatigue — are now appearing in renewal risk conversations \
 and require a roadmap decision from Product this week.
 
 ---
@@ -419,8 +419,8 @@ def _mock_expansion(ctx):
     arr  = ctx.get("arr", 0)
     pipe = ctx.get("expansion_pipeline_arr", 0) or int(arr * 0.2)
     modules = random.sample([
-        "Account Takeover Defense", "Real-Time Transaction Scoring", "Case Management Automation",
-        "Threat Intelligence Feed", "Identity Graph", "Chargeback Automation", "Sanctions Screening",
+        "AI-SPM", "Runtime Protection", "Guardian Agent Pro",
+        "LLM Routing & Cost Optimization", "MCP Supply-Chain Security", "AI ROI Analytics", "Shadow AI Discovery Plus",
     ], 3)
     return f"""# Expansion Opportunity — {name}
 *Expansion Opportunity Agent · {datetime.now().strftime('%B %d, %Y')}*
@@ -428,7 +428,7 @@ def _mock_expansion(ctx):
 ## Expansion Thesis
 {name} ({ctx.get('industry','Enterprise')}) is a **{ctx.get('health_trend','Stable')}** account with NRR at \
 **{ctx.get('nrr_pct','?')}%** and adoption at **{ctx.get('adoption_score','?')}%**. The proven outcome — \
-*{ctx.get('roi_outcome','measurable fraud reduction')}* — creates a credible basis to expand coverage into \
+*{ctx.get('roi_outcome','measurable AI risk reduction')}* — creates a credible basis to expand governance into \
 adjacent risk surfaces. Executive engagement is **{ctx.get('executive_engagement','Medium')}**.
 
 ## Recommended Modules
@@ -526,6 +526,100 @@ Health 70+, adoption above 65%, champion re-engaged, renewal secured with expans
 ## Risks and Mitigations
 - {ctx.get('primary_risk_reason','Engagement risk')} → weekly cadence with exec sponsor
 - Champion change → identify and onboard a backup champion early"""
+
+
+def _mock_kickoffdeck(ctx):
+    name     = ctx.get("customer_name", "Customer")
+    industry = ctx.get("industry", "Enterprise")
+    champ    = ctx.get("champion_name", "Customer Champion")
+    champ_t  = ctx.get("champion_title", "Security Lead")
+    tech     = ctx.get("technical_sponsor", "Technical Sponsor")
+    biz      = ctx.get("business_sponsor", "Business Sponsor")
+    csm      = ctx.get("csm_owner", "Onyx CSM")
+    impl     = ctx.get("implementation_owner", "Onyx Implementation Manager")
+    golive   = ctx.get("go_live_target", "Not set")
+    emp      = ctx.get("employee_count", "?")
+    sec_rev  = ctx.get("security_review_status", "Not started")
+
+    from datetime import timedelta
+    start = datetime.now().date()
+    def d(days): return (start + timedelta(days=days)).strftime("%b %d, %Y")
+
+    track = [
+        ("Foundation",  "Kickoff & Scoping",                       7,  impl),
+        ("Foundation",  "Technical Discovery",                     14, tech),
+        ("Foundation",  "Environment Provisioning",                21, f"{name} IT"),
+        ("Integration", "SSO / Identity Provider Integration",     35, tech),
+        ("Integration", "Initial Data Ingestion",                  42, impl),
+        ("Pilot",       "Pilot Group Onboarding (25 users)",       56, champ),
+        ("Pilot",       "Detection Policy Configuration",          63, impl),
+        ("Validation",  "Integration Testing & QA",                77, impl),
+        ("Validation",  "Security Review Sign-off",                84, tech),
+        ("Launch",      "Full Production Rollout",                 98, impl),
+        ("Launch",      "Hypercare Period (30 days)",              128, csm),
+        ("Value",       "QBR #1 — 90-Day Review",                  180, csm),
+    ]
+    timeline_rows = "\n".join(
+        f"| {phase} | {m} | {d(days)} | {owner} |" for phase, m, days, owner in track
+    )
+
+    return f"""# Implementation Kickoff — {name}
+*Prepared by Onyx Security · {datetime.now().strftime('%B %d, %Y')} · Client-Facing*
+
+---
+
+## Welcome & Partnership Vision
+Welcome to the Onyx Security partnership. Over the next 90–180 days we will give {name} full
+visibility and control over AI activity across your {industry.lower()} environment ({emp} employees) —
+from discovery of shadow AI to runtime protection in production. Success means your security team
+sees every AI agent, governs every action, and proves measurable risk reduction by your first QBR.
+
+## Engagement Team
+| Role | Name | Responsibility |
+|------|------|----------------|
+| Onyx Implementation Manager | {impl} | Owns delivery plan, milestones, and weekly status |
+| Onyx Customer Success Manager | {csm} | Owns long-term outcomes, adoption, and executive cadence |
+| Onyx Solutions Engineer | Assigned at kickoff | Technical integration and policy configuration |
+| Customer Champion | {champ} ({champ_t}) | Internal advocacy, pilot group coordination |
+| Customer Technical Sponsor | {tech} | IT access, SSO/IdP admin, environment readiness |
+| Customer Business Sponsor | {biz} | Executive checkpoints, success metric sign-off |
+
+## Scope & Objectives
+- Deploy the Onyx Secure AI Control Plane across {name}'s environment with full discovery coverage
+- Establish a complete inventory of AI agents, models, and shadow AI applications
+- Enable runtime protection (prompt injection, jailbreak, and data exfiltration blocking) for the pilot group, then production
+- Configure detection policies aligned to {industry} compliance and risk requirements
+- Reach Full Production Rollout {'by ' + str(golive) if golive not in (None, 'Not set') else 'within 98 days of kickoff'}
+
+## Implementation Timeline
+| Phase | Milestone | Target Date | Owner |
+|-------|-----------|-------------|-------|
+{timeline_rows}
+
+## Success Metrics
+- 100% of discovery sources connected and reporting by Day 42
+- Shadow AI inventory baseline established with zero unknown agents at production rollout
+- Pilot group (25 users) live with < 5% false-positive policy rate before production
+- Security review signed off by Day 84 (current status: {sec_rev})
+- Measurable risk findings presented at the 90-day QBR
+
+## First 30 Days
+1. **Day 1–7:** Kickoff session held; scope confirmed; weekly sync scheduled — Owner: {impl}
+2. **Day 7–14:** Technical discovery complete; environment access granted — Owner: {tech}
+3. **Day 14–21:** Onyx environment provisioned; service accounts created — Owner: {name} IT + Onyx SE
+4. **Day 21–30:** SSO/IdP integration underway; pilot group of 25 users nominated — Owner: {champ}
+
+## Communication & Governance
+Weekly 30-minute delivery sync ({impl} + {tech}), biweekly executive checkpoint ({csm} + {biz}),
+and a shared status dashboard updated every Friday. Escalation path: Implementation Manager →
+CSM → Onyx VP Customer Experience, with a 24-hour response commitment on blockers.
+
+## What We Need From You
+- Named IT contact with admin access for environment provisioning (by Day 14)
+- IdP administrator availability for SSO integration (Days 21–35)
+- Pilot group of 25 users nominated by {champ} (by Day 30)
+- Security review requirements and approver identified (by Day 45)
+- Executive sponsor availability for biweekly checkpoints"""
 
 
 def _mock_bull(ctx):
@@ -645,6 +739,7 @@ The {lo}–{hi}% range reflects two genuine scenarios: the high end assumes exec
 **VP CX calls the economic buyer personally within 5 business days** — not to close the renewal, but to acknowledge the service quality gap, commit to a specific resolution timeline on the open tickets, and reframe the relationship as strategic. This single action is the highest-probability lever available."""
 
 
+
 MOCK_DISPATCH = {
     "CustomerHealthAgent":     _mock_health,
     "ImplementationAgent":     _mock_implementation,
@@ -655,6 +750,7 @@ MOCK_DISPATCH = {
     "ExpansionOpportunityAgent": _mock_expansion,
     "QBRPreparationAgent":     _mock_qbr,
     "SuccessPlanAgent":        _mock_successplan,
+    "KickoffDeckAgent":        _mock_kickoffdeck,
     "BullCaseAgent":           _mock_bull,
     "BearCaseAgent":           _mock_bear,
     "SynthesisAgent":          _mock_synthesis,

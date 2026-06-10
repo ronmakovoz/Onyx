@@ -7,11 +7,11 @@
     "severity": "Critical",
     "status": "In Progress",
     "owner": "James Okafor",
-    "opened_at": "2026-05-15T14:28:40",
+    "opened_at": "2026-05-16T23:44:47",
     "executive_aware": true,
     "arr_at_risk": 720000,
     "resolution_plan": null,
-    "last_update": "2026-06-08T14:28:40"
+    "last_update": "2026-06-09T23:44:47"
   },
   {
     "id": 2,
@@ -21,11 +21,11 @@
     "severity": "High",
     "status": "Open",
     "owner": "James Okafor",
-    "opened_at": "2026-05-25T14:28:40",
+    "opened_at": "2026-05-26T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 720000,
     "resolution_plan": null,
-    "last_update": "2026-06-08T14:28:40"
+    "last_update": "2026-06-09T23:44:47"
   },
   {
     "id": 3,
@@ -35,11 +35,11 @@
     "severity": "Critical",
     "status": "Open",
     "owner": "Hiroshi Tanaka",
-    "opened_at": "2026-05-12T14:28:40",
+    "opened_at": "2026-05-13T23:44:47",
     "executive_aware": true,
     "arr_at_risk": 430000,
     "resolution_plan": null,
-    "last_update": "2026-06-06T14:28:40"
+    "last_update": "2026-06-07T23:44:47"
   },
   {
     "id": 4,
@@ -49,11 +49,11 @@
     "severity": "Critical",
     "status": "Open",
     "owner": "Hiroshi Tanaka",
-    "opened_at": "2026-06-08T14:28:40",
+    "opened_at": "2026-06-09T23:44:47",
     "executive_aware": true,
     "arr_at_risk": 430000,
     "resolution_plan": null,
-    "last_update": "2026-06-07T14:28:40"
+    "last_update": "2026-06-08T23:44:47"
   },
   {
     "id": 5,
@@ -63,11 +63,11 @@
     "severity": "Critical",
     "status": "In Progress",
     "owner": "Hiroshi Tanaka",
-    "opened_at": "2026-05-13T14:28:40",
+    "opened_at": "2026-05-14T23:44:47",
     "executive_aware": true,
     "arr_at_risk": 430000,
     "resolution_plan": null,
-    "last_update": "2026-06-06T14:28:40"
+    "last_update": "2026-06-07T23:44:47"
   },
   {
     "id": 6,
@@ -77,11 +77,11 @@
     "severity": "Critical",
     "status": "Open",
     "owner": "Aaliya Patel",
-    "opened_at": "2026-05-20T14:28:40",
+    "opened_at": "2026-05-21T23:44:47",
     "executive_aware": true,
     "arr_at_risk": 610000,
     "resolution_plan": null,
-    "last_update": "2026-06-08T14:28:40"
+    "last_update": "2026-06-09T23:44:47"
   },
   {
     "id": 7,
@@ -91,11 +91,11 @@
     "severity": "High",
     "status": "Open",
     "owner": "Aaliya Patel",
-    "opened_at": "2026-06-01T14:28:40",
+    "opened_at": "2026-06-02T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 610000,
     "resolution_plan": null,
-    "last_update": "2026-06-07T14:28:40"
+    "last_update": "2026-06-08T23:44:47"
   },
   {
     "id": 8,
@@ -105,11 +105,11 @@
     "severity": "Critical",
     "status": "In Progress",
     "owner": "Simone Dubois",
-    "opened_at": "2026-05-18T14:28:40",
+    "opened_at": "2026-05-19T23:44:47",
     "executive_aware": true,
     "arr_at_risk": 470000,
     "resolution_plan": null,
-    "last_update": "2026-06-06T14:28:40"
+    "last_update": "2026-06-07T23:44:47"
   },
   {
     "id": 9,
@@ -119,11 +119,11 @@
     "severity": "High",
     "status": "Open",
     "owner": "Simone Dubois",
-    "opened_at": "2026-05-14T14:28:40",
+    "opened_at": "2026-05-15T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 470000,
     "resolution_plan": null,
-    "last_update": "2026-06-08T14:28:40"
+    "last_update": "2026-06-09T23:44:47"
   },
   {
     "id": 10,
@@ -133,11 +133,11 @@
     "severity": "Critical",
     "status": "Open",
     "owner": "Tyler Bennett",
-    "opened_at": "2026-05-10T14:28:40",
+    "opened_at": "2026-05-11T23:44:47",
     "executive_aware": true,
     "arr_at_risk": 360000,
     "resolution_plan": null,
-    "last_update": "2026-06-06T14:28:40"
+    "last_update": "2026-06-07T23:44:47"
   },
   {
     "id": 11,
@@ -147,11 +147,11 @@
     "severity": "High",
     "status": "Open",
     "owner": "Tyler Bennett",
-    "opened_at": "2026-06-01T14:28:40",
+    "opened_at": "2026-06-02T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 360000,
     "resolution_plan": null,
-    "last_update": "2026-06-06T14:28:40"
+    "last_update": "2026-06-07T23:44:47"
   },
   {
     "id": 12,
@@ -161,11 +161,11 @@
     "severity": "Critical",
     "status": "In Progress",
     "owner": "Priya Nair",
-    "opened_at": "2026-06-07T14:28:40",
+    "opened_at": "2026-06-08T23:44:47",
     "executive_aware": true,
     "arr_at_risk": 910000,
     "resolution_plan": null,
-    "last_update": "2026-06-06T14:28:40"
+    "last_update": "2026-06-07T23:44:47"
   },
   {
     "id": 13,
@@ -175,11 +175,11 @@
     "severity": "Critical",
     "status": "Open",
     "owner": "Priya Nair",
-    "opened_at": "2026-05-18T14:28:40",
+    "opened_at": "2026-05-19T23:44:47",
     "executive_aware": true,
     "arr_at_risk": 910000,
     "resolution_plan": null,
-    "last_update": "2026-06-06T14:28:40"
+    "last_update": "2026-06-07T23:44:47"
   },
   {
     "id": 14,
@@ -189,11 +189,11 @@
     "severity": "High",
     "status": "Open",
     "owner": "Priya Nair",
-    "opened_at": "2026-06-03T14:28:40",
+    "opened_at": "2026-06-04T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 910000,
     "resolution_plan": null,
-    "last_update": "2026-06-07T14:28:40"
+    "last_update": "2026-06-08T23:44:47"
   },
   {
     "id": 15,
@@ -203,11 +203,11 @@
     "severity": "Critical",
     "status": "Open",
     "owner": "James Okafor",
-    "opened_at": "2026-06-06T14:28:40",
+    "opened_at": "2026-06-07T23:44:47",
     "executive_aware": true,
     "arr_at_risk": 410000,
     "resolution_plan": null,
-    "last_update": "2026-06-08T14:28:40"
+    "last_update": "2026-06-09T23:44:47"
   },
   {
     "id": 16,
@@ -217,11 +217,11 @@
     "severity": "High",
     "status": "Open",
     "owner": "James Okafor",
-    "opened_at": "2026-05-12T14:28:40",
+    "opened_at": "2026-05-13T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 410000,
     "resolution_plan": null,
-    "last_update": "2026-06-08T14:28:40"
+    "last_update": "2026-06-09T23:44:47"
   },
   {
     "id": 17,
@@ -231,11 +231,11 @@
     "severity": "Critical",
     "status": "Open",
     "owner": "Tyler Bennett",
-    "opened_at": "2026-05-17T14:28:40",
+    "opened_at": "2026-05-18T23:44:47",
     "executive_aware": true,
     "arr_at_risk": 330000,
     "resolution_plan": null,
-    "last_update": "2026-06-06T14:28:40"
+    "last_update": "2026-06-07T23:44:47"
   },
   {
     "id": 18,
@@ -245,11 +245,11 @@
     "severity": "High",
     "status": "In Progress",
     "owner": "Tyler Bennett",
-    "opened_at": "2026-05-15T14:28:40",
+    "opened_at": "2026-05-16T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 330000,
     "resolution_plan": null,
-    "last_update": "2026-06-06T14:28:40"
+    "last_update": "2026-06-07T23:44:47"
   },
   {
     "id": 19,
@@ -259,11 +259,11 @@
     "severity": "High",
     "status": "In Progress",
     "owner": "Aaliya Patel",
-    "opened_at": "2026-05-28T14:28:40",
+    "opened_at": "2026-05-29T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 980000,
     "resolution_plan": null,
-    "last_update": "2026-06-08T14:28:40"
+    "last_update": "2026-06-09T23:44:47"
   },
   {
     "id": 20,
@@ -273,11 +273,11 @@
     "severity": "High",
     "status": "Open",
     "owner": "Aaliya Patel",
-    "opened_at": "2026-06-07T14:28:40",
+    "opened_at": "2026-06-08T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 980000,
     "resolution_plan": null,
-    "last_update": "2026-06-08T14:28:40"
+    "last_update": "2026-06-09T23:44:47"
   },
   {
     "id": 21,
@@ -287,11 +287,11 @@
     "severity": "High",
     "status": "Open",
     "owner": "James Okafor",
-    "opened_at": "2026-06-02T14:28:40",
+    "opened_at": "2026-06-03T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 810000,
     "resolution_plan": null,
-    "last_update": "2026-06-08T14:28:40"
+    "last_update": "2026-06-09T23:44:47"
   },
   {
     "id": 22,
@@ -301,11 +301,11 @@
     "severity": "High",
     "status": "Open",
     "owner": "James Okafor",
-    "opened_at": "2026-05-18T14:28:40",
+    "opened_at": "2026-05-19T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 810000,
     "resolution_plan": null,
-    "last_update": "2026-06-07T14:28:40"
+    "last_update": "2026-06-08T23:44:47"
   },
   {
     "id": 23,
@@ -315,11 +315,11 @@
     "severity": "High",
     "status": "Open",
     "owner": "Aaliya Patel",
-    "opened_at": "2026-05-16T14:28:40",
+    "opened_at": "2026-05-17T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 840000,
     "resolution_plan": null,
-    "last_update": "2026-06-07T14:28:40"
+    "last_update": "2026-06-08T23:44:47"
   },
   {
     "id": 24,
@@ -329,11 +329,11 @@
     "severity": "Critical",
     "status": "Open",
     "owner": "Aaliya Patel",
-    "opened_at": "2026-06-05T14:28:40",
+    "opened_at": "2026-06-06T23:44:47",
     "executive_aware": true,
     "arr_at_risk": 840000,
     "resolution_plan": null,
-    "last_update": "2026-06-08T14:28:40"
+    "last_update": "2026-06-09T23:44:47"
   },
   {
     "id": 25,
@@ -343,11 +343,11 @@
     "severity": "High",
     "status": "Open",
     "owner": "Simone Dubois",
-    "opened_at": "2026-06-07T14:28:40",
+    "opened_at": "2026-06-08T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 310000,
     "resolution_plan": null,
-    "last_update": "2026-06-06T14:28:40"
+    "last_update": "2026-06-07T23:44:47"
   },
   {
     "id": 26,
@@ -357,11 +357,11 @@
     "severity": "Critical",
     "status": "Open",
     "owner": "Simone Dubois",
-    "opened_at": "2026-05-31T14:28:40",
+    "opened_at": "2026-06-01T23:44:47",
     "executive_aware": true,
     "arr_at_risk": 310000,
     "resolution_plan": null,
-    "last_update": "2026-06-08T14:28:40"
+    "last_update": "2026-06-09T23:44:47"
   },
   {
     "id": 27,
@@ -371,25 +371,25 @@
     "severity": "Critical",
     "status": "Open",
     "owner": "Simone Dubois",
-    "opened_at": "2026-05-27T14:28:40",
+    "opened_at": "2026-05-28T23:44:47",
     "executive_aware": true,
     "arr_at_risk": 310000,
     "resolution_plan": null,
-    "last_update": "2026-06-06T14:28:40"
+    "last_update": "2026-06-07T23:44:47"
   },
   {
     "id": 28,
     "customer_id": 42,
     "customer_name": "Lumen Insurance Group",
-    "title": "OT / SCADA integration failure blocking production security controls",
+    "title": "Guardian Agent false-positive storm disrupted customer's production agents",
     "severity": "High",
     "status": "Open",
     "owner": "Maya Rodriguez",
-    "opened_at": "2026-05-13T14:28:40",
+    "opened_at": "2026-05-14T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 700000,
     "resolution_plan": null,
-    "last_update": "2026-06-07T14:28:40"
+    "last_update": "2026-06-08T23:44:47"
   },
   {
     "id": 29,
@@ -399,11 +399,11 @@
     "severity": "High",
     "status": "In Progress",
     "owner": "Maya Rodriguez",
-    "opened_at": "2026-05-11T14:28:40",
+    "opened_at": "2026-05-12T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 700000,
     "resolution_plan": null,
-    "last_update": "2026-06-06T14:28:40"
+    "last_update": "2026-06-07T23:44:47"
   },
   {
     "id": 30,
@@ -413,11 +413,11 @@
     "severity": "Critical",
     "status": "Open",
     "owner": "Maya Rodriguez",
-    "opened_at": "2026-05-31T14:28:40",
+    "opened_at": "2026-06-01T23:44:47",
     "executive_aware": true,
     "arr_at_risk": 700000,
     "resolution_plan": null,
-    "last_update": "2026-06-08T14:28:40"
+    "last_update": "2026-06-09T23:44:47"
   },
   {
     "id": 31,
@@ -427,11 +427,11 @@
     "severity": "High",
     "status": "In Progress",
     "owner": "Maya Rodriguez",
-    "opened_at": "2026-05-23T14:28:40",
+    "opened_at": "2026-05-24T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 440000,
     "resolution_plan": null,
-    "last_update": "2026-06-07T14:28:40"
+    "last_update": "2026-06-08T23:44:47"
   },
   {
     "id": 32,
@@ -441,11 +441,11 @@
     "severity": "High",
     "status": "In Progress",
     "owner": "Maya Rodriguez",
-    "opened_at": "2026-05-29T14:28:40",
+    "opened_at": "2026-05-30T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 440000,
     "resolution_plan": null,
-    "last_update": "2026-06-08T14:28:40"
+    "last_update": "2026-06-09T23:44:47"
   },
   {
     "id": 33,
@@ -455,11 +455,11 @@
     "severity": "Critical",
     "status": "Open",
     "owner": "Maya Rodriguez",
-    "opened_at": "2026-05-22T14:28:40",
+    "opened_at": "2026-05-23T23:44:47",
     "executive_aware": true,
     "arr_at_risk": 440000,
     "resolution_plan": null,
-    "last_update": "2026-06-07T14:28:40"
+    "last_update": "2026-06-08T23:44:47"
   },
   {
     "id": 34,
@@ -469,11 +469,11 @@
     "severity": "High",
     "status": "In Progress",
     "owner": "Aaliya Patel",
-    "opened_at": "2026-05-05T14:28:40",
+    "opened_at": "2026-05-06T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 760000,
     "resolution_plan": "CSM monitoring weekly; escalation path prepared.",
-    "last_update": "2026-06-03T14:28:40"
+    "last_update": "2026-06-04T23:44:47"
   },
   {
     "id": 35,
@@ -483,11 +483,11 @@
     "severity": "High",
     "status": "In Progress",
     "owner": "James Okafor",
-    "opened_at": "2026-05-26T14:28:40",
+    "opened_at": "2026-05-27T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 750000,
     "resolution_plan": "CSM monitoring weekly; escalation path prepared.",
-    "last_update": "2026-06-02T14:28:40"
+    "last_update": "2026-06-03T23:44:47"
   },
   {
     "id": 36,
@@ -497,11 +497,11 @@
     "severity": "High",
     "status": "In Progress",
     "owner": "Priya Nair",
-    "opened_at": "2026-06-07T14:28:40",
+    "opened_at": "2026-06-08T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 640000,
     "resolution_plan": "CSM monitoring weekly; escalation path prepared.",
-    "last_update": "2026-06-05T14:28:40"
+    "last_update": "2026-06-06T23:44:47"
   },
   {
     "id": 37,
@@ -511,11 +511,11 @@
     "severity": "High",
     "status": "In Progress",
     "owner": "Hiroshi Tanaka",
-    "opened_at": "2026-05-18T14:28:40",
+    "opened_at": "2026-05-19T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 560000,
     "resolution_plan": "CSM monitoring weekly; escalation path prepared.",
-    "last_update": "2026-06-07T14:28:40"
+    "last_update": "2026-06-08T23:44:47"
   },
   {
     "id": 38,
@@ -525,11 +525,11 @@
     "severity": "High",
     "status": "In Progress",
     "owner": "Tyler Bennett",
-    "opened_at": "2026-06-08T14:28:40",
+    "opened_at": "2026-06-09T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 320000,
     "resolution_plan": "CSM monitoring weekly; escalation path prepared.",
-    "last_update": "2026-06-02T14:28:40"
+    "last_update": "2026-06-03T23:44:47"
   },
   {
     "id": 39,
@@ -539,24 +539,24 @@
     "severity": "High",
     "status": "In Progress",
     "owner": "Priya Nair",
-    "opened_at": "2026-06-07T14:28:40",
+    "opened_at": "2026-06-08T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 480000,
     "resolution_plan": "CSM monitoring weekly; escalation path prepared.",
-    "last_update": "2026-06-02T14:28:40"
+    "last_update": "2026-06-03T23:44:47"
   },
   {
     "id": 40,
     "customer_id": 49,
     "customer_name": "Pinnacle Gaming",
-    "title": "OT / SCADA integration failure blocking production security controls",
+    "title": "Guardian Agent false-positive storm disrupted customer's production agents",
     "severity": "High",
     "status": "In Progress",
     "owner": "Priya Nair",
-    "opened_at": "2026-05-11T14:28:40",
+    "opened_at": "2026-05-12T23:44:47",
     "executive_aware": false,
     "arr_at_risk": 400000,
     "resolution_plan": "CSM monitoring weekly; escalation path prepared.",
-    "last_update": "2026-06-07T14:28:40"
+    "last_update": "2026-06-08T23:44:47"
   }
 ]

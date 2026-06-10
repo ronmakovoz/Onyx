@@ -39,10 +39,17 @@ st.set_page_config(
 def _resolve_real_api_key():
     key = os.environ.get("ANTHROPIC_API_KEY", "")
     if not key:
-        try:
-            key = st.secrets["ANTHROPIC_API_KEY"]
-        except Exception:
-            key = ""
+        # Only touch st.secrets when a secrets file exists — accessing it
+        # otherwise renders a red "No secrets found" banner in the app.
+        _candidates = [
+            os.path.join(os.path.expanduser("~"), ".streamlit", "secrets.toml"),
+            os.path.join(os.getcwd(), ".streamlit", "secrets.toml"),
+        ]
+        if any(os.path.exists(p) for p in _candidates):
+            try:
+                key = st.secrets["ANTHROPIC_API_KEY"]
+            except Exception:
+                key = ""
     return key
 
 _REAL_API_KEY = _resolve_real_api_key()
@@ -67,6 +74,7 @@ AGENT_DISPLAY = {
     "ExpansionOpportunityAgent": "Expansion Opportunity",
     "QBRPreparationAgent":       "QBR Preparation",
     "SuccessPlanAgent":          "Success Plan",
+    "KickoffDeckAgent":          "Kickoff Deck",
 }
 
 def agent_display_name(name: str) -> str:
@@ -79,20 +87,27 @@ st.markdown("""
 
 * { font-family: 'Inter', sans-serif !important; }
 
-/* Page background */
-[data-testid="stAppViewContainer"] {
-    background: #F5F2EE !important;
-    min-height: 100vh;
+/* Page background — gradient lives on the NON-scrolling app container.
+   Putting it on stMain (a scroll container) with background-attachment:fixed
+   broke painting during reruns/scrolls, flashing the page white. The app
+   container spans the viewport and never scrolls, so the gradient is stable
+   no matter how long the page gets or what reruns. */
+html, .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"],
+[data-testid="stMainBlockContainer"] {
+    background: transparent !important;
 }
-/* Main (right) pane — light → soft Onyx pink/lavender gradient.
-   Anchored to the viewport (fixed) so the gradient looks identical whether the
-   page is short or grows long after running an agent — it no longer "darkens"
-   as content height increases. */
-[data-testid="stMain"] {
-    background: linear-gradient(160deg, #FFFFFF 0%, #FDF4F8 30%, #FAEFF6 58%, #F4EAF6 100%) !important;
-    background-attachment: fixed !important;
-    background-size: cover !important;
-    background-repeat: no-repeat !important;
+/* Solid brand fallback — even if the gradient layer ever fails, the page is
+   never stark white. */
+body { background: #FBF3F8 !important; }
+/* Gradient painted on a fixed full-viewport layer BEHIND all content.
+   position:fixed + z-index:-1 is immune to scroll containers, reruns, and
+   content height changes. */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(160deg, #FFFFFF 0%, #FDF4F8 30%, #FAEFF6 58%, #F4EAF6 100%);
 }
 
 /* Tighter main content padding */
@@ -111,48 +126,50 @@ st.markdown("""
 [data-testid="stSidebar"] span { color: #3D3458 !important; }
 [data-testid="stSidebar"] .stRadio label { color: #1B1040 !important; font-weight: 500 !important; font-size: 0.82rem !important; }
 
-/* Hide decorations */
+/* Hide decorations + the Deploy/menu toolbar (overlaps page content) */
 [data-testid="stDecoration"] { display: none !important; }
 [data-testid="stHeader"] { background: transparent !important; }
+[data-testid="stToolbar"] { display: none !important; }
+#MainMenu { visibility: hidden !important; }
 
-/* Typography — tighter */
-h1 { color: #1B1040 !important; font-weight: 800 !important; font-size: 1.6rem !important; letter-spacing: -0.03em !important; margin-bottom: 0 !important; }
-h2 { color: #1B1040 !important; font-weight: 700 !important; font-size: 1.1rem !important; letter-spacing: -0.02em !important; margin: 0 !important; }
-h3 { color: #1B1040 !important; font-weight: 600 !important; font-size: 0.95rem !important; margin: 0 !important; }
-p, li { color: #3D3458; font-size: 0.85rem; margin: 0; }
-.stMarkdown p { color: #3D3458; font-size: 0.85rem; }
+/* Typography — exec-readable scale */
+h1 { color: #1B1040 !important; font-weight: 800 !important; font-size: 1.75rem !important; letter-spacing: -0.03em !important; margin-bottom: 0 !important; }
+h2 { color: #1B1040 !important; font-weight: 700 !important; font-size: 1.15rem !important; letter-spacing: -0.02em !important; margin: 0 !important; }
+h3 { color: #1B1040 !important; font-weight: 600 !important; font-size: 1.0rem !important; margin: 0 !important; }
+p, li { color: #3D3458; font-size: 0.88rem; margin: 0; }
+.stMarkdown p { color: #3D3458; font-size: 0.88rem; }
 
-/* Cards — compact */
+/* Cards */
 .card {
     background: #FFFFFF;
     border: 1px solid #E8E4DC;
-    border-radius: 10px;
-    padding: 11px 14px;
-    margin-bottom: 6px;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
     box-shadow: 0 1px 4px rgba(27,16,64,0.05);
 }
 .card-red    { border-left: 3px solid #9B2335; }
 .card-yellow { border-left: 3px solid #7A5C1E; }
 .card-green  { border-left: 3px solid #2D5A3D; }
 
-/* KPI cards — compact */
+/* KPI cards */
 .kpi-card {
     background: #FFFFFF;
     border: 1px solid #E8E4DC;
-    border-radius: 10px;
-    padding: 12px 14px;
+    border-radius: 12px;
+    padding: 16px 18px;
     box-shadow: 0 1px 4px rgba(27,16,64,0.05);
-    min-height: 92px;
+    min-height: 102px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 .kpi-label {
-    font-size: 0.62rem; color: #6B6280; text-transform: uppercase;
-    letter-spacing: 0.10em; margin-bottom: 2px; font-weight: 700;
+    font-size: 0.66rem; color: #6B6280; text-transform: uppercase;
+    letter-spacing: 0.10em; margin-bottom: 3px; font-weight: 700;
 }
-.kpi-value { font-size: 1.55rem; font-weight: 800; color: #1B1040; line-height: 1.1; }
-.kpi-sub   { font-size: 0.68rem; color: #6B6280; margin-top: 1px; }
+.kpi-value { font-size: 1.7rem; font-weight: 800; color: #1B1040; line-height: 1.1; }
+.kpi-sub   { font-size: 0.72rem; color: #6B6280; margin-top: 2px; }
 
 /* Badges */
 .badge {
@@ -172,12 +189,14 @@ p, li { color: #3D3458; font-size: 0.85rem; margin: 0; }
     border-radius: 50px !important;
     font-weight: 600 !important;
     font-size: 0.78rem !important;
-    padding: 0.32rem 1.1rem !important;
+    padding: 0.34rem 0.8rem !important;
     height: auto !important;
     min-height: 0 !important;
     line-height: 1.4 !important;
     transition: all 0.15s ease !important;
     white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
 }
 /* Primary — dark navy, always white text (cover kind + stBaseButton testid) */
 .stButton > button[kind="primary"],
@@ -234,52 +253,63 @@ button[data-testid="stBaseButton-secondary"] *,
     box-shadow: 0 1px 4px rgba(27,16,64,0.04);
 }
 
-/* Tabs — slim pill */
+/* Tabs — modern underline style */
 .stTabs [data-baseweb="tab-list"] {
-    background: #E8E4DC !important;
-    border-radius: 50px !important;
-    padding: 3px !important;
-    gap: 1px !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    gap: 6px !important;
     border: none !important;
+    border-bottom: 1px solid #E0D8E8 !important;
 }
 .stTabs [data-baseweb="tab"] {
-    border-radius: 50px !important;
+    border-radius: 8px 8px 0 0 !important;
     color: #6B6280 !important;
     font-weight: 600 !important;
-    font-size: 0.75rem !important;
-    padding: 4px 12px !important;
+    font-size: 0.88rem !important;
+    padding: 8px 14px !important;
     background: transparent !important;
     white-space: nowrap !important;
 }
+.stTabs [data-baseweb="tab"]:hover { color: #1B1040 !important; background: #F4EAF6 !important; }
 .stTabs [aria-selected="true"] {
-    background: #1B1040 !important;
-    box-shadow: 0 1px 4px rgba(27,16,64,0.22) !important;
+    background: transparent !important;
+    box-shadow: none !important;
 }
 .stTabs [aria-selected="true"],
 .stTabs [aria-selected="true"] * {
-    color: #FFFFFF !important;
-    fill: #FFFFFF !important;
+    color: #1B1040 !important;
+    fill: #1B1040 !important;
+    font-weight: 700 !important;
+}
+.stTabs [data-baseweb="tab-highlight"] {
+    background-color: #1B1040 !important;
+    height: 3px !important;
+    border-radius: 3px 3px 0 0 !important;
 }
 .stTabs [data-baseweb="tab-panel"] {
     background: transparent !important;
-    padding-top: 10px !important;
+    padding-top: 14px !important;
 }
 .stTabs [data-baseweb="tab-border"] { display: none !important; }
 
-/* Selectbox trigger */
+/* Selectbox trigger — modern rounded field */
 [data-baseweb="select"] > div {
     background: #FFFFFF !important;
-    border: 1.5px solid #D8D3C8 !important;
-    border-radius: 8px !important;
+    border: 1px solid #E0D8E8 !important;
+    border-radius: 12px !important;
     color: #1B1040 !important;
-    min-height: 36px !important;
-    font-size: 0.82rem !important;
+    min-height: 42px !important;
+    font-size: 0.88rem !important;
+    box-shadow: 0 1px 4px rgba(27,16,64,0.06) !important;
+    transition: border-color 0.12s ease, box-shadow 0.12s ease !important;
 }
+[data-baseweb="select"] > div:hover { border-color: #B9AEE0 !important; }
 [data-baseweb="select"] > div:focus-within {
     border-color: #1B1040 !important;
-    box-shadow: 0 0 0 2px rgba(27,16,64,0.10) !important;
+    box-shadow: 0 0 0 3px rgba(27,16,64,0.10) !important;
 }
-[data-baseweb="select"] span { color: #1B1040 !important; font-size: 0.82rem !important; }
+[data-baseweb="select"] span { color: #1B1040 !important; font-size: 0.88rem !important; }
 
 /* Dropdown list popup */
 [data-baseweb="popover"] { z-index: 9999 !important; }
@@ -327,29 +357,46 @@ summary { color: #1B1040 !important; font-weight: 600 !important; }
 hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
 
 /* Sidebar radio nav — hide radio circles, style as clean nav links */
-[data-testid="stSidebar"] .stRadio > div { gap: 2px !important; }
+[data-testid="stSidebar"] .stRadio > div { gap: 3px !important; }
 [data-testid="stSidebar"] .stRadio > div > label {
-    border-radius: 6px !important;
-    padding: 7px 10px !important;
+    border-radius: 8px !important;
+    padding: 8px 12px !important;
     margin-bottom: 0 !important;
     transition: background 0.12s ease !important;
-    font-size: 0.82rem !important;
+    font-size: 0.88rem !important;
     font-weight: 500 !important;
     color: #3D3458 !important;
     display: flex !important;
+    flex-wrap: wrap !important;
     align-items: center !important;
     cursor: pointer !important;
 }
 [data-testid="stSidebar"] .stRadio > div > label:hover { background: #EDE9E4 !important; color: #1B1040 !important; }
 /* Hide the actual radio circle */
 [data-testid="stSidebar"] .stRadio > div > label > div:first-child { display: none !important; }
-/* Highlight selected item */
+/* Highlight selected item — left accent bar + tint */
 [data-testid="stSidebar"] .stRadio > div > label[data-baseweb="radio"]:has(input:checked),
-[data-testid="stSidebar"] .stRadio [aria-checked="true"] ~ label,
 [data-testid="stSidebar"] .stRadio > div > label:has(input[type="radio"]:checked) {
-    background: #E8E4DC !important;
+    background: #F4EAF6 !important;
+    box-shadow: inset 3px 0 0 #1B1040 !important;
     color: #1B1040 !important;
     font-weight: 700 !important;
+}
+/* Workflow section labels above nav groups (pages 1, 5, 7) */
+[data-testid="stSidebar"] .stRadio > div > label:nth-child(1)::before { content: "Monitor"; }
+[data-testid="stSidebar"] .stRadio > div > label:nth-child(5)::before { content: "Deliver"; margin-top: 10px; }
+[data-testid="stSidebar"] .stRadio > div > label:nth-child(7)::before { content: "Govern"; margin-top: 10px; }
+[data-testid="stSidebar"] .stRadio > div > label:nth-child(1)::before,
+[data-testid="stSidebar"] .stRadio > div > label:nth-child(5)::before,
+[data-testid="stSidebar"] .stRadio > div > label:nth-child(7)::before {
+    display: block;
+    width: 100%;
+    font-size: 0.60rem;
+    font-weight: 700;
+    color: #9B93A8;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 4px;
 }
 
 /* Skeptik boxes */
@@ -364,22 +411,47 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
     font-size: 0.82rem;
 }
 
-/* Agent report card — refined typography for agent markdown output */
-[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) {
-    background: #FFFFFF !important;
-    border: 1px solid #E8E4DC !important;
+/* Agent report card — executive document treatment.
+   :has(.agent-report-marker) alone matches EVERY ancestor wrapper of the
+   report (nested cards/watermarks); the :not(:has(...)) clause restricts the
+   styling to the innermost container that directly holds the marker. */
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker):not(:has([data-testid="stVerticalBlockBorderWrapper"] .agent-report-marker)) {
+    background: linear-gradient(180deg, #FDFBF7 0%, #FFFFFF 120px) !important;
+    border: 1px solid #E0D8E8 !important;
+    border-top: 4px solid #1B1040 !important;
     border-radius: 14px !important;
-    box-shadow: 0 1px 6px rgba(27,16,64,0.05) !important;
-    padding: 6px 26px 18px !important;
+    box-shadow: 0 10px 30px rgba(27,16,64,0.10), 0 2px 6px rgba(27,16,64,0.05) !important;
+    padding: 14px 30px 22px !important;
+    position: relative !important;
+}
+/* Neutralize ancestor wrappers that merely contain a report deeper down */
+[data-testid="stVerticalBlockBorderWrapper"]:has([data-testid="stVerticalBlockBorderWrapper"] .agent-report-marker) {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+/* Watermark-style brand mark in the report's top-right corner */
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker):not(:has([data-testid="stVerticalBlockBorderWrapper"] .agent-report-marker))::after {
+    content: "ONYX";
+    position: absolute;
+    top: 14px;
+    right: 20px;
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    color: #D8CFE4;
 }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] h1 {
-    font-size: 1.15rem !important; margin: 8px 0 2px !important; letter-spacing: -0.02em !important;
+    font-size: 1.2rem !important; margin: 8px 0 4px !important; letter-spacing: -0.02em !important;
+    padding-bottom: 8px !important; border-bottom: 2px solid #1B1040 !important;
 }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] h2 {
-    font-size: 0.82rem !important; font-weight: 700 !important; color: #6B6280 !important;
-    text-transform: uppercase !important; letter-spacing: 0.08em !important;
-    margin: 18px 0 6px !important; padding-bottom: 5px !important;
-    border-bottom: 1px solid #EFEBE4 !important;
+    font-size: 0.80rem !important; font-weight: 800 !important; color: #1B1040 !important;
+    text-transform: uppercase !important; letter-spacing: 0.10em !important;
+    margin: 20px 0 8px !important; padding: 5px 10px !important;
+    background: #F4EAF6 !important; border-radius: 6px !important;
+    border-bottom: none !important; display: inline-block !important;
 }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] h3 {
     font-size: 0.9rem !important; margin: 12px 0 4px !important; color: #1B1040 !important;
@@ -407,8 +479,19 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
 .stProgress > div > div > div { background: #E8E4DC !important; border-radius: 4px !important; }
 .stProgress { margin: 4px 0 !important; }
 
-/* Line chart */
-[data-testid="stVegaLiteChart"] { background: #FFFFFF !important; border-radius: 10px !important; border: 1px solid #E8E4DC !important; padding: 6px !important; }
+/* Line chart — white card, chart clipped inside the rounded border */
+[data-testid="stVegaLiteChart"], [data-testid="stArrowVegaLiteChart"] {
+    background: #FFFFFF !important;
+    border-radius: 10px !important;
+    border: 1px solid #E8E4DC !important;
+    padding: 10px 12px 4px !important;
+    overflow: hidden !important;
+    width: 100% !important;
+}
+[data-testid="stVegaLiteChart"] canvas, [data-testid="stArrowVegaLiteChart"] canvas {
+    background: #FFFFFF !important;
+    max-width: 100% !important;
+}
 
 /* Vertical gaps between streamlit elements */
 .element-container { margin-bottom: 0.55rem !important; }
@@ -430,11 +513,11 @@ div[data-testid="column"] > div { gap: 0.55rem !important; }
 [data-testid="stTooltipContent"] p,
 [data-testid="stTooltipContent"] * { color: #FFFFFF !important; font-size: 0.74rem !important; }
 
-/* ── Final guaranteed overrides: white text on dark surfaces ── */
+/* ── Final guaranteed overrides ── */
 .stTabs [data-baseweb="tab-list"] button[aria-selected="true"],
 .stTabs [data-baseweb="tab-list"] button[aria-selected="true"] *,
 .stTabs [data-baseweb="tab-list"] button[aria-selected="true"] p {
-    color: #FFFFFF !important; fill: #FFFFFF !important;
+    color: #1B1040 !important; fill: #1B1040 !important;
 }
 .stButton > button[kind="primary"] p,
 .stButton > button[kind="primaryFormSubmit"] p,
@@ -620,8 +703,8 @@ def fetch_costs():
 # ── UI utilities ──────────────────────────────────────────────────────────────
 
 def risk_icon(level):
-    return {"High": "🔴", "Medium": "🟡", "Low": "🟢",
-            "Critical": "🔴", "At Risk": "🟡", "Healthy": "🟢"}.get(level, "⚪")
+    return {"High": "High risk", "Medium": "Medium risk", "Low": "Healthy",
+            "Critical": "Critical", "At Risk": "At risk", "Healthy": "Healthy"}.get(level, "")
 
 def health_color(score):
     if score < 40: return "#9B2335"
@@ -708,12 +791,21 @@ def render_agent_output(result, show_structured=True, nested=False):
 
 
 def page_header(title, subtitle=""):
-    sub = f"<div style='color:#6B6280;font-size:0.82rem;margin-bottom:14px'>{subtitle}</div>" if subtitle else "<div style='margin-bottom:8px'></div>"
-    st.markdown(f"<h1 style='margin-bottom:2px'>{title}</h1>{sub}", unsafe_allow_html=True)
+    today = datetime.now().strftime("%A, %B %d, %Y")
+    sub = f"<div style='color:#6B6280;font-size:0.84rem;margin-top:2px'>{subtitle}</div>" if subtitle else ""
+    st.markdown(f"""
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;
+     border-bottom:1px solid #E8E4DC;padding-bottom:12px;margin-bottom:16px">
+  <div><h1 style="margin:0">{title}</h1>{sub}</div>
+  <div style="text-align:right;flex-shrink:0">
+    <div style="font-size:0.70rem;color:#9B93A8">{today}</div>
+    <div style="font-size:0.66rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-top:2px">Onyx · Secure AI Control Plane</div>
+  </div>
+</div>""", unsafe_allow_html=True)
 
 
 _export_counter = [0]
-def export_button(content: str, filename: str, label: str = "⬇️ Export"):
+def export_button(content: str, filename: str, label: str = "Export"):
     _export_counter[0] += 1
     st.download_button(label=label, data=content, file_name=filename,
                        mime="text/markdown", key=f"dl_{_export_counter[0]}_{filename[:20]}")
@@ -789,30 +881,11 @@ def build_exec_summary(summary, customers):
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 
 with st.sidebar:
-    # ── Mock / Live API toggle (top-left) ─────────────────────────────────────
-    if _REAL_API_KEY:
-        live = st.toggle("Live Anthropic API", value=st.session_state.get("live_api", False))
-        st.session_state["live_api"] = live
-        if live:
-            os.environ["ANTHROPIC_API_KEY"] = _REAL_API_KEY
-            st.markdown("<div style='font-size:0.66rem;color:#2D5A3D;font-weight:700;margin:-4px 0 6px'>● LIVE — calling Claude</div>", unsafe_allow_html=True)
-        else:
-            os.environ.pop("ANTHROPIC_API_KEY", None)
-            st.markdown("<div style='font-size:0.66rem;color:#7A5C1E;font-weight:700;margin:-4px 0 6px'>● MOCK — no API calls</div>", unsafe_allow_html=True)
-    else:
-        os.environ.pop("ANTHROPIC_API_KEY", None)
-        st.session_state["live_api"] = False
-        st.markdown("<div style='font-size:0.66rem;color:#7A5C1E;font-weight:700;margin:0 0 6px'>● MOCK — set ANTHROPIC_API_KEY to enable live</div>", unsafe_allow_html=True)
+    st.markdown("<div style='padding:10px 0 6px'><span style='font-size:1.3rem;font-weight:900;color:#1B1040;letter-spacing:-0.04em'>ONYX</span><span style='font-size:0.65rem;font-weight:700;color:#6B6280;letter-spacing:0.12em;margin-left:8px;vertical-align:middle'>CX AGENT OS</span></div>", unsafe_allow_html=True)
 
-    if st.button("About the Agents", use_container_width=True, key="sb_about", type="secondary"):
-        st.session_state["show_agent_guide"] = True
-
-    st.markdown("<div style='padding:8px 0 4px'><span style='font-size:1.3rem;font-weight:900;color:#1B1040;letter-spacing:-0.04em'>ONYX</span><span style='font-size:0.65rem;font-weight:700;color:#6B6280;letter-spacing:0.12em;margin-left:8px;vertical-align:middle'>CX AGENT OS</span></div>", unsafe_allow_html=True)
-
-    st.markdown("---")
-
-    _pages = ["Executive Dashboard", "Customer 360", "CSM Performance", "Agent Console",
-              "Briefings", "Implementation Digest", "Audit Trail & Costs"]
+    # Ordered to follow the exec workflow: monitor → inspect → deliver → report → govern
+    _pages = ["Executive Dashboard", "Customer 360", "Implementation Digest", "CSM Performance",
+              "Briefings", "Agent Console", "Audit Trail & Costs"]
     # Single source of truth: the radio's own key holds the current page.
     # Programmatic navigation from other pages stages "_pending_nav" and reruns;
     # we apply it here (before the widget is instantiated) to avoid Streamlit's
@@ -879,6 +952,26 @@ with st.sidebar:
         if st.button("Health Check", use_container_width=True, key="sb_health", type="secondary"):
             st.session_state["quick_run"] = ("CustomerHealthAgent", qcust)
             st.rerun()
+
+    st.markdown("---")
+
+    # ── Footer controls: data mode + agent guide ──────────────────────────────
+    if _REAL_API_KEY:
+        live = st.toggle("Live Anthropic API", value=st.session_state.get("live_api", False))
+        st.session_state["live_api"] = live
+        if live:
+            os.environ["ANTHROPIC_API_KEY"] = _REAL_API_KEY
+            st.markdown("<div style='font-size:0.66rem;color:#2D5A3D;font-weight:700;margin:-4px 0 6px'>LIVE — calling Claude</div>", unsafe_allow_html=True)
+        else:
+            os.environ.pop("ANTHROPIC_API_KEY", None)
+            st.markdown("<div style='font-size:0.66rem;color:#7A5C1E;font-weight:700;margin:-4px 0 6px'>MOCK — no API calls</div>", unsafe_allow_html=True)
+    else:
+        os.environ.pop("ANTHROPIC_API_KEY", None)
+        st.session_state["live_api"] = False
+        st.markdown("<div style='font-size:0.66rem;color:#7A5C1E;font-weight:700;margin:0 0 6px'>MOCK — set ANTHROPIC_API_KEY to enable live</div>", unsafe_allow_html=True)
+
+    if st.button("About the Agents", use_container_width=True, key="sb_about", type="secondary"):
+        st.session_state["show_agent_guide"] = True
 
 
 
@@ -966,6 +1059,13 @@ def show_agent_guide():
             "what": "Creates a time-phased 30/60/90 success plan: objective, current vs. target state, owned workstreams, dated milestones, success metrics, and risks with mitigations.",
             "outputs": ["Objective", "Current & target state", "Workstreams", "30/60/90 milestones", "Success metrics", "Risks & mitigations"],
         },
+        {
+            "name": "Kickoff Deck Agent",
+            "icon": "", "model": "Sonnet", "model_color": "#3D3458", "model_bg": "#EDEAF4",
+            "when": "Right after a new contract is signed, before the first joint implementation session.",
+            "what": "Generates the client-facing implementation kickoff deck: maps Onyx's standard 12-milestone methodology onto the customer's stakeholders, industry, and go-live target, with named owners on both sides, success metrics, and a concrete first-30-days plan.",
+            "outputs": ["Partnership vision", "Engagement team map", "Scope & objectives", "Milestone timeline (dated)", "Success metrics", "First 30 days plan", "Governance cadence", "Customer prerequisites"],
+        },
     ]
 
     # model routing legend
@@ -1038,7 +1138,7 @@ if page == "Executive Dashboard":
     customers = fetch_customers()
 
     if not summary or not customers:
-        st.error("❌ Failed to load data. Check that the database is initialized.")
+        st.error("Failed to load data. Check that the database is initialized.")
         st.stop()
 
     total_arr = summary.get('total_arr', 0)
@@ -1208,7 +1308,6 @@ if page == "Executive Dashboard":
 # ══════════════════════════════════════════════════════════════════════════════
 
 elif page == "Customer 360":
-    page_header("Customer 360")
     customers = fetch_customers()
     if not customers:
         st.error("No customers loaded.")
@@ -1217,13 +1316,25 @@ elif page == "Customer 360":
     cmap = {c["id"]: c for c in customers}
     default_id = st.session_state.get("selected_cid", customers[0]["id"])
 
-    cid = st.selectbox(
-        "Select customer",
-        options=[c["id"] for c in customers],
-        format_func=lambda x: f"{risk_icon(cmap[x].get('risk_level','?'))} {cmap[x]['name']} — {cmap[x]['industry']} · ${cmap[x]['arr']:,}",
-        index=next((i for i, c in enumerate(customers) if c["id"] == default_id), 0),
-    )
+    # Header row: customer name IS the page title; account picker on the right.
+    # The picker column is rendered first (Streamlit fills columns in code
+    # order) so the title can reflect the selection within the same run.
+    head_l, head_r = st.columns([2.2, 1.3], vertical_alignment="center")
+    with head_r:
+        cid = st.selectbox(
+            "Switch account",
+            options=[c["id"] for c in customers],
+            format_func=lambda x: f"{cmap[x]['name']} · {risk_icon(cmap[x].get('risk_level','?'))}",
+            index=next((i for i, c in enumerate(customers) if c["id"] == default_id), 0),
+            label_visibility="collapsed",
+        )
     st.session_state["selected_cid"] = cid
+    with head_l:
+        st.markdown(f"""
+<div style="border-bottom:none;padding-bottom:0">
+  <div style="font-size:0.64rem;font-weight:700;color:#9B93A8;text-transform:uppercase;letter-spacing:0.14em">Customer 360</div>
+  <h1 style="margin:0">{cmap[cid]['name']}</h1>
+</div>""", unsafe_allow_html=True)
 
     data = fetch_360(cid)
     if not data or not data.get("customer"):
@@ -1254,9 +1365,7 @@ elif page == "Customer 360":
                 border-left:4px solid {risk_color};padding:16px 20px;margin-bottom:14px">
       <div style="display:flex;align-items:flex-start;gap:20px">
         <div style="flex:1;min-width:0">
-          <div style="font-size:1.25rem;font-weight:800;color:#1B1040;letter-spacing:-0.02em;line-height:1.2">
-            {c['name']}</div>
-          <div style="color:#6B6280;font-size:0.75rem;margin-top:3px">
+          <div style="color:#6B6280;font-size:0.8rem">
             {c['industry']} &nbsp;·&nbsp; {c.get('customer_tier','?')} &nbsp;·&nbsp; {c.get('region','?')} &nbsp;·&nbsp;
             {c.get('employee_count','?'):,} employees &nbsp;·&nbsp;
             <span style="font-weight:700;color:#1B1040">${c['arr']:,} ARR</span>
@@ -1284,14 +1393,6 @@ elif page == "Customer 360":
           <div style="font-size:1.05rem;font-weight:800;color:{risk_color};line-height:1.3">{c.get('renewal_risk_score',0):.0%}</div>
         </div>
         <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:80px">
-          <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Open Tickets</div>
-          <div style="font-size:1.05rem;font-weight:800;color:#1B1040;line-height:1.3">{open_tickets}</div>
-        </div>
-        <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:80px">
-          <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Escalations</div>
-          <div style="font-size:1.05rem;font-weight:800;color:{'#9B2335' if escs else '#2D5A3D'};line-height:1.3">{len(escs)}</div>
-        </div>
-        <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:80px">
           <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Renewal</div>
           <div style="font-size:1.05rem;font-weight:800;color:#1B1040;line-height:1.3">{renewal_days}d</div>
         </div>
@@ -1307,177 +1408,185 @@ elif page == "Customer 360":
           <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">NPS</div>
           <div style="font-size:1.05rem;font-weight:800;color:{'#2D5A3D' if c.get('nps',0)>=8 else '#7A5C1E' if c.get('nps',0)>=5 else '#9B2335'};line-height:1.3">{c.get('nps','?')}</div>
         </div>
-        <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:90px">
-          <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Time to Value</div>
-          <div style="font-size:1.05rem;font-weight:800;color:#1B1040;line-height:1.3">{(str(c['time_to_first_value_days'])+'d') if c.get('time_to_first_value_days') else '—'}</div>
-        </div>
       </div>
     </div>
     """, unsafe_allow_html=True)
 
-    # ── Renewal prediction + ROI + recommended action plan ───────────────────
-    rr      = c.get("renewal_risk_score", 0)
-    renew_conf = round((1 - rr) * 100)
-    rconf_color = "#2D5A3D" if renew_conf >= 70 else "#7A5C1E" if renew_conf >= 45 else "#9B2335"
-    rverdict = "Likely to Renew" if renew_conf >= 70 else "Renewal at Risk" if renew_conf < 45 else "Needs Attention"
-    # Build a concrete action plan from the account's signals
-    plan = []
-    if c.get("champion_status") == "Left Company":
-        plan.append("Identify and recruit a new executive champion")
-    if escs:
-        plan.append(f"Resolve {len(escs)} open escalation{'s' if len(escs)!=1 else ''} with daily exec updates")
-    if open_tickets >= 3:
-        plan.append(f"Clear support backlog ({open_tickets} open tickets)")
-    if c.get("adoption_score", 100) < 50:
-        plan.append("Run an adoption workshop to drive feature activation")
-    if c.get("qbr_completion") == "Overdue":
-        plan.append("Schedule the overdue QBR with the economic buyer")
-    if c.get("expansion_pipeline_arr"):
-        plan.append(f"Advance ${c['expansion_pipeline_arr']/1e3:.0f}K expansion opportunity")
-    if not plan:
-        plan = ["Maintain cadence; pursue reference and advocacy opportunities"]
-    plan = plan[:4]
-    plan_html = "".join(f"<div style='font-size:0.76rem;color:#3D3458;margin-top:5px;line-height:1.35'>{i+1}. {step}</div>" for i, step in enumerate(plan))
+    # ── Tabbed layout — everything below the hero lives in a tab ──────────────
+    tab_over, tab_ai, tab_use, tab_impl, tab_support, tab_people, tab_renew = st.tabs(
+        ["Overview", "AI Agents", "Usage & Health", "Implementation", "Support", "People", "Renewal"]
+    )
+    # Merged tabs: Support = tickets + escalations, People = stakeholders + notes.
+    tab_tick = tab_escs = tab_support
+    tab_stk = tab_notes = tab_people
 
-    rp1, rp2, rp3 = st.columns([1, 1, 1.4])
-    with rp1:
-        st.markdown(f"""
+    with tab_over:
+        # ── Renewal prediction + ROI + recommended action plan ────────────────
+        rr      = c.get("renewal_risk_score", 0)
+        renew_conf = round((1 - rr) * 100)
+        rconf_color = "#2D5A3D" if renew_conf >= 70 else "#7A5C1E" if renew_conf >= 45 else "#9B2335"
+        rverdict = "Likely to Renew" if renew_conf >= 70 else "Renewal at Risk" if renew_conf < 45 else "Needs Attention"
+        # Build a concrete action plan from the account's signals
+        plan = []
+        if c.get("champion_status") == "Left Company":
+            plan.append("Identify and recruit a new executive champion")
+        if escs:
+            plan.append(f"Resolve {len(escs)} open escalation{'s' if len(escs)!=1 else ''} with daily exec updates")
+        if open_tickets >= 3:
+            plan.append(f"Clear support backlog ({open_tickets} open tickets)")
+        if c.get("adoption_score", 100) < 50:
+            plan.append("Run an adoption workshop to drive feature activation")
+        if c.get("qbr_completion") == "Overdue":
+            plan.append("Schedule the overdue QBR with the economic buyer")
+        if c.get("expansion_pipeline_arr"):
+            plan.append(f"Advance ${c['expansion_pipeline_arr']/1e3:.0f}K expansion opportunity")
+        if not plan:
+            plan = ["Maintain cadence; pursue reference and advocacy opportunities"]
+        plan = plan[:4]
+        plan_html = "".join(f"<div style='font-size:0.76rem;color:#3D3458;margin-top:5px;line-height:1.35'>{i+1}. {step}</div>" for i, step in enumerate(plan))
+
+        rp1, rp2, rp3 = st.columns([1, 1, 1.4])
+        with rp1:
+            st.markdown(f"""
 <div style="background:#FFFFFF;border:1px solid #E8E4DC;border-radius:10px;padding:12px 14px;height:100%">
   <div style="font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Renewal Prediction</div>
   <div style="font-size:1.6rem;font-weight:900;color:{rconf_color};line-height:1.1;margin-top:4px">{renew_conf}%</div>
   <div style="font-size:0.74rem;font-weight:700;color:{rconf_color}">{rverdict}</div>
   <div style="font-size:0.68rem;color:#6B6280;margin-top:4px">{renewal_days}d to renewal · {c.get('forecast_category', renewal.get('forecast_category','—') if renewal else '—')}</div>
 </div>""", unsafe_allow_html=True)
-    with rp2:
-        st.markdown(f"""
+        with rp2:
+            st.markdown(f"""
 <div style="background:#FFFFFF;border:1px solid #E8E4DC;border-radius:10px;padding:12px 14px;height:100%">
   <div style="font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Proven Business Outcome</div>
   <div style="font-size:0.92rem;font-weight:700;color:#2D5A3D;line-height:1.3;margin-top:6px">{c.get('roi_outcome','—')}</div>
   <div style="font-size:0.68rem;color:#6B6280;margin-top:6px">Utilization {c.get('utilization_pct','?')}% · Exec engagement {c.get('executive_engagement','?')}</div>
 </div>""", unsafe_allow_html=True)
-    with rp3:
-        st.markdown(f"""
+        with rp3:
+            st.markdown(f"""
 <div style="background:#FFFFFF;border:1px solid #E8E4DC;border-radius:10px;padding:12px 14px;height:100%">
   <div style="font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Recommended Action Plan</div>
   {plan_html}
 </div>""", unsafe_allow_html=True)
 
-    st.markdown("<div style='margin:8px 0'></div>", unsafe_allow_html=True)
-    # ── Outcome tracking: did we act on the AI's recommendation? ───────────────
-    action = get_action_status(cid)
-    cur_status = action.get("status", "Open")
-    status_meta = {
-        "Open":        ("#7A5C1E", "#FDF8EE", "Not yet actioned"),
-        "In Progress": ("#2D4A7A", "#EEF2FB", "In progress"),
-        "Done":        ("#2D5A3D", "#EFF6F1", "Closed — action taken"),
-        "Dismissed":   ("#6B6280", "#F0EEEA", "Dismissed"),
-    }
-    scolor, sbg, slabel = status_meta.get(cur_status, status_meta["Open"])
-    when = (action.get("updated_at") or "")[:16].replace("T", " ")
+        st.markdown("<div style='margin:8px 0'></div>", unsafe_allow_html=True)
+        # ── Outcome tracking: did we act on the AI's recommendation? ──────────
+        action = get_action_status(cid)
+        cur_status = action.get("status", "Open")
+        status_meta = {
+            "Open":        ("#7A5C1E", "#FDF8EE", "Not yet actioned"),
+            "In Progress": ("#2D4A7A", "#EEF2FB", "In progress"),
+            "Done":        ("#2D5A3D", "#EFF6F1", "Closed — action taken"),
+            "Dismissed":   ("#6B6280", "#F0EEEA", "Dismissed"),
+        }
+        scolor, sbg, slabel = status_meta.get(cur_status, status_meta["Open"])
+        when = (action.get("updated_at") or "")[:16].replace("T", " ")
 
-    ac_l, ac_r = st.columns([1.5, 2.5])
-    with ac_l:
-        st.markdown(
-            f"<div style='background:{sbg};border:1px solid {scolor}33;border-radius:10px;padding:10px 14px'>"
-            f"<div style='font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em'>Recommendation Status</div>"
-            f"<div style='font-size:0.95rem;font-weight:800;color:{scolor};margin-top:3px'>{slabel}</div>"
-            f"<div style='font-size:0.64rem;color:#9B93A8;margin-top:2px'>{('updated '+when) if when else 'no action logged yet'}</div>"
-            f"</div>", unsafe_allow_html=True)
-    with ac_r:
-        st.markdown("<div style='font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px'>Log Outcome</div>", unsafe_allow_html=True)
-        b1, b2, b3, b4 = st.columns(4)
-        if b1.button("Open", use_container_width=True, key="act_open",
-                     type="primary" if cur_status == "Open" else "secondary"):
-            set_action_status(cid, "Open"); st.rerun()
-        if b2.button("In Progress", use_container_width=True, key="act_prog",
-                     type="primary" if cur_status == "In Progress" else "secondary"):
-            set_action_status(cid, "In Progress"); st.rerun()
-        if b3.button("Done", use_container_width=True, key="act_done",
-                     type="primary" if cur_status == "Done" else "secondary"):
-            set_action_status(cid, "Done"); st.rerun()
-        if b4.button("Dismiss", use_container_width=True, key="act_dismiss",
-                     type="primary" if cur_status == "Dismissed" else "secondary"):
-            set_action_status(cid, "Dismissed"); st.rerun()
+        ac_l, ac_r = st.columns([1.5, 2.5])
+        with ac_l:
+            st.markdown(
+                f"<div style='background:{sbg};border:1px solid {scolor}33;border-radius:10px;padding:10px 14px'>"
+                f"<div style='font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em'>Recommendation Status</div>"
+                f"<div style='font-size:0.95rem;font-weight:800;color:{scolor};margin-top:3px'>{slabel}</div>"
+                f"<div style='font-size:0.64rem;color:#9B93A8;margin-top:2px'>{('updated '+when) if when else 'no action logged yet'}</div>"
+                f"</div>", unsafe_allow_html=True)
+        with ac_r:
+            st.markdown("<div style='font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px'>Log Outcome</div>", unsafe_allow_html=True)
+            b1, b2, b3, b4 = st.columns(4)
+            if b1.button("Open", use_container_width=True, key="act_open",
+                         type="primary" if cur_status == "Open" else "secondary"):
+                set_action_status(cid, "Open"); st.rerun()
+            if b2.button("In Progress", use_container_width=True, key="act_prog",
+                         type="primary" if cur_status == "In Progress" else "secondary"):
+                set_action_status(cid, "In Progress"); st.rerun()
+            if b3.button("Done", use_container_width=True, key="act_done",
+                         type="primary" if cur_status == "Done" else "secondary"):
+                set_action_status(cid, "Done"); st.rerun()
+            if b4.button("Dismiss", use_container_width=True, key="act_dismiss",
+                         type="primary" if cur_status == "Dismissed" else "secondary"):
+                set_action_status(cid, "Dismissed"); st.rerun()
 
-    st.markdown("<div style='margin:16px 0 4px'></div>", unsafe_allow_html=True)
-
-    # ── Agent action bar ──────────────────────────────────────────────────────
-    st.markdown("<div style='font-size:0.68rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Run Agents</div>", unsafe_allow_html=True)
-    triggered = None
-    row_a = st.columns(5)
-    row_b = st.columns(5)
-    btns = [
-        (row_a[0], "CustomerHealthAgent",       "Health Assessment",      "secondary"),
-        (row_a[1], "ImplementationAgent",       "Implementation Report",  "secondary"),
-        (row_a[2], "BriefingAgent",             "Generate CEO Briefing",  "primary"),
-        (row_a[3], "EscalationCommanderAgent",  "Escalation Commander",   "primary"),
-        (row_a[4], "SkeptikQAAgent",            "Skeptik QA Review",      "secondary"),
-        (row_b[0], "ExpansionOpportunityAgent", "Expansion Opportunity",  "secondary"),
-        (row_b[1], "QBRPreparationAgent",       "Prepare QBR",            "secondary"),
-        (row_b[2], "SuccessPlanAgent",          "Build Success Plan",     "secondary"),
-    ]
-    for col, aname, label, btype in btns:
-        with col:
-            if st.button(label, use_container_width=True, type=btype, key=f"360_{aname}"):
-                triggered = aname
-
-    if triggered:
-        with st.spinner(f"Running {agent_display_name(triggered)}…"):
-            result = call_agent(triggered, cid)
-        st.session_state[f"360_result_{cid}_{triggered}"] = result
-        # Track which agent was last run for this customer so the freshest
-        # result always renders, even when an agent is re-run (which overwrites
-        # its key in place rather than appending it to session_state).
-        st.session_state[f"360_last_{cid}"] = triggered
-
-    # Show the result for the most recently triggered agent on this customer
-    last_agent = st.session_state.get(f"360_last_{cid}")
-    recent_key = f"360_result_{cid}_{last_agent}" if last_agent else None
-    if not (recent_key and recent_key in st.session_state):
-        # Fallback: any stored result for this customer
-        recent_key = next(
-            (k for k in reversed(list(st.session_state.keys()))
-             if k.startswith(f"360_result_{cid}_")), None
-        )
-    if recent_key:
-        result = st.session_state[recent_key]
-        agent_label = recent_key.split(f"360_result_{cid}_")[-1]
-        agent_nice  = agent_display_name(result.get("agent_name", agent_label))
-        st.markdown(f"<div style='font-size:0.78rem;font-weight:800;color:#1B1040;letter-spacing:-0.01em;margin:12px 0 4px'>{agent_nice}</div>", unsafe_allow_html=True)
-
-        # Skeptik shows before/after
-        if "SkeptikQAAgent" in recent_key:
-            prior_key = next(
-                (k for k in reversed(list(st.session_state.keys()))
-                 if k.startswith(f"360_result_{cid}_") and "Skeptik" not in k), None
+    with tab_ai:
+        # ── Single agent picker — grouped options, one Run action ─────────────
+        triggered = None
+        agent_menu = [
+            ("CustomerHealthAgent",       "Assess",  "Health Assessment"),
+            ("ImplementationAgent",       "Assess",  "Implementation Report"),
+            ("ExpansionOpportunityAgent", "Grow",    "Expansion Opportunity"),
+            ("QBRPreparationAgent",       "Grow",    "Prepare QBR"),
+            ("SuccessPlanAgent",          "Grow",    "Build Success Plan"),
+            ("BriefingAgent",             "Communicate", "Generate CEO Briefing"),
+            ("KickoffDeckAgent",          "Communicate", "Kickoff Deck"),
+            ("EscalationCommanderAgent",  "Respond", "Escalation Commander"),
+            ("SkeptikQAAgent",            "Verify",  "Skeptik QA Review"),
+        ]
+        menu_map = {a: (g, l) for a, g, l in agent_menu}
+        pk_l, pk_r = st.columns([3, 1])
+        with pk_l:
+            chosen_agent = st.selectbox(
+                "Agent", [a for a, _, _ in agent_menu],
+                format_func=lambda a: f"{menu_map[a][0]} · {menu_map[a][1]}",
+                key=f"360_agent_pick_{cid}", label_visibility="collapsed",
             )
-            if prior_key:
-                bc, ac = st.columns(2)
-                with bc:
-                    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Original Output</div>", unsafe_allow_html=True)
-                    with st.container(border=True):
-                        st.markdown("<span class='agent-report-marker'></span>", unsafe_allow_html=True)
-                        prior = st.session_state[prior_key]
-                        st.markdown(prior.get("output_text", "")[:1200] + "...", unsafe_allow_html=False)
-                with ac:
-                    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Skeptik QA Review</div>", unsafe_allow_html=True)
+        with pk_r:
+            if st.button("Run Agent", use_container_width=True, type="primary", key="360_run_agent"):
+                triggered = chosen_agent
+        st.markdown(
+            f"<div style='font-size:0.78rem;color:#6B6280;margin:-2px 0 8px'>{AGENT_DESCRIPTIONS.get(chosen_agent, '')}</div>",
+            unsafe_allow_html=True,
+        )
+
+        if triggered:
+            with st.spinner(f"Running {agent_display_name(triggered)}…"):
+                result = call_agent(triggered, cid)
+            st.session_state[f"360_result_{cid}_{triggered}"] = result
+            # Track which agent was last run for this customer so the freshest
+            # result always renders, even when an agent is re-run (which overwrites
+            # its key in place rather than appending it to session_state).
+            st.session_state[f"360_last_{cid}"] = triggered
+
+        # Show the result for the most recently triggered agent on this customer
+        last_agent = st.session_state.get(f"360_last_{cid}")
+        recent_key = f"360_result_{cid}_{last_agent}" if last_agent else None
+        if not (recent_key and recent_key in st.session_state):
+            # Fallback: any stored result for this customer
+            recent_key = next(
+                (k for k in reversed(list(st.session_state.keys()))
+                 if k.startswith(f"360_result_{cid}_")), None
+            )
+        if recent_key:
+            result = st.session_state[recent_key]
+            agent_label = recent_key.split(f"360_result_{cid}_")[-1]
+            agent_nice  = agent_display_name(result.get("agent_name", agent_label))
+            st.markdown(f"<div style='font-size:0.78rem;font-weight:800;color:#1B1040;letter-spacing:-0.01em;margin:12px 0 4px'>{agent_nice}</div>", unsafe_allow_html=True)
+
+            # Skeptik shows before/after
+            if "SkeptikQAAgent" in recent_key:
+                prior_key = next(
+                    (k for k in reversed(list(st.session_state.keys()))
+                     if k.startswith(f"360_result_{cid}_") and "Skeptik" not in k), None
+                )
+                if prior_key:
+                    bc, ac = st.columns(2)
+                    with bc:
+                        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Original Output</div>", unsafe_allow_html=True)
+                        with st.container(border=True):
+                            st.markdown("<span class='agent-report-marker'></span>", unsafe_allow_html=True)
+                            prior = st.session_state[prior_key]
+                            st.markdown(prior.get("output_text", "")[:1200] + "...", unsafe_allow_html=False)
+                    with ac:
+                        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Skeptik QA Review</div>", unsafe_allow_html=True)
+                        render_agent_output(result)
+                else:
                     render_agent_output(result)
             else:
                 render_agent_output(result)
+
+            # Export button for briefings
+            if "Briefing" in recent_key or "Escalation" in recent_key:
+                fn = f"{c['name'].replace(' ','_')}_{agent_label}_{datetime.now().strftime('%Y%m%d')}.md"
+                export_button(result.get("output_text",""), fn)
         else:
-            render_agent_output(result)
-
-        # Export button for briefings
-        if "Briefing" in recent_key or "Escalation" in recent_key:
-            fn = f"{c['name'].replace(' ','_')}_{agent_label}_{datetime.now().strftime('%Y%m%d')}.md"
-            export_button(result.get("output_text",""), fn)
-
-    st.markdown("---")
-
-    # ── Tabbed detail view ────────────────────────────────────────────────────
-    tab_use, tab_impl, tab_tick, tab_escs, tab_stk, tab_notes, tab_renew = st.tabs(
-        ["Usage & Health", "Implementation", "Tickets", "Escalations", "Stakeholders", "Notes", "Renewal"]
-    )
+            st.caption("Pick an agent above — results appear here and stay while you browse the other tabs.")
 
     with tab_use:
         mrow = metrics[0] if metrics else {}
@@ -1488,13 +1597,13 @@ elif page == "Customer 360":
             usage_items = [
                 ("Daily Active Users", str(int(mrow.get("dau",0))),
                  f"<span style='color:{trend_color};font-size:0.68rem'>{trend_sign}{dau_trend:.0%} vs 30d</span>"),
-                ("Asset Coverage",    f"{int(mrow.get('asset_coverage_pct',0))}%", ""),
-                ("Features Active",   f"{int(mrow.get('features_enabled',0))}/18", ""),
-                ("False Positive Rate", f"{mrow.get('false_positive_rate',0):.0%}", ""),
-                ("API Calls (30d)",   f"{int(mrow.get('api_calls_last_30d',0)):,}", ""),
-                ("Alerts (30d)",      str(int(mrow.get("alerts_generated_last_30d",0))), ""),
+                ("AI Asset Coverage", f"{int(mrow.get('asset_coverage_pct',0))}%", ""),
+                ("Modules Active",    f"{int(mrow.get('features_enabled',0))}/18", ""),
+                ("Guardian False-Positive Rate", f"{mrow.get('false_positive_rate',0):.0%}", ""),
+                ("Prompts Inspected (30d)", f"{int(mrow.get('api_calls_last_30d',0)):,}", ""),
+                ("Guardian Interventions (30d)", str(int(mrow.get("alerts_generated_last_30d",0))), ""),
                 ("Logins (7d)",       str(int(mrow.get("unique_logins_last_7d",0))), ""),
-                ("Agents Deployed",   str(int(mrow.get("agents_deployed",0))), ""),
+                ("AI Agents Governed", str(int(mrow.get("agents_deployed",0))), ""),
             ]
             cols = st.columns(4)
             for i, (lbl, val, sub) in enumerate(usage_items):
@@ -1508,10 +1617,24 @@ elif page == "Customer 360":
 
         if history:
             st.markdown("<div style='margin-top:14px;font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>30-Day Health Trend</div>", unsafe_allow_html=True)
+            import altair as alt
             hdf = pd.DataFrame(history)[["date","health_score"]].copy()
             hdf["date"] = pd.to_datetime(hdf["date"])
             hdf = hdf.sort_values("date")
-            st.line_chart(hdf.set_index("date")["health_score"], height=140, use_container_width=True)
+            chart = (
+                alt.Chart(hdf)
+                .mark_line(color="#1B1040", strokeWidth=2.2, point=alt.OverlayMarkDef(color="#1B1040", size=18))
+                .encode(
+                    x=alt.X("date:T", axis=alt.Axis(title=None, grid=False, labelColor="#6B6280", domainColor="#E8E4DC", tickColor="#E8E4DC", format="%b %d")),
+                    y=alt.Y("health_score:Q", scale=alt.Scale(domain=[0, 100]),
+                            axis=alt.Axis(title=None, labelColor="#6B6280", gridColor="#F0EDE7", domainOpacity=0, tickOpacity=0)),
+                    tooltip=[alt.Tooltip("date:T", title="Date", format="%b %d"),
+                             alt.Tooltip("health_score:Q", title="Health")],
+                )
+                .properties(height=160, background="#FFFFFF")
+                .configure_view(strokeWidth=0)
+            )
+            st.altair_chart(chart, use_container_width=True, theme=None)
 
         sec = c.get('security_review_status','?')
         sec_color = {"Complete":"#2D5A3D","In Progress":"#7A5C1E","Blocked":"#9B2335","Not Started":"#6B6280"}.get(sec,"#6B6280")
@@ -1577,23 +1700,25 @@ elif page == "Customer 360":
 </div>""", unsafe_allow_html=True)
 
     with tab_tick:
+        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Support Tickets</div>", unsafe_allow_html=True)
         open_t    = [t for t in tickets if t["status"] != "Resolved"]
         closed_t  = [t for t in tickets if t["status"] == "Resolved"]
         st.markdown(f"<div style='font-size:0.78rem;font-weight:700;color:#1B1040;margin-bottom:6px'>{len(open_t)} Open <span style=\"color:#6B6280;font-weight:400\">· {len(closed_t)} Resolved</span></div>", unsafe_allow_html=True)
         for t in sorted(tickets, key=lambda x: ("P1P2P3P4".index(x["severity"]) if x["severity"] in "P1P2P3P4" else 9, x["status"] == "Resolved")):
             sc = {"P1":"#9B2335","P2":"#7A5C1E","P3":"#5C4A1E","P4":"#6B6280"}.get(t["severity"],"#6B6280")
-            si = "🔴" if t["status"]=="Open" else "🔄" if t["status"]=="In Progress" else "✅"
+            st_color = {"Open": "#9B2335", "In Progress": "#7A5C1E"}.get(t["status"], "#2D5A3D")
             st.markdown(f"""<div class="card">
                 <div style="display:flex;justify-content:space-between;align-items:center">
                     <span style="background:{sc}18;color:{sc};font-weight:700;font-size:0.72rem;padding:2px 8px;border-radius:20px;border:1px solid {sc}44">{t['severity']}</span>
-                    <span style="color:#6B6280;font-size:0.75rem">{si} {t['status']}</span>
+                    <span style="color:{st_color};font-size:0.72rem;font-weight:700">{t['status']}</span>
                 </div>
                 <div style="color:#1B1040;font-size:0.88rem;margin-top:6px;font-weight:500">{t['title']}</div>
                 <div style="color:#6B6280;font-size:0.72rem;margin-top:3px">Opened {t['opened_at'][:10]} · Assignee: {t.get('assignee','?')}</div>
-                {f'<div style="color:#7A5C1E;font-size:0.72rem;margin-top:2px">⚠️ {t["escalation_reference"]}</div>' if t.get("escalation_reference") else ''}
+                {f'<div style="color:#7A5C1E;font-size:0.72rem;margin-top:2px">{t["escalation_reference"]}</div>' if t.get("escalation_reference") else ''}
             </div>""", unsafe_allow_html=True)
 
     with tab_escs:
+        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin:14px 0 6px'>Escalations</div>", unsafe_allow_html=True)
         if not escs:
             st.markdown("<div style='font-size:0.78rem;color:#2D5A3D;padding:8px 0'>No active escalations.</div>", unsafe_allow_html=True)
         for e in escs:
@@ -1620,22 +1745,23 @@ elif page == "Customer 360":
 </div>""", unsafe_allow_html=True)
 
     with tab_stk:
+        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Stakeholders</div>", unsafe_allow_html=True)
         role_colors = {"Champion":"#1B1040","Technical Sponsor":"#3D3458","Business Sponsor":"#5C4A1E",
                        "Executive Sponsor":"#2D3A4A","Economic Buyer":"#9B2335"}
         role_bg = {"Champion":"#EAE6E0","Technical Sponsor":"#EDEAF4","Business Sponsor":"#F0EBE0",
                    "Executive Sponsor":"#E8EBF0","Economic Buyer":"#F5ECEC"}
-        eng_icons = {"High":"🟢","Medium":"🟡","Low":"🔴","None":"⚫"}
+        eng_colors = {"High":"#2D5A3D","Medium":"#7A5C1E","Low":"#9B2335","None":"#6B6280"}
         for s in stk:
             rc = role_colors.get(s["role"],"#6B6280")
             rb = role_bg.get(s["role"],"#EAE6E0")
-            ei = eng_icons.get(s.get("engagement_level",""),"?")
+            ec = eng_colors.get(s.get("engagement_level",""),"#6B6280")
             st.markdown(f"""<div class="card">
                 <div style="display:flex;justify-content:space-between;align-items:flex-start">
                     <div>
                         <span style="font-weight:700;color:#1B1040;font-size:0.95rem">{s['name']}</span>
                         <div style="font-size:0.80rem;color:#6B6280;margin-top:1px">{s['title']}</div>
                     </div>
-                    <span style="font-size:0.72rem;color:#6B6280">{ei} {s.get('engagement_level','?')}</span>
+                    <span style="font-size:0.72rem;color:{ec};font-weight:700">{s.get('engagement_level','?')} engagement</span>
                 </div>
                 <div style="margin-top:6px;display:flex;align-items:center;gap:8px">
                     <span style="background:{rb};color:{rc};font-size:0.72rem;font-weight:700;padding:2px 8px;border-radius:20px">{s['role']}</span>
@@ -1644,6 +1770,7 @@ elif page == "Customer 360":
             </div>""", unsafe_allow_html=True)
 
     with tab_notes:
+        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin:14px 0 6px'>Meeting Notes</div>", unsafe_allow_html=True)
         sent_colors = {"Positive":"#2D5A3D","Neutral":"#6B6280","Negative":"#9B2335"}
         for n in notes:
             sc = sent_colors.get(n.get("sentiment_signal",""),"#6B6280")
@@ -1659,7 +1786,7 @@ elif page == "Customer 360":
                     <span style="background:{sent_bg};color:{sc};font-size:0.70rem;font-weight:700;padding:2px 8px;border-radius:20px">{n.get('sentiment_signal','?')}</span>
                 </div>
                 <div style="color:#1B1040;font-size:0.88rem;margin-top:6px;line-height:1.5">{n['summary']}</div>
-                <div style="color:#6B6280;font-size:0.72rem;margin-top:4px">👥 {n.get('attendees_internal','?')} · {n.get('attendees_customer','?')}</div>
+                <div style="color:#6B6280;font-size:0.72rem;margin-top:4px">Attendees: {n.get('attendees_internal','?')} · {n.get('attendees_customer','?')}</div>
                 {('<div style="margin-top:6px">' + ''.join(f'<div style="font-size:0.75rem;color:#3D3458;margin-top:2px">→ {a}</div>' for a in actions) + '</div>') if actions else ''}
             </div>""", unsafe_allow_html=True)
 
@@ -1678,13 +1805,15 @@ elif page == "Customer 360":
                 <div style="margin-top:4px">Risk Score: <b style="color:{rc_color}">{c.get('renewal_risk_score',0):.0%}</b></div>
                 <div style="margin-top:4px">Commercial Note: {renewal.get('commercial_terms_note','?')}</div>
                 <div style="margin-top:4px;color:#6B6280">Procurement Contact: {renewal.get('procurement_contact','?')}</div>
-                <div style="color:#6B6280">Exec Involvement Required: {'✅ Yes' if renewal.get('requires_exec_involvement') else 'No'}</div>
+                <div style="color:#6B6280">Exec Involvement Required: {'Yes' if renewal.get('requires_exec_involvement') else 'No'}</div>
             </div>""", unsafe_allow_html=True)
 
             if st.button("Generate CEO Briefing for Renewal", type="primary"):
                 with st.spinner("Generating CEO Briefing (Sonnet)..."):
                     result = call_agent("BriefingAgent", cid)
                 st.session_state[f"360_result_{cid}_BriefingAgent"] = result
+                st.session_state[f"360_last_{cid}"] = "BriefingAgent"
+                st.toast("Briefing ready — see the AI Agents tab.")
                 st.rerun()
         else:
             st.caption("No renewal record found within 180-day window.")
@@ -1702,12 +1831,18 @@ elif page == "CSM Performance":
         st.stop()
 
     today = datetime.now().date()
+    # Open escalations per customer (one query for the whole page)
+    esc_counts = {row["customer_id"]: row["n"] for row in fetchall(
+        "SELECT customer_id, COUNT(*) AS n FROM escalations WHERE status != 'Resolved' GROUP BY customer_id"
+    )}
     csm_stats = {}
     for c in customers:
         owner = c.get("csm_owner", "Unassigned")
         s = csm_stats.setdefault(owner, {
             "accounts": 0, "arr": 0, "health_sum": 0, "high": 0, "med": 0, "low": 0,
             "expansion": 0, "renewals_90": 0, "nrr_sum": 0,
+            "arr_risk": 0, "qbr_overdue": 0, "champ_gap": 0, "escalations": 0,
+            "at_risk_n": 0, "actioned": 0,
         })
         s["accounts"]  += 1
         s["arr"]       += c["arr"]
@@ -1715,6 +1850,18 @@ elif page == "CSM Performance":
         s["nrr_sum"]   += c.get("nrr_pct", 0)
         s["expansion"] += c.get("expansion_pipeline_arr", 0)
         s[{"High": "high", "Medium": "med", "Low": "low"}[c["risk_level"]]] += 1
+        s["escalations"] += esc_counts.get(c["id"], 0)
+        if c["risk_level"] == "High":
+            s["arr_risk"] += c["arr"]
+        if c.get("qbr_completion") == "Overdue":
+            s["qbr_overdue"] += 1
+        if c.get("champion_status") in ("Disengaged", "Left Company"):
+            s["champ_gap"] += 1
+        # AI recommendation follow-through on at-risk accounts
+        if c["risk_level"] in ("High", "Medium"):
+            s["at_risk_n"] += 1
+            if get_action_status(c["id"]).get("status") in ("In Progress", "Done"):
+                s["actioned"] += 1
         try:
             d = (datetime.strptime(c["renewal_date"], "%Y-%m-%d").date() - today).days
             if 0 <= d <= 90:
@@ -1722,12 +1869,37 @@ elif page == "CSM Performance":
         except Exception:
             pass
 
+    def csm_focus(s):
+        """One coaching insight per CSM, picking the dominant issue."""
+        issues = []
+        if s["arr_risk"]:
+            issues.append(f"${s['arr_risk']/1e6:.1f}M ARR at risk")
+        if s["at_risk_n"] and s["actioned"] / s["at_risk_n"] < 0.5:
+            issues.append(f"only {s['actioned']}/{s['at_risk_n']} at-risk accounts actioned")
+        if s["qbr_overdue"]:
+            issues.append(f"{s['qbr_overdue']} overdue QBR{'s' if s['qbr_overdue'] != 1 else ''}")
+        if s["champ_gap"]:
+            issues.append(f"champion gap at {s['champ_gap']} account{'s' if s['champ_gap'] != 1 else ''}")
+        if s["escalations"]:
+            issues.append(f"{s['escalations']} open escalation{'s' if s['escalations'] != 1 else ''}")
+        if not issues:
+            return ("#2D5A3D", "Book is healthy — push expansion and references")
+        return ("#9B2335", "Coach on: " + " · ".join(issues[:3]))
+
     # Summary KPI row across the CS team
+    total_arr_risk  = sum(s["arr_risk"] for s in csm_stats.values())
+    total_at_risk_n = sum(s["at_risk_n"] for s in csm_stats.values())
+    total_actioned  = sum(s["actioned"] for s in csm_stats.values())
+    total_qbr_od    = sum(s["qbr_overdue"] for s in csm_stats.values())
     team = st.columns(4)
-    team[0].markdown(kpi_card("CS Managers", str(len(csm_stats))), unsafe_allow_html=True)
-    team[1].markdown(kpi_card("Avg Accounts / CSM", f"{len(customers)/max(len(csm_stats),1):.0f}"), unsafe_allow_html=True)
-    team[2].markdown(kpi_card("Avg ARR / CSM", f"${sum(s['arr'] for s in csm_stats.values())/max(len(csm_stats),1)/1e6:.1f}M"), unsafe_allow_html=True)
-    team[3].markdown(kpi_card("Total Expansion Pipeline", f"${sum(s['expansion'] for s in csm_stats.values())/1e6:.1f}M"), unsafe_allow_html=True)
+    team[0].markdown(kpi_card("CS Managers", str(len(csm_stats)),
+                              f"{len(customers)/max(len(csm_stats),1):.0f} accounts · ${sum(s['arr'] for s in csm_stats.values())/max(len(csm_stats),1)/1e6:.1f}M ARR avg per CSM"), unsafe_allow_html=True)
+    team[1].markdown(kpi_card("ARR at Risk (team)", f"${total_arr_risk/1e6:.1f}M",
+                              "in high-risk accounts"), unsafe_allow_html=True)
+    team[2].markdown(kpi_card("AI Action Follow-Through", f"{total_actioned}/{total_at_risk_n}",
+                              "at-risk accounts actioned"), unsafe_allow_html=True)
+    team[3].markdown(kpi_card("Engagement Hygiene", str(total_qbr_od),
+                              "overdue QBRs across the team"), unsafe_allow_html=True)
 
     st.markdown("<div style='margin:14px 0 8px'></div>", unsafe_allow_html=True)
 
@@ -1763,10 +1935,14 @@ elif page == "CSM Performance":
       </div>
     </div>
     <div style="flex:0 0 90px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
+      <div style="font-size:0.95rem;font-weight:800;color:{'#9B2335' if s['arr_risk'] else '#2D5A3D'};line-height:1.2">${s['arr_risk']/1e6:.1f}M</div>
+      <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">ARR at Risk</div>
+    </div>
+    <div style="flex:0 0 80px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
       <div style="font-size:0.95rem;font-weight:800;color:#1B1040;line-height:1.2">{avg_nrr:.0f}%</div>
       <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Avg NRR</div>
     </div>
-    <div style="flex:0 0 100px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
+    <div style="flex:0 0 90px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
       <div style="font-size:0.95rem;font-weight:800;color:#2D5A3D;line-height:1.2">${s['expansion']/1e3:.0f}K</div>
       <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Expansion</div>
     </div>
@@ -1774,7 +1950,12 @@ elif page == "CSM Performance":
       <div style="font-size:0.95rem;font-weight:800;color:#1B1040;line-height:1.2">{s['renewals_90']}</div>
       <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Renewals 90d</div>
     </div>
+    <div style="flex:0 0 100px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
+      <div style="font-size:0.95rem;font-weight:800;color:{'#2D5A3D' if (not s['at_risk_n'] or s['actioned']/s['at_risk_n'] >= 0.5) else '#9B2335'};line-height:1.2">{s['actioned']}/{s['at_risk_n']}</div>
+      <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Risk Actioned</div>
+    </div>
   </div>
+  <div style="margin-top:9px;padding:7px 12px;background:{('#EFF6F1' if csm_focus(s)[0]=='#2D5A3D' else '#FDF6F3')};border-radius:8px;font-size:0.76rem;font-weight:600;color:{csm_focus(s)[0]}">{csm_focus(s)[1]}</div>
 </div>""", unsafe_allow_html=True)
 
 
@@ -1788,16 +1969,18 @@ elif page == "Agent Console":
     customers = fetch_customers()
     cmap = {c["id"]: c for c in customers}
 
+    # Ordered by workflow group: Assess → Grow → Communicate & Respond → Verify → Portfolio
     AGENT_INFO = {
-        "CustomerHealthAgent":       ("", "haiku",  "Scanning & risk scoring"),
-        "ImplementationAgent":       ("", "sonnet", "Milestone synthesis & planning"),
-        "BriefingAgent":             ("", "sonnet", "Executive briefing generation"),
-        "EscalationCommanderAgent":  ("", "opus",   "Crisis management & battle plan"),
-        "SkeptikQAAgent":            ("", "opus",   "Adversarial output review"),
-        "VPChiefOfStaffAgent":       ("", "opus",   "Weekly portfolio operating review"),
-        "ExpansionOpportunityAgent": ("", "sonnet", "Upsell discovery & ARR uplift"),
-        "QBRPreparationAgent":       ("", "sonnet", "Quarterly business review prep"),
-        "SuccessPlanAgent":          ("", "sonnet", "30/60/90 success planning"),
+        "CustomerHealthAgent":       ("Assess",      "haiku",  "Scanning & risk scoring"),
+        "ImplementationAgent":       ("Assess",      "sonnet", "Milestone synthesis & planning"),
+        "ExpansionOpportunityAgent": ("Grow",        "sonnet", "Upsell discovery & ARR uplift"),
+        "QBRPreparationAgent":       ("Grow",        "sonnet", "Quarterly business review prep"),
+        "SuccessPlanAgent":          ("Grow",        "sonnet", "30/60/90 success planning"),
+        "BriefingAgent":             ("Communicate", "sonnet", "Executive briefing generation"),
+        "KickoffDeckAgent":          ("Communicate", "sonnet", "Client-facing kickoff deck generation"),
+        "EscalationCommanderAgent":  ("Respond",     "opus",   "Crisis management & battle plan"),
+        "SkeptikQAAgent":            ("Verify",      "opus",   "Adversarial output review"),
+        "VPChiefOfStaffAgent":       ("Portfolio",   "opus",   "Weekly portfolio operating review"),
     }
 
     left_col, right_col = st.columns([1, 2])
@@ -1807,30 +1990,31 @@ elif page == "Agent Console":
         selected_agent = st.selectbox(
             "Agent",
             list(AGENT_INFO.keys()),
-            format_func=lambda x: f"{agent_display_name(x)} — {AGENT_INFO[x][1].capitalize()}",
+            format_func=lambda x: f"{AGENT_INFO[x][0]} · {agent_display_name(x)} — {AGENT_INFO[x][1].capitalize()}",
         )
-        emoji, tier, desc = AGENT_INFO[selected_agent]
+        group, tier, desc = AGENT_INFO[selected_agent]
         color = tier_color(tier)
 
         needs_cust = selected_agent != "VPChiefOfStaffAgent"
         sel_cid = None
         if needs_cust:
             sel_cid = st.selectbox("Customer", list(cmap.keys()),
-                                   format_func=lambda x: f"{risk_icon(cmap[x].get('risk_level','?'))} {cmap[x]['name']}")
+                                   format_func=lambda x: f"{cmap[x]['name']} · {risk_icon(cmap[x].get('risk_level','?'))}")
 
         st.markdown(f"""<div class="card" style="margin-top:8px;border-left:3px solid {color};padding:9px 12px">
             <div class="kpi-label">ROUTED TO</div>
             <div style="color:{color};font-weight:800;font-size:0.95rem">{tier.capitalize()}</div>
             <div style="color:#6B6280;font-size:0.72rem;margin-top:1px">{desc}</div>
+            <div style="color:#9B93A8;font-size:0.66rem;margin-top:4px;text-transform:uppercase;letter-spacing:0.08em">{group} workflow</div>
         </div>""", unsafe_allow_html=True)
 
         run_btn = st.button(f"Run {agent_display_name(selected_agent)}", use_container_width=True, type="primary")
 
         # Quick run info
         if selected_agent == "SkeptikQAAgent":
-            st.info("ℹ️ Skeptik requires a prior agent run for the selected customer.", icon="🔍")
+            st.caption("Skeptik requires a prior agent run for the selected customer.")
         if selected_agent == "VPChiefOfStaffAgent":
-            st.info("ℹ️ Portfolio-wide — no customer selection needed.", icon="📊")
+            st.caption("Portfolio-wide — no customer selection needed.")
 
     with right_col:
         if run_btn:
@@ -1868,7 +2052,7 @@ elif page == "Briefings":
             sel_cid = st.selectbox(
                 "Customer for briefing",
                 [c["id"] for c in customers],
-                format_func=lambda x: f"{risk_icon(cmap[x].get('risk_level','?'))} {cmap[x]['name']} — ${cmap[x]['arr']:,}",
+                format_func=lambda x: f"{cmap[x]['name']} — ${cmap[x]['arr']:,} · {risk_icon(cmap[x].get('risk_level','?'))}",
                 key="brief_cid",
             )
             if st.button("Generate CEO Briefing", use_container_width=True, type="primary"):
@@ -1907,7 +2091,7 @@ elif page == "Briefings":
                 if r.get("output_text"):
                     export_button(r["output_text"] + "\n\n---\n\n## Skeptik QA Review\n\n" + skeptik.get("output_text",""),
                                   f"CEO_Briefing_{sel_cid}_{datetime.now().strftime('%Y%m%d')}.md",
-                                  "⬇️ Export Briefing + QA Review")
+                                  "Export Briefing + QA Review")
             else:
                 render_agent_output(r)
                 if r.get("output_text"):
@@ -1986,53 +2170,101 @@ elif page == "Implementation Digest":
         )
         st.markdown(f"<div style='display:flex;gap:10px;margin:14px 0 18px'>{cells}</div>", unsafe_allow_html=True)
 
-        # ── Single clean table — sorted by risk ─────────────────────────────────
+        # Concrete next step per project, derived from its delivery signals
+        def impl_next_action(r):
+            if not r["kicked_off"]:
+                return "Schedule kickoff this week"
+            if r["active_blockers"]:
+                blk = r["active_blockers"][0]
+                return f"Clear blocker: {blk[:60]}" + ("…" if len(blk) > 60 else "")
+            if r["days_behind_schedule"] > 30:
+                return "Escalate to exec sponsor and re-baseline the plan"
+            if r["days_behind_schedule"] > 0:
+                return f"Run recovery plan to make up {r['days_behind_schedule']}d"
+            if r["days_to_go_live"] is not None and r["days_to_go_live"] < 0:
+                return "Go-live overdue — set a new committed date"
+            if r["days_to_go_live"] is not None and r["days_to_go_live"] <= 30:
+                return "Confirm go-live readiness checklist"
+            return "On track — maintain weekly cadence"
+
+        # ── This week's priorities — top at-risk projects with their action ──────
+        worst = [r for r in rows if r["launch_confidence"] in ("Very Low", "Low")][:3]
+        if worst:
+            cells = "".join(
+                f"<div style='flex:1;background:#FFFFFF;border:1px solid #E8E4DC;border-left:3px solid "
+                f"{conf_colors.get(r['launch_confidence'], '#1B1040')};border-radius:10px;padding:12px 14px'>"
+                f"<div style='display:flex;justify-content:space-between;align-items:baseline'>"
+                f"<span style='font-weight:700;color:#1B1040;font-size:0.88rem'>{r['customer_name']}</span>"
+                f"<span style='font-size:0.66rem;font-weight:700;color:{conf_colors.get(r['launch_confidence'],'#1B1040')}'>{r['launch_confidence']} confidence</span></div>"
+                f"<div style='font-size:0.70rem;color:#6B6280;margin-top:2px'>{int(r['pct_complete'])}% complete · "
+                f"{('on time' if r['days_behind_schedule']==0 else str(r['days_behind_schedule'])+'d behind')} · owner {r['implementation_owner']}</div>"
+                f"<div style='font-size:0.78rem;color:#1B1040;font-weight:600;margin-top:7px'>→ {impl_next_action(r)}</div>"
+                f"</div>"
+                for r in worst
+            )
+            st.markdown(
+                "<div style='font-size:0.72rem;font-weight:700;color:#9B2335;text-transform:uppercase;"
+                "letter-spacing:0.10em;margin-bottom:8px'>This Week's Priorities</div>"
+                f"<div style='display:flex;gap:10px;margin-bottom:18px'>{cells}</div>",
+                unsafe_allow_html=True,
+            )
+
+        # ── Project table — custom modern list, sorted by risk ──────────────────
         st.markdown(
             "<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;"
-            "letter-spacing:0.10em;margin-bottom:8px'>Project Status "
-            "<span style='font-weight:400;text-transform:none;letter-spacing:0'>— sorted by risk; select a row for the AI analysis</span></div>",
+            "letter-spacing:0.10em;margin-bottom:8px'>All Projects "
+            "<span style='font-weight:400;text-transform:none;letter-spacing:0'>— sorted by risk</span></div>",
             unsafe_allow_html=True,
         )
 
-        conf_badge = {"Very Low": "🔴 Very Low", "Low": "🟠 Low", "Medium": "🟡 Medium", "High": "🟢 High"}
-        table_rows = []
+        conf_bg = {"Very Low": "#FDF1F2", "Low": "#FDF3EC", "Medium": "#FDF8EE", "High": "#EFF6F1"}
+        grid = "grid-template-columns: 1.5fr 1fr 1.2fr 0.65fr 0.85fr 0.95fr 2.2fr 1fr;"
+        head = (
+            f"<div style='display:grid;{grid}gap:12px;padding:10px 18px;"
+            f"font-size:0.62rem;font-weight:700;color:#9B93A8;text-transform:uppercase;letter-spacing:0.10em'>"
+            f"<div>Customer</div><div>Confidence</div><div>Progress</div><div>Stones</div>"
+            f"<div>Go-Live</div><div>Schedule</div><div>Recommended Action</div><div>Owner</div></div>"
+        )
+        body = []
         for r in rows:
-            kickoff = r["kickoff_date"] or ("In progress" if r["kicked_off"] else "Not started")
-            dps     = f"{r['days_post_signature']}d" if r["days_post_signature"] is not None else "—"
-            dtg     = (f"{r['days_to_go_live']}d" if r["days_to_go_live"] is not None and r["days_to_go_live"] >= 0
-                       else (f"{abs(r['days_to_go_live'])}d overdue" if r["days_to_go_live"] is not None else "—"))
-            behind  = "On time" if r["days_behind_schedule"] == 0 else f"{r['days_behind_schedule']}d behind"
-            table_rows.append({
-                "Customer":        r["customer_name"],
-                "Risk":            conf_badge.get(r["launch_confidence"], r["launch_confidence"]),
-                "Status":          r["overall_status"],
-                "Complete":        int(r["pct_complete"]),
-                "Milestones":      f"{r['milestones_complete']}/{r['milestones_total']}",
-                "Kickoff":         kickoff,
-                "Contract Age":    dps,
-                "Go-Live Target":  r["go_live_target"] or "—",
-                "To Go-Live":      dtg,
-                "Schedule":        behind,
-                "Owner":           r["implementation_owner"],
-            })
-        df = pd.DataFrame(table_rows)
-
-        sel = st.dataframe(
-            df, use_container_width=True, hide_index=True, height=min(70 + 36 * n, 520),
-            on_select="rerun", selection_mode="single-row",
-            column_config={
-                "Complete": st.column_config.ProgressColumn(
-                    "Complete", min_value=0, max_value=100, format="%d%%", width="small"),
-                "Customer": st.column_config.TextColumn("Customer", width="medium"),
-                "Risk":     st.column_config.TextColumn("Launch Confidence", width="small"),
-                "Go-Live Target": st.column_config.TextColumn("Go-Live", width="small"),
-                "Contract Age":   st.column_config.TextColumn("Contract Age", help="Days since the contract was signed"),
-                "To Go-Live":     st.column_config.TextColumn("To Go-Live", help="Days remaining until the go-live target"),
-            },
+            cc_   = conf_colors.get(r["launch_confidence"], "#1B1040")
+            cbg   = conf_bg.get(r["launch_confidence"], "#F5F2EE")
+            pct   = int(r["pct_complete"])
+            behind = ("<span style='color:#2D5A3D;font-weight:600'>On time</span>"
+                      if r["days_behind_schedule"] == 0
+                      else f"<span style='color:#9B2335;font-weight:600'>{r['days_behind_schedule']}d behind</span>")
+            body.append(
+                f"<div style='display:grid;{grid}gap:12px;padding:13px 18px;align-items:center;"
+                f"border-top:1px solid #F0EBE7;font-size:0.82rem' "
+                f"onmouseover=\"this.style.background='#FBF7FA'\" onmouseout=\"this.style.background='transparent'\">"
+                f"<div style='font-weight:700;color:#1B1040'>{r['customer_name']}</div>"
+                f"<div><span style='background:{cbg};color:{cc_};font-size:0.68rem;font-weight:700;"
+                f"padding:3px 10px;border-radius:20px;white-space:nowrap'>{r['launch_confidence']}</span></div>"
+                f"<div style='display:flex;align-items:center;gap:8px'>"
+                f"<div style='flex:1;height:6px;background:#EFEAE5;border-radius:6px;overflow:hidden'>"
+                f"<div style='width:{pct}%;height:100%;background:{cc_};border-radius:6px'></div></div>"
+                f"<span style='font-size:0.72rem;font-weight:700;color:#3D3458;min-width:30px'>{pct}%</span></div>"
+                f"<div style='color:#3D3458'>{r['milestones_complete']}/{r['milestones_total']}</div>"
+                f"<div style='color:#3D3458'>{r['go_live_target'] or '—'}</div>"
+                f"<div>{behind}</div>"
+                f"<div style='color:#1B1040;font-weight:500'>{impl_next_action(r)}</div>"
+                f"<div style='color:#6B6280'>{r['implementation_owner']}</div>"
+                f"</div>"
+            )
+        st.markdown(
+            f"<div style='background:#FFFFFF;border:1px solid #E8E4DC;border-radius:14px;"
+            f"box-shadow:0 1px 6px rgba(27,16,64,0.05);overflow:hidden;margin-bottom:16px'>{head}{''.join(body)}</div>",
+            unsafe_allow_html=True,
         )
 
         # ── Selected project: detail panel + on-demand AI analysis ───────────────
-        sel_idx = sel["selection"]["rows"][0] if sel and sel.get("selection", {}).get("rows") else None
+        proj_names = [r["customer_name"] for r in rows]
+        dt_l, dt_r = st.columns([2.4, 1.2], vertical_alignment="center")
+        with dt_l:
+            st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em'>Project Deep Dive</div>", unsafe_allow_html=True)
+        with dt_r:
+            sel_name = st.selectbox("Project", proj_names, key="impl_proj_pick", label_visibility="collapsed")
+        sel_idx = proj_names.index(sel_name)
         if sel_idx is not None:
             r  = rows[sel_idx]
             cc = conf_colors.get(r["launch_confidence"], "#1B1040")
@@ -2049,7 +2281,7 @@ elif page == "Implementation Digest":
   </div>
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
     <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Kicked Off</div><div style="font-size:0.92rem;font-weight:800;color:#1B1040">{('Yes · '+r['kickoff_date']) if r['kickoff_date'] else ('In progress' if r['kicked_off'] else 'Not started')}</div></div>
-    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Days After Signing</div><div style="font-size:0.92rem;font-weight:800;color:#1B1040">{(str(r['days_post_signature'])+' days') if r['days_post_signature'] is not None else '—'}</div></div>
+    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Contract Age</div><div style="font-size:0.92rem;font-weight:800;color:#1B1040">{(str(r['days_post_signature'])+' days') if r['days_post_signature'] is not None else '—'}</div></div>
     <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Go-Live Target</div><div style="font-size:0.92rem;font-weight:800;color:#1B1040">{r['go_live_target'] or '—'}</div></div>
     <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">To Go-Live</div><div style="font-size:0.92rem;font-weight:800;color:#1B1040">{(str(r['days_to_go_live'])+' days') if r['days_to_go_live'] is not None else '—'}</div></div>
     <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Schedule</div><div style="font-size:0.92rem;font-weight:800;color:{'#2D5A3D' if r['days_behind_schedule']==0 else '#9B2335'}">{'On time' if r['days_behind_schedule']==0 else str(r['days_behind_schedule'])+'d behind'}</div></div>
@@ -2058,19 +2290,31 @@ elif page == "Implementation Digest":
   <div style="font-size:0.78rem;color:#3D3458;line-height:1.5"><b style="color:#2D5A3D">Implemented:</b> {done}</div>
   <div style="font-size:0.78rem;color:#3D3458;line-height:1.5;margin-top:3px"><b style="color:#7A5C1E">In progress:</b> {wip}</div>
   <div style="font-size:0.78rem;color:#3D3458;line-height:1.5;margin-top:3px"><b style="color:#9B2335">Blockers:</b> {blk}</div>
+  <div style="margin-top:10px;padding:9px 12px;background:#F4EAF6;border-radius:8px;font-size:0.82rem;color:#1B1040;font-weight:600">Recommended action: {impl_next_action(r)}</div>
 </div>""", unsafe_allow_html=True)
 
-            ai_key = f"impl_ai_{r['customer_id']}"
-            if st.button("🤖 Generate AI analysis", type="primary", key=f"impl_ai_btn_{r['customer_id']}"):
-                with st.spinner(f"Analysing {r['customer_name']}…"):
-                    st.session_state[ai_key] = call_agent("ImplementationAgent", r["customer_id"])
-            if ai_key in st.session_state:
-                res = st.session_state[ai_key]
+            ai_key   = f"impl_ai_{r['customer_id']}"
+            deck_key = f"impl_deck_{r['customer_id']}"
+            bc1, bc2, _ = st.columns([1, 1, 2])
+            with bc1:
+                if st.button("Generate AI analysis", type="primary", use_container_width=True,
+                             key=f"impl_ai_btn_{r['customer_id']}"):
+                    with st.spinner(f"Analysing {r['customer_name']}…"):
+                        st.session_state[ai_key] = call_agent("ImplementationAgent", r["customer_id"])
+                        st.session_state[f"impl_last_{r['customer_id']}"] = ai_key
+            with bc2:
+                if st.button("Generate Kickoff Deck", use_container_width=True,
+                             key=f"impl_deck_btn_{r['customer_id']}"):
+                    with st.spinner(f"Building kickoff deck for {r['customer_name']}…"):
+                        st.session_state[deck_key] = call_agent("KickoffDeckAgent", r["customer_id"])
+                        st.session_state[f"impl_last_{r['customer_id']}"] = deck_key
+            show_key = st.session_state.get(f"impl_last_{r['customer_id']}")
+            if show_key and show_key in st.session_state:
+                res = st.session_state[show_key]
                 render_agent_output(res)
+                prefix = "Kickoff_Deck" if show_key == deck_key else "Impl"
                 export_button(res.get("output_text", ""),
-                              f"Impl_{r['customer_name'].replace(' ','_')}_{datetime.now().strftime('%Y%m%d')}.md")
-        else:
-            st.caption("Select a project row above to see its full timeline and generate the AI analysis on demand.")
+                              f"{prefix}_{r['customer_name'].replace(' ','_')}_{datetime.now().strftime('%Y%m%d')}.md")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -2084,32 +2328,32 @@ elif page == "Audit Trail & Costs":
     runs  = fetch_audit(limit=100)
 
     # ── Cost summary ──────────────────────────────────────────────────────────
-    c1, c2, c3, c4 = st.columns(4)
-    with c1: st.metric("Total Spend", f"${costs.get('grand_total',0):.4f}")
-    with c2: st.metric("Total Runs", len(runs))
-    with c3: st.metric("Avg Cost / Run", f"${costs.get('grand_total',0)/max(len(runs),1):.5f}")
-    with c4:
-        mock_count = sum(1 for r in runs if not r.get("model_used",""))
-        st.metric("Live / Mock", f"{len(runs)-mock_count} / {len(runs)}")
+    mock_count = sum(1 for r in runs if not r.get("model_used",""))
+    cc = st.columns(4)
+    cc[0].markdown(kpi_card("Total Spend", f"${costs.get('grand_total',0):.4f}", "all agent runs"), unsafe_allow_html=True)
+    cc[1].markdown(kpi_card("Total Runs", str(len(runs)), "last 100 shown"), unsafe_allow_html=True)
+    cc[2].markdown(kpi_card("Avg Cost / Run", f"${costs.get('grand_total',0)/max(len(runs),1):.5f}"), unsafe_allow_html=True)
+    cc[3].markdown(kpi_card("Live / Mock", f"{len(runs)-mock_count} / {len(runs)}", "runs using real API"), unsafe_allow_html=True)
 
     # ── By model ──────────────────────────────────────────────────────────────
-    st.markdown("---")
-    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Spend by Model</div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin:16px 0 8px'>Spend by Model</div>", unsafe_allow_html=True)
     by_model = costs.get("by_model", [])
     if by_model:
+        mrows = []
         for row in by_model:
-            tier   = model_tier_from_id(row.get("model_used",""))
-            color  = tier_color(tier)
-            mc1, mc2, mc3, mc4 = st.columns([3, 1, 1, 1])
-            with mc1:
-                st.markdown(f"<span style='color:{color};font-weight:700'>{tier.capitalize()}</span> "
-                            f"<span style='color:#6B6280;font-size:0.75rem'>{row.get('model_used','')}</span>",
-                            unsafe_allow_html=True)
-            with mc2: st.metric("Runs", row.get("run_count",0))
-            with mc3:
-                total_tok = (row.get("total_input_tokens") or 0) + (row.get("total_output_tokens") or 0)
-                st.metric("Tokens", f"{total_tok:,}")
-            with mc4: st.metric("Cost", f"${row.get('total_cost',0) or 0:.5f}")
+            tier = model_tier_from_id(row.get("model_used",""))
+            total_tok = (row.get("total_input_tokens") or 0) + (row.get("total_output_tokens") or 0)
+            mrows.append({
+                "Tier":   tier.capitalize(),
+                "Model":  row.get("model_used",""),
+                "Runs":   row.get("run_count",0),
+                "Tokens": f"{total_tok:,}",
+                "Cost":   f"${row.get('total_cost',0) or 0:.5f}",
+            })
+        st.dataframe(pd.DataFrame(mrows), use_container_width=True, hide_index=True,
+                     height=45 + 36 * len(mrows))
+    else:
+        st.caption("No live runs recorded yet.")
 
     # ── Filter bar ────────────────────────────────────────────────────────────
     st.markdown("---")
@@ -2153,4 +2397,4 @@ elif page == "Audit Trail & Costs":
 
             if run.get("output_text"):
                 fn = f"AgentRun_{run['id']}_{run['agent_name']}.md"
-                export_button(run["output_text"], fn, "⬇️ Export")
+                export_button(run["output_text"], fn, "Export")

@@ -77,6 +77,7 @@ def build_customer_context(customer_id: int) -> dict:
         "impl_progress":           impl_progress,
         "impl_status":             impl.get("overall_status", "N/A"),
         "days_behind":             impl.get("days_behind_schedule", 0),
+        "go_live_target":          impl.get("go_live_target", "Not set"),
         "meeting_notes":           notes_str,
         "renewal_stage":           renewal_data.get("renewal_stage", "Not Started"),
         "expansion_arr":           renewal_data.get("expansion_arr", 0),

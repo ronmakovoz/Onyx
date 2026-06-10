@@ -81,6 +81,12 @@ AGENT_ROUTING = {
         "Success-plan construction is a structured planning task — mapping current vs. target "
         "state into time-phased workstreams with owners. Sonnet balances planning quality and cost."
     ),
+    "KickoffDeckAgent": (
+        "sonnet",
+        "Kickoff deck generation maps Onyx's standard 12-milestone methodology onto a specific "
+        "customer's stakeholders, industry, and go-live target. It is structured document assembly "
+        "with light adaptation — Sonnet produces polished client-facing output at the right cost."
+    ),
     "BullCaseAgent": (
         "sonnet",
         "Bull case analysis is an evidence-bound advocacy task requiring structured reasoning "
