@@ -26,6 +26,7 @@ const AGENT_MENU: [string, string, string][] = [
   ["QBRPreparationAgent", "Grow", "Prepare QBR"],
   ["SuccessPlanAgent", "Grow", "Build Success Plan"],
   ["BriefingAgent", "Communicate", "Generate CEO Briefing"],
+  ["KickoffDeckAgent", "Communicate", "Kickoff Deck"],
   ["EscalationCommanderAgent", "Respond", "Escalation Commander"],
   ["SkeptikQAAgent", "Verify", "Skeptik QA Review"],
 ];

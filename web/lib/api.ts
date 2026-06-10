@@ -164,6 +164,7 @@ export const AGENT_DISPLAY: Record<string, string> = {
   ExpansionOpportunityAgent: "Expansion Opportunity",
   QBRPreparationAgent: "QBR Preparation",
   SuccessPlanAgent: "Success Plan",
+  KickoffDeckAgent: "Kickoff Deck",
 };
 
 export const AGENT_GROUPS: Record<string, string> = {
@@ -173,6 +174,7 @@ export const AGENT_GROUPS: Record<string, string> = {
   QBRPreparationAgent: "Grow",
   SuccessPlanAgent: "Grow",
   BriefingAgent: "Communicate",
+  KickoffDeckAgent: "Communicate",
   EscalationCommanderAgent: "Respond",
   SkeptikQAAgent: "Verify",
   VPChiefOfStaffAgent: "Portfolio",

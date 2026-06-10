@@ -59,12 +59,12 @@ export default function ImplementationPage() {
   const sel = rows[selIdx];
   const selCc = confColors[sel.launch_confidence] || "#1B1040";
 
-  const runAnalysis = async () => {
+  const runAgent = async (agentName: string) => {
     setRunning(true);
     setResult(null);
     try {
       const r = await postJSON<AgentResult>("/api/agents/run", {
-        agent_name: "ImplementationAgent",
+        agent_name: agentName,
         customer_id: sel.customer_id,
       });
       setResult(r);
@@ -249,15 +249,24 @@ export default function ImplementationPage() {
                 Recommended action: {implNextAction(sel)}
               </div>
 
-              <div className="mt-4">
+              <div className="mt-4 flex gap-2 flex-wrap">
                 <button
-                  onClick={runAnalysis}
+                  onClick={() => runAgent("ImplementationAgent")}
                   disabled={running}
                   className="bg-navy text-white rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#2D1A5E] disabled:opacity-60"
                 >
-                  {running ? "Analysing…" : "Generate AI analysis"}
+                  {running ? "Working…" : "Generate AI analysis"}
                 </button>
-                {running ? <Spinner label={`Analysing ${sel.customer_name}…`} /> : null}
+                <button
+                  onClick={() => runAgent("KickoffDeckAgent")}
+                  disabled={running}
+                  className="bg-white text-navy border-[1.5px] border-navy rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#F0ECE8] disabled:opacity-60"
+                >
+                  Generate Kickoff Deck
+                </button>
+              </div>
+              <div>
+                {running ? <Spinner label={`Working on ${sel.customer_name}…`} /> : null}
                 {result && !running ? (
                   <div className="mt-3">
                     <AgentReport result={result} />
