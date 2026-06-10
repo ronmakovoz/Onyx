@@ -258,11 +258,11 @@ export default function ImplementationPage() {
                   {running ? "Working…" : "Generate AI analysis"}
                 </button>
                 <button
-                  onClick={() => runAgent("KickoffDeckAgent")}
+                  onClick={() => window.open(`/api/customers/${sel.customer_id}/kickoff-deck`, "_blank")}
                   disabled={running}
                   className="bg-white text-navy border-[1.5px] border-navy rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#F0ECE8] disabled:opacity-60"
                 >
-                  Generate Kickoff Deck
+                  Open Kickoff Deck
                 </button>
               </div>
               <div>

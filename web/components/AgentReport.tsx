@@ -1,6 +1,7 @@
 "use client";
 
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { AgentResult, agentDisplayName, modelTierFromId, tierColor } from "@/lib/api";
 
 export function MetaPills({ result }: { result: AgentResult }) {
@@ -67,7 +68,7 @@ export default function AgentReport({
           ONYX
         </span>
         <div className="agent-report">
-          <ReactMarkdown>{result.output_text || ""}</ReactMarkdown>
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{result.output_text || ""}</ReactMarkdown>
         </div>
       </div>
       {result.run_id ? (

@@ -21,7 +21,10 @@ from typing import Optional
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
+
+from api.deck import render_kickoff_deck
 
 from backend.crud import (
     get_all_customers, get_customer_360, get_portfolio_summary,
@@ -207,6 +210,17 @@ def run_agent(req: AgentRunRequest):
         raise
     except Exception as e:
         return {"error": str(e)}
+
+
+@app.get("/api/customers/{customer_id}/kickoff-deck", response_class=HTMLResponse)
+def kickoff_deck(customer_id: int):
+    """Run the KickoffDeckAgent and render the result as a branded HTML slide deck."""
+    context = build_customer_context(customer_id)
+    agent = AGENT_REGISTRY["KickoffDeckAgent"]()
+    result = agent.run(context, customer_id=customer_id)
+    save_agent_run(result)
+    structured = result.to_dict().get("structured") or {}
+    return render_kickoff_deck(structured, context)
 
 
 @app.get("/api/csm/overview")
