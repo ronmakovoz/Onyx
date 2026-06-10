@@ -4,6 +4,7 @@ All CX agents. Each defines prompts and structured output parsing.
 
 import re
 import random
+import concurrent.futures
 from datetime import datetime
 from typing import Optional
 
@@ -12,6 +13,7 @@ from agents.outputs import (
     HealthOutput, ImplementationOutput, BriefingOutput,
     EscalationOutput, SkeptikOutput, VPReviewOutput,
     ExpansionOutput, QBRPrepOutput, SuccessPlanOutput,
+    BullCaseOutput, BearCaseOutput, SynthesisOutput,
 )
 from prompts.templates import (
     HEALTH_SYSTEM, HEALTH_USER,
@@ -23,6 +25,9 @@ from prompts.templates import (
     EXPANSION_SYSTEM, EXPANSION_USER,
     QBR_SYSTEM, QBR_USER,
     SUCCESSPLAN_SYSTEM, SUCCESSPLAN_USER,
+    BULL_SYSTEM, BULL_USER,
+    BEAR_SYSTEM, BEAR_USER,
+    SYNTHESIS_SYSTEM, SYNTHESIS_USER,
 )
 
 
@@ -309,6 +314,131 @@ class SuccessPlanAgent(BaseAgent):
         )
 
 
+def _extract_renewal_probability(text: str, fallback: int = 50) -> int:
+    m = re.search(r"(?:Renewal Probability[^:]*:\s*)\*?\*?(\d+)(?:–(\d+))?%", text)
+    if m:
+        lo = int(m.group(1))
+        hi = int(m.group(2)) if m.group(2) else lo
+        return (lo + hi) // 2
+    return fallback
+
+
+class BullCaseAgent(BaseAgent):
+    name = "BullCaseAgent"
+
+    def build_prompt(self, ctx: dict) -> tuple[str, str]:
+        return BULL_SYSTEM, BULL_USER.format(**ctx)
+
+    def parse_structured(self, text: str, ctx: dict) -> BullCaseOutput:
+        conf = "Medium"
+        for c in ("High", "Medium", "Low"):
+            if f"Confidence: **{c}**" in text or f"Confidence: {c}" in text:
+                conf = c
+                break
+        return BullCaseOutput(
+            renewal_probability=_extract_renewal_probability(text, 70),
+            confidence=conf,
+            why_renew=_extract_list(text, "Why This Account Will Renew"),
+            underappreciated_positives=_extract_list(text, "Underappreciated Positive Signals"),
+            counter_to_bear=_extract_list(text, "Counter to Bear Risks"),
+            upside_scenario=_extract_section(text, "Upside Scenario")[:300],
+            confidence_rationale=_extract_section(text, "Bull Case Confidence Rationale")[:200],
+        )
+
+
+class BearCaseAgent(BaseAgent):
+    name = "BearCaseAgent"
+
+    def build_prompt(self, ctx: dict) -> tuple[str, str]:
+        return BEAR_SYSTEM, BEAR_USER.format(**ctx)
+
+    def parse_structured(self, text: str, ctx: dict) -> BearCaseOutput:
+        conf = "Medium"
+        for c in ("High", "Medium", "Low"):
+            if f"Confidence: **{c}**" in text or f"Confidence: {c}" in text:
+                conf = c
+                break
+        return BearCaseOutput(
+            renewal_probability=_extract_renewal_probability(text, 35),
+            confidence=conf,
+            why_at_risk=_extract_list(text, "Why This Account Is At Risk"),
+            hidden_risks=_extract_list(text, "Hidden or Underweighted Risks"),
+            counter_to_bull=_extract_list(text, "Counter to Bull Signals"),
+            downside_scenario=_extract_section(text, "Downside Scenario")[:300],
+            confidence_rationale=_extract_section(text, "Bear Case Confidence Rationale")[:200],
+        )
+
+
+class SynthesisAgent(BaseAgent):
+    name = "SynthesisAgent"
+
+    def build_prompt(self, ctx: dict) -> tuple[str, str]:
+        # When run standalone (outside run_red_team_debate) the bull/bear
+        # outputs may be absent — fall back to a note rather than KeyError.
+        ctx = {
+            "bull_output": ctx.get("bull_output", "[No bull case provided]"),
+            "bear_output": ctx.get("bear_output", "[No bear case provided]"),
+            **{k: v for k, v in ctx.items() if k not in ("bull_output", "bear_output")},
+        }
+        return SYNTHESIS_SYSTEM, SYNTHESIS_USER.format(**ctx)
+
+    def parse_structured(self, text: str, ctx: dict) -> SynthesisOutput:
+        # Extract probability range e.g. "45–65%"
+        lo, hi = 40, 60
+        m = re.search(r"Calibrated Renewal Probability:\s*\*?\*?(\d+)–(\d+)%", text)
+        if m:
+            lo, hi = int(m.group(1)), int(m.group(2))
+
+        verdict = "Toss-Up"
+        for v in ("Lean Renew", "Lean Churn", "Toss-Up"):
+            if v in text[:400]:
+                verdict = v
+                break
+
+        return SynthesisOutput(
+            renewal_probability_low=lo,
+            renewal_probability_high=hi,
+            verdict=verdict,
+            strongest_bull_args=_extract_list(text, "Strongest Bull Arguments"),
+            strongest_bear_args=_extract_list(text, "Strongest Bear Arguments"),
+            rejected_arguments=_extract_list(text, "Arguments Rejected"),
+            swing_factors=_extract_list(text, "Swing Factors", max_items=3),
+            probability_rationale=_extract_section(text, "Calibrated Probability Rationale")[:400],
+            recommended_play=_extract_section(text, "Recommended Play")[:300],
+        )
+
+
+def run_red_team_debate(customer_id: int, context: dict) -> dict:
+    """Run BullCase + BearCase in parallel, then feed both into SynthesisAgent."""
+    bull_agent = BullCaseAgent()
+    bear_agent  = BearCaseAgent()
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+        bull_future = pool.submit(bull_agent.run, context, customer_id)
+        bear_future = pool.submit(bear_agent.run, context, customer_id)
+        bull_result = bull_future.result()
+        bear_result = bear_future.result()
+
+    synth_ctx = dict(context)
+    synth_ctx["bull_output"] = bull_result.output_text
+    synth_ctx["bear_output"] = bear_result.output_text
+
+    synth_agent = SynthesisAgent()
+    synth_result = synth_agent.run(synth_ctx, customer_id)
+
+    from agents.base_agent import AgentResult
+    from backend.crud import save_agent_run
+    bull_id  = save_agent_run(bull_result)
+    bear_id  = save_agent_run(bear_result)
+    synth_id = save_agent_run(synth_result)
+
+    return {
+        "bull":      {**bull_result.to_dict(),  "run_id": bull_id},
+        "bear":      {**bear_result.to_dict(),  "run_id": bear_id},
+        "synthesis": {**synth_result.to_dict(), "run_id": synth_id},
+    }
+
+
 # ── Registry ──────────────────────────────────────────────────────────────────
 
 AGENT_REGISTRY = {
@@ -321,6 +451,9 @@ AGENT_REGISTRY = {
     "ExpansionOpportunityAgent": ExpansionOpportunityAgent,
     "QBRPreparationAgent":      QBRPreparationAgent,
     "SuccessPlanAgent":         SuccessPlanAgent,
+    "BullCaseAgent":            BullCaseAgent,
+    "BearCaseAgent":            BearCaseAgent,
+    "SynthesisAgent":           SynthesisAgent,
 }
 
 AGENT_DESCRIPTIONS = {
@@ -333,6 +466,9 @@ AGENT_DESCRIPTIONS = {
     "ExpansionOpportunityAgent": "Finds evidence-backed upsell opportunities and quantifies ARR uplift.",
     "QBRPreparationAgent":      "Auto-generates an executive-ready Quarterly Business Review briefing.",
     "SuccessPlanAgent":         "Builds a time-phased 30/60/90 success plan for an account.",
+    "BullCaseAgent":            "Argues the strongest evidence-based case for renewal and account growth.",
+    "BearCaseAgent":            "Argues the strongest evidence-based case for churn risk.",
+    "SynthesisAgent":           "Synthesizes bull and bear cases into a calibrated renewal probability.",
 }
 
 AGENT_MODEL_TIER = {
@@ -345,4 +481,7 @@ AGENT_MODEL_TIER = {
     "ExpansionOpportunityAgent": "sonnet",
     "QBRPreparationAgent":      "sonnet",
     "SuccessPlanAgent":         "sonnet",
+    "BullCaseAgent":            "sonnet",
+    "BearCaseAgent":            "sonnet",
+    "SynthesisAgent":           "opus",
 }

@@ -4,7 +4,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import PlainTextResponse
+from fastapi.responses import PlainTextResponse, HTMLResponse
 from typing import Optional
 
 from backend.crud import (
@@ -12,8 +12,9 @@ from backend.crud import (
     save_agent_run, save_briefing, get_agent_runs, get_briefings, get_cost_summary
 )
 from backend.context_builder import build_customer_context, build_portfolio_context
-from agents.agents import AGENT_REGISTRY, AGENT_DESCRIPTIONS, AGENT_MODEL_TIER
+from agents.agents import AGENT_REGISTRY, AGENT_DESCRIPTIONS, AGENT_MODEL_TIER, run_red_team_debate
 from agents.model_router import route
+from backend.debate_view import render_debate, render_debate_loading
 
 app = FastAPI(title="VP CX Agent OS", version="2.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -187,6 +188,51 @@ def run_implementation_digest():
         "total_cost_usd":    round(sum(r["estimated_cost_usd"] for r in results), 6),
         "results":           results,
     }
+
+
+@app.post("/agents/run-red-team-debate")
+def run_red_team(customer_id: int):
+    """Run Bull + Bear agents in parallel, then a Synthesis judge. Persists all 3 runs."""
+    c = get_customer(customer_id)
+    if not c:
+        raise HTTPException(404, "Customer not found")
+    context = build_customer_context(customer_id)
+    return run_red_team_debate(customer_id, context)
+
+
+@app.get("/customers/{customer_id}/debate", response_class=HTMLResponse)
+def debate_view(customer_id: int, fresh: int = 0):
+    """Branded HTML view of the latest Red Team Debate for a customer.
+    Serves a cached debate instantly; otherwise (or with ?fresh=1) shows a
+    loading page that runs the debate in the browser and reloads."""
+    c = get_customer(customer_id)
+    if not c:
+        raise HTTPException(404, "Customer not found")
+
+    if not fresh:
+        runs = get_agent_runs(200)
+        mine = [r for r in runs if r.get("customer_id") == customer_id]
+        synth = next((r for r in mine if r["agent_name"] == "SynthesisAgent"), None)
+        bull  = next((r for r in mine if r["agent_name"] == "BullCaseAgent"), None)
+        bear  = next((r for r in mine if r["agent_name"] == "BearCaseAgent"), None)
+        if synth and bull and bear:
+            ctx = build_customer_context(customer_id)
+            # Re-parse structured output from the saved markdown via each agent's parser
+            from dataclasses import asdict
+            parts = {}
+            for key, run, agent_name in (("bull", bull, "BullCaseAgent"),
+                                         ("bear", bear, "BearCaseAgent"),
+                                         ("synthesis", synth, "SynthesisAgent")):
+                agent = AGENT_REGISTRY[agent_name]()
+                structured = agent.parse_structured(run["output_text"], ctx)
+                parts[key] = {
+                    **dict(run),
+                    "structured": asdict(structured) if structured else {},
+                    "model_display": route(agent_name).model_display,
+                }
+            return render_debate(parts["bull"], parts["bear"], parts["synthesis"], ctx)
+
+    return render_debate_loading(c["name"], customer_id)
 
 
 # ── History & reporting ───────────────────────────────────────────────────────

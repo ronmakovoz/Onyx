@@ -528,6 +528,123 @@ Health 70+, adoption above 65%, champion re-engaged, renewal secured with expans
 - Champion change → identify and onboard a backup champion early"""
 
 
+def _mock_bull(ctx):
+    name = ctx.get("customer_name", "Customer")
+    arr  = ctx.get("arr", 0)
+    hs   = ctx.get("health_score", 60)
+    adp  = ctx.get("adoption_score", 55)
+    nrr  = ctx.get("nrr_pct", 102)
+    bull_prob = min(90, max(45, hs + 10))
+    return f"""## Bull Case — {name}
+**Renewal Probability (Bull): {bull_prob}%** · Confidence: **Medium**
+
+---
+
+### Why This Account Will Renew
+1. **Health score {hs}/100** — while below ideal, the trend is stabilizing; the account has not broken below the 40-point critical threshold
+2. **Adoption at {adp}%** — meaningful footprint deployed; switching costs are real and quantifiable
+3. **NRR at {nrr}%** — the customer has expanded spending, signaling business value realized
+4. **ARR of ${arr:,}** — the account is strategically significant to the customer's security program; rip-and-replace is operationally disruptive
+5. **ROI outcome confirmed**: {ctx.get('roi_outcome','documented security value delivery')} — this is the strongest renewal anchor available
+
+### Underappreciated Positive Signals
+- Implementation completion creates switching-cost lock-in that bears ignore
+- Industry: {ctx.get('industry','Enterprise')} — Onyx has deep reference customers in this vertical; peer validation matters
+- Champion {ctx.get('champion_name','?')} has institutional knowledge; replacement cost for the customer is high
+- Expansion pipeline of ${ctx.get('expansion_pipeline_arr',0):,} signals the customer is thinking forward, not exit
+
+### Counter to Bear Risks
+1. Open tickets ({ctx.get('open_tickets',0)}) are a service quality issue, not a platform rejection — resolvable pre-renewal
+2. Health score decline is recoverable; every at-risk account Onyx has saved showed a dip followed by a recovery inflection
+3. Champion status ({ctx.get('champion_status','Active')}) — even if strained, the operational dependency on the platform persists
+4. Renewal risk score of {ctx.get('renewal_risk',0.4):.0%} incorporates noise; the underlying contract data says {100-int(ctx.get('renewal_risk',0.4)*100)}% probability of renewal
+
+### Upside Scenario
+If the {ctx.get('open_tickets',0)} open tickets are resolved in the next 30 days and a VP-level alignment call is held, confidence shifts to High. The expansion pipeline of ${ctx.get('expansion_pipeline_arr',0):,} becomes achievable in Q2 — pushing NRR to 115%+ for this account.
+
+### Bull Case Confidence Rationale
+**Confidence: {bull_prob}%** — Confidence is Medium rather than High because {ctx.get('renewal_days','?')} days to renewal leaves limited time for recovery. The positive signals are real but require active execution to convert."""
+
+
+def _mock_bear(ctx):
+    name = ctx.get("customer_name", "Customer")
+    arr  = ctx.get("arr", 0)
+    hs   = ctx.get("health_score", 60)
+    adp  = ctx.get("adoption_score", 55)
+    bear_prob = max(15, min(60, hs - 20))
+    return f"""## Bear Case — {name}
+**Renewal Probability (Bear): {bear_prob}%** · Confidence: **Medium**
+
+---
+
+### Why This Account Is At Risk
+1. **Health score {hs}/100 with {ctx.get('health_trend','Declining')} trend** — the trajectory, not just the number, is the signal; a declining account with {ctx.get('renewal_days','?')} days to renewal rarely recovers without a forcing function
+2. **{ctx.get('open_tickets',0)} open support tickets and {ctx.get('open_escalations',0)} active escalations** — unresolved technical debt erodes trust faster than any relationship effort can rebuild it
+3. **Champion {ctx.get('champion_name','?')} status: {ctx.get('champion_status','Active')}** — internal advocacy is either compromised or absent; the deal has no internal owner pulling it forward
+4. **Adoption at {adp}%** — below the 65% threshold historically associated with renewal; the customer has not achieved full platform dependency
+5. **Renewal risk score {ctx.get('renewal_risk',0.4):.0%}** — Onyx's own scoring model flags this as elevated risk; that signal deserves weight
+
+### Hidden or Underweighted Risks
+- Sentiment is **{ctx.get('sentiment','Neutral')}** — neutral sentiment this close to renewal is effectively negative; enthusiastic customers don't churn, ambivalent ones do
+- Executive engagement is **{ctx.get('executive_engagement','Medium')}** — without exec-level buy-in, the renewal is a procurement exercise vulnerable to competitive disruption
+- Primary risk: **{ctx.get('primary_risk_reason','undefined')}** — this is systemic, not tactical
+- No meeting notes or thin meeting notes signal CSM relationship has gone dark — dark accounts churn silently
+
+### Counter to Bull Signals
+1. NRR {ctx.get('nrr_pct',102)}% expansion happened before the current risk signals; historical spend doesn't predict future renewal under duress
+2. Switching costs are real but overweighted by bulls — when trust breaks, procurement will absorb the switching cost rather than the reputational risk of renewing a failing vendor
+3. ROI outcome ({ctx.get('roi_outcome','?')}) is unverified by the customer's economic buyer — if they don't believe it, it doesn't protect the renewal
+4. Industry vertical strength is a portfolio argument, not an account-specific argument; this specific customer's experience is what matters
+
+### Downside Scenario
+If the open escalations are not resolved within 30 days and no executive re-engagement occurs, the customer initiates a formal evaluation. A competitor who has already run a POC converts within 90 days. Onyx loses ${arr:,} ARR and a reference customer in a key vertical.
+
+### Bear Case Confidence Rationale
+**Confidence: {bear_prob}%** — Confidence is Medium because {ctx.get('renewal_days','?')} days still provides a window for recovery. The bear case probability is not higher because the customer has not yet issued a formal cancellation notice or initiated a competitor POC that we know of."""
+
+
+def _mock_synthesis(ctx):
+    name = ctx.get("customer_name", "Customer")
+    arr  = ctx.get("arr", 0)
+    hs   = ctx.get("health_score", 60)
+    risk = ctx.get("renewal_risk", 0.4)
+    lo   = max(25, min(60, hs - 15))
+    hi   = min(85, lo + 30)
+    verdict = "Lean Renew" if hs >= 65 else "Lean Churn" if hs < 45 else "Toss-Up"
+    return f"""## Synthesis — {name}
+**Calibrated Renewal Probability: {lo}–{hi}%** (range reflects genuine uncertainty)
+**Verdict: {verdict}**
+
+---
+
+### Strongest Bull Arguments (accepted)
+1. **Switching cost lock-in** — adoption at {ctx.get('adoption_score',55)}% creates real operational dependency; evidence quality: Medium (adoption data is direct)
+2. **Documented ROI** — {ctx.get('roi_outcome','security value delivered')} is an anchor the customer's economic buyer has seen; evidence quality: Medium (assumed but not externally verified)
+3. **NRR expansion history** — prior expansion to {ctx.get('nrr_pct',102)}% signals the customer has placed value on the platform; evidence quality: High (financial record)
+
+### Strongest Bear Arguments (accepted)
+1. **{ctx.get('health_trend','Declining')} health trend into renewal window** — trajectory matters more than point-in-time score; evidence quality: High (objective metric)
+2. **Champion status: {ctx.get('champion_status','Active')}** — eroded internal advocacy is the highest-correlation churn predictor in the portfolio; evidence quality: Medium-High
+3. **{ctx.get('open_tickets',0)} unresolved support tickets** — operational frustration with no clear resolution ETA; evidence quality: High (ticket data)
+
+### Arguments Rejected (from both sides)
+- Bull: "Switching costs will deter exit" — overweighted; procurement absorbs switching cost when trust breaks
+- Bull: "Industry vertical strength protects this account" — portfolio argument, not account-specific
+- Bear: "NRR expansion is irrelevant" — prior expansion IS signal; it's a data point, not noise
+- Bear: "Sentiment = negative" — neutral sentiment interpretation is speculative without meeting note detail
+
+### Swing Factors
+1. **Executive re-engagement in the next 21 days** — a VP-to-VP call that acknowledges the service quality gap changes the trajectory more than any technical fix
+2. **Resolution of the {ctx.get('open_tickets',0)} open support tickets before renewal** — customers who renew with open tickets have a 3x higher churn rate in year 2
+3. **Champion replacement or re-activation** — if the current champion ({ctx.get('champion_status','Active')}) cannot be the internal owner of the renewal, a new one must be identified and activated within 30 days
+
+### Calibrated Probability Rationale
+The {lo}–{hi}% range reflects two genuine scenarios: the high end assumes executive re-engagement and ticket resolution occur (achievable); the low end assumes the account continues to drift with no forcing function (equally plausible given current trajectory). A single point estimate would imply false precision given the data gaps.
+
+### Recommended Play
+**VP CX calls the economic buyer personally within 5 business days** — not to close the renewal, but to acknowledge the service quality gap, commit to a specific resolution timeline on the open tickets, and reframe the relationship as strategic. This single action is the highest-probability lever available."""
+
+
 MOCK_DISPATCH = {
     "CustomerHealthAgent":     _mock_health,
     "ImplementationAgent":     _mock_implementation,
@@ -538,6 +655,9 @@ MOCK_DISPATCH = {
     "ExpansionOpportunityAgent": _mock_expansion,
     "QBRPreparationAgent":     _mock_qbr,
     "SuccessPlanAgent":        _mock_successplan,
+    "BullCaseAgent":           _mock_bull,
+    "BearCaseAgent":           _mock_bear,
+    "SynthesisAgent":          _mock_synthesis,
 }
 
 

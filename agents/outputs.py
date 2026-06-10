@@ -119,3 +119,38 @@ class SuccessPlanOutput:
     milestones_30_60_90: List[str]       # time-phased milestones
     success_metrics: List[str]           # how success is measured
     risks_and_mitigations: List[str]
+
+
+@dataclass
+class BullCaseOutput:
+    renewal_probability: int             # 0–100
+    confidence: str                      # High / Medium / Low
+    why_renew: List[str]                 # top reasons to expect renewal
+    underappreciated_positives: List[str]
+    counter_to_bear: List[str]
+    upside_scenario: str
+    confidence_rationale: str
+
+
+@dataclass
+class BearCaseOutput:
+    renewal_probability: int             # 0–100
+    confidence: str                      # High / Medium / Low
+    why_at_risk: List[str]               # top churn risk reasons
+    hidden_risks: List[str]
+    counter_to_bull: List[str]
+    downside_scenario: str
+    confidence_rationale: str
+
+
+@dataclass
+class SynthesisOutput:
+    renewal_probability_low: int         # lower bound of range
+    renewal_probability_high: int        # upper bound of range
+    verdict: str                         # Lean Renew / Toss-Up / Lean Churn
+    strongest_bull_args: List[str]
+    strongest_bear_args: List[str]
+    rejected_arguments: List[str]
+    swing_factors: List[str]             # exactly 3 determinative variables
+    probability_rationale: str
+    recommended_play: str                # single concrete directive

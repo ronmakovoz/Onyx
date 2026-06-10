@@ -81,6 +81,24 @@ AGENT_ROUTING = {
         "Success-plan construction is a structured planning task — mapping current vs. target "
         "state into time-phased workstreams with owners. Sonnet balances planning quality and cost."
     ),
+    "BullCaseAgent": (
+        "sonnet",
+        "Bull case analysis is an evidence-bound advocacy task requiring structured reasoning "
+        "and data synthesis. Sonnet delivers sharp, well-supported arguments at reasonable cost "
+        "for concurrent multi-agent debate execution."
+    ),
+    "BearCaseAgent": (
+        "sonnet",
+        "Bear case analysis mirrors the bull case in complexity — adversarial reasoning grounded "
+        "in customer data signals. Sonnet handles this structured argumentation task efficiently "
+        "alongside the bull case agent running in parallel."
+    ),
+    "SynthesisAgent": (
+        "opus",
+        "Debate synthesis requires the model to weigh two adversarial analyses, identify logical "
+        "gaps and overstatements on both sides, and produce a calibrated probability with genuine "
+        "uncertainty intervals. Opus's judgment depth is required to avoid false averaging."
+    ),
 }
 
 
