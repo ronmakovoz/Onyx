@@ -74,6 +74,7 @@ AGENT_DISPLAY = {
     "ExpansionOpportunityAgent": "Expansion Opportunity",
     "QBRPreparationAgent":       "QBR Preparation",
     "SuccessPlanAgent":          "Success Plan",
+    "KickoffDeckAgent":          "Kickoff Deck",
 }
 
 def agent_display_name(name: str) -> str:
@@ -1058,6 +1059,13 @@ def show_agent_guide():
             "what": "Creates a time-phased 30/60/90 success plan: objective, current vs. target state, owned workstreams, dated milestones, success metrics, and risks with mitigations.",
             "outputs": ["Objective", "Current & target state", "Workstreams", "30/60/90 milestones", "Success metrics", "Risks & mitigations"],
         },
+        {
+            "name": "Kickoff Deck Agent",
+            "icon": "", "model": "Sonnet", "model_color": "#3D3458", "model_bg": "#EDEAF4",
+            "when": "Right after a new contract is signed, before the first joint implementation session.",
+            "what": "Generates the client-facing implementation kickoff deck: maps Onyx's standard 12-milestone methodology onto the customer's stakeholders, industry, and go-live target, with named owners on both sides, success metrics, and a concrete first-30-days plan.",
+            "outputs": ["Partnership vision", "Engagement team map", "Scope & objectives", "Milestone timeline (dated)", "Success metrics", "First 30 days plan", "Governance cadence", "Customer prerequisites"],
+        },
     ]
 
     # model routing legend
@@ -1507,6 +1515,7 @@ elif page == "Customer 360":
             ("QBRPreparationAgent",       "Grow",    "Prepare QBR"),
             ("SuccessPlanAgent",          "Grow",    "Build Success Plan"),
             ("BriefingAgent",             "Communicate", "Generate CEO Briefing"),
+            ("KickoffDeckAgent",          "Communicate", "Kickoff Deck"),
             ("EscalationCommanderAgent",  "Respond", "Escalation Commander"),
             ("SkeptikQAAgent",            "Verify",  "Skeptik QA Review"),
         ]
@@ -1968,6 +1977,7 @@ elif page == "Agent Console":
         "QBRPreparationAgent":       ("Grow",        "sonnet", "Quarterly business review prep"),
         "SuccessPlanAgent":          ("Grow",        "sonnet", "30/60/90 success planning"),
         "BriefingAgent":             ("Communicate", "sonnet", "Executive briefing generation"),
+        "KickoffDeckAgent":          ("Communicate", "sonnet", "Client-facing kickoff deck generation"),
         "EscalationCommanderAgent":  ("Respond",     "opus",   "Crisis management & battle plan"),
         "SkeptikQAAgent":            ("Verify",      "opus",   "Adversarial output review"),
         "VPChiefOfStaffAgent":       ("Portfolio",   "opus",   "Weekly portfolio operating review"),
@@ -2283,15 +2293,28 @@ elif page == "Implementation Digest":
   <div style="margin-top:10px;padding:9px 12px;background:#F4EAF6;border-radius:8px;font-size:0.82rem;color:#1B1040;font-weight:600">Recommended action: {impl_next_action(r)}</div>
 </div>""", unsafe_allow_html=True)
 
-            ai_key = f"impl_ai_{r['customer_id']}"
-            if st.button("Generate AI analysis", type="primary", key=f"impl_ai_btn_{r['customer_id']}"):
-                with st.spinner(f"Analysing {r['customer_name']}…"):
-                    st.session_state[ai_key] = call_agent("ImplementationAgent", r["customer_id"])
-            if ai_key in st.session_state:
-                res = st.session_state[ai_key]
+            ai_key   = f"impl_ai_{r['customer_id']}"
+            deck_key = f"impl_deck_{r['customer_id']}"
+            bc1, bc2, _ = st.columns([1, 1, 2])
+            with bc1:
+                if st.button("Generate AI analysis", type="primary", use_container_width=True,
+                             key=f"impl_ai_btn_{r['customer_id']}"):
+                    with st.spinner(f"Analysing {r['customer_name']}…"):
+                        st.session_state[ai_key] = call_agent("ImplementationAgent", r["customer_id"])
+                        st.session_state[f"impl_last_{r['customer_id']}"] = ai_key
+            with bc2:
+                if st.button("Generate Kickoff Deck", use_container_width=True,
+                             key=f"impl_deck_btn_{r['customer_id']}"):
+                    with st.spinner(f"Building kickoff deck for {r['customer_name']}…"):
+                        st.session_state[deck_key] = call_agent("KickoffDeckAgent", r["customer_id"])
+                        st.session_state[f"impl_last_{r['customer_id']}"] = deck_key
+            show_key = st.session_state.get(f"impl_last_{r['customer_id']}")
+            if show_key and show_key in st.session_state:
+                res = st.session_state[show_key]
                 render_agent_output(res)
+                prefix = "Kickoff_Deck" if show_key == deck_key else "Impl"
                 export_button(res.get("output_text", ""),
-                              f"Impl_{r['customer_name'].replace(' ','_')}_{datetime.now().strftime('%Y%m%d')}.md")
+                              f"{prefix}_{r['customer_name'].replace(' ','_')}_{datetime.now().strftime('%Y%m%d')}.md")
 
 
 # ══════════════════════════════════════════════════════════════════════════════

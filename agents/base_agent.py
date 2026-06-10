@@ -528,6 +528,100 @@ Health 70+, adoption above 65%, champion re-engaged, renewal secured with expans
 - Champion change → identify and onboard a backup champion early"""
 
 
+def _mock_kickoffdeck(ctx):
+    name     = ctx.get("customer_name", "Customer")
+    industry = ctx.get("industry", "Enterprise")
+    champ    = ctx.get("champion_name", "Customer Champion")
+    champ_t  = ctx.get("champion_title", "Security Lead")
+    tech     = ctx.get("technical_sponsor", "Technical Sponsor")
+    biz      = ctx.get("business_sponsor", "Business Sponsor")
+    csm      = ctx.get("csm_owner", "Onyx CSM")
+    impl     = ctx.get("implementation_owner", "Onyx Implementation Manager")
+    golive   = ctx.get("go_live_target", "Not set")
+    emp      = ctx.get("employee_count", "?")
+    sec_rev  = ctx.get("security_review_status", "Not started")
+
+    from datetime import timedelta
+    start = datetime.now().date()
+    def d(days): return (start + timedelta(days=days)).strftime("%b %d, %Y")
+
+    track = [
+        ("Foundation",  "Kickoff & Scoping",                       7,  impl),
+        ("Foundation",  "Technical Discovery",                     14, tech),
+        ("Foundation",  "Environment Provisioning",                21, f"{name} IT"),
+        ("Integration", "SSO / Identity Provider Integration",     35, tech),
+        ("Integration", "Initial Data Ingestion",                  42, impl),
+        ("Pilot",       "Pilot Group Onboarding (25 users)",       56, champ),
+        ("Pilot",       "Detection Policy Configuration",          63, impl),
+        ("Validation",  "Integration Testing & QA",                77, impl),
+        ("Validation",  "Security Review Sign-off",                84, tech),
+        ("Launch",      "Full Production Rollout",                 98, impl),
+        ("Launch",      "Hypercare Period (30 days)",              128, csm),
+        ("Value",       "QBR #1 — 90-Day Review",                  180, csm),
+    ]
+    timeline_rows = "\n".join(
+        f"| {phase} | {m} | {d(days)} | {owner} |" for phase, m, days, owner in track
+    )
+
+    return f"""# Implementation Kickoff — {name}
+*Prepared by Onyx Security · {datetime.now().strftime('%B %d, %Y')} · Client-Facing*
+
+---
+
+## Welcome & Partnership Vision
+Welcome to the Onyx Security partnership. Over the next 90–180 days we will give {name} full
+visibility and control over AI activity across your {industry.lower()} environment ({emp} employees) —
+from discovery of shadow AI to runtime protection in production. Success means your security team
+sees every AI agent, governs every action, and proves measurable risk reduction by your first QBR.
+
+## Engagement Team
+| Role | Name | Responsibility |
+|------|------|----------------|
+| Onyx Implementation Manager | {impl} | Owns delivery plan, milestones, and weekly status |
+| Onyx Customer Success Manager | {csm} | Owns long-term outcomes, adoption, and executive cadence |
+| Onyx Solutions Engineer | Assigned at kickoff | Technical integration and policy configuration |
+| Customer Champion | {champ} ({champ_t}) | Internal advocacy, pilot group coordination |
+| Customer Technical Sponsor | {tech} | IT access, SSO/IdP admin, environment readiness |
+| Customer Business Sponsor | {biz} | Executive checkpoints, success metric sign-off |
+
+## Scope & Objectives
+- Deploy the Onyx Secure AI Control Plane across {name}'s environment with full discovery coverage
+- Establish a complete inventory of AI agents, models, and shadow AI applications
+- Enable runtime protection (prompt injection, jailbreak, and data exfiltration blocking) for the pilot group, then production
+- Configure detection policies aligned to {industry} compliance and risk requirements
+- Reach Full Production Rollout {'by ' + str(golive) if golive not in (None, 'Not set') else 'within 98 days of kickoff'}
+
+## Implementation Timeline
+| Phase | Milestone | Target Date | Owner |
+|-------|-----------|-------------|-------|
+{timeline_rows}
+
+## Success Metrics
+- 100% of discovery sources connected and reporting by Day 42
+- Shadow AI inventory baseline established with zero unknown agents at production rollout
+- Pilot group (25 users) live with < 5% false-positive policy rate before production
+- Security review signed off by Day 84 (current status: {sec_rev})
+- Measurable risk findings presented at the 90-day QBR
+
+## First 30 Days
+1. **Day 1–7:** Kickoff session held; scope confirmed; weekly sync scheduled — Owner: {impl}
+2. **Day 7–14:** Technical discovery complete; environment access granted — Owner: {tech}
+3. **Day 14–21:** Onyx environment provisioned; service accounts created — Owner: {name} IT + Onyx SE
+4. **Day 21–30:** SSO/IdP integration underway; pilot group of 25 users nominated — Owner: {champ}
+
+## Communication & Governance
+Weekly 30-minute delivery sync ({impl} + {tech}), biweekly executive checkpoint ({csm} + {biz}),
+and a shared status dashboard updated every Friday. Escalation path: Implementation Manager →
+CSM → Onyx VP Customer Experience, with a 24-hour response commitment on blockers.
+
+## What We Need From You
+- Named IT contact with admin access for environment provisioning (by Day 14)
+- IdP administrator availability for SSO integration (Days 21–35)
+- Pilot group of 25 users nominated by {champ} (by Day 30)
+- Security review requirements and approver identified (by Day 45)
+- Executive sponsor availability for biweekly checkpoints"""
+
+
 MOCK_DISPATCH = {
     "CustomerHealthAgent":     _mock_health,
     "ImplementationAgent":     _mock_implementation,
@@ -538,6 +632,7 @@ MOCK_DISPATCH = {
     "ExpansionOpportunityAgent": _mock_expansion,
     "QBRPreparationAgent":     _mock_qbr,
     "SuccessPlanAgent":        _mock_successplan,
+    "KickoffDeckAgent":        _mock_kickoffdeck,
 }
 
 

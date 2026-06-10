@@ -111,6 +111,18 @@ class QBRPrepOutput:
 
 
 @dataclass
+class KickoffDeckOutput:
+    partnership_vision: str              # client-facing opening narrative
+    engagement_team: List[str]           # "Role: Name — responsibility" both sides
+    scope_objectives: List[str]          # tailored to industry & size
+    timeline: List[str]                  # milestone rows adapted to go-live target
+    success_metrics: List[str]           # measurable, industry-tied
+    first_30_days: List[str]             # concrete actions with owners and dates
+    governance: str                      # cadence + escalation path
+    customer_prerequisites: List[str]    # what we need from the customer
+
+
+@dataclass
 class SuccessPlanOutput:
     objective: str                       # the north-star outcome for the account
     current_state: str
