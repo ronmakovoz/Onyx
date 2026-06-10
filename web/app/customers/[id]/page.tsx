@@ -37,30 +37,62 @@ function HealthChart({ history }: { history: { date: string; health_score: numbe
   if (!history.length) return null;
   const W = 640;
   const H = 160;
-  const PAD = 14;
-  const pts = history.map((h, i) => {
-    const x = PAD + (i / Math.max(history.length - 1, 1)) * (W - 2 * PAD);
-    const y = H - PAD - (h.health_score / 100) * (H - 2 * PAD);
-    return [x, y] as const;
-  });
+  const PAD = 10;
+  // Scale the y-axis to the data range so the trend is readable; the SVG
+  // stretches to the container (preserveAspectRatio="none"), so strokes use
+  // non-scaling-stroke and dots are drawn as separate overlay divs.
+  const vals = history.map((h) => h.health_score);
+  const lo = Math.max(0, Math.floor((Math.min(...vals) - 6) / 5) * 5);
+  const hi = Math.min(100, Math.ceil((Math.max(...vals) + 6) / 5) * 5);
+  const yOf = (v: number) => H - PAD - ((v - lo) / Math.max(hi - lo, 1)) * (H - 2 * PAD);
+  const xOf = (i: number) => (i / Math.max(history.length - 1, 1)) * W;
+  const pts = history.map((h, i) => [xOf(i), yOf(h.health_score)] as const);
+  const mid = Math.round((lo + hi) / 2);
+  const area = `0,${H} ${pts.map(([x, y]) => `${x},${y}`).join(" ")} ${W},${H}`;
   return (
     <div className="bg-white border border-line rounded-[10px] px-3 pt-3 pb-1">
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-[160px]">
-        {[25, 50, 75].map((g) => {
-          const y = H - PAD - (g / 100) * (H - 2 * PAD);
-          return <line key={g} x1={PAD} x2={W - PAD} y1={y} y2={y} stroke="#F0EDE7" strokeWidth={1} />;
-        })}
-        <polyline
-          fill="none"
-          stroke="#1B1040"
-          strokeWidth={2.2}
-          points={pts.map(([x, y]) => `${x},${y}`).join(" ")}
-        />
+      <div className="relative">
+        <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" className="w-full h-[160px] block">
+          <defs>
+            <linearGradient id="healthFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#1B1040" stopOpacity="0.10" />
+              <stop offset="100%" stopColor="#1B1040" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          {[lo, mid, hi].map((g) => (
+            <line
+              key={g}
+              x1={0}
+              x2={W}
+              y1={yOf(g)}
+              y2={yOf(g)}
+              stroke="#F0EDE7"
+              strokeWidth={1}
+              vectorEffect="non-scaling-stroke"
+            />
+          ))}
+          <polygon points={area} fill="url(#healthFill)" />
+          <polyline
+            fill="none"
+            stroke="#1B1040"
+            strokeWidth={2.2}
+            vectorEffect="non-scaling-stroke"
+            points={pts.map(([x, y]) => `${x},${y}`).join(" ")}
+          />
+        </svg>
+        {/* Dots as overlay divs so they stay round when the SVG stretches */}
         {pts.map(([x, y], i) => (
-          <circle key={i} cx={x} cy={y} r={2.4} fill="#1B1040" />
+          <span
+            key={i}
+            className="absolute w-[6px] h-[6px] rounded-full bg-navy -translate-x-1/2 -translate-y-1/2"
+            style={{ left: `${(x / W) * 100}%`, top: `${(y / H) * 100}%` }}
+          />
         ))}
-      </svg>
-      <div className="flex justify-between text-[0.62rem] text-muted px-1 pb-1">
+        {/* Y-axis labels */}
+        <span className="absolute left-1 top-0 text-[0.60rem] font-semibold text-faint">{hi}</span>
+        <span className="absolute left-1 bottom-0 text-[0.60rem] font-semibold text-faint">{lo}</span>
+      </div>
+      <div className="flex justify-between text-[0.62rem] text-muted px-1 pb-1 pt-1">
         <span>{history[0].date.slice(0, 10)}</span>
         <span>{history[history.length - 1].date.slice(0, 10)}</span>
       </div>
