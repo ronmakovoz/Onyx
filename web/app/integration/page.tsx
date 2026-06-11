@@ -4,47 +4,58 @@ import { useEffect, useState } from "react";
 import { PageHeader } from "@/components/ui";
 
 const NAVY = "#1B1040";
-const GREEN = "#2D5A3D";
-const RED = "#9B2335";
-const AMBER = "#B8860B";
 const PURPLE = "#6B5CA8";
+const GREEN = "#2D5A3D";
 
-// Client-side sources (left), Onyx in the middle, model providers (right)
-const SOURCES = [
-  { id: "apps", label: "Internal Apps", sub: "LLM features in product", y: 70 },
-  { id: "agents", label: "AI Agents", sub: "autonomous workflows", y: 150 },
-  { id: "copilots", label: "Employee Copilots", sub: "chat, code, docs", y: 230 },
-  { id: "mcp", label: "MCP Servers", sub: "tools & connectors", y: 310 },
-  { id: "shadow", label: "Shadow AI", sub: "unsanctioned usage", y: 390 },
+// Step 1 — discover agents through the existing security stack (read-only API)
+const SECURITY_STACK = ["SentinelOne", "Zscaler", "CrowdStrike", "Wiz"];
+
+// Step 2 — connect to the agents themselves
+const CONNECT_GROUPS = [
+  { label: "Platforms", items: ["Microsoft Copilot", "Salesforce", "OpenAI", "Glean"] },
+  { label: "Frameworks", items: ["LangGraph", "smolagents", "LlamaIndex", "CrewAI"] },
+  { label: "3rd Party", items: ["Claude", "Cohere", "Custom agents"] },
 ];
 
-const PROVIDERS = [
-  { id: "anthropic", label: "Anthropic", y: 110 },
-  { id: "openai", label: "OpenAI / Azure", y: 190 },
-  { id: "bedrock", label: "AWS Bedrock", y: 270 },
-  { id: "selfhosted", label: "Self-hosted Models", y: 350 },
+// Onyx Cloud Backend processing
+const BACKEND = [
+  "Ingestion & Normalization",
+  "Configuration Analysis",
+  "Guardrails",
+  "Chain-of-Thought Evaluation",
+];
+
+// Guardian Agent capabilities (right column) — colors echo the brand diagram
+const GUARDIAN = [
+  { label: "Discovery", bg: "#FDE8EF", border: "#F3B8CD" },
+  { label: "Runtime Protection", bg: "#E2F6F8", border: "#A8DEE4" },
+  { label: "Posture Management", bg: "#E8F4EA", border: "#B5D9BC" },
+  { label: "Governance", bg: "#FDF3DC", border: "#EAD08F" },
+  { label: "Honeypot", bg: "#FBE8D8", border: "#EDBE94" },
+  { label: "Red-Teaming", bg: "#FBE3E1", border: "#EFB0AB" },
+  { label: "Audit & Compliance", bg: "#FFFFFF", border: "#D8D3C8" },
 ];
 
 const STEPS = [
   {
     n: "1",
-    title: "Discover",
-    body: "Onyx deploys as a lightweight gateway in the client's VPC — no agents on endpoints, no code changes. Within hours it maps every app, agent, copilot, and MCP server talking to an LLM, including shadow AI nobody knew about.",
+    title: "Discover Agents",
+    body: "Onyx plugs into the security stack the client already runs — CrowdStrike, Wiz, Zscaler, SentinelOne — via read-only API integration. No endpoint agents, no traffic rerouting: Onyx sees every AI agent the existing tooling can see, instantly.",
   },
   {
     n: "2",
-    title: "Route",
-    body: "AI traffic flows through the Onyx gateway. One integration point replaces dozens of direct provider connections — with model routing, failover, and cost controls built in.",
+    title: "Connect To Agents",
+    body: "Onyx then connects to the agents themselves — platforms like Microsoft Copilot, Salesforce, and Glean; frameworks like LangGraph, smolagents, and LlamaIndex; and 3rd-party models like Claude — via read-only API or an optional gateway.",
   },
   {
     n: "3",
-    title: "Protect",
-    body: "Every request and response is inspected in-line: prompt injection, data exfiltration, jailbreaks, and policy violations are blocked in real time — before they reach the model or leave the environment.",
+    title: "Analyze in the Cloud Backend",
+    body: "Everything lands in the Onyx Cloud Backend: telemetry is ingested and normalized, agent configurations are analyzed, guardrails are applied, and agent reasoning is checked with chain-of-thought evaluation.",
   },
   {
     n: "4",
-    title: "Prove",
-    body: "Every interaction is logged with full lineage. Compliance evidence for SOC 2, ISO 42001, and the EU AI Act is generated continuously — audits go from weeks to hours.",
+    title: "Act with the Guardian Agent",
+    body: "The Guardian Agent turns analysis into protection: discovery, runtime protection, posture management, governance, honeypots, red-teaming, and continuous audit & compliance evidence.",
   },
 ];
 
@@ -60,19 +71,19 @@ export default function IntegrationPage() {
     return () => clearInterval(t);
   }, []);
 
-  // Onyx box geometry
-  const OX = 390, OW = 220, OY = 60, OH = 360;
-  const onyxMidY = OY + OH / 2;
+  // Backend box geometry
+  const BX = 430, BW = 230, BY = 130, BH = 280;
+  const bMidY = BY + BH / 2;
 
   return (
     <div>
       <PageHeader
         title="How Onyx Integrates"
-        subtitle="One gateway between everything that calls an LLM and every model it calls — discovered, routed, protected, and proven"
+        subtitle="A unified platform to secure agentic AI — discover agents through the existing security stack, connect to them directly, analyze in the cloud backend, and protect with the Guardian Agent"
       />
 
       <div className="bg-white border border-line rounded-xl shadow-card p-4 mb-5 overflow-x-auto">
-        <svg viewBox="0 0 1000 480" className="w-full min-w-[820px]" role="img" aria-label="Onyx integration architecture animation">
+        <svg viewBox="0 0 1000 540" className="w-full min-w-[860px]" role="img" aria-label="Onyx unified platform architecture animation">
           <defs>
             <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
               <feGaussianBlur stdDeviation="3" result="b" />
@@ -83,111 +94,114 @@ export default function IntegrationPage() {
             </filter>
           </defs>
 
-          {/* Client environment boundary */}
-          <rect x="20" y="30" width="290" height="420" rx="14" fill="#FAF8F4" stroke="#D8D3C8" strokeDasharray="6 4" />
-          <text x="165" y="52" textAnchor="middle" fontSize="11" fontWeight="800" fill="#8A8475" letterSpacing="1.5">
-            CLIENT ENVIRONMENT
-          </text>
+          {/* ===== Step 1: Discover Agents ===== */}
+          <rect x="20" y="30" width="330" height="130" rx="12" fill="#FAF8F4" stroke="#D8D3C8" strokeDasharray="6 4" />
+          <text x="36" y="54" fontSize="13" fontWeight="800" fill={NAVY}>Step 1: Discover Agents</text>
+          <rect x="36" y="66" width="298" height="78" rx="9" fill="#fff" stroke="#E4E0D8" />
+          <text x="50" y="86" fontSize="10" fontWeight="700" fill="#8A8475" fontFamily="monospace">Security Stack</text>
+          {SECURITY_STACK.map((s, i) => (
+            <g key={s}>
+              <rect x={50 + i * 70} y={96} width="64" height="32" rx="7" fill="#F4F1EB" stroke="#E4E0D8" />
+              <text x={82 + i * 70} y={115} textAnchor="middle" fontSize="8.5" fontWeight="700" fill={NAVY}>{s}</text>
+            </g>
+          ))}
 
-          {/* Provider zone */}
-          <rect x="700" y="60" width="280" height="350" rx="14" fill="#FAF8F4" stroke="#D8D3C8" strokeDasharray="6 4" />
-          <text x="840" y="84" textAnchor="middle" fontSize="11" fontWeight="800" fill="#8A8475" letterSpacing="1.5">
-            MODEL PROVIDERS
-          </text>
+          {/* ===== Step 2: Connect To Agents ===== */}
+          <rect x="20" y="180" width="330" height="330" rx="12" fill="#FAF8F4" stroke="#D8D3C8" strokeDasharray="6 4" />
+          <text x="36" y="204" fontSize="13" fontWeight="800" fill={NAVY}>Step 2: Connect To Agents</text>
+          {CONNECT_GROUPS.map((g, gi) => (
+            <g key={g.label}>
+              <rect x="36" y={216 + gi * 94} width="298" height="84" rx="9" fill="#fff" stroke="#E4E0D8" />
+              <text x="50" y={236 + gi * 94} fontSize="10" fontWeight="700" fill="#8A8475" fontFamily="monospace">{g.label}</text>
+              {g.items.map((it, ii) => (
+                <g key={it}>
+                  <rect x={50 + (ii % 2) * 138} y={244 + gi * 94 + Math.floor(ii / 2) * 26} width="130" height="22" rx="6" fill="#F4F1EB" stroke="#E4E0D8" />
+                  <text x={115 + (ii % 2) * 138} y={259 + gi * 94 + Math.floor(ii / 2) * 26} textAnchor="middle" fontSize="9" fontWeight="700" fill={NAVY}>{it}</text>
+                </g>
+              ))}
+            </g>
+          ))}
 
-          {/* Flow paths: sources -> Onyx */}
-          {SOURCES.map((s, i) => {
-            const isThreat = s.id === "shadow";
-            const p = flowPath(255, s.y + 18, isThreat ? OX + 4 : OX, isThreat ? onyxMidY + 110 : onyxMidY - 80 + i * 40);
+          {/* ===== Connection labels + animated flows into the backend ===== */}
+          {/* Step 1 -> backend (read-only) */}
+          {(() => {
+            const p = flowPath(350, 110, BX, bMidY - 60);
             return (
-              <g key={s.id}>
-                <path d={p} fill="none" stroke={isThreat ? "#E8C8CE" : "#DDD6EC"} strokeWidth="1.5" />
-                {/* travelling packet */}
-                <circle r="5" fill={isThreat ? RED : PURPLE} filter="url(#glow)">
-                  <animateMotion dur={`${2.6 + i * 0.5}s`} repeatCount="indefinite" path={p} begin={`${i * 0.6}s`} />
-                  {isThreat ? (
-                    <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.92;1" dur={`${2.6 + i * 0.5}s`} repeatCount="indefinite" begin={`${i * 0.6}s`} />
-                  ) : null}
+              <g>
+                <path d={p} fill="none" stroke="#DDD6EC" strokeWidth="1.5" />
+                <text x="368" y="100" fontSize="9" fill="#8A8475" fontFamily="monospace">API Integration (Read-Only)</text>
+                <circle r="5" fill={PURPLE} filter="url(#glow)">
+                  <animateMotion dur="2.8s" repeatCount="indefinite" path={p} />
                 </circle>
               </g>
             );
-          })}
-
-          {/* blocked burst where shadow AI hits the Onyx wall */}
-          <g>
-            <circle cx={OX + 4} cy={onyxMidY + 110} r="9" fill="none" stroke={RED} strokeWidth="2">
-              <animate attributeName="r" values="4;14" dur="1.4s" repeatCount="indefinite" />
-              <animate attributeName="opacity" values="0.9;0" dur="1.4s" repeatCount="indefinite" />
-            </circle>
-            <text x={OX + 22} y={onyxMidY + 132} fontSize="10" fontWeight="800" fill={RED}>
-              ✕ THREAT BLOCKED
-            </text>
-          </g>
-
-          {/* Flow paths: Onyx -> providers */}
-          {PROVIDERS.map((pr, i) => {
-            const p = flowPath(OX + OW, onyxMidY - 60 + i * 40, 715, pr.y + 16);
+          })()}
+          {/* Step 2 -> backend (read-only or gateway) */}
+          {(() => {
+            const p = flowPath(350, 345, BX, bMidY + 40);
             return (
-              <g key={pr.id}>
-                <path d={p} fill="none" stroke="#CFE0D5" strokeWidth="1.5" />
-                <circle r="5" fill={GREEN} filter="url(#glow)">
-                  <animateMotion dur={`${2.4 + i * 0.4}s`} repeatCount="indefinite" path={p} begin={`${0.8 + i * 0.5}s`} />
+              <g>
+                <path d={p} fill="none" stroke="#DDD6EC" strokeWidth="1.5" />
+                <text x="360" y="394" fontSize="9" fill="#8A8475" fontFamily="monospace">API Integration (Read-Only)</text>
+                <text x="360" y="406" fontSize="9" fill="#8A8475" fontFamily="monospace">- or - Gateway</text>
+                <circle r="5" fill={PURPLE} filter="url(#glow)">
+                  <animateMotion dur="2.4s" repeatCount="indefinite" path={p} begin="0.9s" />
+                </circle>
+                <circle r="5" fill={PURPLE} filter="url(#glow)">
+                  <animateMotion dur="2.4s" repeatCount="indefinite" path={p} begin="2.1s" />
                 </circle>
               </g>
             );
-          })}
+          })()}
 
-          {/* Source nodes */}
-          {SOURCES.map((s) => {
-            const isThreat = s.id === "shadow";
-            return (
-              <g key={s.id}>
-                <rect x="40" y={s.y} width="215" height="38" rx="9" fill="#fff" stroke={isThreat ? "#E0B4BC" : "#E4E0D8"} strokeWidth="1.5" />
-                <text x="54" y={s.y + 16} fontSize="12" fontWeight="700" fill={isThreat ? RED : NAVY}>
-                  {s.label}
-                </text>
-                <text x="54" y={s.y + 30} fontSize="9.5" fill="#8A8475">
-                  {s.sub}
-                </text>
-              </g>
-            );
-          })}
-
-          {/* Onyx control plane */}
-          <rect x={OX} y={OY} width={OW} height={OH} rx="16" fill={NAVY} />
-          <text x={OX + OW / 2} y={OY + 32} textAnchor="middle" fontSize="17" fontWeight="900" fill="#fff" letterSpacing="2">
-            ONYX
+          {/* ===== Onyx Cloud Backend ===== */}
+          <rect x={BX} y={BY} width={BW} height={BH} rx="16" fill="#F3EFFC" stroke="#C9B8EE" strokeWidth="1.5" />
+          <text x={BX + BW / 2} y={BY - 14} textAnchor="middle" fontSize="13" fontWeight="900" fill={NAVY} letterSpacing="0.5">
+            ONYX <tspan fontWeight="600">Cloud Backend</tspan>
           </text>
-          <text x={OX + OW / 2} y={OY + 49} textAnchor="middle" fontSize="9" fontWeight="700" fill="#B9AEE0" letterSpacing="1.5">
-            SECURE AI CONTROL PLANE
-          </text>
-          {["AI Discovery", "LLM Routing Gateway", "Guardian Runtime", "Prompt Injection Defense", "Data Exfil Prevention", "Policy & Governance", "Compliance Evidence"].map((layer, i) => (
-            <g key={layer}>
-              <rect x={OX + 18} y={OY + 64 + i * 40} width={OW - 36} height="30" rx="7" fill="#2D2154" stroke="#4A3D7A" strokeWidth="1" />
-              <text x={OX + OW / 2} y={OY + 83 + i * 40} textAnchor="middle" fontSize="10.5" fontWeight="600" fill="#E8E3F5">
-                {layer}
+          {BACKEND.map((b, i) => (
+            <g key={b}>
+              <rect x={BX + 18} y={BY + 24 + i * 62} width={BW - 36} height="48" rx="9" fill="#fff" stroke="#DDD0F2" />
+              <text x={BX + BW / 2} y={BY + 52 + i * 62} textAnchor="middle" fontSize="10.5" fontWeight="700" fill={NAVY}>
+                {b}
               </text>
             </g>
           ))}
 
-          {/* Provider nodes */}
-          {PROVIDERS.map((pr) => (
-            <g key={pr.id}>
-              <rect x="720" y={pr.y} width="240" height="34" rx="9" fill="#fff" stroke="#E4E0D8" strokeWidth="1.5" />
-              <text x="736" y={pr.y + 21} fontSize="12" fontWeight="700" fill={NAVY}>
-                {pr.label}
+          {/* ===== Backend -> Guardian flows ===== */}
+          {GUARDIAN.map((gd, i) => {
+            const gy = 56 + i * 64;
+            const p = flowPath(BX + BW, bMidY - 90 + i * 30, 740, gy + 22);
+            return (
+              <g key={gd.label}>
+                <path d={p} fill="none" stroke="#CFE0D5" strokeWidth="1.2" />
+                <circle r="4.5" fill={GREEN} filter="url(#glow)">
+                  <animateMotion dur={`${2.2 + i * 0.3}s`} repeatCount="indefinite" path={p} begin={`${0.6 + i * 0.4}s`} />
+                </circle>
+              </g>
+            );
+          })}
+
+          {/* ===== Onyx Guardian Agent ===== */}
+          <rect x="740" y="26" width="240" height="488" rx="14" fill="#FAF8F4" stroke="#D8D3C8" strokeDasharray="6 4" />
+          <text x="860" y="48" textAnchor="middle" fontSize="12" fontWeight="900" fill={NAVY} letterSpacing="0.5">
+            ONYX <tspan fontWeight="600">Guardian Agent</tspan>
+          </text>
+          {GUARDIAN.map((gd, i) => (
+            <g key={gd.label}>
+              <rect x="756" y={56 + i * 64} width="208" height="50" rx="10" fill={gd.bg} stroke={gd.border} strokeWidth="1.5" />
+              <text x="860" y={86 + i * 64} textAnchor="middle" fontSize="11.5" fontWeight="700" fill={NAVY}>
+                {gd.label}
               </text>
             </g>
           ))}
 
           {/* Legend */}
           <g fontSize="10" fill="#8A8475">
-            <circle cx="40" cy="466" r="5" fill={PURPLE} />
-            <text x="52" y="470">AI traffic in</text>
-            <circle cx="135" cy="466" r="5" fill={GREEN} />
-            <text x="147" y="470">Inspected &amp; routed</text>
-            <circle cx="270" cy="466" r="5" fill={RED} />
-            <text x="282" y="470">Threat blocked at the gateway</text>
+            <circle cx="40" cy="528" r="5" fill={PURPLE} />
+            <text x="52" y="532">Agent telemetry &amp; configs in</text>
+            <circle cx="220" cy="528" r="5" fill={GREEN} />
+            <text x="232" y="532">Guardian protections out</text>
           </g>
         </svg>
       </div>
@@ -218,7 +232,7 @@ export default function IntegrationPage() {
       </div>
 
       <div className="mt-4 text-[0.72rem] text-muted px-1">
-        Typical deployment: gateway live in the client VPC in under a day · discovery complete within 72 hours · zero application code changes.
+        Read-only API integrations by default — no endpoint agents, no code changes. Optional gateway mode for in-line guardrails.
       </div>
     </div>
   );
