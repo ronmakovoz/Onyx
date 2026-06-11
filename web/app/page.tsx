@@ -47,7 +47,7 @@ function HealthBar({ customers }: { customers: Customer[] }) {
         <div style={{ width: `${(medium / total) * 100}%` }} className="bg-[#F5A623]" />
         <div style={{ width: `${(high / total) * 100}%` }} className="bg-red" />
       </div>
-      <div className="flex gap-3 text-[0.65rem] text-muted whitespace-nowrap">
+      <div className="flex gap-3 text-[0.65rem] text-[#CFC8E8] whitespace-nowrap">
         <span className="flex items-center gap-1">
           <span className="w-2 h-2 rounded-full bg-green inline-block" />
           {healthy} healthy
@@ -183,13 +183,13 @@ export default function DashboardPage() {
       {/* AI Executive Summary */}
       <div
         className="rounded-xl px-5 py-4 mb-5"
-        style={{ background: "linear-gradient(135deg, #1B1040 0%, #2D2154 100%)" }}
+        style={{ background: "linear-gradient(135deg, #3B2D72 0%, #51409B 100%)" }}
       >
         <div className="flex items-center gap-2 mb-2">
           <span className="text-[0.62rem] font-bold text-[#B9AEE0] uppercase tracking-[0.12em]">
             AI Executive Summary
           </span>
-          <span className="text-[0.58rem] text-[#8579B0] bg-white/10 px-2 py-[2px] rounded-full">
+          <span className="text-[0.58rem] text-[#CFC8E8] bg-white/10 px-2 py-[2px] rounded-full">
             auto-generated · live data
           </span>
         </div>
