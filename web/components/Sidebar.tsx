@@ -23,6 +23,7 @@ const GROUPS: { label: string; items: { name: string; href: string }[] }[] = [
     items: [
       { name: "Briefings", href: "/briefings" },
       { name: "Agent Console", href: "/console" },
+      { name: "How Onyx Integrates", href: "/integration" },
     ],
   },
   {
