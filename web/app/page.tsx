@@ -47,7 +47,7 @@ function HealthBar({ customers }: { customers: Customer[] }) {
         <div style={{ width: `${(medium / total) * 100}%` }} className="bg-[#F5A623]" />
         <div style={{ width: `${(high / total) * 100}%` }} className="bg-red" />
       </div>
-      <div className="flex gap-3 text-[0.65rem] text-[#CFC8E8] whitespace-nowrap">
+      <div className="flex gap-3 text-[0.65rem] text-muted whitespace-nowrap">
         <span className="flex items-center gap-1">
           <span className="w-2 h-2 rounded-full bg-green inline-block" />
           {healthy} healthy
@@ -90,7 +90,7 @@ function buildExecSummary(summary: Summary, customers: Customer[]) {
 
   const healthWord = nrr >= 105 ? "stable" : nrr < 100 ? "under pressure" : "holding";
   const B = ({ children }: { children: React.ReactNode }) => (
-    <strong className="text-white font-bold">{children}</strong>
+    <strong className="text-navy font-bold">{children}</strong>
   );
 
   return (
@@ -182,18 +182,18 @@ export default function DashboardPage() {
 
       {/* AI Executive Summary */}
       <div
-        className="rounded-xl px-5 py-4 mb-5"
-        style={{ background: "linear-gradient(135deg, #3B2D72 0%, #51409B 100%)" }}
+        className="rounded-xl px-5 py-4 mb-5 border border-[#D9D0F0]"
+        style={{ background: "linear-gradient(135deg, #F3EFFC 0%, #EAE3F8 100%)" }}
       >
         <div className="flex items-center gap-2 mb-2">
-          <span className="text-[0.62rem] font-bold text-[#B9AEE0] uppercase tracking-[0.12em]">
+          <span className="text-[0.62rem] font-bold text-[#6B5CA8] uppercase tracking-[0.12em]">
             AI Executive Summary
           </span>
-          <span className="text-[0.58rem] text-[#CFC8E8] bg-white/10 px-2 py-[2px] rounded-full">
+          <span className="text-[0.58rem] text-[#6B5CA8] bg-navy/5 px-2 py-[2px] rounded-full">
             auto-generated · live data
           </span>
         </div>
-        <div className="text-[#F0EDF7] text-[0.92rem] leading-[1.65] mb-3">
+        <div className="text-ink text-[0.92rem] leading-[1.65] mb-3">
           {buildExecSummary(summary, customers)}
         </div>
         <HealthBar customers={customers} />
