@@ -4,1728 +4,1728 @@
     "customer_id": 1,
     "customer_name": "NovaPay",
     "meeting_type": "Implementation Review",
-    "date": "2026-03-31T23:44:47",
+    "date": "2026-04-01T13:56:01",
     "attendees_internal": "Tyler Bennett, David Park (CRO)",
     "attendees_customer": "Carlos Brown, David Tanaka",
     "summary": "Weekly sync. Team acknowledged some configuration complexity but working through it with documentation.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Share new feature release notes\"]",
-    "follow_up_due": "2026-06-23"
+    "follow_up_due": "2026-06-24"
   },
   {
     "id": 2,
     "customer_id": 1,
     "customer_name": "NovaPay",
     "meeting_type": "Onboarding Check-in",
-    "date": "2026-05-26T23:44:47",
+    "date": "2026-05-27T13:56:01",
     "attendees_internal": "Tyler Bennett, David Park (CRO)",
     "attendees_customer": "Carlos Brown, David Tanaka",
     "summary": "Renewal discussion initiated positively. Customer asked to start paperwork early. No commercial friction.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Send expansion proposal draft\"]",
-    "follow_up_due": "2026-06-16"
+    "follow_up_due": "2026-06-17"
   },
   {
     "id": 3,
     "customer_id": 2,
     "customer_name": "Sentinel Commerce",
     "meeting_type": "Onboarding Check-in",
-    "date": "2026-05-09T23:44:47",
+    "date": "2026-05-10T13:56:01",
     "attendees_internal": "Tyler Bennett, Natasha Ivanova (VP CS)",
     "attendees_customer": "Sarah Tanaka, Emily Nair",
     "summary": "New analyst team onboarded. Customer praised quality of training materials and support responsiveness.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Share new feature release notes\", \"Send expansion proposal draft\"]",
-    "follow_up_due": "2026-06-15"
+    "follow_up_due": "2026-06-16"
   },
   {
     "id": 4,
     "customer_id": 2,
     "customer_name": "Sentinel Commerce",
     "meeting_type": "Executive Briefing",
-    "date": "2026-06-04T23:44:47",
+    "date": "2026-06-05T13:56:01",
     "attendees_internal": "Tyler Bennett, Rachel Kim (VP CX)",
     "attendees_customer": "Sarah Tanaka, Emily Nair",
     "summary": "Customer asked about SOC2 report availability. Shared compliance documentation. No concerns raised.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Share new feature release notes\", \"Invite to customer advisory board\"]",
-    "follow_up_due": "2026-06-22"
+    "follow_up_due": "2026-06-23"
   },
   {
     "id": 5,
     "customer_id": 3,
     "customer_name": "Orbit Travel Group",
     "meeting_type": "Executive Briefing",
-    "date": "2026-03-09T23:44:47",
+    "date": "2026-03-10T13:56:01",
     "attendees_internal": "James Okafor, Natasha Ivanova (VP CS)",
     "attendees_customer": "Amanda Davis, Simone Jackson",
     "summary": "Customer mentioned they are evaluating a competitor. Said Onyx is 'missing key discovery-source integrations they need (their CNAPP and SASE).' Product gap confirmed. [Active escalation on file: Confirmed competitor POC underway \u2014 displacement risk]",
     "sentiment_signal": "Negative",
     "action_items": "[\"Schedule VP-to-VP alignment call within 72 hours\", \"Send daily P1 ticket status update to Amanda Davis\"]",
-    "follow_up_due": "2026-06-18"
+    "follow_up_due": "2026-06-19"
   },
   {
     "id": 6,
     "customer_id": 3,
     "customer_name": "Orbit Travel Group",
     "meeting_type": "QBR",
-    "date": "2026-04-23T23:44:47",
+    "date": "2026-04-24T13:56:01",
     "attendees_internal": "James Okafor, David Park (CRO)",
     "attendees_customer": "Amanda Davis, Simone Jackson",
     "summary": "Sentiment call following P1 incident. Customer's CISO said trust has been damaged. Requires VP-to-VP call to rebuild.",
     "sentiment_signal": "Negative",
     "action_items": "[\"Send daily P1 ticket status update to Amanda Davis\", \"Schedule VP-to-VP alignment call within 72 hours\"]",
-    "follow_up_due": "2026-06-15"
+    "follow_up_due": "2026-06-16"
   },
   {
     "id": 7,
     "customer_id": 3,
     "customer_name": "Orbit Travel Group",
     "meeting_type": "Renewal Discussion",
-    "date": "2026-03-21T23:44:47",
+    "date": "2026-03-22T13:56:01",
     "attendees_internal": "James Okafor, Natasha Ivanova (VP CS)",
     "attendees_customer": "Amanda Davis, Simone Jackson",
     "summary": "Sentiment call following P1 incident. Customer's CISO said trust has been damaged. Requires VP-to-VP call to rebuild.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Schedule VP-to-VP alignment call within 72 hours\", \"Prepare executive escalation brief\"]",
-    "follow_up_due": "2026-06-17"
+    "follow_up_due": "2026-06-18"
   },
   {
     "id": 8,
     "customer_id": 3,
     "customer_name": "Orbit Travel Group",
     "meeting_type": "Executive Briefing",
-    "date": "2026-03-06T23:44:47",
+    "date": "2026-03-07T13:56:01",
     "attendees_internal": "James Okafor, Rachel Kim (VP CX)",
     "attendees_customer": "Amanda Davis, Simone Jackson",
     "summary": "Implementation review revealed 6-week delay. Customer team visibly frustrated. Project sponsor threatened to involve their CEO.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Schedule VP-to-VP alignment call within 72 hours\", \"Send daily P1 ticket status update to Amanda Davis\"]",
-    "follow_up_due": "2026-06-18"
+    "follow_up_due": "2026-06-19"
   },
   {
     "id": 9,
     "customer_id": 4,
     "customer_name": "Horizon Health Systems",
     "meeting_type": "Onboarding Check-in",
-    "date": "2026-05-10T23:44:47",
+    "date": "2026-05-11T13:56:01",
     "attendees_internal": "Simone Dubois, Rachel Kim (VP CX)",
     "attendees_customer": "Michael Patel, Yuki Kim",
     "summary": "Platform ROI demonstrated: 40% reduction in Guardian false positives, 2 prompt-injection incidents blocked and remediated this quarter. Customer team visibly impressed.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Share new feature release notes\", \"Invite to customer advisory board\"]",
-    "follow_up_due": "2026-06-23"
+    "follow_up_due": "2026-06-24"
   },
   {
     "id": 10,
     "customer_id": 4,
     "customer_name": "Horizon Health Systems",
     "meeting_type": "Onboarding Check-in",
-    "date": "2026-05-02T23:44:47",
+    "date": "2026-05-03T13:56:01",
     "attendees_internal": "Simone Dubois, David Park (CRO)",
     "attendees_customer": "Michael Patel, Yuki Kim",
     "summary": "Implementation review. 3 milestones completed on schedule. 1 slightly delayed due to customer IT queue.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Share new feature release notes\"]",
-    "follow_up_due": "2026-06-15"
+    "follow_up_due": "2026-06-16"
   },
   {
     "id": 11,
     "customer_id": 4,
     "customer_name": "Horizon Health Systems",
     "meeting_type": "QBR",
-    "date": "2026-04-29T23:44:47",
+    "date": "2026-04-30T13:56:01",
     "attendees_internal": "Simone Dubois, Natasha Ivanova (VP CS)",
     "attendees_customer": "Michael Patel, Yuki Kim",
     "summary": "Customer shared an internal case study they wrote about Onyx \u2014 planning to submit to industry conference.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Send expansion proposal draft\"]",
-    "follow_up_due": "2026-06-22"
+    "follow_up_due": "2026-06-23"
   },
   {
     "id": 12,
     "customer_id": 5,
     "customer_name": "PrimeCart",
     "meeting_type": "Escalation Call",
-    "date": "2026-02-26T23:44:47",
+    "date": "2026-02-27T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, David Park (CRO)",
     "attendees_customer": "Tyler Harris, Megan Walsh",
     "summary": "Sentiment call following P1 incident. Customer's CISO said trust has been damaged. Requires VP-to-VP call to rebuild. [Active escalation on file: Confirmed competitor POC underway \u2014 displacement risk]",
     "sentiment_signal": "Negative",
     "action_items": "[\"Prepare executive escalation brief\", \"Schedule VP-to-VP alignment call within 72 hours\"]",
-    "follow_up_due": "2026-06-13"
+    "follow_up_due": "2026-06-14"
   },
   {
     "id": 13,
     "customer_id": 5,
     "customer_name": "PrimeCart",
     "meeting_type": "Technical Deep-Dive",
-    "date": "2026-02-27T23:44:47",
+    "date": "2026-02-28T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, Rachel Kim (VP CX)",
     "attendees_customer": "Tyler Harris, Megan Walsh",
     "summary": "Budget freeze announced mid-call. Procurement contact said renewal approval is not expected until Q4. ARR at risk.",
     "sentiment_signal": "Negative",
     "action_items": "[\"Send daily P1 ticket status update to Tyler Harris\", \"Prepare executive escalation brief\"]",
-    "follow_up_due": "2026-06-19"
+    "follow_up_due": "2026-06-20"
   },
   {
     "id": 14,
     "customer_id": 5,
     "customer_name": "PrimeCart",
     "meeting_type": "Weekly Sync",
-    "date": "2026-06-03T23:44:47",
+    "date": "2026-06-04T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, David Park (CRO)",
     "attendees_customer": "Tyler Harris, Megan Walsh",
     "summary": "Customer mentioned they are evaluating a competitor. Said Onyx is 'missing key discovery-source integrations they need (their CNAPP and SASE).' Product gap confirmed.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Schedule VP-to-VP alignment call within 72 hours\", \"Prepare executive escalation brief\"]",
-    "follow_up_due": "2026-06-23"
+    "follow_up_due": "2026-06-24"
   },
   {
     "id": 15,
     "customer_id": 5,
     "customer_name": "PrimeCart",
     "meeting_type": "Onboarding Check-in",
-    "date": "2026-05-22T23:44:47",
+    "date": "2026-05-23T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, Rachel Kim (VP CX)",
     "attendees_customer": "Tyler Harris, Megan Walsh",
     "summary": "Implementation review revealed 6-week delay. Customer team visibly frustrated. Project sponsor threatened to involve their CEO.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Schedule VP-to-VP alignment call within 72 hours\", \"Send daily P1 ticket status update to Tyler Harris\"]",
-    "follow_up_due": "2026-06-17"
+    "follow_up_due": "2026-06-18"
   },
   {
     "id": 16,
     "customer_id": 6,
     "customer_name": "SecureLedger",
     "meeting_type": "Technical Deep-Dive",
-    "date": "2026-03-03T23:44:47",
+    "date": "2026-03-04T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, Natasha Ivanova (VP CS)",
     "attendees_customer": "Simone Kim, Sarah Walsh",
     "summary": "Implementation review. 3 milestones completed on schedule. 1 slightly delayed due to customer IT queue.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Schedule technical integration review\", \"Share updated roadmap timeline\"]",
-    "follow_up_due": "2026-06-14"
+    "follow_up_due": "2026-06-15"
   },
   {
     "id": 17,
     "customer_id": 6,
     "customer_name": "SecureLedger",
     "meeting_type": "Implementation Review",
-    "date": "2026-03-19T23:44:47",
+    "date": "2026-03-20T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, Rachel Kim (VP CX)",
     "attendees_customer": "Simone Kim, Sarah Walsh",
     "summary": "Renewal date acknowledged. Customer mentioned internal budget process starts next month. No red flags.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Schedule technical integration review\", \"Share updated roadmap timeline\"]",
-    "follow_up_due": "2026-06-21"
+    "follow_up_due": "2026-06-22"
   },
   {
     "id": 18,
     "customer_id": 6,
     "customer_name": "SecureLedger",
     "meeting_type": "Implementation Review",
-    "date": "2026-03-30T23:44:47",
+    "date": "2026-03-31T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, David Park (CRO)",
     "attendees_customer": "Simone Kim, Sarah Walsh",
     "summary": "Renewal date acknowledged. Customer mentioned internal budget process starts next month. No red flags.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Follow up with Sarah Walsh on open config items\", \"Schedule technical integration review\"]",
-    "follow_up_due": "2026-06-22"
+    "follow_up_due": "2026-06-23"
   },
   {
     "id": 19,
     "customer_id": 7,
     "customer_name": "Velocity Marketplace",
     "meeting_type": "Executive Briefing",
-    "date": "2026-02-12T23:44:47",
+    "date": "2026-02-13T13:56:01",
     "attendees_internal": "Aaliya Patel, Natasha Ivanova (VP CS)",
     "attendees_customer": "Megan Jackson, Carlos Brown",
     "summary": "Customer mentioned they are evaluating a competitor. Said Onyx is 'missing key discovery-source integrations they need (their CNAPP and SASE).' Product gap confirmed. [Active escalation on file: Contract SLA breach \u2014 72hr P1 response not met for 3rd consecutive ticket]",
     "sentiment_signal": "Negative",
     "action_items": "[\"Prepare executive escalation brief\", \"Send daily P1 ticket status update to Megan Jackson\"]",
-    "follow_up_due": "2026-06-20"
+    "follow_up_due": "2026-06-21"
   },
   {
     "id": 20,
     "customer_id": 7,
     "customer_name": "Velocity Marketplace",
     "meeting_type": "Executive Briefing",
-    "date": "2026-02-25T23:44:47",
+    "date": "2026-02-26T13:56:01",
     "attendees_internal": "Aaliya Patel, David Park (CRO)",
     "attendees_customer": "Megan Jackson, Carlos Brown",
     "summary": "Sentiment call following P1 incident. Customer's CISO said trust has been damaged. Requires VP-to-VP call to rebuild.",
     "sentiment_signal": "Negative",
     "action_items": "[\"Prepare executive escalation brief\", \"Send daily P1 ticket status update to Megan Jackson\"]",
-    "follow_up_due": "2026-06-18"
+    "follow_up_due": "2026-06-19"
   },
   {
     "id": 21,
     "customer_id": 8,
     "customer_name": "BluePeak Retail",
     "meeting_type": "Weekly Sync",
-    "date": "2026-05-05T23:44:47",
+    "date": "2026-05-06T13:56:01",
     "attendees_internal": "Simone Dubois, Natasha Ivanova (VP CS)",
     "attendees_customer": "Tyler Rodriguez, Tyler Garcia",
     "summary": "Customer shared an internal case study they wrote about Onyx \u2014 planning to submit to industry conference.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Send expansion proposal draft\", \"Invite to customer advisory board\"]",
-    "follow_up_due": "2026-06-20"
+    "follow_up_due": "2026-06-21"
   },
   {
     "id": 22,
     "customer_id": 8,
     "customer_name": "BluePeak Retail",
     "meeting_type": "Implementation Review",
-    "date": "2026-03-01T23:44:47",
+    "date": "2026-03-02T13:56:01",
     "attendees_internal": "Simone Dubois, Natasha Ivanova (VP CS)",
     "attendees_customer": "Tyler Rodriguez, Tyler Garcia",
     "summary": "Meeting covered usage review and upcoming feature releases. Customer noted they haven't fully activated runtime protection.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Share new feature release notes\"]",
-    "follow_up_due": "2026-06-17"
+    "follow_up_due": "2026-06-18"
   },
   {
     "id": 23,
     "customer_id": 8,
     "customer_name": "BluePeak Retail",
     "meeting_type": "Implementation Review",
-    "date": "2026-03-28T23:44:47",
+    "date": "2026-03-29T13:56:01",
     "attendees_internal": "Simone Dubois, Natasha Ivanova (VP CS)",
     "attendees_customer": "Tyler Rodriguez, Tyler Garcia",
     "summary": "Renewal date acknowledged. Customer mentioned internal budget process starts next month. No red flags.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Send expansion proposal draft\", \"Share new feature release notes\"]",
-    "follow_up_due": "2026-06-14"
+    "follow_up_due": "2026-06-15"
   },
   {
     "id": 24,
     "customer_id": 9,
     "customer_name": "Apex Interactive",
     "meeting_type": "Executive Briefing",
-    "date": "2026-05-21T23:44:47",
+    "date": "2026-05-22T13:56:01",
     "attendees_internal": "Simone Dubois, Rachel Kim (VP CX)",
     "attendees_customer": "Robert Garcia, Chris Williams",
     "summary": "Budget freeze announced mid-call. Procurement contact said renewal approval is not expected until Q4. ARR at risk. [Active escalation on file: Confirmed competitor POC underway \u2014 displacement risk]",
     "sentiment_signal": "Negative",
     "action_items": "[\"Schedule VP-to-VP alignment call within 72 hours\", \"Send daily P1 ticket status update to Robert Garcia\"]",
-    "follow_up_due": "2026-06-19"
+    "follow_up_due": "2026-06-20"
   },
   {
     "id": 25,
     "customer_id": 9,
     "customer_name": "Apex Interactive",
     "meeting_type": "QBR",
-    "date": "2026-04-17T23:44:47",
+    "date": "2026-04-18T13:56:01",
     "attendees_internal": "Simone Dubois, Rachel Kim (VP CX)",
     "attendees_customer": "Robert Garcia, Chris Williams",
     "summary": "Sentiment call following P1 incident. Customer's CISO said trust has been damaged. Requires VP-to-VP call to rebuild.",
     "sentiment_signal": "Negative",
     "action_items": "[\"Schedule VP-to-VP alignment call within 72 hours\", \"Prepare executive escalation brief\"]",
-    "follow_up_due": "2026-06-16"
+    "follow_up_due": "2026-06-17"
   },
   {
     "id": 26,
     "customer_id": 10,
     "customer_name": "VitalCore Health",
     "meeting_type": "Escalation Call",
-    "date": "2026-02-22T23:44:47",
+    "date": "2026-02-23T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, David Park (CRO)",
     "attendees_customer": "Rachel Harris, Lauren Anderson",
     "summary": "Meeting covered usage review and upcoming feature releases. Customer noted they haven't fully activated runtime protection.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Share updated roadmap timeline\", \"Schedule technical integration review\"]",
-    "follow_up_due": "2026-06-17"
+    "follow_up_due": "2026-06-18"
   },
   {
     "id": 27,
     "customer_id": 10,
     "customer_name": "VitalCore Health",
     "meeting_type": "Onboarding Check-in",
-    "date": "2026-05-12T23:44:47",
+    "date": "2026-05-13T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, Rachel Kim (VP CX)",
     "attendees_customer": "Rachel Harris, Lauren Anderson",
     "summary": "Customer asked about SOC2 report availability. Shared compliance documentation. No concerns raised.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Share updated roadmap timeline\", \"Schedule technical integration review\"]",
-    "follow_up_due": "2026-06-18"
+    "follow_up_due": "2026-06-19"
   },
   {
     "id": 28,
     "customer_id": 10,
     "customer_name": "VitalCore Health",
     "meeting_type": "Technical Deep-Dive",
-    "date": "2026-02-11T23:44:47",
+    "date": "2026-02-12T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, Natasha Ivanova (VP CS)",
     "attendees_customer": "Rachel Harris, Lauren Anderson",
     "summary": "Implementation review. 3 milestones completed on schedule. 1 slightly delayed due to customer IT queue.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Schedule technical integration review\", \"Share updated roadmap timeline\"]",
-    "follow_up_due": "2026-06-18"
+    "follow_up_due": "2026-06-19"
   },
   {
     "id": 29,
     "customer_id": 11,
     "customer_name": "Kestrel Defense Systems",
     "meeting_type": "Implementation Review",
-    "date": "2026-02-13T23:44:47",
+    "date": "2026-02-14T13:56:01",
     "attendees_internal": "James Okafor, Natasha Ivanova (VP CS)",
     "attendees_customer": "Priya Martinez, Rachel Anderson",
     "summary": "Weekly sync. Team acknowledged some configuration complexity but working through it with documentation.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Share new feature release notes\"]",
-    "follow_up_due": "2026-06-17"
+    "follow_up_due": "2026-06-18"
   },
   {
     "id": 30,
     "customer_id": 11,
     "customer_name": "Kestrel Defense Systems",
     "meeting_type": "Onboarding Check-in",
-    "date": "2026-04-24T23:44:47",
+    "date": "2026-04-25T13:56:01",
     "attendees_internal": "James Okafor, David Park (CRO)",
     "attendees_customer": "Priya Martinez, Rachel Anderson",
     "summary": "QBR delivered. Expansion to 2 additional business units discussed. Exec sponsor fully engaged and asked about multi-year pricing.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Share new feature release notes\", \"Send expansion proposal draft\"]",
-    "follow_up_due": "2026-06-13"
+    "follow_up_due": "2026-06-14"
   },
   {
     "id": 31,
     "customer_id": 11,
     "customer_name": "Kestrel Defense Systems",
     "meeting_type": "Executive Briefing",
-    "date": "2026-02-27T23:44:47",
+    "date": "2026-02-28T13:56:01",
     "attendees_internal": "James Okafor, David Park (CRO)",
     "attendees_customer": "Priya Martinez, Rachel Anderson",
     "summary": "Routine check-in. Customer mentioned interest in the roadmap update. No blockers raised.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Send expansion proposal draft\"]",
-    "follow_up_due": "2026-06-13"
+    "follow_up_due": "2026-06-14"
   },
   {
     "id": 32,
     "customer_id": 12,
     "customer_name": "LuminaCare Medical",
     "meeting_type": "Escalation Call",
-    "date": "2026-05-08T23:44:47",
+    "date": "2026-05-09T13:56:01",
     "attendees_internal": "Tyler Bennett, Rachel Kim (VP CX)",
     "attendees_customer": "Aaliya Davis, Sarah Dubois",
     "summary": "CFO joined unexpectedly and questioned ROI. Asked for detailed cost-benefit analysis before renewal. Timeline unclear. [Active escalation on file: Confirmed competitor POC underway \u2014 displacement risk]",
     "sentiment_signal": "Negative",
     "action_items": "[\"Prepare executive escalation brief\", \"Schedule VP-to-VP alignment call within 72 hours\"]",
-    "follow_up_due": "2026-06-16"
+    "follow_up_due": "2026-06-17"
   },
   {
     "id": 33,
     "customer_id": 12,
     "customer_name": "LuminaCare Medical",
     "meeting_type": "Escalation Call",
-    "date": "2026-02-21T23:44:47",
+    "date": "2026-02-22T13:56:01",
     "attendees_internal": "Tyler Bennett, Rachel Kim (VP CX)",
     "attendees_customer": "Aaliya Davis, Sarah Dubois",
     "summary": "Customer expressed frustration with P1 ticket response time. Said 'this level of service is unacceptable for the price we pay.' Escalation path initiated.",
     "sentiment_signal": "Negative",
     "action_items": "[\"Schedule VP-to-VP alignment call within 72 hours\", \"Send daily P1 ticket status update to Aaliya Davis\"]",
-    "follow_up_due": "2026-06-20"
+    "follow_up_due": "2026-06-21"
   },
   {
     "id": 34,
     "customer_id": 13,
     "customer_name": "ShopSphere",
     "meeting_type": "Weekly Sync",
-    "date": "2026-03-23T23:44:47",
+    "date": "2026-03-24T13:56:01",
     "attendees_internal": "Maya Rodriguez, David Park (CRO)",
     "attendees_customer": "Emily Davis, Omar Martinez",
     "summary": "Technical deep-dive on integration architecture. Customer architect called the API design 'best in class.'",
     "sentiment_signal": "Positive",
     "action_items": "[\"Share new feature release notes\", \"Send expansion proposal draft\"]",
-    "follow_up_due": "2026-06-16"
+    "follow_up_due": "2026-06-17"
   },
   {
     "id": 35,
     "customer_id": 13,
     "customer_name": "ShopSphere",
     "meeting_type": "Escalation Call",
-    "date": "2026-06-04T23:44:47",
+    "date": "2026-06-05T13:56:01",
     "attendees_internal": "Maya Rodriguez, Rachel Kim (VP CX)",
     "attendees_customer": "Emily Davis, Omar Martinez",
     "summary": "Implementation review. 3 milestones completed on schedule. 1 slightly delayed due to customer IT queue.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Share new feature release notes\", \"Send expansion proposal draft\"]",
-    "follow_up_due": "2026-06-21"
+    "follow_up_due": "2026-06-22"
   },
   {
     "id": 36,
     "customer_id": 13,
     "customer_name": "ShopSphere",
     "meeting_type": "Executive Briefing",
-    "date": "2026-04-22T23:44:47",
+    "date": "2026-04-23T13:56:01",
     "attendees_internal": "Maya Rodriguez, Natasha Ivanova (VP CS)",
     "attendees_customer": "Emily Davis, Omar Martinez",
     "summary": "QBR delivered. Expansion to 2 additional business units discussed. Exec sponsor fully engaged and asked about multi-year pricing.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Send expansion proposal draft\"]",
-    "follow_up_due": "2026-06-22"
+    "follow_up_due": "2026-06-23"
   },
   {
     "id": 37,
     "customer_id": 14,
     "customer_name": "NovaTech Systems",
     "meeting_type": "Renewal Discussion",
-    "date": "2026-05-02T23:44:47",
+    "date": "2026-05-03T13:56:01",
     "attendees_internal": "Aaliya Patel, David Park (CRO)",
     "attendees_customer": "Fatima Jackson, David Dubois",
     "summary": "Weekly sync. Team acknowledged some configuration complexity but working through it with documentation. [Active escalation on file: Adoption < 20% at 90 days \u2014 customer questioning product value]",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Share updated roadmap timeline\", \"Follow up with David Dubois on open config items\"]",
-    "follow_up_due": "2026-06-14"
+    "follow_up_due": "2026-06-15"
   },
   {
     "id": 38,
     "customer_id": 14,
     "customer_name": "NovaTech Systems",
     "meeting_type": "QBR",
-    "date": "2026-05-07T23:44:47",
+    "date": "2026-05-08T13:56:01",
     "attendees_internal": "Aaliya Patel, Natasha Ivanova (VP CS)",
     "attendees_customer": "Fatima Jackson, David Dubois",
     "summary": "Weekly sync. Team acknowledged some configuration complexity but working through it with documentation.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Schedule technical integration review\", \"Share updated roadmap timeline\"]",
-    "follow_up_due": "2026-06-18"
+    "follow_up_due": "2026-06-19"
   },
   {
     "id": 39,
     "customer_id": 15,
     "customer_name": "OmniCloud Infrastructure",
     "meeting_type": "Executive Briefing",
-    "date": "2026-04-07T23:44:47",
+    "date": "2026-04-08T13:56:01",
     "attendees_internal": "Priya Nair, Natasha Ivanova (VP CS)",
     "attendees_customer": "Lauren Kim, Carlos Johnson",
     "summary": "Sentiment call following P1 incident. Customer's CISO said trust has been damaged. Requires VP-to-VP call to rebuild. [Active escalation on file: P1 security incident unresolved for 5+ days]",
     "sentiment_signal": "Negative",
     "action_items": "[\"Prepare executive escalation brief\", \"Schedule VP-to-VP alignment call within 72 hours\"]",
-    "follow_up_due": "2026-06-17"
+    "follow_up_due": "2026-06-18"
   },
   {
     "id": 40,
     "customer_id": 15,
     "customer_name": "OmniCloud Infrastructure",
     "meeting_type": "Executive Briefing",
-    "date": "2026-05-15T23:44:47",
+    "date": "2026-05-16T13:56:01",
     "attendees_internal": "Priya Nair, Natasha Ivanova (VP CS)",
     "attendees_customer": "Lauren Kim, Carlos Johnson",
     "summary": "CFO joined unexpectedly and questioned ROI. Asked for detailed cost-benefit analysis before renewal. Timeline unclear.",
     "sentiment_signal": "Negative",
     "action_items": "[\"Prepare executive escalation brief\", \"Send daily P1 ticket status update to Lauren Kim\"]",
-    "follow_up_due": "2026-06-18"
+    "follow_up_due": "2026-06-19"
   },
   {
     "id": 41,
     "customer_id": 15,
     "customer_name": "OmniCloud Infrastructure",
     "meeting_type": "Executive Briefing",
-    "date": "2026-02-18T23:44:47",
+    "date": "2026-02-19T13:56:01",
     "attendees_internal": "Priya Nair, Rachel Kim (VP CX)",
     "attendees_customer": "Lauren Kim, Carlos Johnson",
     "summary": "Sentiment call following P1 incident. Customer's CISO said trust has been damaged. Requires VP-to-VP call to rebuild.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Prepare executive escalation brief\", \"Schedule VP-to-VP alignment call within 72 hours\"]",
-    "follow_up_due": "2026-06-22"
+    "follow_up_due": "2026-06-23"
   },
   {
     "id": 42,
     "customer_id": 15,
     "customer_name": "OmniCloud Infrastructure",
     "meeting_type": "Escalation Call",
-    "date": "2026-02-19T23:44:47",
+    "date": "2026-02-20T13:56:01",
     "attendees_internal": "Priya Nair, Rachel Kim (VP CX)",
     "attendees_customer": "Lauren Kim, Carlos Johnson",
     "summary": "Executive sponsor raised concern that platform complexity is slowing down analyst adoption. Considering scaling back deployment.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Send daily P1 ticket status update to Lauren Kim\", \"Schedule VP-to-VP alignment call within 72 hours\"]",
-    "follow_up_due": "2026-06-15"
+    "follow_up_due": "2026-06-16"
   },
   {
     "id": 43,
     "customer_id": 16,
     "customer_name": "Sterling Trust Bank",
     "meeting_type": "QBR",
-    "date": "2026-04-27T23:44:47",
+    "date": "2026-04-28T13:56:01",
     "attendees_internal": "Simone Dubois, Rachel Kim (VP CX)",
     "attendees_customer": "Derek Harris, Amanda Wilson",
     "summary": "Meeting covered usage review and upcoming feature releases. Customer noted they haven't fully activated runtime protection.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Send expansion proposal draft\", \"Invite to customer advisory board\"]",
-    "follow_up_due": "2026-06-21"
+    "follow_up_due": "2026-06-22"
   },
   {
     "id": 44,
     "customer_id": 16,
     "customer_name": "Sterling Trust Bank",
     "meeting_type": "Technical Deep-Dive",
-    "date": "2026-04-23T23:44:47",
+    "date": "2026-04-24T13:56:01",
     "attendees_internal": "Simone Dubois, Natasha Ivanova (VP CS)",
     "attendees_customer": "Derek Harris, Amanda Wilson",
     "summary": "Meeting covered usage review and upcoming feature releases. Customer noted they haven't fully activated runtime protection.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Share new feature release notes\", \"Invite to customer advisory board\"]",
-    "follow_up_due": "2026-06-17"
+    "follow_up_due": "2026-06-18"
   },
   {
     "id": 45,
     "customer_id": 17,
     "customer_name": "QuantumLeap Finance",
     "meeting_type": "QBR",
-    "date": "2026-04-20T23:44:47",
+    "date": "2026-04-21T13:56:01",
     "attendees_internal": "Tyler Bennett, David Park (CRO)",
     "attendees_customer": "Eric Rodriguez, Omar Tanaka",
     "summary": "Meeting covered usage review and upcoming feature releases. Customer noted they haven't fully activated runtime protection.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Share updated roadmap timeline\", \"Follow up with Omar Tanaka on open config items\"]",
-    "follow_up_due": "2026-06-13"
+    "follow_up_due": "2026-06-14"
   },
   {
     "id": 46,
     "customer_id": 17,
     "customer_name": "QuantumLeap Finance",
     "meeting_type": "Onboarding Check-in",
-    "date": "2026-04-25T23:44:47",
+    "date": "2026-04-26T13:56:01",
     "attendees_internal": "Tyler Bennett, Rachel Kim (VP CX)",
     "attendees_customer": "Eric Rodriguez, Omar Tanaka",
     "summary": "Implementation review. 3 milestones completed on schedule. 1 slightly delayed due to customer IT queue.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Schedule technical integration review\", \"Share updated roadmap timeline\"]",
-    "follow_up_due": "2026-06-20"
+    "follow_up_due": "2026-06-21"
   },
   {
     "id": 47,
     "customer_id": 17,
     "customer_name": "QuantumLeap Finance",
     "meeting_type": "Implementation Review",
-    "date": "2026-03-08T23:44:47",
+    "date": "2026-03-09T13:56:01",
     "attendees_internal": "Tyler Bennett, Rachel Kim (VP CX)",
     "attendees_customer": "Eric Rodriguez, Omar Tanaka",
     "summary": "Routine check-in. Customer mentioned interest in the roadmap update. No blockers raised.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Schedule technical integration review\", \"Follow up with Omar Tanaka on open config items\"]",
-    "follow_up_due": "2026-06-18"
+    "follow_up_due": "2026-06-19"
   },
   {
     "id": 48,
     "customer_id": 18,
     "customer_name": "WanderStay Hotels",
     "meeting_type": "Escalation Call",
-    "date": "2026-05-27T23:44:47",
+    "date": "2026-05-28T13:56:01",
     "attendees_internal": "James Okafor, Rachel Kim (VP CX)",
     "attendees_customer": "Aaliya Walsh, Jennifer Williams",
     "summary": "CFO joined unexpectedly and questioned ROI. Asked for detailed cost-benefit analysis before renewal. Timeline unclear. [Active escalation on file: Contract SLA breach \u2014 72hr P1 response not met for 3rd consecutive ticket]",
     "sentiment_signal": "Negative",
     "action_items": "[\"Schedule VP-to-VP alignment call within 72 hours\", \"Prepare executive escalation brief\"]",
-    "follow_up_due": "2026-06-17"
+    "follow_up_due": "2026-06-18"
   },
   {
     "id": 49,
     "customer_id": 18,
     "customer_name": "WanderStay Hotels",
     "meeting_type": "Weekly Sync",
-    "date": "2026-05-29T23:44:47",
+    "date": "2026-05-30T13:56:01",
     "attendees_internal": "James Okafor, Rachel Kim (VP CX)",
     "attendees_customer": "Aaliya Walsh, Jennifer Williams",
     "summary": "Customer expressed frustration with P1 ticket response time. Said 'this level of service is unacceptable for the price we pay.' Escalation path initiated.",
     "sentiment_signal": "Negative",
     "action_items": "[\"Send daily P1 ticket status update to Aaliya Walsh\", \"Schedule VP-to-VP alignment call within 72 hours\"]",
-    "follow_up_due": "2026-06-20"
+    "follow_up_due": "2026-06-21"
   },
   {
     "id": 50,
     "customer_id": 18,
     "customer_name": "WanderStay Hotels",
     "meeting_type": "QBR",
-    "date": "2026-04-05T23:44:47",
+    "date": "2026-04-06T13:56:01",
     "attendees_internal": "James Okafor, Natasha Ivanova (VP CS)",
     "attendees_customer": "Aaliya Walsh, Jennifer Williams",
     "summary": "Implementation review revealed 6-week delay. Customer team visibly frustrated. Project sponsor threatened to involve their CEO.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Prepare executive escalation brief\", \"Send daily P1 ticket status update to Aaliya Walsh\"]",
-    "follow_up_due": "2026-06-21"
+    "follow_up_due": "2026-06-22"
   },
   {
     "id": 51,
     "customer_id": 18,
     "customer_name": "WanderStay Hotels",
     "meeting_type": "Executive Briefing",
-    "date": "2026-03-28T23:44:47",
+    "date": "2026-03-29T13:56:01",
     "attendees_internal": "James Okafor, Natasha Ivanova (VP CS)",
     "attendees_customer": "Aaliya Walsh, Jennifer Williams",
     "summary": "Champion informed us they are leaving the company next month. No named successor yet. HIGH RISK.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Prepare executive escalation brief\", \"Schedule VP-to-VP alignment call within 72 hours\"]",
-    "follow_up_due": "2026-06-16"
+    "follow_up_due": "2026-06-17"
   },
   {
     "id": 52,
     "customer_id": 19,
     "customer_name": "NeonPlay Studios",
     "meeting_type": "Onboarding Check-in",
-    "date": "2026-06-02T23:44:47",
+    "date": "2026-06-03T13:56:01",
     "attendees_internal": "James Okafor, David Park (CRO)",
     "attendees_customer": "Emily White, Chris Nair",
     "summary": "Routine check-in. Customer mentioned interest in the roadmap update. No blockers raised.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Share new feature release notes\"]",
-    "follow_up_due": "2026-06-18"
+    "follow_up_due": "2026-06-19"
   },
   {
     "id": 53,
     "customer_id": 19,
     "customer_name": "NeonPlay Studios",
     "meeting_type": "QBR",
-    "date": "2026-06-07T23:44:47",
+    "date": "2026-06-08T13:56:01",
     "attendees_internal": "James Okafor, Natasha Ivanova (VP CS)",
     "attendees_customer": "Emily White, Chris Nair",
     "summary": "Meeting covered usage review and upcoming feature releases. Customer noted they haven't fully activated runtime protection.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Send expansion proposal draft\", \"Share new feature release notes\"]",
-    "follow_up_due": "2026-06-14"
+    "follow_up_due": "2026-06-15"
   },
   {
     "id": 54,
     "customer_id": 19,
     "customer_name": "NeonPlay Studios",
     "meeting_type": "Onboarding Check-in",
-    "date": "2026-04-27T23:44:47",
+    "date": "2026-04-28T13:56:01",
     "attendees_internal": "James Okafor, David Park (CRO)",
     "attendees_customer": "Emily White, Chris Nair",
     "summary": "QBR delivered. Expansion to 2 additional business units discussed. Exec sponsor fully engaged and asked about multi-year pricing.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Send expansion proposal draft\", \"Share new feature release notes\"]",
-    "follow_up_due": "2026-06-13"
+    "follow_up_due": "2026-06-14"
   },
   {
     "id": 55,
     "customer_id": 20,
     "customer_name": "Harbor Retail Group",
     "meeting_type": "Escalation Call",
-    "date": "2026-05-29T23:44:47",
+    "date": "2026-05-30T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, David Park (CRO)",
     "attendees_customer": "Amanda Tanaka, James White",
     "summary": "Discussed connecting their CNAPP as a discovery source. Customer IT team needs 2 weeks to schedule the work. No escalation needed.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Follow up with James White on open config items\", \"Schedule technical integration review\"]",
-    "follow_up_due": "2026-06-23"
+    "follow_up_due": "2026-06-24"
   },
   {
     "id": 56,
     "customer_id": 20,
     "customer_name": "Harbor Retail Group",
     "meeting_type": "Executive Briefing",
-    "date": "2026-02-15T23:44:47",
+    "date": "2026-02-16T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, Natasha Ivanova (VP CS)",
     "attendees_customer": "Amanda Tanaka, James White",
     "summary": "Routine check-in. Customer mentioned interest in the roadmap update. No blockers raised.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Schedule technical integration review\", \"Follow up with James White on open config items\"]",
-    "follow_up_due": "2026-06-19"
+    "follow_up_due": "2026-06-20"
   },
   {
     "id": 57,
     "customer_id": 20,
     "customer_name": "Harbor Retail Group",
     "meeting_type": "Implementation Review",
-    "date": "2026-06-07T23:44:47",
+    "date": "2026-06-08T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, David Park (CRO)",
     "attendees_customer": "Amanda Tanaka, James White",
     "summary": "Renewal date acknowledged. Customer mentioned internal budget process starts next month. No red flags.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Schedule technical integration review\", \"Share updated roadmap timeline\"]",
-    "follow_up_due": "2026-06-19"
+    "follow_up_due": "2026-06-20"
   },
   {
     "id": 58,
     "customer_id": 21,
     "customer_name": "AssureGuard Insurance",
     "meeting_type": "Executive Briefing",
-    "date": "2026-03-24T23:44:47",
+    "date": "2026-03-25T13:56:01",
     "attendees_internal": "Maya Rodriguez, Natasha Ivanova (VP CS)",
     "attendees_customer": "Jennifer Thompson, Megan Martinez",
     "summary": "Customer shared an internal case study they wrote about Onyx \u2014 planning to submit to industry conference.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Send expansion proposal draft\", \"Invite to customer advisory board\"]",
-    "follow_up_due": "2026-06-24"
+    "follow_up_due": "2026-06-25"
   },
   {
     "id": 59,
     "customer_id": 21,
     "customer_name": "AssureGuard Insurance",
     "meeting_type": "Escalation Call",
-    "date": "2026-04-25T23:44:47",
+    "date": "2026-04-26T13:56:01",
     "attendees_internal": "Maya Rodriguez, Rachel Kim (VP CX)",
     "attendees_customer": "Jennifer Thompson, Megan Martinez",
     "summary": "Renewal date acknowledged. Customer mentioned internal budget process starts next month. No red flags.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Send expansion proposal draft\"]",
-    "follow_up_due": "2026-06-17"
+    "follow_up_due": "2026-06-18"
   },
   {
     "id": 60,
     "customer_id": 21,
     "customer_name": "AssureGuard Insurance",
     "meeting_type": "Escalation Call",
-    "date": "2026-05-25T23:44:47",
+    "date": "2026-05-26T13:56:01",
     "attendees_internal": "Maya Rodriguez, Natasha Ivanova (VP CS)",
     "attendees_customer": "Jennifer Thompson, Megan Martinez",
     "summary": "Technical deep-dive on integration architecture. Customer architect called the API design 'best in class.'",
     "sentiment_signal": "Positive",
     "action_items": "[\"Send expansion proposal draft\", \"Invite to customer advisory board\"]",
-    "follow_up_due": "2026-06-13"
+    "follow_up_due": "2026-06-14"
   },
   {
     "id": 61,
     "customer_id": 22,
     "customer_name": "VantagePoint Capital",
     "meeting_type": "Onboarding Check-in",
-    "date": "2026-05-29T23:44:47",
+    "date": "2026-05-30T13:56:01",
     "attendees_internal": "James Okafor, Natasha Ivanova (VP CS)",
     "attendees_customer": "Robert Brown, Simone Harris",
     "summary": "Implementation review. 3 milestones completed on schedule. 1 slightly delayed due to customer IT queue. [Active escalation on file: New CISO conducting platform audit \u2014 potential replacement evaluation]",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Share updated roadmap timeline\", \"Follow up with Simone Harris on open config items\"]",
-    "follow_up_due": "2026-06-15"
+    "follow_up_due": "2026-06-16"
   },
   {
     "id": 62,
     "customer_id": 22,
     "customer_name": "VantagePoint Capital",
     "meeting_type": "QBR",
-    "date": "2026-03-19T23:44:47",
+    "date": "2026-03-20T13:56:01",
     "attendees_internal": "James Okafor, Rachel Kim (VP CX)",
     "attendees_customer": "Robert Brown, Simone Harris",
     "summary": "Discussed connecting their CNAPP as a discovery source. Customer IT team needs 2 weeks to schedule the work. No escalation needed.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Schedule technical integration review\", \"Share updated roadmap timeline\"]",
-    "follow_up_due": "2026-06-16"
+    "follow_up_due": "2026-06-17"
   },
   {
     "id": 63,
     "customer_id": 22,
     "customer_name": "VantagePoint Capital",
     "meeting_type": "Executive Briefing",
-    "date": "2026-04-20T23:44:47",
+    "date": "2026-04-21T13:56:01",
     "attendees_internal": "James Okafor, Rachel Kim (VP CX)",
     "attendees_customer": "Robert Brown, Simone Harris",
     "summary": "Implementation review. 3 milestones completed on schedule. 1 slightly delayed due to customer IT queue.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Follow up with Simone Harris on open config items\", \"Schedule technical integration review\"]",
-    "follow_up_due": "2026-06-20"
+    "follow_up_due": "2026-06-21"
   },
   {
     "id": 64,
     "customer_id": 23,
     "customer_name": "Meridian Capital",
     "meeting_type": "Technical Deep-Dive",
-    "date": "2026-04-03T23:44:47",
+    "date": "2026-04-04T13:56:01",
     "attendees_internal": "James Okafor, Rachel Kim (VP CX)",
     "attendees_customer": "Kevin Wilson, Michael Wilson",
     "summary": "Customer expressed strong satisfaction with Guardian Agent precision. NPS 9 shared unprompted. Champion confirmed willingness to be a reference.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Send expansion proposal draft\", \"Invite to customer advisory board\"]",
-    "follow_up_due": "2026-06-16"
+    "follow_up_due": "2026-06-17"
   },
   {
     "id": 65,
     "customer_id": 23,
     "customer_name": "Meridian Capital",
     "meeting_type": "Renewal Discussion",
-    "date": "2026-02-14T23:44:47",
+    "date": "2026-02-15T13:56:01",
     "attendees_internal": "James Okafor, Rachel Kim (VP CX)",
     "attendees_customer": "Kevin Wilson, Michael Wilson",
     "summary": "Discussed connecting their CNAPP as a discovery source. Customer IT team needs 2 weeks to schedule the work. No escalation needed.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Share new feature release notes\", \"Invite to customer advisory board\"]",
-    "follow_up_due": "2026-06-19"
+    "follow_up_due": "2026-06-20"
   },
   {
     "id": 66,
     "customer_id": 24,
     "customer_name": "Brightwork Software",
     "meeting_type": "QBR",
-    "date": "2026-03-01T23:44:47",
+    "date": "2026-03-02T13:56:01",
     "attendees_internal": "Aaliya Patel, Natasha Ivanova (VP CS)",
     "attendees_customer": "Aaliya Rodriguez, Jennifer Nair",
     "summary": "Implementation review. 3 milestones completed on schedule. 1 slightly delayed due to customer IT queue.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Schedule technical integration review\", \"Follow up with Jennifer Nair on open config items\"]",
-    "follow_up_due": "2026-06-22"
+    "follow_up_due": "2026-06-23"
   },
   {
     "id": 67,
     "customer_id": 24,
     "customer_name": "Brightwork Software",
     "meeting_type": "Technical Deep-Dive",
-    "date": "2026-06-07T23:44:47",
+    "date": "2026-06-08T13:56:01",
     "attendees_internal": "Aaliya Patel, David Park (CRO)",
     "attendees_customer": "Aaliya Rodriguez, Jennifer Nair",
     "summary": "Weekly sync. Team acknowledged some configuration complexity but working through it with documentation.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Follow up with Jennifer Nair on open config items\", \"Schedule technical integration review\"]",
-    "follow_up_due": "2026-06-18"
+    "follow_up_due": "2026-06-19"
   },
   {
     "id": 68,
     "customer_id": 24,
     "customer_name": "Brightwork Software",
     "meeting_type": "QBR",
-    "date": "2026-04-03T23:44:47",
+    "date": "2026-04-04T13:56:01",
     "attendees_internal": "Aaliya Patel, David Park (CRO)",
     "attendees_customer": "Aaliya Rodriguez, Jennifer Nair",
     "summary": "Routine check-in. Customer mentioned interest in the roadmap update. No blockers raised.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Follow up with Jennifer Nair on open config items\", \"Share updated roadmap timeline\"]",
-    "follow_up_due": "2026-06-24"
+    "follow_up_due": "2026-06-25"
   },
   {
     "id": 69,
     "customer_id": 25,
     "customer_name": "IronClad Systems",
     "meeting_type": "Renewal Discussion",
-    "date": "2026-04-03T23:44:47",
+    "date": "2026-04-04T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, Natasha Ivanova (VP CS)",
     "attendees_customer": "Aaliya Kim, Eric Nair",
     "summary": "Customer asked about SOC2 report availability. Shared compliance documentation. No concerns raised.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Share new feature release notes\"]",
-    "follow_up_due": "2026-06-19"
+    "follow_up_due": "2026-06-20"
   },
   {
     "id": 70,
     "customer_id": 25,
     "customer_name": "IronClad Systems",
     "meeting_type": "Weekly Sync",
-    "date": "2026-04-09T23:44:47",
+    "date": "2026-04-10T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, Rachel Kim (VP CX)",
     "attendees_customer": "Aaliya Kim, Eric Nair",
     "summary": "Customer asked about SOC2 report availability. Shared compliance documentation. No concerns raised.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Share new feature release notes\"]",
-    "follow_up_due": "2026-06-23"
+    "follow_up_due": "2026-06-24"
   },
   {
     "id": 71,
     "customer_id": 25,
     "customer_name": "IronClad Systems",
     "meeting_type": "Implementation Review",
-    "date": "2026-05-11T23:44:47",
+    "date": "2026-05-12T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, David Park (CRO)",
     "attendees_customer": "Aaliya Kim, Eric Nair",
     "summary": "Routine check-in. Customer mentioned interest in the roadmap update. No blockers raised.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Send expansion proposal draft\", \"Invite to customer advisory board\"]",
-    "follow_up_due": "2026-06-19"
+    "follow_up_due": "2026-06-20"
   },
   {
     "id": 72,
     "customer_id": 26,
     "customer_name": "CartNova",
     "meeting_type": "Escalation Call",
-    "date": "2026-05-30T23:44:47",
+    "date": "2026-05-31T13:56:01",
     "attendees_internal": "James Okafor, Rachel Kim (VP CX)",
     "attendees_customer": "Jennifer Davis, Eric Thompson",
     "summary": "Implementation review. 3 milestones completed on schedule. 1 slightly delayed due to customer IT queue.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Share new feature release notes\", \"Send expansion proposal draft\"]",
-    "follow_up_due": "2026-06-17"
+    "follow_up_due": "2026-06-18"
   },
   {
     "id": 73,
     "customer_id": 26,
     "customer_name": "CartNova",
     "meeting_type": "Onboarding Check-in",
-    "date": "2026-03-05T23:44:47",
+    "date": "2026-03-06T13:56:01",
     "attendees_internal": "James Okafor, David Park (CRO)",
     "attendees_customer": "Jennifer Davis, Eric Thompson",
     "summary": "Champion reported team productivity up 30% since rollout. Asked about roadmap for the AI-SPM module and LLM routing add-on.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Send expansion proposal draft\"]",
-    "follow_up_due": "2026-06-20"
+    "follow_up_due": "2026-06-21"
   },
   {
     "id": 74,
     "customer_id": 27,
     "customer_name": "TradeHub",
     "meeting_type": "Escalation Call",
-    "date": "2026-03-03T23:44:47",
+    "date": "2026-03-04T13:56:01",
     "attendees_internal": "Tyler Bennett, Rachel Kim (VP CX)",
     "attendees_customer": "Sarah Jackson, Lauren Martin",
     "summary": "Sentiment call following P1 incident. Customer's CISO said trust has been damaged. Requires VP-to-VP call to rebuild. [Active escalation on file: Executive sponsor threatening contract termination]",
     "sentiment_signal": "Negative",
     "action_items": "[\"Schedule VP-to-VP alignment call within 72 hours\", \"Send daily P1 ticket status update to Sarah Jackson\"]",
-    "follow_up_due": "2026-06-16"
+    "follow_up_due": "2026-06-17"
   },
   {
     "id": 75,
     "customer_id": 27,
     "customer_name": "TradeHub",
     "meeting_type": "Executive Briefing",
-    "date": "2026-04-29T23:44:47",
+    "date": "2026-04-30T13:56:01",
     "attendees_internal": "Tyler Bennett, David Park (CRO)",
     "attendees_customer": "Sarah Jackson, Lauren Martin",
     "summary": "Customer expressed frustration with P1 ticket response time. Said 'this level of service is unacceptable for the price we pay.' Escalation path initiated.",
     "sentiment_signal": "Negative",
     "action_items": "[\"Schedule VP-to-VP alignment call within 72 hours\", \"Prepare executive escalation brief\"]",
-    "follow_up_due": "2026-06-16"
+    "follow_up_due": "2026-06-17"
   },
   {
     "id": 76,
     "customer_id": 28,
     "customer_name": "CloudHarbor SaaS",
     "meeting_type": "Implementation Review",
-    "date": "2026-04-21T23:44:47",
+    "date": "2026-04-22T13:56:01",
     "attendees_internal": "Simone Dubois, David Park (CRO)",
     "attendees_customer": "Yuki Rodriguez, Carlos Walsh",
     "summary": "Implementation review. 3 milestones completed on schedule. 1 slightly delayed due to customer IT queue.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Send expansion proposal draft\", \"Invite to customer advisory board\"]",
-    "follow_up_due": "2026-06-17"
+    "follow_up_due": "2026-06-18"
   },
   {
     "id": 77,
     "customer_id": 28,
     "customer_name": "CloudHarbor SaaS",
     "meeting_type": "Escalation Call",
-    "date": "2026-02-27T23:44:47",
+    "date": "2026-02-28T13:56:01",
     "attendees_internal": "Simone Dubois, Rachel Kim (VP CX)",
     "attendees_customer": "Yuki Rodriguez, Carlos Walsh",
     "summary": "Customer shared an internal case study they wrote about Onyx \u2014 planning to submit to industry conference.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Send expansion proposal draft\"]",
-    "follow_up_due": "2026-06-15"
+    "follow_up_due": "2026-06-16"
   },
   {
     "id": 78,
     "customer_id": 29,
     "customer_name": "Beacon Mutual",
     "meeting_type": "Implementation Review",
-    "date": "2026-06-05T23:44:47",
+    "date": "2026-06-06T13:56:01",
     "attendees_internal": "Priya Nair, Rachel Kim (VP CX)",
     "attendees_customer": "Amanda Martinez, Derek Okafor",
     "summary": "Meeting covered usage review and upcoming feature releases. Customer noted they haven't fully activated runtime protection. [Active escalation on file: P1 security incident unresolved for 5+ days]",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Follow up with Derek Okafor on open config items\", \"Schedule technical integration review\"]",
-    "follow_up_due": "2026-06-14"
+    "follow_up_due": "2026-06-15"
   },
   {
     "id": 79,
     "customer_id": 29,
     "customer_name": "Beacon Mutual",
     "meeting_type": "Technical Deep-Dive",
-    "date": "2026-05-20T23:44:47",
+    "date": "2026-05-21T13:56:01",
     "attendees_internal": "Priya Nair, Natasha Ivanova (VP CS)",
     "attendees_customer": "Amanda Martinez, Derek Okafor",
     "summary": "Weekly sync. Team acknowledged some configuration complexity but working through it with documentation.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Share updated roadmap timeline\", \"Schedule technical integration review\"]",
-    "follow_up_due": "2026-06-23"
+    "follow_up_due": "2026-06-24"
   },
   {
     "id": 80,
     "customer_id": 30,
     "customer_name": "SkyRoute Airlines",
     "meeting_type": "Escalation Call",
-    "date": "2026-04-14T23:44:47",
+    "date": "2026-04-15T13:56:01",
     "attendees_internal": "Aaliya Patel, David Park (CRO)",
     "attendees_customer": "Simone Dubois, Simone Patel",
     "summary": "Champion informed us they are leaving the company next month. No named successor yet. HIGH RISK. [Active escalation on file: Renewal at risk \u2014 economic buyer not engaged]",
     "sentiment_signal": "Negative",
     "action_items": "[\"Send daily P1 ticket status update to Simone Dubois\", \"Schedule VP-to-VP alignment call within 72 hours\"]",
-    "follow_up_due": "2026-06-24"
+    "follow_up_due": "2026-06-25"
   },
   {
     "id": 81,
     "customer_id": 30,
     "customer_name": "SkyRoute Airlines",
     "meeting_type": "Implementation Review",
-    "date": "2026-03-24T23:44:47",
+    "date": "2026-03-25T13:56:01",
     "attendees_internal": "Aaliya Patel, David Park (CRO)",
     "attendees_customer": "Simone Dubois, Simone Patel",
     "summary": "Customer expressed frustration with P1 ticket response time. Said 'this level of service is unacceptable for the price we pay.' Escalation path initiated.",
     "sentiment_signal": "Negative",
     "action_items": "[\"Send daily P1 ticket status update to Simone Dubois\", \"Schedule VP-to-VP alignment call within 72 hours\"]",
-    "follow_up_due": "2026-06-17"
+    "follow_up_due": "2026-06-18"
   },
   {
     "id": 82,
     "customer_id": 30,
     "customer_name": "SkyRoute Airlines",
     "meeting_type": "Implementation Review",
-    "date": "2026-04-12T23:44:47",
+    "date": "2026-04-13T13:56:01",
     "attendees_internal": "Aaliya Patel, Rachel Kim (VP CX)",
     "attendees_customer": "Simone Dubois, Simone Patel",
     "summary": "Implementation review revealed 6-week delay. Customer team visibly frustrated. Project sponsor threatened to involve their CEO.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Prepare executive escalation brief\", \"Send daily P1 ticket status update to Simone Dubois\"]",
-    "follow_up_due": "2026-06-24"
+    "follow_up_due": "2026-06-25"
   },
   {
     "id": 83,
     "customer_id": 30,
     "customer_name": "SkyRoute Airlines",
     "meeting_type": "Escalation Call",
-    "date": "2026-05-18T23:44:47",
+    "date": "2026-05-19T13:56:01",
     "attendees_internal": "Aaliya Patel, Rachel Kim (VP CX)",
     "attendees_customer": "Simone Dubois, Simone Patel",
     "summary": "Executive sponsor raised concern that platform complexity is slowing down analyst adoption. Considering scaling back deployment.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Schedule VP-to-VP alignment call within 72 hours\", \"Prepare executive escalation brief\"]",
-    "follow_up_due": "2026-06-18"
+    "follow_up_due": "2026-06-19"
   },
   {
     "id": 84,
     "customer_id": 31,
     "customer_name": "PixelForge Games",
     "meeting_type": "Implementation Review",
-    "date": "2026-03-15T23:44:47",
+    "date": "2026-03-16T13:56:01",
     "attendees_internal": "Aaliya Patel, Rachel Kim (VP CX)",
     "attendees_customer": "Jennifer Walsh, Emily Nair",
     "summary": "New analyst team onboarded. Customer praised quality of training materials and support responsiveness.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Send expansion proposal draft\", \"Share new feature release notes\"]",
-    "follow_up_due": "2026-06-15"
+    "follow_up_due": "2026-06-16"
   },
   {
     "id": 85,
     "customer_id": 31,
     "customer_name": "PixelForge Games",
     "meeting_type": "Executive Briefing",
-    "date": "2026-04-01T23:44:47",
+    "date": "2026-04-02T13:56:01",
     "attendees_internal": "Aaliya Patel, Natasha Ivanova (VP CS)",
     "attendees_customer": "Jennifer Walsh, Emily Nair",
     "summary": "Customer shared an internal case study they wrote about Onyx \u2014 planning to submit to industry conference.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Send expansion proposal draft\", \"Share new feature release notes\"]",
-    "follow_up_due": "2026-06-21"
+    "follow_up_due": "2026-06-22"
   },
   {
     "id": 86,
     "customer_id": 31,
     "customer_name": "PixelForge Games",
     "meeting_type": "Technical Deep-Dive",
-    "date": "2026-03-29T23:44:47",
+    "date": "2026-03-30T13:56:01",
     "attendees_internal": "Aaliya Patel, David Park (CRO)",
     "attendees_customer": "Jennifer Walsh, Emily Nair",
     "summary": "Implementation review. 3 milestones completed on schedule. 1 slightly delayed due to customer IT queue.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Send expansion proposal draft\"]",
-    "follow_up_due": "2026-06-15"
+    "follow_up_due": "2026-06-16"
   },
   {
     "id": 87,
     "customer_id": 32,
     "customer_name": "BioNexus Health",
     "meeting_type": "Escalation Call",
-    "date": "2026-04-03T23:44:47",
+    "date": "2026-04-04T13:56:01",
     "attendees_internal": "Tyler Bennett, Rachel Kim (VP CX)",
     "attendees_customer": "Brian Wilson, Jennifer Wilson",
     "summary": "Customer shared an internal case study they wrote about Onyx \u2014 planning to submit to industry conference.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Share new feature release notes\", \"Send expansion proposal draft\"]",
-    "follow_up_due": "2026-06-22"
+    "follow_up_due": "2026-06-23"
   },
   {
     "id": 88,
     "customer_id": 32,
     "customer_name": "BioNexus Health",
     "meeting_type": "Implementation Review",
-    "date": "2026-03-17T23:44:47",
+    "date": "2026-03-18T13:56:01",
     "attendees_internal": "Tyler Bennett, Rachel Kim (VP CX)",
     "attendees_customer": "Brian Wilson, Jennifer Wilson",
     "summary": "Routine check-in. Customer mentioned interest in the roadmap update. No blockers raised.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Share new feature release notes\"]",
-    "follow_up_due": "2026-06-14"
+    "follow_up_due": "2026-06-15"
   },
   {
     "id": 89,
     "customer_id": 33,
     "customer_name": "DataVault Analytics",
     "meeting_type": "QBR",
-    "date": "2026-06-06T23:44:47",
+    "date": "2026-06-07T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, David Park (CRO)",
     "attendees_customer": "Chris Walsh, Jennifer Moore",
     "summary": "Platform ROI demonstrated: 40% reduction in Guardian false positives, 2 prompt-injection incidents blocked and remediated this quarter. Customer team visibly impressed.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Share new feature release notes\"]",
-    "follow_up_due": "2026-06-17"
+    "follow_up_due": "2026-06-18"
   },
   {
     "id": 90,
     "customer_id": 33,
     "customer_name": "DataVault Analytics",
     "meeting_type": "QBR",
-    "date": "2026-02-10T23:44:47",
+    "date": "2026-02-11T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, David Park (CRO)",
     "attendees_customer": "Chris Walsh, Jennifer Moore",
     "summary": "Customer shared an internal case study they wrote about Onyx \u2014 planning to submit to industry conference.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Share new feature release notes\", \"Send expansion proposal draft\"]",
-    "follow_up_due": "2026-06-22"
+    "follow_up_due": "2026-06-23"
   },
   {
     "id": 91,
     "customer_id": 34,
     "customer_name": "GlobalEdge Retail",
     "meeting_type": "Onboarding Check-in",
-    "date": "2026-04-08T23:44:47",
+    "date": "2026-04-09T13:56:01",
     "attendees_internal": "James Okafor, David Park (CRO)",
     "attendees_customer": "Priya Kim, David Patel",
     "summary": "QBR delivered. Expansion to 2 additional business units discussed. Exec sponsor fully engaged and asked about multi-year pricing.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Send expansion proposal draft\"]",
-    "follow_up_due": "2026-06-18"
+    "follow_up_due": "2026-06-19"
   },
   {
     "id": 92,
     "customer_id": 34,
     "customer_name": "GlobalEdge Retail",
     "meeting_type": "Escalation Call",
-    "date": "2026-02-19T23:44:47",
+    "date": "2026-02-20T13:56:01",
     "attendees_internal": "James Okafor, Natasha Ivanova (VP CS)",
     "attendees_customer": "Priya Kim, David Patel",
     "summary": "Platform ROI demonstrated: 40% reduction in Guardian false positives, 2 prompt-injection incidents blocked and remediated this quarter. Customer team visibly impressed.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Share new feature release notes\", \"Invite to customer advisory board\"]",
-    "follow_up_due": "2026-06-20"
+    "follow_up_due": "2026-06-21"
   },
   {
     "id": 93,
     "customer_id": 35,
     "customer_name": "Cobalt Payments",
     "meeting_type": "Executive Briefing",
-    "date": "2026-03-31T23:44:47",
+    "date": "2026-04-01T13:56:01",
     "attendees_internal": "James Okafor, Natasha Ivanova (VP CS)",
     "attendees_customer": "Amanda Moore, Robert Brown",
     "summary": "Champion informed us they are leaving the company next month. No named successor yet. HIGH RISK. [Active escalation on file: Champion left the company \u2014 no identified replacement]",
     "sentiment_signal": "Negative",
     "action_items": "[\"Prepare executive escalation brief\", \"Send daily P1 ticket status update to Amanda Moore\"]",
-    "follow_up_due": "2026-06-15"
+    "follow_up_due": "2026-06-16"
   },
   {
     "id": 94,
     "customer_id": 35,
     "customer_name": "Cobalt Payments",
     "meeting_type": "Escalation Call",
-    "date": "2026-05-17T23:44:47",
+    "date": "2026-05-18T13:56:01",
     "attendees_internal": "James Okafor, David Park (CRO)",
     "attendees_customer": "Amanda Moore, Robert Brown",
     "summary": "CFO joined unexpectedly and questioned ROI. Asked for detailed cost-benefit analysis before renewal. Timeline unclear.",
     "sentiment_signal": "Negative",
     "action_items": "[\"Prepare executive escalation brief\", \"Schedule VP-to-VP alignment call within 72 hours\"]",
-    "follow_up_due": "2026-06-19"
+    "follow_up_due": "2026-06-20"
   },
   {
     "id": 95,
     "customer_id": 35,
     "customer_name": "Cobalt Payments",
     "meeting_type": "Implementation Review",
-    "date": "2026-05-02T23:44:47",
+    "date": "2026-05-03T13:56:01",
     "attendees_internal": "James Okafor, Natasha Ivanova (VP CS)",
     "attendees_customer": "Amanda Moore, Robert Brown",
     "summary": "CFO joined unexpectedly and questioned ROI. Asked for detailed cost-benefit analysis before renewal. Timeline unclear.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Send daily P1 ticket status update to Amanda Moore\", \"Schedule VP-to-VP alignment call within 72 hours\"]",
-    "follow_up_due": "2026-06-20"
+    "follow_up_due": "2026-06-21"
   },
   {
     "id": 96,
     "customer_id": 36,
     "customer_name": "BazaarOne",
     "meeting_type": "Technical Deep-Dive",
-    "date": "2026-05-25T23:44:47",
+    "date": "2026-05-26T13:56:01",
     "attendees_internal": "Aaliya Patel, Rachel Kim (VP CX)",
     "attendees_customer": "Amanda Kim, Aaliya Lee",
     "summary": "Customer shared an internal case study they wrote about Onyx \u2014 planning to submit to industry conference.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Send expansion proposal draft\", \"Share new feature release notes\"]",
-    "follow_up_due": "2026-06-15"
+    "follow_up_due": "2026-06-16"
   },
   {
     "id": 97,
     "customer_id": 36,
     "customer_name": "BazaarOne",
     "meeting_type": "Onboarding Check-in",
-    "date": "2026-04-15T23:44:47",
+    "date": "2026-04-16T13:56:01",
     "attendees_internal": "Aaliya Patel, Natasha Ivanova (VP CS)",
     "attendees_customer": "Amanda Kim, Aaliya Lee",
     "summary": "Routine check-in. Customer mentioned interest in the roadmap update. No blockers raised.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Share new feature release notes\", \"Send expansion proposal draft\"]",
-    "follow_up_due": "2026-06-20"
+    "follow_up_due": "2026-06-21"
   },
   {
     "id": 98,
     "customer_id": 36,
     "customer_name": "BazaarOne",
     "meeting_type": "Onboarding Check-in",
-    "date": "2026-05-04T23:44:47",
+    "date": "2026-05-05T13:56:01",
     "attendees_internal": "Aaliya Patel, Natasha Ivanova (VP CS)",
     "attendees_customer": "Amanda Kim, Aaliya Lee",
     "summary": "Customer shared an internal case study they wrote about Onyx \u2014 planning to submit to industry conference.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Send expansion proposal draft\"]",
-    "follow_up_due": "2026-06-13"
+    "follow_up_due": "2026-06-14"
   },
   {
     "id": 99,
     "customer_id": 37,
     "customer_name": "HealthFirst Insurance",
     "meeting_type": "Executive Briefing",
-    "date": "2026-02-17T23:44:47",
+    "date": "2026-02-18T13:56:01",
     "attendees_internal": "Aaliya Patel, David Park (CRO)",
     "attendees_customer": "Eric Rodriguez, Simone Wilson",
     "summary": "Champion informed us they are leaving the company next month. No named successor yet. HIGH RISK. [Active escalation on file: Champion left the company \u2014 no identified replacement]",
     "sentiment_signal": "Negative",
     "action_items": "[\"Schedule VP-to-VP alignment call within 72 hours\", \"Send daily P1 ticket status update to Eric Rodriguez\"]",
-    "follow_up_due": "2026-06-21"
+    "follow_up_due": "2026-06-22"
   },
   {
     "id": 100,
     "customer_id": 37,
     "customer_name": "HealthFirst Insurance",
     "meeting_type": "Renewal Discussion",
-    "date": "2026-05-08T23:44:47",
+    "date": "2026-05-09T13:56:01",
     "attendees_internal": "Aaliya Patel, Natasha Ivanova (VP CS)",
     "attendees_customer": "Eric Rodriguez, Simone Wilson",
     "summary": "Budget freeze announced mid-call. Procurement contact said renewal approval is not expected until Q4. ARR at risk.",
     "sentiment_signal": "Negative",
     "action_items": "[\"Prepare executive escalation brief\", \"Schedule VP-to-VP alignment call within 72 hours\"]",
-    "follow_up_due": "2026-06-24"
+    "follow_up_due": "2026-06-25"
   },
   {
     "id": 101,
     "customer_id": 38,
     "customer_name": "Evora Energy Partners",
     "meeting_type": "Weekly Sync",
-    "date": "2026-03-01T23:44:47",
+    "date": "2026-03-02T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, David Park (CRO)",
     "attendees_customer": "Robert Lee, Fatima Harris",
     "summary": "Customer asked about SOC2 report availability. Shared compliance documentation. No concerns raised. [Active escalation on file: New CISO conducting platform audit \u2014 potential replacement evaluation]",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Share updated roadmap timeline\", \"Schedule technical integration review\"]",
-    "follow_up_due": "2026-06-17"
+    "follow_up_due": "2026-06-18"
   },
   {
     "id": 102,
     "customer_id": 38,
     "customer_name": "Evora Energy Partners",
     "meeting_type": "Renewal Discussion",
-    "date": "2026-04-27T23:44:47",
+    "date": "2026-04-28T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, Rachel Kim (VP CX)",
     "attendees_customer": "Robert Lee, Fatima Harris",
     "summary": "Customer asked about SOC2 report availability. Shared compliance documentation. No concerns raised.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Follow up with Fatima Harris on open config items\", \"Share updated roadmap timeline\"]",
-    "follow_up_due": "2026-06-23"
+    "follow_up_due": "2026-06-24"
   },
   {
     "id": 103,
     "customer_id": 39,
     "customer_name": "Quayside Logistics",
     "meeting_type": "Executive Briefing",
-    "date": "2026-04-20T23:44:47",
+    "date": "2026-04-21T13:56:01",
     "attendees_internal": "Simone Dubois, David Park (CRO)",
     "attendees_customer": "Jennifer Okafor, Carlos White",
     "summary": "Customer expressed frustration with P1 ticket response time. Said 'this level of service is unacceptable for the price we pay.' Escalation path initiated. [Active escalation on file: Renewal at risk \u2014 economic buyer not engaged]",
     "sentiment_signal": "Negative",
     "action_items": "[\"Prepare executive escalation brief\", \"Schedule VP-to-VP alignment call within 72 hours\"]",
-    "follow_up_due": "2026-06-21"
+    "follow_up_due": "2026-06-22"
   },
   {
     "id": 104,
     "customer_id": 39,
     "customer_name": "Quayside Logistics",
     "meeting_type": "QBR",
-    "date": "2026-04-15T23:44:47",
+    "date": "2026-04-16T13:56:01",
     "attendees_internal": "Simone Dubois, Natasha Ivanova (VP CS)",
     "attendees_customer": "Jennifer Okafor, Carlos White",
     "summary": "Customer expressed frustration with P1 ticket response time. Said 'this level of service is unacceptable for the price we pay.' Escalation path initiated.",
     "sentiment_signal": "Negative",
     "action_items": "[\"Prepare executive escalation brief\", \"Schedule VP-to-VP alignment call within 72 hours\"]",
-    "follow_up_due": "2026-06-19"
+    "follow_up_due": "2026-06-20"
   },
   {
     "id": 105,
     "customer_id": 39,
     "customer_name": "Quayside Logistics",
     "meeting_type": "Onboarding Check-in",
-    "date": "2026-05-14T23:44:47",
+    "date": "2026-05-15T13:56:01",
     "attendees_internal": "Simone Dubois, Rachel Kim (VP CX)",
     "attendees_customer": "Jennifer Okafor, Carlos White",
     "summary": "Customer mentioned they are evaluating a competitor. Said Onyx is 'missing key discovery-source integrations they need (their CNAPP and SASE).' Product gap confirmed.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Send daily P1 ticket status update to Jennifer Okafor\", \"Schedule VP-to-VP alignment call within 72 hours\"]",
-    "follow_up_due": "2026-06-22"
+    "follow_up_due": "2026-06-23"
   },
   {
     "id": 106,
     "customer_id": 39,
     "customer_name": "Quayside Logistics",
     "meeting_type": "Weekly Sync",
-    "date": "2026-03-13T23:44:47",
+    "date": "2026-03-14T13:56:01",
     "attendees_internal": "Simone Dubois, Natasha Ivanova (VP CS)",
     "attendees_customer": "Jennifer Okafor, Carlos White",
     "summary": "Executive sponsor raised concern that platform complexity is slowing down analyst adoption. Considering scaling back deployment.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Schedule VP-to-VP alignment call within 72 hours\", \"Prepare executive escalation brief\"]",
-    "follow_up_due": "2026-06-20"
+    "follow_up_due": "2026-06-21"
   },
   {
     "id": 107,
     "customer_id": 40,
     "customer_name": "Auric Bank",
     "meeting_type": "Implementation Review",
-    "date": "2026-05-29T23:44:47",
+    "date": "2026-05-30T13:56:01",
     "attendees_internal": "James Okafor, Natasha Ivanova (VP CS)",
     "attendees_customer": "Derek Patel, Priya Dubois",
     "summary": "Customer asked about SOC2 report availability. Shared compliance documentation. No concerns raised.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Send expansion proposal draft\", \"Invite to customer advisory board\"]",
-    "follow_up_due": "2026-06-20"
+    "follow_up_due": "2026-06-21"
   },
   {
     "id": 108,
     "customer_id": 40,
     "customer_name": "Auric Bank",
     "meeting_type": "Onboarding Check-in",
-    "date": "2026-02-17T23:44:47",
+    "date": "2026-02-18T13:56:01",
     "attendees_internal": "James Okafor, David Park (CRO)",
     "attendees_customer": "Derek Patel, Priya Dubois",
     "summary": "Meeting covered usage review and upcoming feature releases. Customer noted they haven't fully activated runtime protection.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Share new feature release notes\"]",
-    "follow_up_due": "2026-06-17"
+    "follow_up_due": "2026-06-18"
   },
   {
     "id": 109,
     "customer_id": 41,
     "customer_name": "FreshCart Markets",
     "meeting_type": "Technical Deep-Dive",
-    "date": "2026-05-12T23:44:47",
+    "date": "2026-05-13T13:56:01",
     "attendees_internal": "Tyler Bennett, Rachel Kim (VP CX)",
     "attendees_customer": "Robert Dubois, Emily Rodriguez",
     "summary": "Renewal date acknowledged. Customer mentioned internal budget process starts next month. No red flags. [Active escalation on file: P1 security incident unresolved for 5+ days]",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Schedule technical integration review\", \"Share updated roadmap timeline\"]",
-    "follow_up_due": "2026-06-23"
+    "follow_up_due": "2026-06-24"
   },
   {
     "id": 110,
     "customer_id": 41,
     "customer_name": "FreshCart Markets",
     "meeting_type": "Implementation Review",
-    "date": "2026-02-28T23:44:47",
+    "date": "2026-03-01T13:56:01",
     "attendees_internal": "Tyler Bennett, Natasha Ivanova (VP CS)",
     "attendees_customer": "Robert Dubois, Emily Rodriguez",
     "summary": "Routine check-in. Customer mentioned interest in the roadmap update. No blockers raised.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Share updated roadmap timeline\", \"Schedule technical integration review\"]",
-    "follow_up_due": "2026-06-23"
+    "follow_up_due": "2026-06-24"
   },
   {
     "id": 111,
     "customer_id": 41,
     "customer_name": "FreshCart Markets",
     "meeting_type": "QBR",
-    "date": "2026-02-15T23:44:47",
+    "date": "2026-02-16T13:56:01",
     "attendees_internal": "Tyler Bennett, Rachel Kim (VP CX)",
     "attendees_customer": "Robert Dubois, Emily Rodriguez",
     "summary": "Meeting covered usage review and upcoming feature releases. Customer noted they haven't fully activated runtime protection.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Follow up with Emily Rodriguez on open config items\", \"Share updated roadmap timeline\"]",
-    "follow_up_due": "2026-06-22"
+    "follow_up_due": "2026-06-23"
   },
   {
     "id": 112,
     "customer_id": 42,
     "customer_name": "Lumen Insurance Group",
     "meeting_type": "Escalation Call",
-    "date": "2026-02-12T23:44:47",
+    "date": "2026-02-13T13:56:01",
     "attendees_internal": "Maya Rodriguez, Rachel Kim (VP CX)",
     "attendees_customer": "Priya Taylor, Jennifer Martinez",
     "summary": "Implementation review revealed 6-week delay. Customer team visibly frustrated. Project sponsor threatened to involve their CEO. [Active escalation on file: Guardian Agent false-positive storm disrupted customer's production agents]",
     "sentiment_signal": "Negative",
     "action_items": "[\"Prepare executive escalation brief\", \"Schedule VP-to-VP alignment call within 72 hours\"]",
-    "follow_up_due": "2026-06-21"
+    "follow_up_due": "2026-06-22"
   },
   {
     "id": 113,
     "customer_id": 42,
     "customer_name": "Lumen Insurance Group",
     "meeting_type": "Implementation Review",
-    "date": "2026-05-12T23:44:47",
+    "date": "2026-05-13T13:56:01",
     "attendees_internal": "Maya Rodriguez, Natasha Ivanova (VP CS)",
     "attendees_customer": "Priya Taylor, Jennifer Martinez",
     "summary": "Customer mentioned they are evaluating a competitor. Said Onyx is 'missing key discovery-source integrations they need (their CNAPP and SASE).' Product gap confirmed.",
     "sentiment_signal": "Negative",
     "action_items": "[\"Prepare executive escalation brief\", \"Send daily P1 ticket status update to Priya Taylor\"]",
-    "follow_up_due": "2026-06-14"
+    "follow_up_due": "2026-06-15"
   },
   {
     "id": 114,
     "customer_id": 42,
     "customer_name": "Lumen Insurance Group",
     "meeting_type": "Onboarding Check-in",
-    "date": "2026-06-04T23:44:47",
+    "date": "2026-06-05T13:56:01",
     "attendees_internal": "Maya Rodriguez, Rachel Kim (VP CX)",
     "attendees_customer": "Priya Taylor, Jennifer Martinez",
     "summary": "Implementation review revealed 6-week delay. Customer team visibly frustrated. Project sponsor threatened to involve their CEO.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Send daily P1 ticket status update to Priya Taylor\", \"Schedule VP-to-VP alignment call within 72 hours\"]",
-    "follow_up_due": "2026-06-21"
+    "follow_up_due": "2026-06-22"
   },
   {
     "id": 115,
     "customer_id": 42,
     "customer_name": "Lumen Insurance Group",
     "meeting_type": "Onboarding Check-in",
-    "date": "2026-02-28T23:44:47",
+    "date": "2026-03-01T13:56:01",
     "attendees_internal": "Maya Rodriguez, Rachel Kim (VP CX)",
     "attendees_customer": "Priya Taylor, Jennifer Martinez",
     "summary": "Customer mentioned they are evaluating a competitor. Said Onyx is 'missing key discovery-source integrations they need (their CNAPP and SASE).' Product gap confirmed.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Schedule VP-to-VP alignment call within 72 hours\", \"Send daily P1 ticket status update to Priya Taylor\"]",
-    "follow_up_due": "2026-06-16"
+    "follow_up_due": "2026-06-17"
   },
   {
     "id": 116,
     "customer_id": 43,
     "customer_name": "PlaySphere",
     "meeting_type": "QBR",
-    "date": "2026-05-07T23:44:47",
+    "date": "2026-05-08T13:56:01",
     "attendees_internal": "Tyler Bennett, Rachel Kim (VP CX)",
     "attendees_customer": "Amanda Rodriguez, Kevin Lee",
     "summary": "Discussed connecting their CNAPP as a discovery source. Customer IT team needs 2 weeks to schedule the work. No escalation needed.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Share new feature release notes\", \"Send expansion proposal draft\"]",
-    "follow_up_due": "2026-06-18"
+    "follow_up_due": "2026-06-19"
   },
   {
     "id": 117,
     "customer_id": 43,
     "customer_name": "PlaySphere",
     "meeting_type": "Weekly Sync",
-    "date": "2026-04-20T23:44:47",
+    "date": "2026-04-21T13:56:01",
     "attendees_internal": "Tyler Bennett, David Park (CRO)",
     "attendees_customer": "Amanda Rodriguez, Kevin Lee",
     "summary": "Customer asked about SOC2 report availability. Shared compliance documentation. No concerns raised.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Share new feature release notes\"]",
-    "follow_up_due": "2026-06-14"
+    "follow_up_due": "2026-06-15"
   },
   {
     "id": 118,
     "customer_id": 44,
     "customer_name": "Northwind Travel",
     "meeting_type": "Executive Briefing",
-    "date": "2026-05-25T23:44:47",
+    "date": "2026-05-26T13:56:01",
     "attendees_internal": "Priya Nair, David Park (CRO)",
     "attendees_customer": "Eric Lee, Lauren Taylor",
     "summary": "Weekly sync. Team acknowledged some configuration complexity but working through it with documentation. [Active escalation on file: Renewal at risk \u2014 economic buyer not engaged]",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Share updated roadmap timeline\", \"Schedule technical integration review\"]",
-    "follow_up_due": "2026-06-23"
+    "follow_up_due": "2026-06-24"
   },
   {
     "id": 119,
     "customer_id": 44,
     "customer_name": "Northwind Travel",
     "meeting_type": "Onboarding Check-in",
-    "date": "2026-05-10T23:44:47",
+    "date": "2026-05-11T13:56:01",
     "attendees_internal": "Priya Nair, Natasha Ivanova (VP CS)",
     "attendees_customer": "Eric Lee, Lauren Taylor",
     "summary": "Customer asked about SOC2 report availability. Shared compliance documentation. No concerns raised.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Share updated roadmap timeline\", \"Schedule technical integration review\"]",
-    "follow_up_due": "2026-06-19"
+    "follow_up_due": "2026-06-20"
   },
   {
     "id": 120,
     "customer_id": 45,
     "customer_name": "Vertex SaaS",
     "meeting_type": "Escalation Call",
-    "date": "2026-02-26T23:44:47",
+    "date": "2026-02-27T13:56:01",
     "attendees_internal": "James Okafor, David Park (CRO)",
     "attendees_customer": "Lauren Garcia, Megan Lee",
     "summary": "Implementation review. 3 milestones completed on schedule. 1 slightly delayed due to customer IT queue.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Share updated roadmap timeline\", \"Follow up with Megan Lee on open config items\"]",
-    "follow_up_due": "2026-06-19"
+    "follow_up_due": "2026-06-20"
   },
   {
     "id": 121,
     "customer_id": 45,
     "customer_name": "Vertex SaaS",
     "meeting_type": "Implementation Review",
-    "date": "2026-05-17T23:44:47",
+    "date": "2026-05-18T13:56:01",
     "attendees_internal": "James Okafor, Rachel Kim (VP CX)",
     "attendees_customer": "Lauren Garcia, Megan Lee",
     "summary": "Meeting covered usage review and upcoming feature releases. Customer noted they haven't fully activated runtime protection.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Schedule technical integration review\", \"Share updated roadmap timeline\"]",
-    "follow_up_due": "2026-06-15"
+    "follow_up_due": "2026-06-16"
   },
   {
     "id": 122,
     "customer_id": 46,
     "customer_name": "Crestline Capital",
     "meeting_type": "Escalation Call",
-    "date": "2026-03-26T23:44:47",
+    "date": "2026-03-27T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, Rachel Kim (VP CX)",
     "attendees_customer": "Amanda Garcia, Eric Williams",
     "summary": "Customer asked about SOC2 report availability. Shared compliance documentation. No concerns raised.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Share new feature release notes\", \"Send expansion proposal draft\"]",
-    "follow_up_due": "2026-06-24"
+    "follow_up_due": "2026-06-25"
   },
   {
     "id": 123,
     "customer_id": 46,
     "customer_name": "Crestline Capital",
     "meeting_type": "Technical Deep-Dive",
-    "date": "2026-05-06T23:44:47",
+    "date": "2026-05-07T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, Natasha Ivanova (VP CS)",
     "attendees_customer": "Amanda Garcia, Eric Williams",
     "summary": "Routine check-in. Customer mentioned interest in the roadmap update. No blockers raised.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Share new feature release notes\", \"Send expansion proposal draft\"]",
-    "follow_up_due": "2026-06-21"
+    "follow_up_due": "2026-06-22"
   },
   {
     "id": 124,
     "customer_id": 47,
     "customer_name": "ZenMarket",
     "meeting_type": "Escalation Call",
-    "date": "2026-03-25T23:44:47",
+    "date": "2026-03-26T13:56:01",
     "attendees_internal": "Maya Rodriguez, Natasha Ivanova (VP CS)",
     "attendees_customer": "Lauren Jackson, Kevin Nair",
     "summary": "Budget freeze announced mid-call. Procurement contact said renewal approval is not expected until Q4. ARR at risk. [Active escalation on file: New CISO conducting platform audit \u2014 potential replacement evaluation]",
     "sentiment_signal": "Negative",
     "action_items": "[\"Schedule VP-to-VP alignment call within 72 hours\", \"Prepare executive escalation brief\"]",
-    "follow_up_due": "2026-06-20"
+    "follow_up_due": "2026-06-21"
   },
   {
     "id": 125,
     "customer_id": 47,
     "customer_name": "ZenMarket",
     "meeting_type": "Renewal Discussion",
-    "date": "2026-06-06T23:44:47",
+    "date": "2026-06-07T13:56:01",
     "attendees_internal": "Maya Rodriguez, Natasha Ivanova (VP CS)",
     "attendees_customer": "Lauren Jackson, Kevin Nair",
     "summary": "Customer mentioned they are evaluating a competitor. Said Onyx is 'missing key discovery-source integrations they need (their CNAPP and SASE).' Product gap confirmed.",
     "sentiment_signal": "Negative",
     "action_items": "[\"Schedule VP-to-VP alignment call within 72 hours\", \"Send daily P1 ticket status update to Lauren Jackson\"]",
-    "follow_up_due": "2026-06-14"
+    "follow_up_due": "2026-06-15"
   },
   {
     "id": 126,
     "customer_id": 48,
     "customer_name": "Summit Health Plan",
     "meeting_type": "Executive Briefing",
-    "date": "2026-05-23T23:44:47",
+    "date": "2026-05-24T13:56:01",
     "attendees_internal": "Tyler Bennett, David Park (CRO)",
     "attendees_customer": "Rachel Garcia, Kevin Lee",
     "summary": "Discussed connecting their CNAPP as a discovery source. Customer IT team needs 2 weeks to schedule the work. No escalation needed.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Share new feature release notes\"]",
-    "follow_up_due": "2026-06-19"
+    "follow_up_due": "2026-06-20"
   },
   {
     "id": 127,
     "customer_id": 48,
     "customer_name": "Summit Health Plan",
     "meeting_type": "Technical Deep-Dive",
-    "date": "2026-04-15T23:44:47",
+    "date": "2026-04-16T13:56:01",
     "attendees_internal": "Tyler Bennett, Natasha Ivanova (VP CS)",
     "attendees_customer": "Rachel Garcia, Kevin Lee",
     "summary": "Renewal date acknowledged. Customer mentioned internal budget process starts next month. No red flags.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Share new feature release notes\", \"Invite to customer advisory board\"]",
-    "follow_up_due": "2026-06-20"
+    "follow_up_due": "2026-06-21"
   },
   {
     "id": 128,
     "customer_id": 48,
     "customer_name": "Summit Health Plan",
     "meeting_type": "Weekly Sync",
-    "date": "2026-02-25T23:44:47",
+    "date": "2026-02-26T13:56:01",
     "attendees_internal": "Tyler Bennett, David Park (CRO)",
     "attendees_customer": "Rachel Garcia, Kevin Lee",
     "summary": "Renewal date acknowledged. Customer mentioned internal budget process starts next month. No red flags.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Share new feature release notes\", \"Invite to customer advisory board\"]",
-    "follow_up_due": "2026-06-16"
+    "follow_up_due": "2026-06-17"
   },
   {
     "id": 129,
     "customer_id": 49,
     "customer_name": "Pinnacle Gaming",
     "meeting_type": "QBR",
-    "date": "2026-05-30T23:44:47",
+    "date": "2026-05-31T13:56:01",
     "attendees_internal": "Priya Nair, Natasha Ivanova (VP CS)",
     "attendees_customer": "Tyler Williams, Emily Chen",
     "summary": "Implementation review. 3 milestones completed on schedule. 1 slightly delayed due to customer IT queue. [Active escalation on file: Guardian Agent false-positive storm disrupted customer's production agents]",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Schedule technical integration review\", \"Follow up with Emily Chen on open config items\"]",
-    "follow_up_due": "2026-06-17"
+    "follow_up_due": "2026-06-18"
   },
   {
     "id": 130,
     "customer_id": 49,
     "customer_name": "Pinnacle Gaming",
     "meeting_type": "Implementation Review",
-    "date": "2026-03-23T23:44:47",
+    "date": "2026-03-24T13:56:01",
     "attendees_internal": "Priya Nair, Rachel Kim (VP CX)",
     "attendees_customer": "Tyler Williams, Emily Chen",
     "summary": "Routine check-in. Customer mentioned interest in the roadmap update. No blockers raised.",
     "sentiment_signal": "Neutral",
     "action_items": "[\"Share updated roadmap timeline\", \"Schedule technical integration review\"]",
-    "follow_up_due": "2026-06-23"
+    "follow_up_due": "2026-06-24"
   },
   {
     "id": 131,
     "customer_id": 50,
     "customer_name": "Atlas Enterprise Cloud",
     "meeting_type": "Renewal Discussion",
-    "date": "2026-03-29T23:44:47",
+    "date": "2026-03-30T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, David Park (CRO)",
     "attendees_customer": "Sarah Williams, Rachel Lee",
     "summary": "Technical deep-dive on integration architecture. Customer architect called the API design 'best in class.'",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Share new feature release notes\"]",
-    "follow_up_due": "2026-06-17"
+    "follow_up_due": "2026-06-18"
   },
   {
     "id": 132,
     "customer_id": 50,
     "customer_name": "Atlas Enterprise Cloud",
     "meeting_type": "Technical Deep-Dive",
-    "date": "2026-04-13T23:44:47",
+    "date": "2026-04-14T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, Natasha Ivanova (VP CS)",
     "attendees_customer": "Sarah Williams, Rachel Lee",
     "summary": "Renewal discussion initiated positively. Customer asked to start paperwork early. No commercial friction.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Send expansion proposal draft\", \"Share new feature release notes\"]",
-    "follow_up_due": "2026-06-14"
+    "follow_up_due": "2026-06-15"
   },
   {
     "id": 133,
     "customer_id": 50,
     "customer_name": "Atlas Enterprise Cloud",
     "meeting_type": "Escalation Call",
-    "date": "2026-06-04T23:44:47",
+    "date": "2026-06-05T13:56:01",
     "attendees_internal": "Hiroshi Tanaka, David Park (CRO)",
     "attendees_customer": "Sarah Williams, Rachel Lee",
     "summary": "Routine check-in. Customer mentioned interest in the roadmap update. No blockers raised.",
     "sentiment_signal": "Positive",
     "action_items": "[\"Invite to customer advisory board\", \"Share new feature release notes\"]",
-    "follow_up_due": "2026-06-13"
+    "follow_up_due": "2026-06-14"
   }
 ]

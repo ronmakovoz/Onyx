@@ -939,6 +939,110 @@ def build_health_history(customers):
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# 10. PRODUCT CATALOG & CUSTOMER PRODUCT OWNERSHIP
+# ══════════════════════════════════════════════════════════════════════════════
+
+# Onyx product modules. base_price is the Mid-Market list price; Enterprise and
+# Strategic tiers pay a multiplier. "core" products are owned by every customer.
+PRODUCT_CATALOG = [
+    {"id": 1,  "name": "Guardian Runtime Protection", "category": "Runtime",    "base_price": 90000,  "core": True,
+     "description": "Real-time policy enforcement and threat blocking for production AI agents."},
+    {"id": 2,  "name": "AI Discovery (Shadow AI)",    "category": "Visibility", "base_price": 45000,  "core": False,
+     "description": "Continuous discovery of ungoverned AI apps, agents, and MCP servers across the org."},
+    {"id": 3,  "name": "LLM Routing Gateway",         "category": "Efficiency", "base_price": 55000,  "core": False,
+     "description": "Intelligent model routing that cuts LLM spend while preserving output quality."},
+    {"id": 4,  "name": "Prompt Injection Defense",    "category": "Runtime",    "base_price": 40000,  "core": False,
+     "description": "Inline detection and blocking of prompt-injection and jailbreak attempts."},
+    {"id": 5,  "name": "Agent Governance & Policy",   "category": "Governance", "base_price": 60000,  "core": False,
+     "description": "Central policy authoring, approval workflows, and enforcement for AI agents."},
+    {"id": 6,  "name": "MCP Supply Chain Security",   "category": "Visibility", "base_price": 35000,  "core": False,
+     "description": "Vetting, signing, and runtime monitoring of MCP servers and tool integrations."},
+    {"id": 7,  "name": "Data Exfiltration Prevention","category": "Runtime",    "base_price": 50000,  "core": False,
+     "description": "Blocks PII/PHI and secret leakage through AI agent inputs and outputs."},
+    {"id": 8,  "name": "Compliance Evidence Suite",   "category": "Governance", "base_price": 38000,  "core": False,
+     "description": "Automated audit evidence for HIPAA, SOC 2, PCI, and the EU AI Act."},
+    {"id": 9,  "name": "AI Red Team Simulation",      "category": "Assurance",  "base_price": 42000,  "core": False,
+     "description": "Continuous adversarial testing of deployed agents against evolving attack libraries."},
+    {"id": 10, "name": "Managed Threat Response",     "category": "Assurance",  "base_price": 65000,  "core": False,
+     "description": "24/7 Onyx SOC monitoring, triage, and guided response for AI security incidents."},
+]
+
+TIER_PRICE_MULT = {"Mid-Market": 1.0, "Enterprise": 1.6, "Strategic": 2.6}
+
+# Industry affinity: which non-core modules each vertical is most likely to buy.
+INDUSTRY_PRODUCT_AFFINITY = {
+    "Financial Services":    [3, 8, 5, 7, 2],
+    "Healthcare":            [7, 8, 2, 5, 10],
+    "Insurance":             [5, 8, 2, 7, 3],
+    "Ecommerce":             [4, 3, 2, 9, 6],
+    "Retail":                [3, 4, 2, 8, 6],
+    "Marketplace":           [6, 4, 5, 2, 9],
+    "Travel":                [7, 2, 4, 10, 5],
+    "Gaming":                [4, 9, 3, 6, 2],
+    "SaaS":                  [4, 2, 6, 9, 3],
+    "Enterprise Technology": [2, 5, 6, 10, 8],
+}
+
+
+def build_customer_products(customers):
+    """Deterministic per-customer product ownership.
+
+    Larger accounts own more modules. Product ARR allocations are scaled so
+    they sum exactly to the customer's total ARR, keeping the data internally
+    consistent with everything downstream.
+    """
+    rows = []
+    rid  = 1
+    by_id = {p["id"]: p for p in PRODUCT_CATALOG}
+
+    for c in customers:
+        rng  = random.Random(c["id"] * 7919)  # stable per customer
+        tier = c["customer_tier"]
+        mult = TIER_PRICE_MULT.get(tier, 1.0)
+
+        # Number of non-core modules scales with ARR (capped at 4 of 9 so even
+        # the largest accounts have credible whitespace to grow into)
+        arr = c["arr"]
+        n_extra = 1 if arr < 300_000 else 2 if arr < 550_000 else 3 if arr < 900_000 else 4
+
+        # Draw from the industry affinity list with per-customer shuffle so
+        # lookalike peers own overlapping-but-different module sets — that
+        # difference is what powers the whitespace recommendations.
+        affinity = list(INDUSTRY_PRODUCT_AFFINITY.get(c["industry"], [2, 4, 3, 5, 6]))
+        rng.shuffle(affinity)
+        owned_ids = [1] + affinity[:n_extra]  # Guardian core + extras
+
+        # Allocate the customer's ARR across owned products proportionally to
+        # tier-adjusted list price, with mild per-product noise.
+        weights = {}
+        for pid in owned_ids:
+            base = by_id[pid]["base_price"] * mult
+            weights[pid] = base * rng.uniform(0.85, 1.15)
+        total_w = sum(weights.values())
+
+        contract_start = c["contract_start_date"]
+        allocated = 0
+        for i, pid in enumerate(owned_ids):
+            if i == len(owned_ids) - 1:
+                product_arr = arr - allocated  # remainder keeps the sum exact
+            else:
+                product_arr = int(arr * weights[pid] / total_w)
+                allocated += product_arr
+            rows.append({
+                "id": rid,
+                "customer_id": c["id"],
+                "customer_name": c["name"],
+                "product_id": pid,
+                "product_name": by_id[pid]["name"],
+                "arr": product_arr,
+                "purchased_date": contract_start,
+            })
+            rid += 1
+
+    return rows
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # WRITE JSON FILES
 # ══════════════════════════════════════════════════════════════════════════════
 
@@ -966,6 +1070,23 @@ DROP TABLE IF EXISTS stakeholders;
 DROP TABLE IF EXISTS health_history;
 DROP TABLE IF EXISTS agent_runs;
 DROP TABLE IF EXISTS briefings;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS customer_products;
+
+CREATE TABLE products (
+    id INTEGER PRIMARY KEY,
+    name TEXT, category TEXT, base_price INTEGER,
+    core INTEGER, description TEXT
+);
+
+CREATE TABLE customer_products (
+    id INTEGER PRIMARY KEY,
+    customer_id INTEGER, customer_name TEXT,
+    product_id INTEGER, product_name TEXT,
+    arr INTEGER, purchased_date TEXT,
+    FOREIGN KEY(customer_id) REFERENCES customers(id),
+    FOREIGN KEY(product_id) REFERENCES products(id)
+);
 
 CREATE TABLE customers (
     id INTEGER PRIMARY KEY,
@@ -1097,7 +1218,8 @@ CREATE TABLE briefings (
 
 
 def seed_database(customers, tickets, implementations, escalations, renewals,
-                  meeting_notes, usage_metrics, stakeholders, health_history):
+                  meeting_notes, usage_metrics, stakeholders, health_history,
+                  customer_products):
     conn = sqlite3.connect(DB_PATH)
     conn.executescript(SCHEMA)
 
@@ -1179,6 +1301,13 @@ def seed_database(customers, tickets, implementations, escalations, renewals,
         "id","customer_id","customer_name","date","health_score","health_trend","notes"
     ])
 
+    ins("products", [{**p, "core": int(p["core"])} for p in PRODUCT_CATALOG], [
+        "id","name","category","base_price","core","description"
+    ])
+    ins("customer_products", customer_products, [
+        "id","customer_id","customer_name","product_id","product_name","arr","purchased_date"
+    ])
+
     conn.commit()
     conn.close()
 
@@ -1200,6 +1329,7 @@ def main():
     usage_metrics  = build_usage_metrics(customers)
     stakeholders   = build_stakeholders(customers)
     health_history = build_health_history(customers)
+    customer_products = build_customer_products(customers)
 
     print("\nWriting JSON files:")
     write_json(customers,      "customers.json")
@@ -1211,10 +1341,13 @@ def main():
     write_json(usage_metrics,  "usage_metrics.json")
     write_json(stakeholders,   "stakeholders.json")
     write_json(health_history, "health_history.json")
+    write_json(PRODUCT_CATALOG, "products.json")
+    write_json(customer_products, "customer_products.json")
 
     print("\nSeeding SQLite database:")
     seed_database(customers, tickets, implementations, escalations, renewals,
-                  meeting_notes, usage_metrics, stakeholders, health_history)
+                  meeting_notes, usage_metrics, stakeholders, health_history,
+                  customer_products)
 
     # Verification
     conn = sqlite3.connect(DB_PATH)

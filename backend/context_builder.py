@@ -44,6 +44,19 @@ def build_customer_context(customer_id: int) -> dict:
 
     renewal_data = data.get("renewal") or {}
 
+    # Products owned + peer-based whitespace (for expansion analysis)
+    from backend.whitespace import customer_whitespace
+    ws = customer_whitespace(customer_id) or {}
+    products_owned_str = "\n".join(
+        f"- {p['product_name']} (${p['arr']:,}/yr, since {str(p['purchased_date'])[:10]})"
+        for p in ws.get("owned_products", [])
+    ) or "No product data"
+    whitespace_str = "\n".join(
+        f"- {o['product_name']} — est. ${o['estimated_arr']:,}/yr; owned by {o['peer_penetration_pct']}% of "
+        f"similar customers (e.g. {', '.join(o['peer_examples'][:2]) or 'n/a'})"
+        for o in ws.get("recommended", [])
+    ) or "No whitespace identified"
+
     return {
         "customer_name":           c["name"],
         "industry":                c["industry"],
@@ -78,6 +91,10 @@ def build_customer_context(customer_id: int) -> dict:
         "impl_status":             impl.get("overall_status", "N/A"),
         "days_behind":             impl.get("days_behind_schedule", 0),
         "go_live_target":          impl.get("go_live_target", "Not set"),
+        "products_owned":          products_owned_str,
+        "whitespace_products":     whitespace_str,
+        "whitespace_arr":          ws.get("whitespace_arr", 0),
+        "arr_goal":                ws.get("arr_goal", c["arr"]),
         "meeting_notes":           notes_str,
         "renewal_stage":           renewal_data.get("renewal_stage", "Not Started"),
         "expansion_arr":           renewal_data.get("expansion_arr", 0),

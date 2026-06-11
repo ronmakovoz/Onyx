@@ -417,11 +417,20 @@ and require a roadmap decision from Product this week.
 def _mock_expansion(ctx):
     name = ctx.get("customer_name", "Customer")
     arr  = ctx.get("arr", 0)
-    pipe = ctx.get("expansion_pipeline_arr", 0) or int(arr * 0.2)
-    modules = random.sample([
-        "AI-SPM", "Runtime Protection", "Guardian Agent Pro",
-        "LLM Routing & Cost Optimization", "MCP Supply-Chain Security", "AI ROI Analytics", "Shadow AI Discovery Plus",
-    ], 3)
+    whitespace = ctx.get("whitespace_products", "")
+    has_ws = whitespace and whitespace != "No whitespace identified"
+    pipe = ctx.get("whitespace_arr", 0) or ctx.get("expansion_pipeline_arr", 0) or int(arr * 0.2)
+    goal = ctx.get("arr_goal", arr + pipe)
+    if has_ws:
+        modules_block = whitespace
+        workshop = whitespace.splitlines()[0].lstrip("- ").split(" — ")[0]
+    else:
+        modules = random.sample([
+            "AI-SPM", "Runtime Protection", "Guardian Agent Pro",
+            "LLM Routing & Cost Optimization", "MCP Supply-Chain Security", "AI ROI Analytics", "Shadow AI Discovery Plus",
+        ], 3)
+        modules_block = "\n".join(f"- {m}" for m in modules)
+        workshop = modules[0]
     return f"""# Expansion Opportunity — {name}
 *Expansion Opportunity Agent · {datetime.now().strftime('%B %d, %Y')}*
 
@@ -431,13 +440,15 @@ def _mock_expansion(ctx):
 *{ctx.get('roi_outcome','measurable AI risk reduction')}* — creates a credible basis to expand governance into \
 adjacent risk surfaces. Executive engagement is **{ctx.get('executive_engagement','Medium')}**.
 
+Current footprint:
+{ctx.get('products_owned', 'No product data')}
+
 ## Recommended Modules
-- {modules[0]}
-- {modules[1]}
-- {modules[2]}
+{modules_block}
 
 ## Projected ARR Uplift
-**${pipe:,}** incremental ARR over the next two quarters (≈{int(pipe/max(arr,1)*100)}% of current ARR).
+**${pipe:,}** incremental ARR over the next two quarters — taking the account from \
+**${arr:,}** to an ARR goal of **${goal:,}** (≈{int(pipe/max(arr,1)*100)}% growth).
 
 ## Confidence
 **{ 'High' if ctx.get('upsell_likelihood',0) >= 0.45 else 'Medium' if ctx.get('upsell_likelihood',0) >= 0.2 else 'Low' }** — based on upsell likelihood {ctx.get('upsell_likelihood',0)} and current adoption.
@@ -449,7 +460,7 @@ adjacent risk surfaces. Executive engagement is **{ctx.get('executive_engagement
 
 ## Recommended Play
 1. Package the proven ROI into a one-page value brief for the economic buyer
-2. Run a scoping workshop on {modules[0]} with the technical sponsor
+2. Run a scoping workshop on {workshop} with the technical sponsor
 3. Tie the expansion proposal to the upcoming renewal ({ctx.get('renewal_days','?')} days out)
 
 ## Best Timing

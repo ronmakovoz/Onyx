@@ -104,6 +104,7 @@ export default function CustomerDetailPage() {
   const params = useParams<{ id: string }>();
   const router = useRouter();
   const cid = Number(params.id);
+  const [products, setProducts] = useState<any>(null);
 
   const [allCustomers, setAllCustomers] = useState<Customer[]>([]);
   const [data, setData] = useState<any>(null);
@@ -116,6 +117,7 @@ export default function CustomerDetailPage() {
   useEffect(() => {
     getJSON(`/api/customers/${cid}/360`).then(setData).catch(() => setData({}));
     getJSON(`/api/actions/${cid}`).then(setAction).catch(() => {});
+    getJSON(`/api/customers/${cid}/products`).then(setProducts).catch(() => {});
   }, [cid]);
 
   useEffect(() => {
@@ -352,6 +354,62 @@ export default function CustomerDetailPage() {
               </div>
             </div>
           </div>
+
+          {products?.owned_products?.length ? (
+            <div className="grid md:grid-cols-2 gap-3 mt-3">
+              <Card>
+                <SectionLabel>Products Owned</SectionLabel>
+                {products.owned_products.map((p: any) => (
+                  <div key={p.product_id} className="flex items-baseline justify-between mt-[6px]">
+                    <div>
+                      <span className="text-[0.8rem] font-bold text-navy">{p.product_name}</span>
+                      <span className="text-[0.64rem] text-muted ml-2">{p.category}</span>
+                    </div>
+                    <span className="text-[0.78rem] font-bold text-ink">${p.arr.toLocaleString()}/yr</span>
+                  </div>
+                ))}
+                <div className="border-t border-line mt-2 pt-2 flex items-baseline justify-between">
+                  <span className="text-[0.72rem] font-bold text-muted uppercase tracking-[0.08em]">Total ARR</span>
+                  <span className="text-[0.85rem] font-extrabold text-navy">
+                    ${products.current_arr.toLocaleString()}
+                  </span>
+                </div>
+              </Card>
+              <Card>
+                <SectionLabel>Whitespace — What Similar Clients Own</SectionLabel>
+                {products.recommended?.length ? (
+                  <>
+                    {products.recommended.map((o: any) => (
+                      <div key={o.product_id} className="mt-[6px]">
+                        <div className="flex items-baseline justify-between">
+                          <span className="text-[0.8rem] font-bold text-navy">{o.product_name}</span>
+                          <span className="text-[0.78rem] font-bold text-green">
+                            est. ${o.estimated_arr.toLocaleString()}/yr
+                          </span>
+                        </div>
+                        <div className="text-[0.64rem] text-muted">
+                          {o.peer_penetration_pct}% of similar clients own it
+                          {o.peer_examples?.length ? ` — e.g. ${o.peer_examples.slice(0, 2).join(", ")}` : ""}
+                        </div>
+                      </div>
+                    ))}
+                    <div className="border-t border-line mt-2 pt-2 flex items-baseline justify-between">
+                      <span className="text-[0.72rem] font-bold text-muted uppercase tracking-[0.08em]">
+                        ARR Goal
+                      </span>
+                      <span className="text-[0.85rem] font-extrabold text-green">
+                        ${products.arr_goal.toLocaleString()} (+${products.whitespace_arr.toLocaleString()})
+                      </span>
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-[0.76rem] text-muted mt-1">
+                    Fully penetrated — owns what its peers own.
+                  </div>
+                )}
+              </Card>
+            </div>
+          ) : null}
         </div>
       )}
 

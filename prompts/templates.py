@@ -482,6 +482,16 @@ Proven outcome to date: {roi_outcome}
 Open expansion pipeline: ${expansion_pipeline_arr:,} (upsell likelihood {upsell_likelihood})
 Renewal in {renewal_days} days
 
+=== PRODUCTS OWNED TODAY ===
+{products_owned}
+
+=== WHITESPACE — what similar customers own that this account doesn't ===
+{whitespace_products}
+Closing the recommended whitespace takes this account from ${arr:,} to an ARR goal of ${arr_goal:,}.
+
+Ground the Recommended Modules in the whitespace evidence above — cite the peer
+penetration numbers. Do not recommend modules the customer already owns.
+
 Produce the analysis using these section headers:
 ## Expansion Thesis
 ## Recommended Modules

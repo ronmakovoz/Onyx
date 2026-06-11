@@ -15,6 +15,10 @@ const GROUPS: { label: string; items: { name: string; href: string }[] }[] = [
     ],
   },
   {
+    label: "Grow",
+    items: [{ name: "Growth & Whitespace", href: "/growth" }],
+  },
+  {
     label: "Deliver",
     items: [
       { name: "Briefings", href: "/briefings" },

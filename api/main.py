@@ -35,6 +35,7 @@ from backend.context_builder import build_customer_context, build_portfolio_cont
 from backend.database import fetchall
 from agents.agents import AGENT_REGISTRY, AGENT_DESCRIPTIONS, AGENT_MODEL_TIER, run_red_team_debate
 from backend.debate_view import render_debate, render_debate_loading
+from backend.whitespace import customer_whitespace, portfolio_whitespace
 from agents.model_router import route as _route
 
 # Capture the real key once at startup; the Mock/Live toggle mutates os.environ
@@ -323,6 +324,21 @@ def debate_view(customer_id: int, fresh: bool = False):
             return render_debate(parts["bull"], parts["bear"], parts["synthesis"], context)
 
     return render_debate_loading(context.get("customer_name", "Customer"), customer_id, api_prefix="/api")
+
+
+@app.get("/api/whitespace")
+def whitespace_overview(top_n: int = 12):
+    """Product penetration matrix + ARR goals for the largest clients."""
+    return portfolio_whitespace(top_n)
+
+
+@app.get("/api/customers/{customer_id}/products")
+def customer_products(customer_id: int):
+    """Owned products + ranked peer-based upsell opportunities for one account."""
+    ws = customer_whitespace(customer_id)
+    if not ws:
+        raise HTTPException(status_code=404, detail="Customer not found")
+    return ws
 
 
 @app.get("/api/csm/overview")

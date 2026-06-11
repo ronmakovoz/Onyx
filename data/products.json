@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "name": "Guardian Runtime Protection",
+    "category": "Runtime",
+    "base_price": 90000,
+    "core": true,
+    "description": "Real-time policy enforcement and threat blocking for production AI agents."
+  },
+  {
+    "id": 2,
+    "name": "AI Discovery (Shadow AI)",
+    "category": "Visibility",
+    "base_price": 45000,
+    "core": false,
+    "description": "Continuous discovery of ungoverned AI apps, agents, and MCP servers across the org."
+  },
+  {
+    "id": 3,
+    "name": "LLM Routing Gateway",
+    "category": "Efficiency",
+    "base_price": 55000,
+    "core": false,
+    "description": "Intelligent model routing that cuts LLM spend while preserving output quality."
+  },
+  {
+    "id": 4,
+    "name": "Prompt Injection Defense",
+    "category": "Runtime",
+    "base_price": 40000,
+    "core": false,
+    "description": "Inline detection and blocking of prompt-injection and jailbreak attempts."
+  },
+  {
+    "id": 5,
+    "name": "Agent Governance & Policy",
+    "category": "Governance",
+    "base_price": 60000,
+    "core": false,
+    "description": "Central policy authoring, approval workflows, and enforcement for AI agents."
+  },
+  {
+    "id": 6,
+    "name": "MCP Supply Chain Security",
+    "category": "Visibility",
+    "base_price": 35000,
+    "core": false,
+    "description": "Vetting, signing, and runtime monitoring of MCP servers and tool integrations."
+  },
+  {
+    "id": 7,
+    "name": "Data Exfiltration Prevention",
+    "category": "Runtime",
+    "base_price": 50000,
+    "core": false,
+    "description": "Blocks PII/PHI and secret leakage through AI agent inputs and outputs."
+  },
+  {
+    "id": 8,
+    "name": "Compliance Evidence Suite",
+    "category": "Governance",
+    "base_price": 38000,
+    "core": false,
+    "description": "Automated audit evidence for HIPAA, SOC 2, PCI, and the EU AI Act."
+  },
+  {
+    "id": 9,
+    "name": "AI Red Team Simulation",
+    "category": "Assurance",
+    "base_price": 42000,
+    "core": false,
+    "description": "Continuous adversarial testing of deployed agents against evolving attack libraries."
+  },
+  {
+    "id": 10,
+    "name": "Managed Threat Response",
+    "category": "Assurance",
+    "base_price": 65000,
+    "core": false,
+    "description": "24/7 Onyx SOC monitoring, triage, and guided response for AI security incidents."
+  }
+]
