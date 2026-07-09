@@ -3,59 +3,59 @@
 import { useEffect, useState } from "react";
 import { PageHeader } from "@/components/ui";
 
-const NAVY = "#1B1040";
-const PURPLE = "#6B5CA8";
-const GREEN = "#2D5A3D";
+const NAVY = "#0E1E45";
+const PURPLE = "#2E5CCC";
+const GREEN = "#1F6B4A";
 
-// Step 1 — discover agents through the existing security stack (read-only API)
-const SECURITY_STACK = ["SentinelOne", "Zscaler", "CrowdStrike", "Wiz"];
+// Step 1 — discover identities through IdPs and HRIS (read-only API)
+const SECURITY_STACK = ["Okta", "Entra ID", "Google WS", "Workday"];
 
-// Step 2 — connect to the agents themselves
+// Step 2 — connect to the apps and infrastructure where access lives
 const CONNECT_GROUPS = [
-  { label: "Platforms", items: ["Microsoft Copilot", "Salesforce", "OpenAI", "Glean"] },
-  { label: "Frameworks", items: ["LangGraph", "smolagents", "LlamaIndex", "CrewAI"] },
-  { label: "3rd Party", items: ["Claude", "Cohere", "Custom agents"] },
+  { label: "SaaS Apps", items: ["Salesforce", "GitHub", "Slack", "Snowflake"] },
+  { label: "Cloud & Infra", items: ["AWS", "Azure", "GCP", "Kubernetes"] },
+  { label: "Non-Human", items: ["Service accounts", "API keys", "AI agents"] },
 ];
 
-// Onyx Cloud Backend processing
+// Linx Cloud Backend processing
 const BACKEND = [
-  "Ingestion & Normalization",
-  "Configuration Analysis",
-  "Guardrails",
-  "Chain-of-Thought Evaluation",
+  "Identity Graph & Correlation",
+  "Entitlement Analysis",
+  "Risk & Policy Engine",
+  "AI Recommendations",
 ];
 
-// Guardian Agent capabilities (right column) — colors echo the brand diagram
+// Autopilot capabilities (right column)
 const GUARDIAN = [
-  { label: "Discovery", bg: "#FDE8EF", border: "#F3B8CD" },
-  { label: "Runtime Protection", bg: "#E2F6F8", border: "#A8DEE4" },
-  { label: "Posture Management", bg: "#E8F4EA", border: "#B5D9BC" },
-  { label: "Governance", bg: "#FDF3DC", border: "#EAD08F" },
-  { label: "Honeypot", bg: "#FBE8D8", border: "#EDBE94" },
-  { label: "Red-Teaming", bg: "#FBE3E1", border: "#EFB0AB" },
+  { label: "Identity Visibility", bg: "#FDE8EF", border: "#F3B8CD" },
+  { label: "Lifecycle Automation", bg: "#E2F6F8", border: "#A8DEE4" },
+  { label: "Access Reviews", bg: "#E8F4EA", border: "#B5D9BC" },
+  { label: "Just-in-Time Access", bg: "#FDF3DC", border: "#EAD08F" },
+  { label: "Privilege Cleanup", bg: "#FBE8D8", border: "#EDBE94" },
+  { label: "MFA Enforcement", bg: "#FBE3E1", border: "#EFB0AB" },
   { label: "Audit & Compliance", bg: "#FFFFFF", border: "#D8D3C8" },
 ];
 
 const STEPS = [
   {
     n: "1",
-    title: "Discover Agents",
-    body: "Onyx plugs into the security stack the client already runs — CrowdStrike, Wiz, Zscaler, SentinelOne — via read-only API integration. No endpoint agents, no traffic rerouting: Onyx sees every AI agent the existing tooling can see, instantly.",
+    title: "Discover Identities",
+    body: "Linx plugs into the identity sources the client already runs — Okta, Microsoft Entra ID, Google Workspace, and HRIS systems like Workday — via read-only API. Every human, non-human, and agentic identity is discovered instantly, with no agents to install.",
   },
   {
     n: "2",
-    title: "Connect To Agents",
-    body: "Onyx then connects to the agents themselves — platforms like Microsoft Copilot, Salesforce, and Glean; frameworks like LangGraph, smolagents, and LlamaIndex; and 3rd-party models like Claude — via read-only API or an optional gateway.",
+    title: "Connect To Apps & Infra",
+    body: "Linx then connects to where access actually lives — SaaS apps like Salesforce, GitHub, and Snowflake; cloud platforms like AWS, Azure, and GCP; and non-human identities like service accounts, API keys, and AI agents.",
   },
   {
     n: "3",
-    title: "Analyze in the Cloud Backend",
-    body: "Everything lands in the Onyx Cloud Backend: telemetry is ingested and normalized, agent configurations are analyzed, guardrails are applied, and agent reasoning is checked with chain-of-thought evaluation.",
+    title: "Correlate in the Identity Graph",
+    body: "Everything lands in the Linx Identity Graph: identities are correlated to entitlements and resources, access paths are mapped end to end, and the risk engine scores every finding — dormant accounts, admin sprawl, SSO bypass, missing MFA, toxic combinations.",
   },
   {
     n: "4",
-    title: "Act with the Guardian Agent",
-    body: "The Guardian Agent turns analysis into protection: discovery, runtime protection, posture management, governance, honeypots, red-teaming, and continuous audit & compliance evidence.",
+    title: "Act with Autopilot",
+    body: "Autopilot — the autonomous AI identity operator — turns analysis into action: lifecycle automation, access reviews, just-in-time grants, privilege cleanup, MFA enforcement, and continuous audit & compliance evidence, 24/7.",
   },
 ];
 
@@ -78,12 +78,12 @@ export default function IntegrationPage() {
   return (
     <div>
       <PageHeader
-        title="How Onyx Integrates"
-        subtitle="A unified platform to secure agentic AI — discover agents through the existing security stack, connect to them directly, analyze in the cloud backend, and protect with the Guardian Agent"
+        title="How Linx Integrates"
+        subtitle="A unified platform for identity security — discover every identity through IdPs and HRIS, connect to apps and infrastructure, correlate in the Identity Graph, and act with Autopilot"
       />
 
       <div className="bg-white border border-line rounded-xl shadow-card p-4 mb-5 overflow-x-auto">
-        <svg viewBox="0 0 1000 540" className="w-full min-w-[860px]" role="img" aria-label="Onyx unified platform architecture animation">
+        <svg viewBox="0 0 1000 540" className="w-full min-w-[860px]" role="img" aria-label="Linx unified platform architecture animation">
           <defs>
             <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
               <feGaussianBlur stdDeviation="3" result="b" />
@@ -94,11 +94,11 @@ export default function IntegrationPage() {
             </filter>
           </defs>
 
-          {/* ===== Step 1: Discover Agents ===== */}
+          {/* ===== Step 1: Discover Identities ===== */}
           <rect x="20" y="30" width="330" height="130" rx="12" fill="#FAF8F4" stroke="#D8D3C8" strokeDasharray="6 4" />
-          <text x="36" y="54" fontSize="13" fontWeight="800" fill={NAVY}>Step 1: Discover Agents</text>
+          <text x="36" y="54" fontSize="13" fontWeight="800" fill={NAVY}>Step 1: Discover Identities</text>
           <rect x="36" y="66" width="298" height="78" rx="9" fill="#fff" stroke="#E4E0D8" />
-          <text x="50" y="86" fontSize="10" fontWeight="700" fill="#8A8475" fontFamily="monospace">Security Stack</text>
+          <text x="50" y="86" fontSize="10" fontWeight="700" fill="#8A8475" fontFamily="monospace">IdP &amp; HRIS</text>
           {SECURITY_STACK.map((s, i) => (
             <g key={s}>
               <rect x={50 + i * 70} y={96} width="64" height="32" rx="7" fill="#F4F1EB" stroke="#E4E0D8" />
@@ -106,9 +106,9 @@ export default function IntegrationPage() {
             </g>
           ))}
 
-          {/* ===== Step 2: Connect To Agents ===== */}
+          {/* ===== Step 2: Connect To Apps & Infra ===== */}
           <rect x="20" y="180" width="330" height="330" rx="12" fill="#FAF8F4" stroke="#D8D3C8" strokeDasharray="6 4" />
-          <text x="36" y="204" fontSize="13" fontWeight="800" fill={NAVY}>Step 2: Connect To Agents</text>
+          <text x="36" y="204" fontSize="13" fontWeight="800" fill={NAVY}>Step 2: Connect To Apps & Infra</text>
           {CONNECT_GROUPS.map((g, gi) => (
             <g key={g.label}>
               <rect x="36" y={216 + gi * 94} width="298" height="84" rx="9" fill="#fff" stroke="#E4E0D8" />
@@ -128,7 +128,7 @@ export default function IntegrationPage() {
             const p = flowPath(350, 110, BX, bMidY - 60);
             return (
               <g>
-                <path d={p} fill="none" stroke="#DDD6EC" strokeWidth="1.5" />
+                <path d={p} fill="none" stroke="#CBD8F0" strokeWidth="1.5" />
                 <text x="368" y="100" fontSize="9" fill="#8A8475" fontFamily="monospace">API Integration (Read-Only)</text>
                 <circle r="5" fill={PURPLE} filter="url(#glow)">
                   <animateMotion dur="2.8s" repeatCount="indefinite" path={p} />
@@ -141,7 +141,7 @@ export default function IntegrationPage() {
             const p = flowPath(350, 345, BX, bMidY + 40);
             return (
               <g>
-                <path d={p} fill="none" stroke="#DDD6EC" strokeWidth="1.5" />
+                <path d={p} fill="none" stroke="#CBD8F0" strokeWidth="1.5" />
                 <text x="360" y="394" fontSize="9" fill="#8A8475" fontFamily="monospace">API Integration (Read-Only)</text>
                 <text x="360" y="406" fontSize="9" fill="#8A8475" fontFamily="monospace">- or - Gateway</text>
                 <circle r="5" fill={PURPLE} filter="url(#glow)">
@@ -154,21 +154,21 @@ export default function IntegrationPage() {
             );
           })()}
 
-          {/* ===== Onyx Cloud Backend ===== */}
-          <rect x={BX} y={BY} width={BW} height={BH} rx="16" fill="#F3EFFC" stroke="#C9B8EE" strokeWidth="1.5" />
+          {/* ===== Linx Identity Graph ===== */}
+          <rect x={BX} y={BY} width={BW} height={BH} rx="16" fill="#EAF0FB" stroke="#B7C8EC" strokeWidth="1.5" />
           <text x={BX + BW / 2} y={BY - 14} textAnchor="middle" fontSize="13" fontWeight="900" fill={NAVY} letterSpacing="0.5">
-            ONYX <tspan fontWeight="600">Cloud Backend</tspan>
+            LINX <tspan fontWeight="600">Cloud Platform</tspan>
           </text>
           {BACKEND.map((b, i) => (
             <g key={b}>
-              <rect x={BX + 18} y={BY + 24 + i * 62} width={BW - 36} height="48" rx="9" fill="#fff" stroke="#DDD0F2" />
+              <rect x={BX + 18} y={BY + 24 + i * 62} width={BW - 36} height="48" rx="9" fill="#fff" stroke="#CBD8F0" />
               <text x={BX + BW / 2} y={BY + 52 + i * 62} textAnchor="middle" fontSize="10.5" fontWeight="700" fill={NAVY}>
                 {b}
               </text>
             </g>
           ))}
 
-          {/* ===== Backend -> Guardian flows ===== */}
+          {/* ===== Backend -> Autopilot flows ===== */}
           {GUARDIAN.map((gd, i) => {
             const gy = 56 + i * 64;
             const p = flowPath(BX + BW, bMidY - 90 + i * 30, 740, gy + 22);
@@ -182,10 +182,10 @@ export default function IntegrationPage() {
             );
           })}
 
-          {/* ===== Onyx Guardian Agent ===== */}
+          {/* ===== Linx Autopilot ===== */}
           <rect x="740" y="26" width="240" height="488" rx="14" fill="#FAF8F4" stroke="#D8D3C8" strokeDasharray="6 4" />
           <text x="860" y="48" textAnchor="middle" fontSize="12" fontWeight="900" fill={NAVY} letterSpacing="0.5">
-            ONYX <tspan fontWeight="600">Guardian Agent</tspan>
+            LINX <tspan fontWeight="600">Autopilot</tspan>
           </text>
           {GUARDIAN.map((gd, i) => (
             <g key={gd.label}>
@@ -199,9 +199,9 @@ export default function IntegrationPage() {
           {/* Legend */}
           <g fontSize="10" fill="#8A8475">
             <circle cx="40" cy="528" r="5" fill={PURPLE} />
-            <text x="52" y="532">Agent telemetry &amp; configs in</text>
+            <text x="52" y="532">Identity &amp; entitlement data in</text>
             <circle cx="220" cy="528" r="5" fill={GREEN} />
-            <text x="232" y="532">Guardian protections out</text>
+            <text x="232" y="532">Autopilot actions out</text>
           </g>
         </svg>
       </div>
@@ -215,16 +215,16 @@ export default function IntegrationPage() {
             className={`text-left rounded-xl border p-4 transition-all ${
               step === i
                 ? "bg-navy text-white border-navy shadow-card"
-                : "bg-white text-ink border-line hover:border-[#B9AEE0]"
+                : "bg-white text-ink border-line hover:border-[#9FB6E4]"
             }`}
           >
-            <div className={`text-[0.62rem] font-bold uppercase tracking-[0.12em] mb-1 ${step === i ? "text-[#B9AEE0]" : "text-muted"}`}>
+            <div className={`text-[0.62rem] font-bold uppercase tracking-[0.12em] mb-1 ${step === i ? "text-[#9FB6E4]" : "text-muted"}`}>
               Step {s.n}
             </div>
             <div className={`text-[1rem] font-extrabold mb-2 ${step === i ? "text-white" : "text-navy"}`}>
               {s.title}
             </div>
-            <div className={`text-[0.74rem] leading-relaxed ${step === i ? "text-[#E8E3F5]" : "text-muted"}`}>
+            <div className={`text-[0.74rem] leading-relaxed ${step === i ? "text-[#E2EAF8]" : "text-muted"}`}>
               {s.body}
             </div>
           </button>
@@ -232,7 +232,7 @@ export default function IntegrationPage() {
       </div>
 
       <div className="mt-4 text-[0.72rem] text-muted px-1">
-        Read-only API integrations by default — no endpoint agents, no code changes. Optional gateway mode for in-line guardrails.
+        Read-only API integrations by default — no endpoint agents, no code changes. Write scopes only where remediation is enabled.
       </div>
     </div>
   );

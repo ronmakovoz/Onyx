@@ -106,7 +106,7 @@ export default function ConsolePage() {
           <button
             onClick={run}
             disabled={running}
-            className="w-full bg-navy text-white rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#2D1A5E] disabled:opacity-60"
+            className="w-full bg-navy text-white rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#16306E] disabled:opacity-60"
           >
             {running ? "Running…" : `Run ${agentDisplayName(selAgent)}`}
           </button>

@@ -72,7 +72,7 @@ def _mock_health(ctx):
 5. Renewal in **{ctx.get('renewal_days','?')} days** with current renewal risk score **{ctx.get('renewal_risk',0):.0%}**
 
 ### Positive Signals
-- Industry: {ctx.get('industry','?')} — strong strategic fit for Onyx's core use case
+- Industry: {ctx.get('industry','?')} — strong strategic fit for Linx's core use case
 - Security review status: {ctx.get('security_review_status','?')}
 - CSM: {ctx.get('csm_owner','assigned')} is actively engaged
 
@@ -157,7 +157,7 @@ def _mock_briefing(ctx):
     days = ctx.get("renewal_days", "?")
     hs   = ctx.get("health_score", 55)
     return f"""# CEO Briefing — {name}
-*Prepared by Onyx CX Agent OS · {datetime.now().strftime('%B %d, %Y')} · Confidential*
+*Prepared by Linx CX Agent OS · {datetime.now().strftime('%B %d, %Y')} · Confidential*
 
 ---
 
@@ -183,7 +183,7 @@ competitive precedent. If {name} churns, expect the competitor who ran a POC to 
 
 ## Key Asks
 1. Authorize 90-day contract extension with performance SLA to de-risk renewal
-2. CEO-to-CEO call to demonstrate Onyx's executive commitment
+2. CEO-to-CEO call to demonstrate Linx's executive commitment
 3. Unblock engineering resources for {ctx.get('open_tickets',0)} open P1/P2 tickets
 
 ## Recommended Executive Action
@@ -225,7 +225,7 @@ Contributing: champion departure removed internal advocacy; implementation delay
 P1 ticket backlog demonstrates ongoing product reliability concerns.
 
 ## Customer Impact
-Customer's AI agent governance and runtime protection are partially dependent on Onyx. Delays and outages are creating \
+Customer's AI agent governance and runtime protection are partially dependent on Linx. Delays and outages are creating \
 measurable operational risk for their team. Their CISO is aware and losing patience. \
 A competitor has already run a POC, suggesting active evaluation is underway.
 
@@ -246,7 +246,7 @@ A competitor has already run a POC, suggesting active evaluation is underway.
 - [ ] Brief CEO and CRO — one paragraph, factual, include ARR figure
 
 ## Recovery Plan — Next 2 Weeks
-- [ ] Daily written status update from Onyx PM to customer exec team
+- [ ] Daily written status update from Linx PM to customer exec team
 - [ ] Implementation blitz: assign 2 additional engineers for 2-week sprint
 - [ ] Co-create joint success plan with customer — their language, their metrics
 - [ ] Prepare renewal business case with measured ROI evidence
@@ -258,7 +258,7 @@ Subject: Personal note from [VP CX Name] — {name} partnership
 
 [Customer Exec Name],
 
-I'm writing personally because I take your experience with Onyx seriously, and I want to own \
+I'm writing personally because I take your experience with Linx seriously, and I want to own \
 our performance directly. We have not delivered the implementation quality or support responsiveness \
 you should expect from us.
 
@@ -304,7 +304,7 @@ competing hypotheses — this should be flagged to the reader.
 - No comparison to cohort benchmarks (what does a healthy {ctx.get('industry','comparable')} customer look like?)
 - Champion departure date not specified — material to understanding relationship gap duration
 - No mention of competitive intelligence quality (is the POC rumor or confirmed?)
-- Implementation delay attribution not established — customer-side vs Onyx-side blocker?
+- Implementation delay attribution not established — customer-side vs Linx-side blocker?
 
 ### Overconfident Conclusions
 - "Full ARR loss + negative reference potential" is presented as certain. It is one scenario, \
@@ -335,7 +335,7 @@ def _mock_vpcos(ctx):
     total = ctx.get("total_arr", 0)
     at_risk = ctx.get("arr_at_risk", 0)
     return f"""# Weekly VP CX Operating Review
-*Chief of Staff Agent · Week Ending {today} · Onyx Security — INTERNAL*
+*Chief of Staff Agent · Week Ending {today} · Linx Security — INTERNAL*
 
 ---
 
@@ -382,7 +382,7 @@ This needs a roadmap decision, not another "we're evaluating it" response.
 
 ## Product Feedback Themes (From Meeting Notes This Week)
 1. **Discovery-source integration gaps (CNAPP/SASE)** — mentioned by 2 customers as blocking full value realization
-2. **Guardian intervention fatigue** — false positive rate > 40% is being cited in renewal risk conversations
+2. **Alert fatigue** — access-review false positive rate > 40% is being cited in renewal risk conversations
 3. **Report export limitations** — 3 customers requested PDF compliance report improvements
 4. **Mobile app performance** — 2 enterprise accounts with field security teams flagging this
 
@@ -407,7 +407,7 @@ This needs a roadmap decision, not another "we're evaluating it" response.
 concentrated in {ctx.get('critical_count',0)} high-risk accounts requiring immediate executive attention.** \
 The highest-priority actions are a personal VP CX call to JetStream Airlines today and engineering \
 resource allocation for 21 open P1 tickets by Wednesday. \
-Two product gaps — CNAPP discovery-source integration and Guardian false-positive fatigue — are now appearing in renewal risk conversations \
+Two product gaps — HRIS discovery-source integration and access-review false-positive fatigue — are now appearing in renewal risk conversations \
 and require a roadmap decision from Product this week.
 
 ---
@@ -426,8 +426,8 @@ def _mock_expansion(ctx):
         workshop = whitespace.splitlines()[0].lstrip("- ").split(" — ")[0]
     else:
         modules = random.sample([
-            "AI-SPM", "Runtime Protection", "Guardian Agent Pro",
-            "LLM Routing & Cost Optimization", "MCP Supply-Chain Security", "AI ROI Analytics", "Shadow AI Discovery Plus",
+            "Identity Graph", "Lifecycle Automation", "Autopilot AI Agent",
+            "Just-in-Time Access", "Non-Human Identity Security", "Access Reviews & Certifications", "Shadow AI Discovery Plus",
         ], 3)
         modules_block = "\n".join(f"- {m}" for m in modules)
         workshop = modules[0]
@@ -546,8 +546,8 @@ def _mock_kickoffdeck(ctx):
     champ_t  = ctx.get("champion_title", "Security Lead")
     tech     = ctx.get("technical_sponsor", "Technical Sponsor")
     biz      = ctx.get("business_sponsor", "Business Sponsor")
-    csm      = ctx.get("csm_owner", "Onyx CSM")
-    impl     = ctx.get("implementation_owner", "Onyx Implementation Manager")
+    csm      = ctx.get("csm_owner", "Linx CSM")
+    impl     = ctx.get("implementation_owner", "Linx Implementation Manager")
     golive   = ctx.get("go_live_target", "Not set")
     emp      = ctx.get("employee_count", "?")
     sec_rev  = ctx.get("security_review_status", "Not started")
@@ -575,12 +575,12 @@ def _mock_kickoffdeck(ctx):
     )
 
     return f"""# Implementation Kickoff — {name}
-*Prepared by Onyx Security · {datetime.now().strftime('%B %d, %Y')} · Client-Facing*
+*Prepared by Linx Security · {datetime.now().strftime('%B %d, %Y')} · Client-Facing*
 
 ---
 
 ## Welcome & Partnership Vision
-Welcome to the Onyx Security partnership. Over the next 90–180 days we will give {name} full
+Welcome to the Linx Security partnership. Over the next 90–180 days we will give {name} full
 visibility and control over AI activity across your {industry.lower()} environment ({emp} employees) —
 from discovery of shadow AI to runtime protection in production. Success means your security team
 sees every AI agent, governs every action, and proves measurable risk reduction by your first QBR.
@@ -588,15 +588,15 @@ sees every AI agent, governs every action, and proves measurable risk reduction 
 ## Engagement Team
 | Role | Name | Responsibility |
 |------|------|----------------|
-| Onyx Implementation Manager | {impl} | Owns delivery plan, milestones, and weekly status |
-| Onyx Customer Success Manager | {csm} | Owns long-term outcomes, adoption, and executive cadence |
-| Onyx Solutions Engineer | Assigned at kickoff | Technical integration and policy configuration |
+| Linx Implementation Manager | {impl} | Owns delivery plan, milestones, and weekly status |
+| Linx Customer Success Manager | {csm} | Owns long-term outcomes, adoption, and executive cadence |
+| Linx Solutions Engineer | Assigned at kickoff | Technical integration and policy configuration |
 | Customer Champion | {champ} ({champ_t}) | Internal advocacy, pilot group coordination |
 | Customer Technical Sponsor | {tech} | IT access, SSO/IdP admin, environment readiness |
 | Customer Business Sponsor | {biz} | Executive checkpoints, success metric sign-off |
 
 ## Scope & Objectives
-- Deploy the Onyx Secure AI Control Plane across {name}'s environment with full discovery coverage
+- Deploy the Linx Identity Security platform across {name}'s environment with full discovery coverage
 - Establish a complete inventory of AI agents, models, and shadow AI applications
 - Enable runtime protection (prompt injection, jailbreak, and data exfiltration blocking) for the pilot group, then production
 - Configure detection policies aligned to {industry} compliance and risk requirements
@@ -609,7 +609,7 @@ sees every AI agent, governs every action, and proves measurable risk reduction 
 
 ## Success Metrics
 - 100% of discovery sources connected and reporting by Day 42
-- Shadow AI inventory baseline established with zero unknown agents at production rollout
+- Shadow identity baseline established with zero unknown accounts at production rollout
 - Pilot group (25 users) live with < 5% false-positive policy rate before production
 - Security review signed off by Day 84 (current status: {sec_rev})
 - Measurable risk findings presented at the 90-day QBR
@@ -617,13 +617,13 @@ sees every AI agent, governs every action, and proves measurable risk reduction 
 ## First 30 Days
 1. **Day 1–7:** Kickoff session held; scope confirmed; weekly sync scheduled — Owner: {impl}
 2. **Day 7–14:** Technical discovery complete; environment access granted — Owner: {tech}
-3. **Day 14–21:** Onyx environment provisioned; service accounts created — Owner: {name} IT + Onyx SE
+3. **Day 14–21:** Linx environment provisioned; service accounts created — Owner: {name} IT + Linx SE
 4. **Day 21–30:** SSO/IdP integration underway; pilot group of 25 users nominated — Owner: {champ}
 
 ## Communication & Governance
 Weekly 30-minute delivery sync ({impl} + {tech}), biweekly executive checkpoint ({csm} + {biz}),
 and a shared status dashboard updated every Friday. Escalation path: Implementation Manager →
-CSM → Onyx VP Customer Experience, with a 24-hour response commitment on blockers.
+CSM → Linx VP Customer Experience, with a 24-hour response commitment on blockers.
 
 ## What We Need From You
 - Named IT contact with admin access for environment provisioning (by Day 14)
@@ -654,13 +654,13 @@ def _mock_bull(ctx):
 
 ### Underappreciated Positive Signals
 - Implementation completion creates switching-cost lock-in that bears ignore
-- Industry: {ctx.get('industry','Enterprise')} — Onyx has deep reference customers in this vertical; peer validation matters
+- Industry: {ctx.get('industry','Enterprise')} — Linx has deep reference customers in this vertical; peer validation matters
 - Champion {ctx.get('champion_name','?')} has institutional knowledge; replacement cost for the customer is high
 - Expansion pipeline of ${ctx.get('expansion_pipeline_arr',0):,} signals the customer is thinking forward, not exit
 
 ### Counter to Bear Risks
 1. Open tickets ({ctx.get('open_tickets',0)}) are a service quality issue, not a platform rejection — resolvable pre-renewal
-2. Health score decline is recoverable; every at-risk account Onyx has saved showed a dip followed by a recovery inflection
+2. Health score decline is recoverable; every at-risk account Linx has saved showed a dip followed by a recovery inflection
 3. Champion status ({ctx.get('champion_status','Active')}) — even if strained, the operational dependency on the platform persists
 4. Renewal risk score of {ctx.get('renewal_risk',0.4):.0%} incorporates noise; the underlying contract data says {100-int(ctx.get('renewal_risk',0.4)*100)}% probability of renewal
 
@@ -687,7 +687,7 @@ def _mock_bear(ctx):
 2. **{ctx.get('open_tickets',0)} open support tickets and {ctx.get('open_escalations',0)} active escalations** — unresolved technical debt erodes trust faster than any relationship effort can rebuild it
 3. **Champion {ctx.get('champion_name','?')} status: {ctx.get('champion_status','Active')}** — internal advocacy is either compromised or absent; the deal has no internal owner pulling it forward
 4. **Adoption at {adp}%** — below the 65% threshold historically associated with renewal; the customer has not achieved full platform dependency
-5. **Renewal risk score {ctx.get('renewal_risk',0.4):.0%}** — Onyx's own scoring model flags this as elevated risk; that signal deserves weight
+5. **Renewal risk score {ctx.get('renewal_risk',0.4):.0%}** — Linx's own scoring model flags this as elevated risk; that signal deserves weight
 
 ### Hidden or Underweighted Risks
 - Sentiment is **{ctx.get('sentiment','Neutral')}** — neutral sentiment this close to renewal is effectively negative; enthusiastic customers don't churn, ambivalent ones do
@@ -702,7 +702,7 @@ def _mock_bear(ctx):
 4. Industry vertical strength is a portfolio argument, not an account-specific argument; this specific customer's experience is what matters
 
 ### Downside Scenario
-If the open escalations are not resolved within 30 days and no executive re-engagement occurs, the customer initiates a formal evaluation. A competitor who has already run a POC converts within 90 days. Onyx loses ${arr:,} ARR and a reference customer in a key vertical.
+If the open escalations are not resolved within 30 days and no executive re-engagement occurs, the customer initiates a formal evaluation. A competitor who has already run a POC converts within 90 days. Linx loses ${arr:,} ARR and a reference customer in a key vertical.
 
 ### Bear Case Confidence Rationale
 **Confidence: {bear_prob}%** — Confidence is Medium because {ctx.get('renewal_days','?')} days still provides a window for recovery. The bear case probability is not higher because the customer has not yet issued a formal cancellation notice or initiated a competitor POC that we know of."""

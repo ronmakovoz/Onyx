@@ -6,8 +6,8 @@ import Sidebar from "@/components/Sidebar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Onyx CX Agent OS",
-  description: "VP CX Agent OS — Secure AI Control Plane customer dashboard",
+  title: "Linx Identity CX OS",
+  description: "Linx Identity Security & Governance — customer dashboard",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

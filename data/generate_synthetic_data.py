@@ -541,7 +541,7 @@ ESCALATION_TEMPLATES = [
     ("New CISO conducting platform audit — potential replacement evaluation",        "High"),
     ("Guardian Agent false-positive storm disrupted customer's production agents",  "High"),
     ("Customer NPS score dropped to 4 — executive notice required",                 "High"),
-    ("Customer threatening to escalate to Onyx board",                              "Critical"),
+    ("Customer threatening to escalate to Linx board",                              "Critical"),
     ("Adoption < 20% at 90 days — customer questioning product value",              "High"),
 ]
 
@@ -682,7 +682,7 @@ POSITIVE_NOTES = [
     "Platform ROI demonstrated: 40% reduction in Guardian false positives, 2 prompt-injection incidents blocked and remediated this quarter. Customer team visibly impressed.",
     "Champion reported team productivity up 30% since rollout. Asked about roadmap for the AI-SPM module and LLM routing add-on.",
     "Renewal discussion initiated positively. Customer asked to start paperwork early. No commercial friction.",
-    "Customer shared an internal case study they wrote about Onyx — planning to submit to industry conference.",
+    "Customer shared an internal case study they wrote about Linx — planning to submit to industry conference.",
     "Technical deep-dive on integration architecture. Customer architect called the API design 'best in class.'",
     "New analyst team onboarded. Customer praised quality of training materials and support responsiveness.",
 ]
@@ -702,7 +702,7 @@ NEGATIVE_NOTES = [
     "Executive sponsor raised concern that platform complexity is slowing down analyst adoption. Considering scaling back deployment.",
     "Champion informed us they are leaving the company next month. No named successor yet. HIGH RISK.",
     "CFO joined unexpectedly and questioned ROI. Asked for detailed cost-benefit analysis before renewal. Timeline unclear.",
-    "Customer mentioned they are evaluating a competitor. Said Onyx is 'missing key discovery-source integrations they need (their CNAPP and SASE).' Product gap confirmed.",
+    "Customer mentioned they are evaluating a competitor. Said Linx is 'missing key discovery-source integrations they need (their CNAPP and SASE).' Product gap confirmed.",
     "Implementation review revealed 6-week delay. Customer team visibly frustrated. Project sponsor threatened to involve their CEO.",
     "Sentiment call following P1 incident. Customer's CISO said trust has been damaged. Requires VP-to-VP call to rebuild.",
     "Budget freeze announced mid-call. Procurement contact said renewal approval is not expected until Q4. ARR at risk.",
@@ -942,29 +942,29 @@ def build_health_history(customers):
 # 10. PRODUCT CATALOG & CUSTOMER PRODUCT OWNERSHIP
 # ══════════════════════════════════════════════════════════════════════════════
 
-# Onyx product modules. base_price is the Mid-Market list price; Enterprise and
+# Linx identity security modules. base_price is the Mid-Market list price; Enterprise and
 # Strategic tiers pay a multiplier. "core" products are owned by every customer.
 PRODUCT_CATALOG = [
-    {"id": 1,  "name": "Guardian Runtime Protection", "category": "Runtime",    "base_price": 90000,  "core": True,
-     "description": "Real-time policy enforcement and threat blocking for production AI agents."},
-    {"id": 2,  "name": "AI Discovery (Shadow AI)",    "category": "Visibility", "base_price": 45000,  "core": False,
-     "description": "Continuous discovery of ungoverned AI apps, agents, and MCP servers across the org."},
-    {"id": 3,  "name": "LLM Routing Gateway",         "category": "Efficiency", "base_price": 55000,  "core": False,
-     "description": "Intelligent model routing that cuts LLM spend while preserving output quality."},
-    {"id": 4,  "name": "Prompt Injection Defense",    "category": "Runtime",    "base_price": 40000,  "core": False,
-     "description": "Inline detection and blocking of prompt-injection and jailbreak attempts."},
-    {"id": 5,  "name": "Agent Governance & Policy",   "category": "Governance", "base_price": 60000,  "core": False,
-     "description": "Central policy authoring, approval workflows, and enforcement for AI agents."},
-    {"id": 6,  "name": "MCP Supply Chain Security",   "category": "Visibility", "base_price": 35000,  "core": False,
-     "description": "Vetting, signing, and runtime monitoring of MCP servers and tool integrations."},
-    {"id": 7,  "name": "Data Exfiltration Prevention","category": "Runtime",    "base_price": 50000,  "core": False,
-     "description": "Blocks PII/PHI and secret leakage through AI agent inputs and outputs."},
-    {"id": 8,  "name": "Compliance Evidence Suite",   "category": "Governance", "base_price": 38000,  "core": False,
-     "description": "Automated audit evidence for HIPAA, SOC 2, PCI, and the EU AI Act."},
-    {"id": 9,  "name": "AI Red Team Simulation",      "category": "Assurance",  "base_price": 42000,  "core": False,
-     "description": "Continuous adversarial testing of deployed agents against evolving attack libraries."},
-    {"id": 10, "name": "Managed Threat Response",     "category": "Assurance",  "base_price": 65000,  "core": False,
-     "description": "24/7 Onyx SOC monitoring, triage, and guided response for AI security incidents."},
+    {"id": 1,  "name": "Identity Graph",                "category": "Visibility", "base_price": 90000,  "core": True,
+     "description": "Unified graph of every human, non-human, and agentic identity mapped to entitlements and resources."},
+    {"id": 2,  "name": "Shadow Identity Discovery",     "category": "Visibility", "base_price": 45000,  "core": False,
+     "description": "Continuous discovery of dormant accounts, SSO bypass, local accounts, and unmanaged identities."},
+    {"id": 3,  "name": "Lifecycle Automation (JML)",    "category": "Automation", "base_price": 55000,  "core": False,
+     "description": "Automated joiner-mover-leaver flows that grant, adjust, and revoke access as roles change."},
+    {"id": 4,  "name": "Just-in-Time Access",           "category": "Access",     "base_price": 40000,  "core": False,
+     "description": "Ephemeral, on-demand permissions with real-time authorization — access only when needed."},
+    {"id": 5,  "name": "Access Reviews & Certifications","category": "Governance", "base_price": 60000,  "core": False,
+     "description": "AI-assisted review campaigns with approve/deny recommendations and full audit trails."},
+    {"id": 6,  "name": "Non-Human Identity Security",   "category": "Visibility", "base_price": 35000,  "core": False,
+     "description": "Inventory and risk scoring for service accounts, API keys, tokens, and AI agents."},
+    {"id": 7,  "name": "Privileged Access Insights",    "category": "Access",     "base_price": 50000,  "core": False,
+     "description": "Surfaces admin sprawl, toxic access combinations, and standing privilege to eliminate."},
+    {"id": 8,  "name": "Compliance Reporting Suite",    "category": "Governance", "base_price": 38000,  "core": False,
+     "description": "Automated evidence and reporting for SOX, PCI DSS, NIST, and ISO 27001."},
+    {"id": 9,  "name": "MFA & Posture Enforcement",     "category": "Assurance",  "base_price": 42000,  "core": False,
+     "description": "Continuous detection and remediation of weak, missing, or bypassed MFA across the estate."},
+    {"id": 10, "name": "Autopilot AI Agent",            "category": "Assurance",  "base_price": 65000,  "core": False,
+     "description": "Autonomous 24/7 identity security operator that detects changes, evaluates risk, and acts."},
 ]
 
 TIER_PRICE_MULT = {"Mid-Market": 1.0, "Enterprise": 1.6, "Strategic": 2.6}

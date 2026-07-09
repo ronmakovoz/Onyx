@@ -83,7 +83,7 @@ AGENT_ROUTING = {
     ),
     "KickoffDeckAgent": (
         "sonnet",
-        "Kickoff deck generation maps Onyx's standard 12-milestone methodology onto a specific "
+        "Kickoff deck generation maps Linx's standard 12-milestone methodology onto a specific "
         "customer's stakeholders, industry, and go-live target. It is structured document assembly "
         "with light adaptation — Sonnet produces polished client-facing output at the right cost."
     ),

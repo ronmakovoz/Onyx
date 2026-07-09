@@ -1,7 +1,7 @@
 """
 Whitespace / upsell analysis engine.
 
-For each customer: what Onyx products do they own, what do *similar* customers
+For each customer: what Linx products do they own, what do *similar* customers
 (same industry, then same tier) own that they don't, and what would closing
 that gap be worth — rolling up to an ultimate ARR goal per account and for
 the portfolio's largest clients.

@@ -55,8 +55,8 @@ function HealthChart({ history }: { history: { date: string; health_score: numbe
         <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" className="w-full h-[160px] block">
           <defs>
             <linearGradient id="healthFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#1B1040" stopOpacity="0.10" />
-              <stop offset="100%" stopColor="#1B1040" stopOpacity="0" />
+              <stop offset="0%" stopColor="#0E1E45" stopOpacity="0.10" />
+              <stop offset="100%" stopColor="#0E1E45" stopOpacity="0" />
             </linearGradient>
           </defs>
           {[lo, mid, hi].map((g) => (
@@ -74,7 +74,7 @@ function HealthChart({ history }: { history: { date: string; health_score: numbe
           <polygon points={area} fill="url(#healthFill)" />
           <polyline
             fill="none"
-            stroke="#1B1040"
+            stroke="#0E1E45"
             strokeWidth={2.2}
             vectorEffect="non-scaling-stroke"
             points={pts.map(([x, y]) => `${x},${y}`).join(" ")}
@@ -138,7 +138,7 @@ export default function CustomerDetailPage() {
   const renewal = data.renewal || null;
   const history: any[] = data.health_history || [];
 
-  const rc = riskColor[c.risk_level] || "#1B1040";
+  const rc = riskColor[c.risk_level] || "#0E1E45";
   const rb = riskBg[c.risk_level] || "#F5F2EE";
   const openTickets = tickets.filter((t) => t.status !== "Resolved").length;
   const renewalDays = renewal?.days_to_renewal ?? "?";
@@ -196,9 +196,9 @@ export default function CustomerDetailPage() {
     ["Daily Active Users", String(Math.round(mrow.dau ?? 0)), `${dauTrend >= 0 ? "+" : ""}${Math.round(dauTrend * 100)}% vs 30d`],
     ["AI Asset Coverage", `${Math.round(mrow.asset_coverage_pct ?? 0)}%`, ""],
     ["Modules Active", `${Math.round(mrow.features_enabled ?? 0)}/18`, ""],
-    ["Guardian False-Positive Rate", `${Math.round((mrow.false_positive_rate ?? 0) * 100)}%`, ""],
+    ["Review False-Positive Rate", `${Math.round((mrow.false_positive_rate ?? 0) * 100)}%`, ""],
     ["Prompts Inspected (30d)", Math.round(mrow.api_calls_last_30d ?? 0).toLocaleString(), ""],
-    ["Guardian Interventions (30d)", String(Math.round(mrow.alerts_generated_last_30d ?? 0)), ""],
+    ["Autopilot Actions (30d)", String(Math.round(mrow.alerts_generated_last_30d ?? 0)), ""],
     ["Logins (7d)", String(Math.round(mrow.unique_logins_last_7d ?? 0)), ""],
     ["AI Agents Governed", String(Math.round(mrow.agents_deployed ?? 0)), ""],
   ];
@@ -223,7 +223,7 @@ export default function CustomerDetailPage() {
           <select
             value={cid}
             onChange={(e) => router.push(`/customers/${e.target.value}`)}
-            className="bg-white border border-[#E0D8E8] rounded-xl px-3 py-2 text-[0.88rem] text-navy shadow-card outline-none hover:border-[#B9AEE0] max-w-[340px]"
+            className="bg-white border border-[#E0D8E8] rounded-xl px-3 py-2 text-[0.88rem] text-navy shadow-card outline-none hover:border-[#9FB6E4] max-w-[340px]"
             aria-label="Switch account"
           >
             {allCustomers.map((cu) => (
@@ -345,7 +345,7 @@ export default function CustomerDetailPage() {
                     className={`rounded-full text-[0.78rem] font-semibold py-[6px] px-3 transition-all ${
                       curStatus === s
                         ? "bg-navy text-white border-[1.5px] border-navy shadow"
-                        : "bg-white text-navy border-[1.5px] border-[#D0CADE] hover:bg-[#F0ECE8]"
+                        : "bg-white text-navy border-[1.5px] border-[#C4D0E8] hover:bg-[#F0ECE8]"
                     }`}
                   >
                     {s === "Dismissed" ? "Dismiss" : s}
@@ -430,13 +430,13 @@ export default function CustomerDetailPage() {
             <button
               onClick={runAgent}
               disabled={running}
-              className="bg-navy text-white rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#2D1A5E] disabled:opacity-60 transition-colors"
+              className="bg-navy text-white rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#16306E] disabled:opacity-60 transition-colors"
             >
               {running ? "Running…" : "Run Agent"}
             </button>
             <button
               onClick={() => window.open(`/api/customers/${cid}/debate`, "_blank")}
-              className="bg-white text-navy border-[1.5px] border-[#D0CADE] rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#F0ECE8] transition-colors"
+              className="bg-white text-navy border-[1.5px] border-[#C4D0E8] rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#F0ECE8] transition-colors"
               title="Bull and Bear agents argue this account in parallel; an Opus judge issues a calibrated renewal probability"
             >
               ⚔ Red Team Debate ↗
@@ -612,7 +612,7 @@ export default function CustomerDetailPage() {
                     </span>
                   </div>
                   <div className="mt-[6px] flex items-center gap-2">
-                    <Pill color="#1B1040" bg="#EAE6E0">{s.role}</Pill>
+                    <Pill color="#0E1E45" bg="#EAE6E0">{s.role}</Pill>
                     <span className="text-muted text-[0.72rem]">{s.email}</span>
                   </div>
                 </Card>

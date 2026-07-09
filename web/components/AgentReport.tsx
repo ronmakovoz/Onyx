@@ -65,7 +65,7 @@ export default function AgentReport({
         style={{ background: "linear-gradient(180deg, #FDFBF7 0%, #FFFFFF 120px)" }}
       >
         <span className="absolute top-[14px] right-5 text-[0.62rem] font-black tracking-[0.18em] text-[#D8CFE4]">
-          ONYX
+          LINX
         </span>
         <div className="agent-report">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>{result.output_text || ""}</ReactMarkdown>

@@ -23,7 +23,7 @@ const GROUPS: { label: string; items: { name: string; href: string }[] }[] = [
     items: [
       { name: "Briefings", href: "/briefings" },
       { name: "Agent Console", href: "/console" },
-      { name: "How Onyx Integrates", href: "/integration" },
+      { name: "How Linx Integrates", href: "/integration" },
     ],
   },
   {
@@ -40,9 +40,9 @@ export default function Sidebar() {
   return (
     <aside className="w-[230px] shrink-0 bg-white border-r border-line shadow-[2px_0_12px_rgba(27,16,64,0.06)] px-3 py-4 sticky top-0 h-screen overflow-y-auto">
       <div className="px-2 pb-4">
-        <span className="text-[1.3rem] font-black text-navy tracking-[-0.04em]">ONYX</span>
+        <span className="text-[1.3rem] font-black text-navy tracking-[-0.04em]">LINX</span>
         <span className="text-[0.65rem] font-bold text-muted tracking-[0.12em] ml-2 align-middle">
-          CX AGENT OS
+          IDENTITY CX OS
         </span>
       </div>
       {GROUPS.map((g) => (
@@ -59,7 +59,7 @@ export default function Sidebar() {
                   href={it.href}
                   className={`rounded-lg px-3 py-2 text-[0.88rem] transition-colors ${
                     active
-                      ? "bg-lavender text-navy font-bold shadow-[inset_3px_0_0_#1B1040]"
+                      ? "bg-lavender text-navy font-bold shadow-[inset_3px_0_0_#0E1E45]"
                       : "text-ink font-medium hover:bg-[#EDE9E4] hover:text-navy"
                   }`}
                 >
@@ -72,7 +72,7 @@ export default function Sidebar() {
       ))}
       <ModeToggle />
       <div className="px-3 mt-4 text-[0.62rem] text-faint leading-relaxed">
-        Onyx · Secure AI Control Plane
+        Linx · Identity Security &amp; Governance
         <br />
         Synthetic demo data
       </div>

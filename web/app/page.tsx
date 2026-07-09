@@ -182,14 +182,14 @@ export default function DashboardPage() {
 
       {/* AI Executive Summary */}
       <div
-        className="rounded-xl px-5 py-4 mb-5 border border-[#D9D0F0]"
-        style={{ background: "linear-gradient(135deg, #F3EFFC 0%, #EAE3F8 100%)" }}
+        className="rounded-xl px-5 py-4 mb-5 border border-[#C6D4EE]"
+        style={{ background: "linear-gradient(135deg, #EAF0FB 0%, #DEE8F8 100%)" }}
       >
         <div className="flex items-center gap-2 mb-2">
-          <span className="text-[0.62rem] font-bold text-[#6B5CA8] uppercase tracking-[0.12em]">
+          <span className="text-[0.62rem] font-bold text-[#2E5CCC] uppercase tracking-[0.12em]">
             AI Executive Summary
           </span>
-          <span className="text-[0.58rem] text-[#6B5CA8] bg-navy/5 px-2 py-[2px] rounded-full">
+          <span className="text-[0.58rem] text-[#2E5CCC] bg-navy/5 px-2 py-[2px] rounded-full">
             auto-generated · live data
           </span>
         </div>

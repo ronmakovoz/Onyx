@@ -80,7 +80,7 @@ AGENT_DISPLAY = {
 def agent_display_name(name: str) -> str:
     return AGENT_DISPLAY.get(name, name.replace("Agent", "").strip() or name)
 
-# ── Global styles — Onyx brand (light, pink-lavender, dark navy) ───────────────
+# ── Global styles — Linx brand (light, pink-lavender, dark navy) ───────────────
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
@@ -124,7 +124,7 @@ body::before {
 [data-testid="stSidebar"] p,
 [data-testid="stSidebar"] label,
 [data-testid="stSidebar"] span { color: #3D3458 !important; }
-[data-testid="stSidebar"] .stRadio label { color: #1B1040 !important; font-weight: 500 !important; font-size: 0.82rem !important; }
+[data-testid="stSidebar"] .stRadio label { color: #0E1E45 !important; font-weight: 500 !important; font-size: 0.82rem !important; }
 
 /* Hide decorations + the Deploy/menu toolbar (overlaps page content) */
 [data-testid="stDecoration"] { display: none !important; }
@@ -133,9 +133,9 @@ body::before {
 #MainMenu { visibility: hidden !important; }
 
 /* Typography — exec-readable scale */
-h1 { color: #1B1040 !important; font-weight: 800 !important; font-size: 1.75rem !important; letter-spacing: -0.03em !important; margin-bottom: 0 !important; }
-h2 { color: #1B1040 !important; font-weight: 700 !important; font-size: 1.15rem !important; letter-spacing: -0.02em !important; margin: 0 !important; }
-h3 { color: #1B1040 !important; font-weight: 600 !important; font-size: 1.0rem !important; margin: 0 !important; }
+h1 { color: #0E1E45 !important; font-weight: 800 !important; font-size: 1.75rem !important; letter-spacing: -0.03em !important; margin-bottom: 0 !important; }
+h2 { color: #0E1E45 !important; font-weight: 700 !important; font-size: 1.15rem !important; letter-spacing: -0.02em !important; margin: 0 !important; }
+h3 { color: #0E1E45 !important; font-weight: 600 !important; font-size: 1.0rem !important; margin: 0 !important; }
 p, li { color: #3D3458; font-size: 0.88rem; margin: 0; }
 .stMarkdown p { color: #3D3458; font-size: 0.88rem; }
 
@@ -168,7 +168,7 @@ p, li { color: #3D3458; font-size: 0.88rem; margin: 0; }
     font-size: 0.66rem; color: #6B6280; text-transform: uppercase;
     letter-spacing: 0.10em; margin-bottom: 3px; font-weight: 700;
 }
-.kpi-value { font-size: 1.7rem; font-weight: 800; color: #1B1040; line-height: 1.1; }
+.kpi-value { font-size: 1.7rem; font-weight: 800; color: #0E1E45; line-height: 1.1; }
 .kpi-sub   { font-size: 0.72rem; color: #6B6280; margin-top: 2px; }
 
 /* Badges */
@@ -178,13 +178,13 @@ p, li { color: #3D3458; font-size: 0.88rem; margin: 0; }
 }
 .badge-haiku  { background: #E8EDF5; color: #2D4A7A; border: 1px solid #A8BAD4; }
 .badge-sonnet { background: #EDEAF4; color: #3D3458; border: 1px solid #C0BAD4; }
-.badge-opus   { background: #EAE6E0; color: #1B1040; border: 1px solid #B8B0A0; }
+.badge-opus   { background: #EAE6E0; color: #0E1E45; border: 1px solid #B8B0A0; }
 .badge-mock   { background: #F5F0E8; color: #5C4A1E; border: 1px solid #C8B88A; }
 .badge-risk-high   { background: #F5ECEC; color: #9B2335; border: 1px solid #D4AAAA; }
 .badge-risk-medium { background: #F5F0E8; color: #7A5C1E; border: 1px solid #C8B88A; }
 .badge-risk-low    { background: #EBF2EE; color: #2D5A3D; border: 1px solid #96BAA4; }
 
-/* Buttons — slim Onyx pill */
+/* Buttons — slim Linx pill */
 .stButton > button, .stDownloadButton > button {
     border-radius: 50px !important;
     font-weight: 600 !important;
@@ -202,14 +202,14 @@ p, li { color: #3D3458; font-size: 0.88rem; margin: 0; }
 .stButton > button[kind="primary"],
 .stButton > button[kind="primaryFormSubmit"],
 button[data-testid="stBaseButton-primary"] {
-    background: #1B1040 !important;
-    border: 1.5px solid #1B1040 !important;
+    background: #0E1E45 !important;
+    border: 1.5px solid #0E1E45 !important;
     box-shadow: 0 1px 6px rgba(27,16,64,0.20) !important;
 }
 .stButton > button[kind="primary"]:hover,
 button[data-testid="stBaseButton-primary"]:hover {
-    background: #2D1A5E !important;
-    border-color: #2D1A5E !important;
+    background: #16306E !important;
+    border-color: #16306E !important;
     box-shadow: 0 3px 10px rgba(27,16,64,0.30) !important;
     transform: translateY(-1px) !important;
 }
@@ -225,7 +225,7 @@ button[data-testid="stBaseButton-secondary"],
 button[data-testid="stBaseButton-secondaryFormSubmit"],
 button[data-testid="stDownloadButton"] {
     background: #FFFFFF !important;
-    border: 1.5px solid #D0CADE !important;
+    border: 1.5px solid #C4D0E8 !important;
     box-shadow: none !important;
 }
 .stButton > button[kind="secondary"]:hover,
@@ -239,11 +239,11 @@ button[data-testid="stBaseButton-secondary"]:hover,
 button[data-testid="stBaseButton-secondary"],
 button[data-testid="stBaseButton-secondary"] *,
 .stDownloadButton > button,
-.stDownloadButton > button * { color: #1B1040 !important; fill: #1B1040 !important; }
+.stDownloadButton > button * { color: #0E1E45 !important; fill: #0E1E45 !important; }
 
 /* Metrics — very compact */
 [data-testid="stMetricLabel"] { color: #6B6280 !important; font-size: 0.62rem !important; font-weight: 700 !important; text-transform: uppercase !important; letter-spacing: 0.08em !important; }
-[data-testid="stMetricValue"] { color: #1B1040 !important; font-weight: 800 !important; font-size: 1.3rem !important; }
+[data-testid="stMetricValue"] { color: #0E1E45 !important; font-weight: 800 !important; font-size: 1.3rem !important; }
 [data-testid="stMetricDelta"] { font-size: 0.72rem !important; }
 [data-testid="metric-container"] {
     background: #FFFFFF;
@@ -271,19 +271,19 @@ button[data-testid="stBaseButton-secondary"] *,
     background: transparent !important;
     white-space: nowrap !important;
 }
-.stTabs [data-baseweb="tab"]:hover { color: #1B1040 !important; background: #F4EAF6 !important; }
+.stTabs [data-baseweb="tab"]:hover { color: #0E1E45 !important; background: #F4EAF6 !important; }
 .stTabs [aria-selected="true"] {
     background: transparent !important;
     box-shadow: none !important;
 }
 .stTabs [aria-selected="true"],
 .stTabs [aria-selected="true"] * {
-    color: #1B1040 !important;
-    fill: #1B1040 !important;
+    color: #0E1E45 !important;
+    fill: #0E1E45 !important;
     font-weight: 700 !important;
 }
 .stTabs [data-baseweb="tab-highlight"] {
-    background-color: #1B1040 !important;
+    background-color: #0E1E45 !important;
     height: 3px !important;
     border-radius: 3px 3px 0 0 !important;
 }
@@ -298,18 +298,18 @@ button[data-testid="stBaseButton-secondary"] *,
     background: #FFFFFF !important;
     border: 1px solid #E0D8E8 !important;
     border-radius: 12px !important;
-    color: #1B1040 !important;
+    color: #0E1E45 !important;
     min-height: 42px !important;
     font-size: 0.88rem !important;
     box-shadow: 0 1px 4px rgba(27,16,64,0.06) !important;
     transition: border-color 0.12s ease, box-shadow 0.12s ease !important;
 }
-[data-baseweb="select"] > div:hover { border-color: #B9AEE0 !important; }
+[data-baseweb="select"] > div:hover { border-color: #9FB6E4 !important; }
 [data-baseweb="select"] > div:focus-within {
-    border-color: #1B1040 !important;
+    border-color: #0E1E45 !important;
     box-shadow: 0 0 0 3px rgba(27,16,64,0.10) !important;
 }
-[data-baseweb="select"] span { color: #1B1040 !important; font-size: 0.88rem !important; }
+[data-baseweb="select"] span { color: #0E1E45 !important; font-size: 0.88rem !important; }
 
 /* Dropdown list popup */
 [data-baseweb="popover"] { z-index: 9999 !important; }
@@ -324,7 +324,7 @@ button[data-testid="stBaseButton-secondary"] *,
 [data-baseweb="menu"] ul { padding: 0 !important; }
 [role="option"] {
     background: transparent !important;
-    color: #1B1040 !important;
+    color: #0E1E45 !important;
     font-size: 0.82rem !important;
     font-weight: 500 !important;
     padding: 7px 10px !important;
@@ -333,9 +333,9 @@ button[data-testid="stBaseButton-secondary"] *,
 }
 [role="option"]:hover, [role="option"][aria-selected="true"] {
     background: #EDE9E4 !important;
-    color: #1B1040 !important;
+    color: #0E1E45 !important;
 }
-[role="option"] span, [role="option"] div { color: #1B1040 !important; font-size: 0.82rem !important; }
+[role="option"] span, [role="option"] div { color: #0E1E45 !important; font-size: 0.82rem !important; }
 
 /* Dataframe */
 [data-testid="stDataFrame"] { border-radius: 10px !important; overflow: hidden !important; border: 1px solid #E8E4DC !important; }
@@ -348,7 +348,7 @@ details {
     margin-bottom: 5px !important;
 }
 details > summary { padding: 8px 12px !important; font-size: 0.82rem !important; }
-summary { color: #1B1040 !important; font-weight: 600 !important; }
+summary { color: #0E1E45 !important; font-weight: 600 !important; }
 
 /* Alerts */
 [data-testid="stAlert"] { border-radius: 8px !important; border: none !important; padding: 8px 12px !important; font-size: 0.82rem !important; }
@@ -371,15 +371,15 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
     align-items: center !important;
     cursor: pointer !important;
 }
-[data-testid="stSidebar"] .stRadio > div > label:hover { background: #EDE9E4 !important; color: #1B1040 !important; }
+[data-testid="stSidebar"] .stRadio > div > label:hover { background: #EDE9E4 !important; color: #0E1E45 !important; }
 /* Hide the actual radio circle */
 [data-testid="stSidebar"] .stRadio > div > label > div:first-child { display: none !important; }
 /* Highlight selected item — left accent bar + tint */
 [data-testid="stSidebar"] .stRadio > div > label[data-baseweb="radio"]:has(input:checked),
 [data-testid="stSidebar"] .stRadio > div > label:has(input[type="radio"]:checked) {
     background: #F4EAF6 !important;
-    box-shadow: inset 3px 0 0 #1B1040 !important;
-    color: #1B1040 !important;
+    box-shadow: inset 3px 0 0 #0E1E45 !important;
+    color: #0E1E45 !important;
     font-weight: 700 !important;
 }
 /* Workflow section labels above nav groups (pages 1, 5, 7) */
@@ -418,7 +418,7 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker):not(:has([data-testid="stVerticalBlockBorderWrapper"] .agent-report-marker)) {
     background: linear-gradient(180deg, #FDFBF7 0%, #FFFFFF 120px) !important;
     border: 1px solid #E0D8E8 !important;
-    border-top: 4px solid #1B1040 !important;
+    border-top: 4px solid #0E1E45 !important;
     border-radius: 14px !important;
     box-shadow: 0 10px 30px rgba(27,16,64,0.10), 0 2px 6px rgba(27,16,64,0.05) !important;
     padding: 14px 30px 22px !important;
@@ -433,7 +433,7 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
 }
 /* Watermark-style brand mark in the report's top-right corner */
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker):not(:has([data-testid="stVerticalBlockBorderWrapper"] .agent-report-marker))::after {
-    content: "ONYX";
+    content: "LINX";
     position: absolute;
     top: 14px;
     right: 20px;
@@ -444,17 +444,17 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
 }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] h1 {
     font-size: 1.2rem !important; margin: 8px 0 4px !important; letter-spacing: -0.02em !important;
-    padding-bottom: 8px !important; border-bottom: 2px solid #1B1040 !important;
+    padding-bottom: 8px !important; border-bottom: 2px solid #0E1E45 !important;
 }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] h2 {
-    font-size: 0.80rem !important; font-weight: 800 !important; color: #1B1040 !important;
+    font-size: 0.80rem !important; font-weight: 800 !important; color: #0E1E45 !important;
     text-transform: uppercase !important; letter-spacing: 0.10em !important;
     margin: 20px 0 8px !important; padding: 5px 10px !important;
     background: #F4EAF6 !important; border-radius: 6px !important;
     border-bottom: none !important; display: inline-block !important;
 }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] h3 {
-    font-size: 0.9rem !important; margin: 12px 0 4px !important; color: #1B1040 !important;
+    font-size: 0.9rem !important; margin: 12px 0 4px !important; color: #0E1E45 !important;
 }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] p {
     font-size: 0.88rem !important; line-height: 1.55 !important; color: #3D3458 !important; margin: 4px 0 !important;
@@ -462,20 +462,20 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] li {
     font-size: 0.88rem !important; line-height: 1.5 !important; color: #3D3458 !important; margin: 3px 0 !important;
 }
-[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] strong { color: #1B1040 !important; }
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] strong { color: #0E1E45 !important; }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] em { color: #6B6280 !important; }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] hr {
     margin: 14px 0 !important; border-color: #EFEBE4 !important;
 }
 
 /* Spinner */
-[data-testid="stSpinner"] > div { border-top-color: #1B1040 !important; }
+[data-testid="stSpinner"] > div { border-top-color: #0E1E45 !important; }
 
 /* Caption */
 .stCaption { color: #6B6280 !important; font-size: 0.70rem !important; }
 
 /* Progress bar */
-.stProgress > div > div > div > div { background: #1B1040 !important; border-radius: 4px !important; }
+.stProgress > div > div > div > div { background: #0E1E45 !important; border-radius: 4px !important; }
 .stProgress > div > div > div { background: #E8E4DC !important; border-radius: 4px !important; }
 .stProgress { margin: 4px 0 !important; }
 
@@ -500,7 +500,7 @@ div[data-testid="column"] > div { gap: 0.55rem !important; }
 
 /* Tooltips — compact dark pill instead of full-width white slab */
 [data-testid="stTooltipContent"] {
-    background: #1B1040 !important;
+    background: #0E1E45 !important;
     color: #FFFFFF !important;
     border-radius: 8px !important;
     padding: 8px 12px !important;
@@ -517,7 +517,7 @@ div[data-testid="column"] > div { gap: 0.55rem !important; }
 .stTabs [data-baseweb="tab-list"] button[aria-selected="true"],
 .stTabs [data-baseweb="tab-list"] button[aria-selected="true"] *,
 .stTabs [data-baseweb="tab-list"] button[aria-selected="true"] p {
-    color: #1B1040 !important; fill: #1B1040 !important;
+    color: #0E1E45 !important; fill: #0E1E45 !important;
 }
 .stButton > button[kind="primary"] p,
 .stButton > button[kind="primaryFormSubmit"] p,
@@ -717,7 +717,7 @@ def model_tier_from_id(model_id):
     return "sonnet"
 
 def tier_color(tier):
-    return {"haiku": "#2D4A7A", "sonnet": "#3D3458", "opus": "#1B1040"}.get(tier, "#1B1040")
+    return {"haiku": "#2D4A7A", "sonnet": "#3D3458", "opus": "#0E1E45"}.get(tier, "#0E1E45")
 
 def render_meta_pills(result):
     """Compact, subtle pill strip: model tier · confidence · cost · tokens."""
@@ -799,7 +799,7 @@ def page_header(title, subtitle=""):
   <div><h1 style="margin:0">{title}</h1>{sub}</div>
   <div style="text-align:right;flex-shrink:0">
     <div style="font-size:0.70rem;color:#9B93A8">{today}</div>
-    <div style="font-size:0.66rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-top:2px">Onyx · Secure AI Control Plane</div>
+    <div style="font-size:0.66rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-top:2px">Linx · Identity Security</div>
   </div>
 </div>""", unsafe_allow_html=True)
 
@@ -881,7 +881,7 @@ def build_exec_summary(summary, customers):
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 
 with st.sidebar:
-    st.markdown("<div style='padding:10px 0 6px'><span style='font-size:1.3rem;font-weight:900;color:#1B1040;letter-spacing:-0.04em'>ONYX</span><span style='font-size:0.65rem;font-weight:700;color:#6B6280;letter-spacing:0.12em;margin-left:8px;vertical-align:middle'>CX AGENT OS</span></div>", unsafe_allow_html=True)
+    st.markdown("<div style='padding:10px 0 6px'><span style='font-size:1.3rem;font-weight:900;color:#0E1E45;letter-spacing:-0.04em'>LINX</span><span style='font-size:0.65rem;font-weight:700;color:#6B6280;letter-spacing:0.12em;margin-left:8px;vertical-align:middle'>CX AGENT OS</span></div>", unsafe_allow_html=True)
 
     # Ordered to follow the exec workflow: monitor → inspect → deliver → report → govern
     _pages = ["Executive Dashboard", "Customer 360", "Implementation Digest", "CSM Performance",
@@ -933,7 +933,7 @@ with st.sidebar:
       <div style="font-size:0.62rem;color:#6B6280;margin-top:1px">ARR at risk</div>
     </div>
     <div style="text-align:right">
-      <div style="font-size:1.15rem;font-weight:800;color:#1B1040;line-height:1">{pct:.0f}%</div>
+      <div style="font-size:1.15rem;font-weight:800;color:#0E1E45;line-height:1">{pct:.0f}%</div>
       <div style="font-size:0.62rem;color:#6B6280;margin-top:1px">of portfolio</div>
     </div>
   </div>
@@ -1012,7 +1012,7 @@ def show_agent_guide():
             "name": "Escalation Commander",
             "icon": "🚨",
             "model": "Opus",
-            "model_color": "#1B1040",
+            "model_color": "#0E1E45",
             "model_bg": "#EAE6E0",
             "when": "When a customer has an active escalation or is at risk of churning imminently.",
             "what": "Performs a full crisis analysis: determines likely root cause, quantifies customer impact, maps internal owners, builds a 48-hour recovery plan and 2-week stabilization plan, and drafts executive communications.",
@@ -1022,7 +1022,7 @@ def show_agent_guide():
             "name": "Skeptik QA Agent",
             "icon": "🔍",
             "model": "Opus",
-            "model_color": "#1B1040",
+            "model_color": "#0E1E45",
             "model_bg": "#EAE6E0",
             "when": "After running any other agent — especially before sharing a briefing or escalation plan with executives.",
             "what": "Adversarially reviews the most recent agent output for that customer. Challenges unsupported claims, flags missing evidence, identifies overconfident conclusions, and suggests alternative explanations. Revises the confidence score.",
@@ -1032,7 +1032,7 @@ def show_agent_guide():
             "name": "VP Chief of Staff",
             "icon": "📊",
             "model": "Opus",
-            "model_color": "#1B1040",
+            "model_color": "#0E1E45",
             "model_bg": "#EAE6E0",
             "when": "Weekly — generates the VP CX operating review across the full portfolio.",
             "what": "Synthesizes the entire portfolio into a board-ready weekly review: top 5 risks, ARR at risk, renewal watchlist, implementation bottlenecks, product feedback themes, support burden, cross-functional asks, and a CEO-ready paragraph summary.",
@@ -1063,7 +1063,7 @@ def show_agent_guide():
             "name": "Kickoff Deck Agent",
             "icon": "", "model": "Sonnet", "model_color": "#3D3458", "model_bg": "#EDEAF4",
             "when": "Right after a new contract is signed, before the first joint implementation session.",
-            "what": "Generates the client-facing implementation kickoff deck: maps Onyx's standard 12-milestone methodology onto the customer's stakeholders, industry, and go-live target, with named owners on both sides, success metrics, and a concrete first-30-days plan.",
+            "what": "Generates the client-facing implementation kickoff deck: maps Linx's standard 12-milestone methodology onto the customer's stakeholders, industry, and go-live target, with named owners on both sides, success metrics, and a concrete first-30-days plan.",
             "outputs": ["Partnership vision", "Engagement team map", "Scope & objectives", "Milestone timeline (dated)", "Success metrics", "First 30 days plan", "Governance cadence", "Customer prerequisites"],
         },
     ]
@@ -1074,7 +1074,7 @@ def show_agent_guide():
   <div style="font-size:0.68rem;color:#6B6280;align-self:center;margin-right:4px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em">Model routing</div>
   <span style="background:#E8EDF5;color:#2D4A7A;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:20px">Haiku — fast scanning</span>
   <span style="background:#EDEAF4;color:#3D3458;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:20px">Sonnet — synthesis</span>
-  <span style="background:#EAE6E0;color:#1B1040;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:20px">Opus — judgment & adversarial</span>
+  <span style="background:#EAE6E0;color:#0E1E45;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:20px">Opus — judgment & adversarial</span>
 </div>
 """, unsafe_allow_html=True)
 
@@ -1088,7 +1088,7 @@ def show_agent_guide():
         st.markdown(f"""
 <div style="padding:16px 4px;{border_top}">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px">
-    <div style="font-size:1.0rem;font-weight:800;color:#1B1040;letter-spacing:-0.01em">{a['name']}</div>
+    <div style="font-size:1.0rem;font-weight:800;color:#0E1E45;letter-spacing:-0.01em">{a['name']}</div>
     <span style="background:{a['model_bg']};color:{a['model_color']};font-size:0.65rem;font-weight:700;
           padding:3px 10px;border-radius:20px;flex-shrink:0">{a['model']}</span>
   </div>
@@ -1169,13 +1169,13 @@ if page == "Executive Dashboard":
 
     # ── AI Executive Summary (narrative first — the "so what") ─────────────────
     st.markdown(f"""
-<div style="background:linear-gradient(135deg,#1B1040 0%,#2D2154 100%);border-radius:12px;
+<div style="background:linear-gradient(135deg,#0E1E45 0%,#1A3060 100%);border-radius:12px;
      padding:16px 20px;margin:2px 0 16px">
   <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-    <span style="font-size:0.62rem;font-weight:700;color:#B9AEE0;text-transform:uppercase;letter-spacing:0.12em">AI Executive Summary</span>
-    <span style="font-size:0.58rem;color:#8579B0;background:#ffffff14;padding:2px 8px;border-radius:20px">Weekly · auto-generated</span>
+    <span style="font-size:0.62rem;font-weight:700;color:#9FB6E4;text-transform:uppercase;letter-spacing:0.12em">AI Executive Summary</span>
+    <span style="font-size:0.58rem;color:#7E93C4;background:#ffffff14;padding:2px 8px;border-radius:20px">Weekly · auto-generated</span>
   </div>
-  <div style="color:#F0EDF7;font-size:0.92rem;line-height:1.65">{build_exec_summary(summary, customers)}</div>
+  <div style="color:#EFF3FB;font-size:0.92rem;line-height:1.65">{build_exec_summary(summary, customers)}</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -1220,7 +1220,7 @@ if page == "Executive Dashboard":
 <div style="background:#FFFFFF;border:1px solid #E8E4DC;border-left:3px solid #9B2335;
      border-radius:8px;padding:10px 13px;margin-bottom:8px">
   <div style="display:flex;justify-content:space-between;align-items:baseline">
-    <span style="font-weight:700;color:#1B1040;font-size:0.86rem">{c['name']}</span>
+    <span style="font-weight:700;color:#0E1E45;font-size:0.86rem">{c['name']}</span>
     <span style="font-size:0.7rem;color:#9B2335;font-weight:700">${c['arr']/1e3:.0f}K ARR</span>
   </div>
   <div style="font-size:0.7rem;color:#6B6280;margin-top:1px">{c['industry']} · {c['customer_tier']} · {c['region']}</div>
@@ -1239,12 +1239,12 @@ if page == "Executive Dashboard":
 <div style="background:#FFFFFF;border:1px solid #E8E4DC;border-left:3px solid #2D5A3D;
      border-radius:8px;padding:10px 13px;margin-bottom:8px">
   <div style="display:flex;justify-content:space-between;align-items:baseline">
-    <span style="font-weight:700;color:#1B1040;font-size:0.86rem">{c['name']}</span>
+    <span style="font-weight:700;color:#0E1E45;font-size:0.86rem">{c['name']}</span>
     <span style="font-size:0.7rem;color:#2D5A3D;font-weight:700">+${ep/1e3:.0f}K</span>
   </div>
   <div style="font-size:0.7rem;color:#6B6280;margin-top:1px">{c['industry']} · NRR {c.get('nrr_pct','?')}% · {int(ul*100)}% likely</div>
   <div style="font-size:0.74rem;color:#3D3458;margin-top:6px;line-height:1.4"><b style="color:#2D5A3D">Signal:</b> {c['roi_outcome']}; adoption {c.get('adoption_score','?')}%</div>
-  <div style="font-size:0.74rem;color:#3D3458;margin-top:3px;line-height:1.4"><b style="color:#1B1040">Next:</b> {c['recommended_next_action']}</div>
+  <div style="font-size:0.74rem;color:#3D3458;margin-top:3px;line-height:1.4"><b style="color:#0E1E45">Next:</b> {c['recommended_next_action']}</div>
 </div>""", unsafe_allow_html=True)
 
     # ── Drill-in: health heatmap + full portfolio table ───────────────────────
@@ -1353,7 +1353,7 @@ elif page == "Customer 360":
     history   = data.get("health_history", [])
 
     # ── Header ────────────────────────────────────────────────────────────────
-    risk_color  = {"High":"#9B2335","Medium":"#C9952A","Low":"#2D5A3D"}.get(c.get("risk_level",""), "#1B1040")
+    risk_color  = {"High":"#9B2335","Medium":"#C9952A","Low":"#2D5A3D"}.get(c.get("risk_level",""), "#0E1E45")
     risk_bg     = {"High":"#FDF1F2","Medium":"#FDF8EE","Low":"#EFF6F1"}.get(c.get("risk_level",""), "#F5F2EE")
     renewal_days = renewal.get("days_to_renewal", "?")
     open_tickets = sum(1 for t in tickets if t["status"] != "Resolved")
@@ -1368,10 +1368,10 @@ elif page == "Customer 360":
           <div style="color:#6B6280;font-size:0.8rem">
             {c['industry']} &nbsp;·&nbsp; {c.get('customer_tier','?')} &nbsp;·&nbsp; {c.get('region','?')} &nbsp;·&nbsp;
             {c.get('employee_count','?'):,} employees &nbsp;·&nbsp;
-            <span style="font-weight:700;color:#1B1040">${c['arr']:,} ARR</span>
+            <span style="font-weight:700;color:#0E1E45">${c['arr']:,} ARR</span>
           </div>
           <div style="margin-top:10px;padding:8px 12px;background:#F5F2EE;border-radius:8px;font-size:0.78rem;color:#3D3458;line-height:1.5">
-            <span style="font-weight:700;color:#1B1040">Risk:</span> {c.get('primary_risk_reason','')}
+            <span style="font-weight:700;color:#0E1E45">Risk:</span> {c.get('primary_risk_reason','')}
             <br><span style="color:#6B6280">→</span> {c.get('recommended_next_action','')}
           </div>
         </div>
@@ -1386,7 +1386,7 @@ elif page == "Customer 360":
       <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
         <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:80px">
           <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Adoption</div>
-          <div style="font-size:1.05rem;font-weight:800;color:#1B1040;line-height:1.3">{c.get('adoption_score',0)}<span style="font-size:0.65rem;font-weight:500;color:#6B6280">/100</span></div>
+          <div style="font-size:1.05rem;font-weight:800;color:#0E1E45;line-height:1.3">{c.get('adoption_score',0)}<span style="font-size:0.65rem;font-weight:500;color:#6B6280">/100</span></div>
         </div>
         <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:80px">
           <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Churn Risk</div>
@@ -1394,7 +1394,7 @@ elif page == "Customer 360":
         </div>
         <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:80px">
           <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Renewal</div>
-          <div style="font-size:1.05rem;font-weight:800;color:#1B1040;line-height:1.3">{renewal_days}d</div>
+          <div style="font-size:1.05rem;font-weight:800;color:#0E1E45;line-height:1.3">{renewal_days}d</div>
         </div>
         <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:90px">
           <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Champion</div>
@@ -1557,7 +1557,7 @@ elif page == "Customer 360":
             result = st.session_state[recent_key]
             agent_label = recent_key.split(f"360_result_{cid}_")[-1]
             agent_nice  = agent_display_name(result.get("agent_name", agent_label))
-            st.markdown(f"<div style='font-size:0.78rem;font-weight:800;color:#1B1040;letter-spacing:-0.01em;margin:12px 0 4px'>{agent_nice}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='font-size:0.78rem;font-weight:800;color:#0E1E45;letter-spacing:-0.01em;margin:12px 0 4px'>{agent_nice}</div>", unsafe_allow_html=True)
 
             # Skeptik shows before/after
             if "SkeptikQAAgent" in recent_key:
@@ -1599,9 +1599,9 @@ elif page == "Customer 360":
                  f"<span style='color:{trend_color};font-size:0.68rem'>{trend_sign}{dau_trend:.0%} vs 30d</span>"),
                 ("AI Asset Coverage", f"{int(mrow.get('asset_coverage_pct',0))}%", ""),
                 ("Modules Active",    f"{int(mrow.get('features_enabled',0))}/18", ""),
-                ("Guardian False-Positive Rate", f"{mrow.get('false_positive_rate',0):.0%}", ""),
+                ("Review False-Positive Rate", f"{mrow.get('false_positive_rate',0):.0%}", ""),
                 ("Prompts Inspected (30d)", f"{int(mrow.get('api_calls_last_30d',0)):,}", ""),
-                ("Guardian Interventions (30d)", str(int(mrow.get("alerts_generated_last_30d",0))), ""),
+                ("Autopilot Actions (30d)", str(int(mrow.get("alerts_generated_last_30d",0))), ""),
                 ("Logins (7d)",       str(int(mrow.get("unique_logins_last_7d",0))), ""),
                 ("AI Agents Governed", str(int(mrow.get("agents_deployed",0))), ""),
             ]
@@ -1623,7 +1623,7 @@ elif page == "Customer 360":
             hdf = hdf.sort_values("date")
             chart = (
                 alt.Chart(hdf)
-                .mark_line(color="#1B1040", strokeWidth=2.2, point=alt.OverlayMarkDef(color="#1B1040", size=18))
+                .mark_line(color="#0E1E45", strokeWidth=2.2, point=alt.OverlayMarkDef(color="#0E1E45", size=18))
                 .encode(
                     x=alt.X("date:T", axis=alt.Axis(title=None, grid=False, labelColor="#6B6280", domainColor="#E8E4DC", tickColor="#E8E4DC", format="%b %d")),
                     y=alt.Y("health_score:Q", scale=alt.Scale(domain=[0, 100]),
@@ -1649,7 +1649,7 @@ elif page == "Customer 360":
   </div>
   <div style="background:#F5F2EE;border-radius:8px;padding:6px 14px;font-size:0.75rem">
     <span style="color:#6B6280;font-weight:600">Onboarding</span>
-    <span style="margin-left:8px;font-weight:700;color:#1B1040">{onb}</span>
+    <span style="margin-left:8px;font-weight:700;color:#0E1E45">{onb}</span>
   </div>
   <div style="background:#F5F2EE;border-radius:8px;padding:6px 14px;font-size:0.75rem">
     <span style="color:#6B6280;font-weight:600">Sentiment</span>
@@ -1675,8 +1675,8 @@ elif page == "Customer 360":
     <div style="width:{pct}%;background:{sc};height:100%;border-radius:50px"></div>
   </div>
   <div style="display:flex;gap:16px;margin-top:8px;font-size:0.72rem;color:#6B6280">
-    <span>Owner: <b style="color:#1B1040">{impl.get('implementation_owner','?')}</b></span>
-    <span>Go-live: <b style="color:#1B1040">{impl.get('go_live_target','?')}</b></span>
+    <span>Owner: <b style="color:#0E1E45">{impl.get('implementation_owner','?')}</b></span>
+    <span>Go-live: <b style="color:#0E1E45">{impl.get('go_live_target','?')}</b></span>
     {f'<span style="color:#9B2335;font-weight:600">{behind}d behind schedule</span>' if behind > 0 else ''}
   </div>
 </div>""", unsafe_allow_html=True)
@@ -1694,7 +1694,7 @@ elif page == "Customer 360":
   <span style="background:{m_bg};color:{m_color};font-size:0.65rem;font-weight:700;padding:2px 8px;
         border-radius:20px;white-space:nowrap;margin-top:1px">{status_m}</span>
   <div>
-    <div style="font-size:0.82rem;font-weight:600;color:#1B1040">{mname}</div>
+    <div style="font-size:0.82rem;font-weight:600;color:#0E1E45">{mname}</div>
     {f'<div style="font-size:0.72rem;color:#9B2335;margin-top:2px">{blocker}</div>' if blocker else ''}
   </div>
 </div>""", unsafe_allow_html=True)
@@ -1703,7 +1703,7 @@ elif page == "Customer 360":
         st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Support Tickets</div>", unsafe_allow_html=True)
         open_t    = [t for t in tickets if t["status"] != "Resolved"]
         closed_t  = [t for t in tickets if t["status"] == "Resolved"]
-        st.markdown(f"<div style='font-size:0.78rem;font-weight:700;color:#1B1040;margin-bottom:6px'>{len(open_t)} Open <span style=\"color:#6B6280;font-weight:400\">· {len(closed_t)} Resolved</span></div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='font-size:0.78rem;font-weight:700;color:#0E1E45;margin-bottom:6px'>{len(open_t)} Open <span style=\"color:#6B6280;font-weight:400\">· {len(closed_t)} Resolved</span></div>", unsafe_allow_html=True)
         for t in sorted(tickets, key=lambda x: ("P1P2P3P4".index(x["severity"]) if x["severity"] in "P1P2P3P4" else 9, x["status"] == "Resolved")):
             sc = {"P1":"#9B2335","P2":"#7A5C1E","P3":"#5C4A1E","P4":"#6B6280"}.get(t["severity"],"#6B6280")
             st_color = {"Open": "#9B2335", "In Progress": "#7A5C1E"}.get(t["status"], "#2D5A3D")
@@ -1712,7 +1712,7 @@ elif page == "Customer 360":
                     <span style="background:{sc}18;color:{sc};font-weight:700;font-size:0.72rem;padding:2px 8px;border-radius:20px;border:1px solid {sc}44">{t['severity']}</span>
                     <span style="color:{st_color};font-size:0.72rem;font-weight:700">{t['status']}</span>
                 </div>
-                <div style="color:#1B1040;font-size:0.88rem;margin-top:6px;font-weight:500">{t['title']}</div>
+                <div style="color:#0E1E45;font-size:0.88rem;margin-top:6px;font-weight:500">{t['title']}</div>
                 <div style="color:#6B6280;font-size:0.72rem;margin-top:3px">Opened {t['opened_at'][:10]} · Assignee: {t.get('assignee','?')}</div>
                 {f'<div style="color:#7A5C1E;font-size:0.72rem;margin-top:2px">{t["escalation_reference"]}</div>' if t.get("escalation_reference") else ''}
             </div>""", unsafe_allow_html=True)
@@ -1739,14 +1739,14 @@ elif page == "Customer 360":
     </div>
     <span style="font-size:0.68rem;color:#9B93A8">{e['opened_at'][:10]}</span>
   </div>
-  <div style="font-size:0.85rem;font-weight:600;color:#1B1040;margin-top:7px">{e['title']}</div>
+  <div style="font-size:0.85rem;font-weight:600;color:#0E1E45;margin-top:7px">{e['title']}</div>
   <div style="font-size:0.72rem;color:#6B6280;margin-top:3px">Owner: {e['owner']}</div>
   {f'<div style="font-size:0.72rem;color:#6B6280;margin-top:4px;font-style:italic">{e["resolution_plan"]}</div>' if e.get("resolution_plan") else ''}
 </div>""", unsafe_allow_html=True)
 
     with tab_stk:
         st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Stakeholders</div>", unsafe_allow_html=True)
-        role_colors = {"Champion":"#1B1040","Technical Sponsor":"#3D3458","Business Sponsor":"#5C4A1E",
+        role_colors = {"Champion":"#0E1E45","Technical Sponsor":"#3D3458","Business Sponsor":"#5C4A1E",
                        "Executive Sponsor":"#2D3A4A","Economic Buyer":"#9B2335"}
         role_bg = {"Champion":"#EAE6E0","Technical Sponsor":"#EDEAF4","Business Sponsor":"#F0EBE0",
                    "Executive Sponsor":"#E8EBF0","Economic Buyer":"#F5ECEC"}
@@ -1758,7 +1758,7 @@ elif page == "Customer 360":
             st.markdown(f"""<div class="card">
                 <div style="display:flex;justify-content:space-between;align-items:flex-start">
                     <div>
-                        <span style="font-weight:700;color:#1B1040;font-size:0.95rem">{s['name']}</span>
+                        <span style="font-weight:700;color:#0E1E45;font-size:0.95rem">{s['name']}</span>
                         <div style="font-size:0.80rem;color:#6B6280;margin-top:1px">{s['title']}</div>
                     </div>
                     <span style="font-size:0.72rem;color:{ec};font-weight:700">{s.get('engagement_level','?')} engagement</span>
@@ -1785,7 +1785,7 @@ elif page == "Customer 360":
                     <span style="color:#6B6280;font-size:0.75rem">{n['date'][:10]} · <b style="color:#3D3458">{n.get('meeting_type','?')}</b></span>
                     <span style="background:{sent_bg};color:{sc};font-size:0.70rem;font-weight:700;padding:2px 8px;border-radius:20px">{n.get('sentiment_signal','?')}</span>
                 </div>
-                <div style="color:#1B1040;font-size:0.88rem;margin-top:6px;line-height:1.5">{n['summary']}</div>
+                <div style="color:#0E1E45;font-size:0.88rem;margin-top:6px;line-height:1.5">{n['summary']}</div>
                 <div style="color:#6B6280;font-size:0.72rem;margin-top:4px">Attendees: {n.get('attendees_internal','?')} · {n.get('attendees_customer','?')}</div>
                 {('<div style="margin-top:6px">' + ''.join(f'<div style="font-size:0.75rem;color:#3D3458;margin-top:2px">→ {a}</div>' for a in actions) + '</div>') if actions else ''}
             </div>""", unsafe_allow_html=True)
@@ -1915,7 +1915,7 @@ elif page == "CSM Performance":
 <div style="background:#FFFFFF;border:1px solid #E8E4DC;border-radius:10px;padding:13px 16px;margin-bottom:9px">
   <div style="display:flex;align-items:center;gap:14px">
     <div style="flex:0 0 150px">
-      <div style="font-weight:700;color:#1B1040;font-size:0.92rem">{owner}</div>
+      <div style="font-weight:700;color:#0E1E45;font-size:0.92rem">{owner}</div>
       <div style="font-size:0.68rem;color:#6B6280">{s['accounts']} accounts · ${s['arr']/1e6:.1f}M ARR</div>
     </div>
     <div style="flex:0 0 70px;text-align:center">
@@ -1939,7 +1939,7 @@ elif page == "CSM Performance":
       <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">ARR at Risk</div>
     </div>
     <div style="flex:0 0 80px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
-      <div style="font-size:0.95rem;font-weight:800;color:#1B1040;line-height:1.2">{avg_nrr:.0f}%</div>
+      <div style="font-size:0.95rem;font-weight:800;color:#0E1E45;line-height:1.2">{avg_nrr:.0f}%</div>
       <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Avg NRR</div>
     </div>
     <div style="flex:0 0 90px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
@@ -1947,7 +1947,7 @@ elif page == "CSM Performance":
       <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Expansion</div>
     </div>
     <div style="flex:0 0 80px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
-      <div style="font-size:0.95rem;font-weight:800;color:#1B1040;line-height:1.2">{s['renewals_90']}</div>
+      <div style="font-size:0.95rem;font-weight:800;color:#0E1E45;line-height:1.2">{s['renewals_90']}</div>
       <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Renewals 90d</div>
     </div>
     <div style="flex:0 0 100px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
@@ -2030,7 +2030,7 @@ elif page == "Agent Console":
                               f"{selected_agent}_{datetime.now().strftime('%Y%m%d_%H%M')}.md")
         else:
             st.markdown("""<div style="border:2px dashed #D8D3C8;border-radius:14px;padding:48px;text-align:center;background:#FFFFFF">
-                <div style="font-size:0.95rem;font-weight:600;color:#1B1040">Configure an agent and click Run</div>
+                <div style="font-size:0.95rem;font-weight:600;color:#0E1E45">Configure an agent and click Run</div>
                 <div style="margin-top:4px;font-size:0.80rem;color:#6B6280">Model routing rationale, cost, and confidence will appear here</div>
             </div>""", unsafe_allow_html=True)
 
@@ -2155,11 +2155,11 @@ elif page == "Implementation Digest":
 
         # ── KPI bar ────────────────────────────────────────────────────────────
         kpis = [
-            ("Active Projects", str(n),         "#1B1040", "#FFFFFF", "#E8E4DC"),
+            ("Active Projects", str(n),         "#0E1E45", "#FFFFFF", "#E8E4DC"),
             ("At Risk",         str(at_risk),   "#9B2335", "#FDF1F2", "#F0C8CC"),
             ("Medium Conf.",    str(medium),    "#7A5C1E", "#FDFAF0", "#E8DCA0"),
             ("On Track",        str(on_track),  "#2D5A3D", "#F0FAF4", "#A8D8B8"),
-            ("Avg Completion",  f"{avg_pct}%",  "#1B1040", "#FFFFFF", "#E8E4DC"),
+            ("Avg Completion",  f"{avg_pct}%",  "#0E1E45", "#FFFFFF", "#E8E4DC"),
             ("Not Kicked Off",  str(not_kicked),"#6B6280", "#FFFFFF", "#E8E4DC"),
         ]
         cells = "".join(
@@ -2192,13 +2192,13 @@ elif page == "Implementation Digest":
         if worst:
             cells = "".join(
                 f"<div style='flex:1;background:#FFFFFF;border:1px solid #E8E4DC;border-left:3px solid "
-                f"{conf_colors.get(r['launch_confidence'], '#1B1040')};border-radius:10px;padding:12px 14px'>"
+                f"{conf_colors.get(r['launch_confidence'], '#0E1E45')};border-radius:10px;padding:12px 14px'>"
                 f"<div style='display:flex;justify-content:space-between;align-items:baseline'>"
-                f"<span style='font-weight:700;color:#1B1040;font-size:0.88rem'>{r['customer_name']}</span>"
-                f"<span style='font-size:0.66rem;font-weight:700;color:{conf_colors.get(r['launch_confidence'],'#1B1040')}'>{r['launch_confidence']} confidence</span></div>"
+                f"<span style='font-weight:700;color:#0E1E45;font-size:0.88rem'>{r['customer_name']}</span>"
+                f"<span style='font-size:0.66rem;font-weight:700;color:{conf_colors.get(r['launch_confidence'],'#0E1E45')}'>{r['launch_confidence']} confidence</span></div>"
                 f"<div style='font-size:0.70rem;color:#6B6280;margin-top:2px'>{int(r['pct_complete'])}% complete · "
                 f"{('on time' if r['days_behind_schedule']==0 else str(r['days_behind_schedule'])+'d behind')} · owner {r['implementation_owner']}</div>"
-                f"<div style='font-size:0.78rem;color:#1B1040;font-weight:600;margin-top:7px'>→ {impl_next_action(r)}</div>"
+                f"<div style='font-size:0.78rem;color:#0E1E45;font-weight:600;margin-top:7px'>→ {impl_next_action(r)}</div>"
                 f"</div>"
                 for r in worst
             )
@@ -2227,7 +2227,7 @@ elif page == "Implementation Digest":
         )
         body = []
         for r in rows:
-            cc_   = conf_colors.get(r["launch_confidence"], "#1B1040")
+            cc_   = conf_colors.get(r["launch_confidence"], "#0E1E45")
             cbg   = conf_bg.get(r["launch_confidence"], "#F5F2EE")
             pct   = int(r["pct_complete"])
             behind = ("<span style='color:#2D5A3D;font-weight:600'>On time</span>"
@@ -2237,7 +2237,7 @@ elif page == "Implementation Digest":
                 f"<div style='display:grid;{grid}gap:12px;padding:13px 18px;align-items:center;"
                 f"border-top:1px solid #F0EBE7;font-size:0.82rem' "
                 f"onmouseover=\"this.style.background='#FBF7FA'\" onmouseout=\"this.style.background='transparent'\">"
-                f"<div style='font-weight:700;color:#1B1040'>{r['customer_name']}</div>"
+                f"<div style='font-weight:700;color:#0E1E45'>{r['customer_name']}</div>"
                 f"<div><span style='background:{cbg};color:{cc_};font-size:0.68rem;font-weight:700;"
                 f"padding:3px 10px;border-radius:20px;white-space:nowrap'>{r['launch_confidence']}</span></div>"
                 f"<div style='display:flex;align-items:center;gap:8px'>"
@@ -2247,7 +2247,7 @@ elif page == "Implementation Digest":
                 f"<div style='color:#3D3458'>{r['milestones_complete']}/{r['milestones_total']}</div>"
                 f"<div style='color:#3D3458'>{r['go_live_target'] or '—'}</div>"
                 f"<div>{behind}</div>"
-                f"<div style='color:#1B1040;font-weight:500'>{impl_next_action(r)}</div>"
+                f"<div style='color:#0E1E45;font-weight:500'>{impl_next_action(r)}</div>"
                 f"<div style='color:#6B6280'>{r['implementation_owner']}</div>"
                 f"</div>"
             )
@@ -2267,7 +2267,7 @@ elif page == "Implementation Digest":
         sel_idx = proj_names.index(sel_name)
         if sel_idx is not None:
             r  = rows[sel_idx]
-            cc = conf_colors.get(r["launch_confidence"], "#1B1040")
+            cc = conf_colors.get(r["launch_confidence"], "#0E1E45")
 
             done = ", ".join(r["completed_milestones"]) or "None yet"
             wip  = ", ".join(r["in_progress_milestones"]) or "—"
@@ -2276,21 +2276,21 @@ elif page == "Implementation Digest":
             st.markdown(f"""
 <div style="background:#FFFFFF;border:1px solid #E8E4DC;border-left:4px solid {cc};border-radius:12px;padding:16px 20px;margin-top:6px">
   <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
-    <div style="font-size:1.05rem;font-weight:800;color:#1B1040">{r['customer_name']}</div>
+    <div style="font-size:1.05rem;font-weight:800;color:#0E1E45">{r['customer_name']}</div>
     <div style="font-size:0.8rem;font-weight:700;color:{cc}">{r['launch_confidence']} launch confidence · {r['overall_status']}</div>
   </div>
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
-    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Kicked Off</div><div style="font-size:0.92rem;font-weight:800;color:#1B1040">{('Yes · '+r['kickoff_date']) if r['kickoff_date'] else ('In progress' if r['kicked_off'] else 'Not started')}</div></div>
-    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Contract Age</div><div style="font-size:0.92rem;font-weight:800;color:#1B1040">{(str(r['days_post_signature'])+' days') if r['days_post_signature'] is not None else '—'}</div></div>
-    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Go-Live Target</div><div style="font-size:0.92rem;font-weight:800;color:#1B1040">{r['go_live_target'] or '—'}</div></div>
-    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">To Go-Live</div><div style="font-size:0.92rem;font-weight:800;color:#1B1040">{(str(r['days_to_go_live'])+' days') if r['days_to_go_live'] is not None else '—'}</div></div>
+    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Kicked Off</div><div style="font-size:0.92rem;font-weight:800;color:#0E1E45">{('Yes · '+r['kickoff_date']) if r['kickoff_date'] else ('In progress' if r['kicked_off'] else 'Not started')}</div></div>
+    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Contract Age</div><div style="font-size:0.92rem;font-weight:800;color:#0E1E45">{(str(r['days_post_signature'])+' days') if r['days_post_signature'] is not None else '—'}</div></div>
+    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Go-Live Target</div><div style="font-size:0.92rem;font-weight:800;color:#0E1E45">{r['go_live_target'] or '—'}</div></div>
+    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">To Go-Live</div><div style="font-size:0.92rem;font-weight:800;color:#0E1E45">{(str(r['days_to_go_live'])+' days') if r['days_to_go_live'] is not None else '—'}</div></div>
     <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Schedule</div><div style="font-size:0.92rem;font-weight:800;color:{'#2D5A3D' if r['days_behind_schedule']==0 else '#9B2335'}">{'On time' if r['days_behind_schedule']==0 else str(r['days_behind_schedule'])+'d behind'}</div></div>
-    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Milestones</div><div style="font-size:0.92rem;font-weight:800;color:#1B1040">{r['milestones_complete']} / {r['milestones_total']} complete</div></div>
+    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Milestones</div><div style="font-size:0.92rem;font-weight:800;color:#0E1E45">{r['milestones_complete']} / {r['milestones_total']} complete</div></div>
   </div>
   <div style="font-size:0.78rem;color:#3D3458;line-height:1.5"><b style="color:#2D5A3D">Implemented:</b> {done}</div>
   <div style="font-size:0.78rem;color:#3D3458;line-height:1.5;margin-top:3px"><b style="color:#7A5C1E">In progress:</b> {wip}</div>
   <div style="font-size:0.78rem;color:#3D3458;line-height:1.5;margin-top:3px"><b style="color:#9B2335">Blockers:</b> {blk}</div>
-  <div style="margin-top:10px;padding:9px 12px;background:#F4EAF6;border-radius:8px;font-size:0.82rem;color:#1B1040;font-weight:600">Recommended action: {impl_next_action(r)}</div>
+  <div style="margin-top:10px;padding:9px 12px;background:#F4EAF6;border-radius:8px;font-size:0.82rem;color:#0E1E45;font-weight:600">Recommended action: {impl_next_action(r)}</div>
 </div>""", unsafe_allow_html=True)
 
             ai_key   = f"impl_ai_{r['customer_id']}"

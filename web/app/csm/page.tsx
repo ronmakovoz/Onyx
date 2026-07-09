@@ -189,9 +189,9 @@ export default function CsmPage() {
                 {(
                   [
                     ["ARR at Risk", fmtM(selected.arr_risk), selected.arr_risk ? "#9B2335" : "#2D5A3D"],
-                    ["Avg NRR", `${Math.round(selected.avg_nrr)}%`, "#1B1040"],
+                    ["Avg NRR", `${Math.round(selected.avg_nrr)}%`, "#0E1E45"],
                     ["Expansion", fmtK(selected.expansion), "#2D5A3D"],
-                    ["Renewals 90d", String(selected.renewals_90), "#1B1040"],
+                    ["Renewals 90d", String(selected.renewals_90), "#0E1E45"],
                     ["Overdue QBRs", String(selected.qbr_overdue), selected.qbr_overdue ? "#9B2335" : "#2D5A3D"],
                     ["Champion Gaps", String(selected.champ_gap), selected.champ_gap ? "#9B2335" : "#2D5A3D"],
                     ["Open Escalations", String(selected.escalations), selected.escalations ? "#9B2335" : "#2D5A3D"],

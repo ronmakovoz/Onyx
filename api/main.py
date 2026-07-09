@@ -1,5 +1,5 @@
 """
-Onyx CX Agent OS — FastAPI backend.
+Linx CX Agent OS — FastAPI backend.
 Run from repo root: uvicorn api.main:app --port 8000
 """
 
@@ -44,7 +44,7 @@ _REAL_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 # Default to mock mode until explicitly toggled live
 os.environ.pop("ANTHROPIC_API_KEY", None)
 
-app = FastAPI(title="Onyx CX Agent OS API")
+app = FastAPI(title="Linx CX Agent OS API")
 
 app.add_middleware(
     CORSMiddleware,

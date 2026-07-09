@@ -32,7 +32,7 @@ Core customer record. All other tables reference `customer_id`.
 | health_trend | TEXT | `Improving` / `Stable` / `Declining` |
 | csm_owner | TEXT | Assigned Customer Success Manager |
 | implementation_owner | TEXT | Assigned Implementation Manager |
-| executive_sponsor_internal | TEXT | Onyx internal exec sponsor |
+| executive_sponsor_internal | TEXT | Linx internal exec sponsor |
 | champion_name | TEXT | Primary customer champion |
 | champion_title | TEXT | Champion's job title |
 | champion_status | TEXT | `Active` / `Disengaged` / `Left Company` |
@@ -70,7 +70,7 @@ Individual support requests. Volume and severity correlate with risk level.
 | opened_at | TEXT (ISO datetime) | |
 | resolved_at | TEXT (ISO datetime) | NULL if unresolved |
 | escalation_reference | TEXT | Links to active escalation if applicable |
-| assignee | TEXT | Onyx support engineer |
+| assignee | TEXT | Linx support engineer |
 | days_open | INTEGER | NULL if resolved |
 
 **Consistency rules:**
@@ -138,7 +138,7 @@ Active or in-progress account escalations. High-risk customers have 2–3 each.
 | status | TEXT | `Open` / `In Progress` |
 | owner | TEXT | CSM or escalation lead |
 | opened_at | TEXT (ISO datetime) | |
-| executive_aware | INTEGER | 1 = Onyx exec team notified |
+| executive_aware | INTEGER | 1 = Linx exec team notified |
 | arr_at_risk | INTEGER | Customer ARR |
 | resolution_plan | TEXT | NULL if no plan yet |
 | last_update | TEXT (ISO datetime) | |
@@ -176,7 +176,7 @@ Customer-facing meeting records: QBRs, weekly syncs, escalation calls, etc.
 | customer_id | INTEGER FK | |
 | meeting_type | TEXT | `QBR` / `Weekly Sync` / `Escalation Call` / etc. |
 | date | TEXT (ISO datetime) | |
-| attendees_internal | TEXT | Onyx attendees |
+| attendees_internal | TEXT | Linx attendees |
 | attendees_customer | TEXT | Customer attendees |
 | summary | TEXT | Narrative meeting summary |
 | sentiment_signal | TEXT | `Positive` / `Neutral` / `Negative` |
@@ -209,7 +209,7 @@ One snapshot per customer per day (currently single daily record).
 | integrations_active | INTEGER | |
 | unique_logins_last_7d | INTEGER | |
 | agents_deployed | INTEGER | AI agents deployed in customer env |
-| asset_coverage_pct | INTEGER | % of assets covered by Onyx |
+| asset_coverage_pct | INTEGER | % of assets covered by Linx |
 | dau_trend_30d | REAL | +/- growth rate vs 30 days ago |
 
 **Consistency rules:**

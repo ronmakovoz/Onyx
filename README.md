@@ -1,5 +1,5 @@
 ---
-title: Onyx CX Agent OS
+title: Linx CX Agent OS
 emoji: 🛡️
 colorFrom: purple
 colorTo: pink
@@ -8,6 +8,6 @@ app_port: 7860
 pinned: false
 ---
 
-# Onyx CX Agent OS
+# Linx CX Agent OS
 
 VP-level Customer Success intelligence platform powered by Claude.

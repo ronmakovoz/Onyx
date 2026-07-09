@@ -1,4 +1,4 @@
-# VP CX Agent OS — Onyx Security
+# VP CX Agent OS — Linx Security
 
 A lightweight executive demo platform showing how AI agents can run a post-sale customer organization.
 

@@ -53,16 +53,16 @@ type Whitespace = {
 
 // Short column labels for the penetration matrix
 const SHORT: Record<string, string> = {
-  "Guardian Runtime Protection": "Guardian",
-  "AI Discovery (Shadow AI)": "Discovery",
-  "LLM Routing Gateway": "Routing",
-  "Prompt Injection Defense": "Prompt Inj.",
-  "Agent Governance & Policy": "Governance",
-  "MCP Supply Chain Security": "MCP",
-  "Data Exfiltration Prevention": "Exfil DLP",
-  "Compliance Evidence Suite": "Compliance",
-  "AI Red Team Simulation": "Red Team",
-  "Managed Threat Response": "MDR",
+  "Identity Graph": "Graph",
+  "Shadow Identity Discovery": "Discovery",
+  "Lifecycle Automation (JML)": "JML",
+  "Just-in-Time Access": "JIT",
+  "Access Reviews & Certifications": "Reviews",
+  "Non-Human Identity Security": "NHI",
+  "Privileged Access Insights": "PAM",
+  "Compliance Reporting Suite": "Compliance",
+  "MFA & Posture Enforcement": "MFA",
+  "Autopilot AI Agent": "Autopilot",
 };
 
 export default function GrowthPage() {
@@ -209,13 +209,13 @@ export default function GrowthPage() {
           <div className="mt-4 flex gap-3">
             <Link
               href={`/customers/${sel.customer_id}`}
-              className="bg-navy text-white rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#2D1A5E] transition-colors"
+              className="bg-navy text-white rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#16306E] transition-colors"
             >
               Open Customer 360
             </Link>
             <button
               onClick={() => window.open(`/api/customers/${sel.customer_id}/debate`, "_blank")}
-              className="bg-white text-navy border-[1.5px] border-[#D0CADE] rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#F0ECE8] transition-colors"
+              className="bg-white text-navy border-[1.5px] border-[#C4D0E8] rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#F0ECE8] transition-colors"
             >
               ⚔ Red Team the Renewal ↗
             </button>

@@ -1,8 +1,8 @@
 """
 Renders the KickoffDeckAgent's structured output as a branded, self-contained
-HTML slide deck (16:9). Matches Onyx Security's deck style: warm cream
+HTML slide deck (16:9). Matches Linx Security's deck style: warm cream
 background, near-black display headings, white rounded cards, lavender
-accents, lowercase "onyx" wordmark, subtle circuit-trace motif.
+accents, lowercase "linx" wordmark, subtle circuit-trace motif.
 
 Open in a browser to present (arrow keys / scroll), or print to PDF
 (each slide is one landscape page).
@@ -37,17 +37,17 @@ def _split_row(item: str, n: int) -> list[str]:
 
 # Circuit-trace background motif (subtle, like the brand deck)
 _TRACES = """<svg class="traces" viewBox="0 0 1280 720" preserveAspectRatio="none">
-<g stroke="#1B1040" stroke-opacity="0.05" stroke-width="1.5" fill="none">
+<g stroke="#0E1E45" stroke-opacity="0.05" stroke-width="1.5" fill="none">
 <path d="M-20 120 H 240 L 300 180 H 520"/><path d="M1300 90 H 1080 L 1020 150 H 880"/>
 <path d="M-20 600 H 180 L 260 520 H 420"/><path d="M1300 640 H 1120 L 1040 560 H 900"/>
 <path d="M120 740 V 620 L 200 540"/><path d="M1180 -20 V 110 L 1100 190"/>
 </g>
-<g fill="#1B1040" fill-opacity="0.07">
+<g fill="#0E1E45" fill-opacity="0.07">
 <circle cx="520" cy="180" r="4"/><circle cx="880" cy="150" r="4"/><circle cx="420" cy="520" r="4"/>
 <circle cx="900" cy="560" r="4"/><circle cx="200" cy="540" r="4"/><circle cx="1100" cy="190" r="4"/>
 </g></svg>"""
 
-_WORDMARK = '<div class="wordmark">onyx</div>'
+_WORDMARK = '<div class="wordmark">linx</div>'
 
 
 def _slide(body: str, cls: str = "") -> str:
@@ -235,16 +235,16 @@ def render_generic_deck(agent_name: str, structured: dict, ctx: dict) -> str:
 
     title_slide = _slide(f"""
       <div class="title-wrap">
-        <div class="lockup"><span class="lockup-onyx">onyx</span><span class="lockup-x">✕</span><span class="lockup-cust">{_esc(customer)}</span></div>
+        <div class="lockup"><span class="lockup-linx">linx</span><span class="lockup-x">✕</span><span class="lockup-cust">{_esc(customer)}</span></div>
         <h1 class="display">{_esc(title)}</h1>
-        <div class="title-sub">{_esc(customer)} · Prepared by Onyx CX Agent OS</div>
+        <div class="title-sub">{_esc(customer)} · Prepared by Linx CX Agent OS</div>
         <div class="title-date">{date_str} · INTERNAL</div>
       </div>""", "center")
 
     closing = _slide(f"""
       <div class="title-wrap">
         <h1 class="display">Questions?</h1>
-        <div class="title-sub">Onyx Security · {date_str}</div>
+        <div class="title-sub">Linx Security · {date_str}</div>
       </div>""", "center")
 
     return _page(f"{title} — {customer}", title_slide + slides_html + closing)
@@ -269,7 +269,7 @@ def render_kickoff_deck(structured: dict, ctx: dict) -> str:
     # ── Slide 1: Title ────────────────────────────────────────────────────────
     s1 = _slide(f"""
       <div class="title-wrap">
-        <div class="lockup"><span class="lockup-onyx">onyx</span><span class="lockup-x">✕</span><span class="lockup-cust">{_esc(customer)}</span></div>
+        <div class="lockup"><span class="lockup-linx">linx</span><span class="lockup-x">✕</span><span class="lockup-cust">{_esc(customer)}</span></div>
         <h1 class="display">Implementation<br>Kickoff</h1>
         <div class="title-sub">{_esc(industry)}{' · Go-live target ' + _esc(golive) if golive else ''}</div>
         <div class="title-date">{date_str}</div>
@@ -291,12 +291,12 @@ def render_kickoff_deck(structured: dict, ctx: dict) -> str:
         s2 = _slide(f'<h2>Our partnership</h2><p class="lede">{_esc(vision)}</p>')
         s2 += _list_section_slides("Scope & objectives", scope, "◆")
 
-    # ── Slide 3: How Onyx deploys (standard integration story) ───────────────
+    # ── Slide 3: How Linx deploys (standard integration story) ───────────────
     pillars = [
-        ("Unified Control Plane",
-         f"One console for every AI agent and model across SaaS, cloud, endpoint, and code. "
-         f"We integrate with {_esc(customer)}'s browser, AI platforms, CNAPP, SASE, and EDR "
-         f"discovery sources so nothing is invisible."),
+        ("Unified Identity Graph",
+         f"One console for every human, non-human, and agentic identity across SaaS, cloud, "
+         f"and on-prem. We integrate with {_esc(customer)}'s IdP, HRIS, and application "
+         f"sources so no identity is invisible."),
         ("Flexible Deployment",
          "Cloud, hybrid, or self-hosted options for sensitive data residency requirements. "
          "Deploy in hours with support for AWS VPC, Bedrock Gateway, and custom proxy configurations."),
@@ -310,7 +310,7 @@ def render_kickoff_deck(structured: dict, ctx: dict) -> str:
     )
     s2b = _slide(f"""
       <h2>Deploy in hours. Scale without limits.</h2>
-      <p class="lede">Onyx meets you where you are — whether you're running on-prem, in the cloud,
+      <p class="lede">Linx meets you where you are — whether you're running on-prem, in the cloud,
       or in a hybrid environment. Built for security-first enterprises from day one.</p>
       <div class="grid-3">{pillar_cards}</div>""")
 
@@ -318,10 +318,10 @@ def render_kickoff_deck(structured: dict, ctx: dict) -> str:
     team_cards = ""
     for item in team:
         role, name, resp = _split_row(item, 3)
-        is_onyx = "onyx" in role.lower()
-        tag = "ONYX" if is_onyx else _esc(customer).upper()[:18]
-        tagbg = "#EDE7F8" if is_onyx else "#FBEFE6"
-        tagc = "#7C5CBF" if is_onyx else "#B06A2E"
+        is_linx = "linx" in role.lower()
+        tag = "LINX" if is_linx else _esc(customer).upper()[:18]
+        tagbg = "#EDE7F8" if is_linx else "#FBEFE6"
+        tagc = "#7C5CBF" if is_linx else "#B06A2E"
         team_cards += f"""<div class="team-card">
           <span class="chip" style="background:{tagbg};color:{tagc}">{tag}</span>
           <div class="team-role">{_esc(role)}</div>
@@ -338,7 +338,7 @@ def render_kickoff_deck(structured: dict, ctx: dict) -> str:
     tl_rows = ""
     for item in timeline:
         phase, milestone, date, owner = _split_row(item, 4)
-        pc, pb = phase_colors.get(phase, ("#1B1040", "#EFEBE4"))
+        pc, pb = phase_colors.get(phase, ("#0E1E45", "#EFEBE4"))
         tl_rows += f"""<tr>
           <td><span class="chip" style="color:{pc};background:{pb}">{_esc(phase)}</span></td>
           <td class="tl-milestone">{_esc(milestone)}</td>
@@ -369,7 +369,7 @@ def render_kickoff_deck(structured: dict, ctx: dict) -> str:
     s7 = _slide(f"""
       <div class="title-wrap">
         <h1 class="display">Let's get started.</h1>
-        <div class="title-sub">Onyx Security ✕ {_esc(customer)} · {date_str}</div>
+        <div class="title-sub">Linx Security ✕ {_esc(customer)} · {date_str}</div>
       </div>""", "center")
 
     slides = s1 + s2 + s2b + s3 + s4 + s5 + s6 + s7
@@ -386,7 +386,7 @@ def render_deck_loading(customer: str, customer_id: int, live: bool) -> str:
     mode = "Live — calling Claude" if live else "Mock mode"
     return f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
-<title>Generating deck — {_esc(customer)} · Onyx Security</title>
+<title>Generating deck — {_esc(customer)} · Linx Security</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -412,7 +412,7 @@ def render_deck_loading(customer: str, customer_id: int, live: bool) -> str:
   .err {{ display:none; margin-top:24px; color:#9B2335; font-size:14px; font-weight:600; }}
 </style></head>
 <body><div class="box">
-  <div class="wordmark">onyx</div>
+  <div class="wordmark">linx</div>
   <h1>Building the kickoff deck for {_esc(customer)}</h1>
   <div class="sub">The agent is assembling the deck from this account's data — usually {eta}.</div>
   <div class="sub">This page will refresh automatically when it's ready.</div>
@@ -443,7 +443,7 @@ fetch("/api/agents/run", {{
 def _page(title: str, slides: str) -> str:
     return f"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
-<title>{_esc(title)} · Onyx Security</title>
+<title>{_esc(title)} · Linx Security</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -505,7 +505,7 @@ def _page(title: str, slides: str) -> str:
   .tl-owner {{ color:#6B6280; }}
   .lockup {{ display:flex; gap:18px; align-items:center; justify-content:center;
     font-weight:800; margin-bottom:48px; }}
-  .lockup-onyx {{ font-size:30px; letter-spacing:0.04em; color:#16131F; }}
+  .lockup-linx {{ font-size:30px; letter-spacing:0.04em; color:#16131F; }}
   .lockup-x {{ font-size:18px; color:#9A92A8; }}
   .lockup-cust {{ font-size:24px; letter-spacing:-0.01em; color:#16131F; }}
   .title-sub {{ font-size:18px; color:#6B6280; margin-top:26px; font-weight:500; }}

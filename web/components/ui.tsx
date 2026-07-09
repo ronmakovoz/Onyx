@@ -53,7 +53,7 @@ export function KpiCard({
 // ── Pill / badge ───────────────────────────────────────────────────────────
 export function Pill({
   children,
-  color = "#1B1040",
+  color = "#0E1E45",
   bg = "#F5F2EE",
   bordered = false,
 }: {
@@ -77,7 +77,7 @@ export function Pill({
 }
 
 // ── Progress bar ───────────────────────────────────────────────────────────
-export function ProgressBar({ pct, color = "#1B1040" }: { pct: number; color?: string }) {
+export function ProgressBar({ pct, color = "#0E1E45" }: { pct: number; color?: string }) {
   return (
     <div className="flex-1 h-[6px] bg-[#EFEAE5] rounded-md overflow-hidden">
       <div
@@ -125,7 +125,7 @@ export function PageHeader({ title, subtitle }: { title: string; subtitle?: stri
       <div className="text-right shrink-0">
         <div className="text-[0.70rem] text-faint">{today}</div>
         <div className="text-[0.66rem] font-bold text-muted uppercase tracking-[0.10em] mt-[2px]">
-          Onyx · Secure AI Control Plane
+          Linx · Identity Security &amp; Governance
         </div>
       </div>
     </div>
@@ -136,7 +136,7 @@ export function PageHeader({ title, subtitle }: { title: string; subtitle?: stri
 export function StatChip({
   label,
   value,
-  valueColor = "#1B1040",
+  valueColor = "#0E1E45",
 }: {
   label: string;
   value: ReactNode;

@@ -1,4 +1,4 @@
-# Onyx CX Agent OS — FastAPI + Next.js Port
+# Linx CX Agent OS — FastAPI + Next.js Port
 
 A production-feel port of the Streamlit dashboard (`frontend/app.py`) to a
 FastAPI JSON API (`api/`) and a Next.js 14 App Router + Tailwind frontend
@@ -40,7 +40,7 @@ api/main.py            FastAPI app — thin JSON layer over backend/crud.py,
 
 web/
   app/layout.tsx       Sidebar shell (Monitor / Deliver / Govern nav), Inter font,
-                       Onyx brand gradient background.
+                       Linx brand gradient background.
   app/page.tsx         Executive Dashboard — AI summary band, 5 KPIs, at-risk +
                        expansion columns linking to customer 360s.
   app/customers/       Searchable portfolio table → /customers/[id] 360 view
@@ -55,7 +55,7 @@ web/
   app/console/         Free-form agent runner with model-routing card.
   app/audit/           Spend KPIs, spend-by-model table, expandable run history.
   components/          Sidebar, AgentReport (react-markdown, executive-document
-                       styling with ONYX watermark + meta pills), ui.tsx
+                       styling with LINX watermark + meta pills), ui.tsx
                        (Card, KpiCard, Pill, ProgressBar, SectionLabel, TabBar…).
   lib/api.ts           fetch helpers, shared types, brand color/format helpers,
                        implementation next-action heuristic.

@@ -1,4 +1,4 @@
-// Thin fetch helpers + shared types for the Onyx CX API.
+// Thin fetch helpers + shared types for the Linx CX API.
 
 export async function getJSON<T = any>(path: string): Promise<T> {
   const res = await fetch(path, { cache: "no-store" });
