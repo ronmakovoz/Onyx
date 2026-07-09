@@ -3,38 +3,38 @@
 @tailwind utilities;
 
 body {
-  background: #fbf3f8;
-  color: #3d3458;
+  background: #fcf8e8;
+  color: #2b2a26;
 }
 
-/* Onyx brand gradient — fixed full-viewport layer behind all content */
+/* Linx brand gradient — fixed full-viewport layer behind all content */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(160deg, #ffffff 0%, #fdf4f8 30%, #faeff6 58%, #f4eaf6 100%);
+  background: linear-gradient(160deg, #fffef8 0%, #fdf8e3 35%, #faf0c8 70%, #f7e9b2 100%);
 }
 
 /* ── Agent report executive-document markdown styling ── */
 .agent-report h1 {
   font-size: 1.2rem;
   font-weight: 800;
-  color: #1b1040;
+  color: #161616;
   letter-spacing: -0.02em;
   margin: 8px 0 4px;
   padding-bottom: 8px;
-  border-bottom: 2px solid #1b1040;
+  border-bottom: 2px solid #161616;
 }
 .agent-report h2 {
   font-size: 0.8rem;
   font-weight: 800;
-  color: #1b1040;
+  color: #161616;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin: 20px 0 8px;
   padding: 5px 10px;
-  background: #f4eaf6;
+  background: #fbf4d8;
   border-radius: 6px;
   display: inline-block;
 }
@@ -42,12 +42,12 @@ body::before {
   font-size: 0.9rem;
   font-weight: 600;
   margin: 12px 0 4px;
-  color: #1b1040;
+  color: #161616;
 }
 .agent-report p {
   font-size: 0.88rem;
   line-height: 1.55;
-  color: #3d3458;
+  color: #2b2a26;
   margin: 4px 0;
 }
 .agent-report ul,
@@ -64,18 +64,18 @@ body::before {
 .agent-report li {
   font-size: 0.88rem;
   line-height: 1.5;
-  color: #3d3458;
+  color: #2b2a26;
   margin: 3px 0;
 }
 .agent-report strong {
-  color: #1b1040;
+  color: #161616;
 }
 .agent-report em {
-  color: #6b6280;
+  color: #6e6a5c;
 }
 .agent-report hr {
   margin: 14px 0;
-  border-color: #efebe4;
+  border-color: #eae4cf;
 }
 .agent-report table {
   font-size: 0.82rem;
@@ -84,11 +84,11 @@ body::before {
 }
 .agent-report th,
 .agent-report td {
-  border: 1px solid #e8e4dc;
+  border: 1px solid #e5dfc8;
   padding: 4px 10px;
 }
 .agent-report code {
-  background: #f5f2ee;
+  background: #f7f3e4;
   border-radius: 4px;
   padding: 1px 5px;
   font-size: 0.8rem;

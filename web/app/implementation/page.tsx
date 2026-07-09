@@ -48,16 +48,16 @@ export default function ImplementationPage() {
   const worst = rows.filter((r) => ["Very Low", "Low"].includes(r.launch_confidence)).slice(0, 3);
 
   const kpis: [string, string, string, string][] = [
-    ["Active Projects", String(n), "#0E1E45", "#FFFFFF"],
-    ["At Risk", String(atRisk), "#9B2335", "#FDF1F2"],
+    ["Active Projects", String(n), "#161616", "#FFFFFF"],
+    ["At Risk", String(atRisk), "#C43D1B", "#FDF1F2"],
     ["Medium Conf.", String(medium), "#7A5C1E", "#FDFAF0"],
     ["On Track", String(onTrack), "#2D5A3D", "#F0FAF4"],
-    ["Avg Completion", `${avgPct}%`, "#0E1E45", "#FFFFFF"],
+    ["Avg Completion", `${avgPct}%`, "#161616", "#FFFFFF"],
     ["Not Kicked Off", String(notKicked), "#6B6280", "#FFFFFF"],
   ];
 
   const sel = rows[selIdx];
-  const selCc = confColors[sel.launch_confidence] || "#0E1E45";
+  const selCc = confColors[sel.launch_confidence] || "#161616";
 
   const runAgent = async (agentName: string) => {
     setRunning(true);
@@ -99,10 +99,10 @@ export default function ImplementationPage() {
       {/* This week's priorities */}
       {worst.length ? (
         <>
-          <SectionLabel color="#9B2335">This Week&apos;s Priorities</SectionLabel>
+          <SectionLabel color="#C43D1B">This Week&apos;s Priorities</SectionLabel>
           <div className="grid md:grid-cols-3 gap-[10px] mb-5">
             {worst.map((r) => {
-              const cc = confColors[r.launch_confidence] || "#0E1E45";
+              const cc = confColors[r.launch_confidence] || "#161616";
               return (
                 <div
                   key={r.customer_id}
@@ -146,7 +146,7 @@ export default function ImplementationPage() {
             <div>Kickoff</div>
           </div>
           {rows.map((r, i) => {
-            const cc = confColors[r.launch_confidence] || "#0E1E45";
+            const cc = confColors[r.launch_confidence] || "#161616";
             return (
               <div
                 key={r.customer_id}
@@ -231,12 +231,12 @@ export default function ImplementationPage() {
               <div className="grid grid-cols-2 gap-[10px] mb-4">
                 {(
                   [
-                    ["Kicked Off", sel.kickoff_date ? `Yes · ${sel.kickoff_date}` : sel.kicked_off ? "In progress" : "Not started", "#0E1E45"],
-                    ["Contract Age", sel.days_post_signature !== null ? `${sel.days_post_signature} days` : "—", "#0E1E45"],
-                    ["Go-Live Target", sel.go_live_target || "—", "#0E1E45"],
-                    ["To Go-Live", sel.days_to_go_live !== null ? `${sel.days_to_go_live} days` : "—", "#0E1E45"],
-                    ["Schedule", sel.days_behind_schedule === 0 ? "On time" : `${sel.days_behind_schedule}d behind`, sel.days_behind_schedule === 0 ? "#2D5A3D" : "#9B2335"],
-                    ["Milestones", `${sel.milestones_complete} / ${sel.milestones_total} complete`, "#0E1E45"],
+                    ["Kicked Off", sel.kickoff_date ? `Yes · ${sel.kickoff_date}` : sel.kicked_off ? "In progress" : "Not started", "#161616"],
+                    ["Contract Age", sel.days_post_signature !== null ? `${sel.days_post_signature} days` : "—", "#161616"],
+                    ["Go-Live Target", sel.go_live_target || "—", "#161616"],
+                    ["To Go-Live", sel.days_to_go_live !== null ? `${sel.days_to_go_live} days` : "—", "#161616"],
+                    ["Schedule", sel.days_behind_schedule === 0 ? "On time" : `${sel.days_behind_schedule}d behind`, sel.days_behind_schedule === 0 ? "#2D5A3D" : "#C43D1B"],
+                    ["Milestones", `${sel.milestones_complete} / ${sel.milestones_total} complete`, "#161616"],
                   ] as [string, string, string][]
                 ).map(([lbl, val, color]) => (
                   <div key={lbl} className="bg-chip rounded-lg px-[13px] py-[8px]">
@@ -265,14 +265,14 @@ export default function ImplementationPage() {
                 <button
                   onClick={() => runAgent("ImplementationAgent")}
                   disabled={running}
-                  className="bg-navy text-white rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#16306E] disabled:opacity-60"
+                  className="bg-navy text-white rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#000000] disabled:opacity-60"
                 >
                   {running ? "Working…" : "Generate AI analysis"}
                 </button>
                 <button
                   onClick={() => window.open(`/api/customers/${sel.customer_id}/kickoff-deck`, "_blank")}
                   disabled={running}
-                  className="bg-white text-navy border-[1.5px] border-navy rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#F0ECE8] disabled:opacity-60"
+                  className="bg-white text-navy border-[1.5px] border-navy rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#F2EDDA] disabled:opacity-60"
                 >
                   Open Kickoff Deck
                 </button>

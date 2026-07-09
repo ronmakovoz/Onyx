@@ -38,12 +38,19 @@ export default function Sidebar() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <aside className="w-[230px] shrink-0 bg-white border-r border-line shadow-[2px_0_12px_rgba(27,16,64,0.06)] px-3 py-4 sticky top-0 h-screen overflow-y-auto">
-      <div className="px-2 pb-4">
-        <span className="text-[1.3rem] font-black text-navy tracking-[-0.04em]">LINX</span>
-        <span className="text-[0.65rem] font-bold text-muted tracking-[0.12em] ml-2 align-middle">
-          IDENTITY CX OS
+    <aside className="w-[230px] shrink-0 bg-white border-r border-line shadow-[2px_0_12px_rgba(22,22,22,0.06)] px-3 py-4 sticky top-0 h-screen overflow-y-auto">
+      <div className="px-2 pb-4 flex items-center gap-2">
+        <span className="w-[30px] h-[30px] rounded-[9px] bg-[#161616] text-white flex items-center justify-center text-[1.05rem] leading-none shrink-0">
+          ✳
         </span>
+        <div>
+          <span className="text-[1.25rem] font-black text-navy tracking-[-0.03em] leading-none block">
+            LINX
+          </span>
+          <span className="text-[0.56rem] font-bold text-muted tracking-[0.14em] block">
+            IDENTITY SECURITY
+          </span>
+        </div>
       </div>
       {GROUPS.map((g) => (
         <div key={g.label} className="mb-4">
@@ -59,8 +66,8 @@ export default function Sidebar() {
                   href={it.href}
                   className={`rounded-lg px-3 py-2 text-[0.88rem] transition-colors ${
                     active
-                      ? "bg-lavender text-navy font-bold shadow-[inset_3px_0_0_#0E1E45]"
-                      : "text-ink font-medium hover:bg-[#EDE9E4] hover:text-navy"
+                      ? "bg-lavender text-navy font-bold shadow-[inset_3px_0_0_#161616]"
+                      : "text-ink font-medium hover:bg-[#F2EDDA] hover:text-navy"
                   }`}
                 >
                   {it.name}
@@ -121,7 +128,7 @@ function ModeToggle() {
       >
         <span
           className={`relative inline-block w-9 h-5 rounded-full transition-colors ${
-            live ? "bg-navy" : "bg-[#D8D3C8]"
+            live ? "bg-navy" : "bg-[#D6D0B8]"
           } ${!available ? "opacity-40" : ""}`}
         >
           <span

@@ -118,13 +118,13 @@ body::before {
 [data-testid="stSidebar"] {
     background: #FFFFFF !important;
     border-right: 1px solid #E8E4DC !important;
-    box-shadow: 2px 0 12px rgba(27,16,64,0.06) !important;
+    box-shadow: 2px 0 12px rgba(22,22,22,0.06) !important;
 }
 [data-testid="stSidebar"] > div { padding: 0.25rem 0.8rem 1rem !important; }
 [data-testid="stSidebar"] p,
 [data-testid="stSidebar"] label,
 [data-testid="stSidebar"] span { color: #3D3458 !important; }
-[data-testid="stSidebar"] .stRadio label { color: #0E1E45 !important; font-weight: 500 !important; font-size: 0.82rem !important; }
+[data-testid="stSidebar"] .stRadio label { color: #161616 !important; font-weight: 500 !important; font-size: 0.82rem !important; }
 
 /* Hide decorations + the Deploy/menu toolbar (overlaps page content) */
 [data-testid="stDecoration"] { display: none !important; }
@@ -133,9 +133,9 @@ body::before {
 #MainMenu { visibility: hidden !important; }
 
 /* Typography — exec-readable scale */
-h1 { color: #0E1E45 !important; font-weight: 800 !important; font-size: 1.75rem !important; letter-spacing: -0.03em !important; margin-bottom: 0 !important; }
-h2 { color: #0E1E45 !important; font-weight: 700 !important; font-size: 1.15rem !important; letter-spacing: -0.02em !important; margin: 0 !important; }
-h3 { color: #0E1E45 !important; font-weight: 600 !important; font-size: 1.0rem !important; margin: 0 !important; }
+h1 { color: #161616 !important; font-weight: 800 !important; font-size: 1.75rem !important; letter-spacing: -0.03em !important; margin-bottom: 0 !important; }
+h2 { color: #161616 !important; font-weight: 700 !important; font-size: 1.15rem !important; letter-spacing: -0.02em !important; margin: 0 !important; }
+h3 { color: #161616 !important; font-weight: 600 !important; font-size: 1.0rem !important; margin: 0 !important; }
 p, li { color: #3D3458; font-size: 0.88rem; margin: 0; }
 .stMarkdown p { color: #3D3458; font-size: 0.88rem; }
 
@@ -146,9 +146,9 @@ p, li { color: #3D3458; font-size: 0.88rem; margin: 0; }
     border-radius: 12px;
     padding: 14px 16px;
     margin-bottom: 8px;
-    box-shadow: 0 1px 4px rgba(27,16,64,0.05);
+    box-shadow: 0 1px 4px rgba(22,22,22,0.05);
 }
-.card-red    { border-left: 3px solid #9B2335; }
+.card-red    { border-left: 3px solid #C43D1B; }
 .card-yellow { border-left: 3px solid #7A5C1E; }
 .card-green  { border-left: 3px solid #2D5A3D; }
 
@@ -158,7 +158,7 @@ p, li { color: #3D3458; font-size: 0.88rem; margin: 0; }
     border: 1px solid #E8E4DC;
     border-radius: 12px;
     padding: 16px 18px;
-    box-shadow: 0 1px 4px rgba(27,16,64,0.05);
+    box-shadow: 0 1px 4px rgba(22,22,22,0.05);
     min-height: 102px;
     display: flex;
     flex-direction: column;
@@ -168,7 +168,7 @@ p, li { color: #3D3458; font-size: 0.88rem; margin: 0; }
     font-size: 0.66rem; color: #6B6280; text-transform: uppercase;
     letter-spacing: 0.10em; margin-bottom: 3px; font-weight: 700;
 }
-.kpi-value { font-size: 1.7rem; font-weight: 800; color: #0E1E45; line-height: 1.1; }
+.kpi-value { font-size: 1.7rem; font-weight: 800; color: #161616; line-height: 1.1; }
 .kpi-sub   { font-size: 0.72rem; color: #6B6280; margin-top: 2px; }
 
 /* Badges */
@@ -178,9 +178,9 @@ p, li { color: #3D3458; font-size: 0.88rem; margin: 0; }
 }
 .badge-haiku  { background: #E8EDF5; color: #2D4A7A; border: 1px solid #A8BAD4; }
 .badge-sonnet { background: #EDEAF4; color: #3D3458; border: 1px solid #C0BAD4; }
-.badge-opus   { background: #EAE6E0; color: #0E1E45; border: 1px solid #B8B0A0; }
+.badge-opus   { background: #EAE6E0; color: #161616; border: 1px solid #B8B0A0; }
 .badge-mock   { background: #F5F0E8; color: #5C4A1E; border: 1px solid #C8B88A; }
-.badge-risk-high   { background: #F5ECEC; color: #9B2335; border: 1px solid #D4AAAA; }
+.badge-risk-high   { background: #F5ECEC; color: #C43D1B; border: 1px solid #D4AAAA; }
 .badge-risk-medium { background: #F5F0E8; color: #7A5C1E; border: 1px solid #C8B88A; }
 .badge-risk-low    { background: #EBF2EE; color: #2D5A3D; border: 1px solid #96BAA4; }
 
@@ -202,15 +202,15 @@ p, li { color: #3D3458; font-size: 0.88rem; margin: 0; }
 .stButton > button[kind="primary"],
 .stButton > button[kind="primaryFormSubmit"],
 button[data-testid="stBaseButton-primary"] {
-    background: #0E1E45 !important;
-    border: 1.5px solid #0E1E45 !important;
-    box-shadow: 0 1px 6px rgba(27,16,64,0.20) !important;
+    background: #161616 !important;
+    border: 1.5px solid #161616 !important;
+    box-shadow: 0 1px 6px rgba(22,22,22,0.20) !important;
 }
 .stButton > button[kind="primary"]:hover,
 button[data-testid="stBaseButton-primary"]:hover {
-    background: #16306E !important;
-    border-color: #16306E !important;
-    box-shadow: 0 3px 10px rgba(27,16,64,0.30) !important;
+    background: #000000 !important;
+    border-color: #000000 !important;
+    box-shadow: 0 3px 10px rgba(22,22,22,0.30) !important;
     transform: translateY(-1px) !important;
 }
 .stButton > button[kind="primary"],
@@ -225,13 +225,13 @@ button[data-testid="stBaseButton-secondary"],
 button[data-testid="stBaseButton-secondaryFormSubmit"],
 button[data-testid="stDownloadButton"] {
     background: #FFFFFF !important;
-    border: 1.5px solid #C4D0E8 !important;
+    border: 1.5px solid #DCD5B8 !important;
     box-shadow: none !important;
 }
 .stButton > button[kind="secondary"]:hover,
 button[data-testid="stBaseButton-secondary"]:hover,
 .stDownloadButton > button:hover {
-    background: #F0ECE8 !important;
+    background: #F2EDDA !important;
     border-color: #6B6280 !important;
 }
 .stButton > button[kind="secondary"],
@@ -239,18 +239,18 @@ button[data-testid="stBaseButton-secondary"]:hover,
 button[data-testid="stBaseButton-secondary"],
 button[data-testid="stBaseButton-secondary"] *,
 .stDownloadButton > button,
-.stDownloadButton > button * { color: #0E1E45 !important; fill: #0E1E45 !important; }
+.stDownloadButton > button * { color: #161616 !important; fill: #161616 !important; }
 
 /* Metrics — very compact */
 [data-testid="stMetricLabel"] { color: #6B6280 !important; font-size: 0.62rem !important; font-weight: 700 !important; text-transform: uppercase !important; letter-spacing: 0.08em !important; }
-[data-testid="stMetricValue"] { color: #0E1E45 !important; font-weight: 800 !important; font-size: 1.3rem !important; }
+[data-testid="stMetricValue"] { color: #161616 !important; font-weight: 800 !important; font-size: 1.3rem !important; }
 [data-testid="stMetricDelta"] { font-size: 0.72rem !important; }
 [data-testid="metric-container"] {
     background: #FFFFFF;
     border: 1px solid #E8E4DC;
     border-radius: 8px;
     padding: 10px 12px !important;
-    box-shadow: 0 1px 4px rgba(27,16,64,0.04);
+    box-shadow: 0 1px 4px rgba(22,22,22,0.04);
 }
 
 /* Tabs — modern underline style */
@@ -271,19 +271,19 @@ button[data-testid="stBaseButton-secondary"] *,
     background: transparent !important;
     white-space: nowrap !important;
 }
-.stTabs [data-baseweb="tab"]:hover { color: #0E1E45 !important; background: #F4EAF6 !important; }
+.stTabs [data-baseweb="tab"]:hover { color: #161616 !important; background: #F4EAF6 !important; }
 .stTabs [aria-selected="true"] {
     background: transparent !important;
     box-shadow: none !important;
 }
 .stTabs [aria-selected="true"],
 .stTabs [aria-selected="true"] * {
-    color: #0E1E45 !important;
-    fill: #0E1E45 !important;
+    color: #161616 !important;
+    fill: #161616 !important;
     font-weight: 700 !important;
 }
 .stTabs [data-baseweb="tab-highlight"] {
-    background-color: #0E1E45 !important;
+    background-color: #161616 !important;
     height: 3px !important;
     border-radius: 3px 3px 0 0 !important;
 }
@@ -298,18 +298,18 @@ button[data-testid="stBaseButton-secondary"] *,
     background: #FFFFFF !important;
     border: 1px solid #E0D8E8 !important;
     border-radius: 12px !important;
-    color: #0E1E45 !important;
+    color: #161616 !important;
     min-height: 42px !important;
     font-size: 0.88rem !important;
-    box-shadow: 0 1px 4px rgba(27,16,64,0.06) !important;
+    box-shadow: 0 1px 4px rgba(22,22,22,0.06) !important;
     transition: border-color 0.12s ease, box-shadow 0.12s ease !important;
 }
-[data-baseweb="select"] > div:hover { border-color: #9FB6E4 !important; }
+[data-baseweb="select"] > div:hover { border-color: #F2C94C !important; }
 [data-baseweb="select"] > div:focus-within {
-    border-color: #0E1E45 !important;
-    box-shadow: 0 0 0 3px rgba(27,16,64,0.10) !important;
+    border-color: #161616 !important;
+    box-shadow: 0 0 0 3px rgba(22,22,22,0.10) !important;
 }
-[data-baseweb="select"] span { color: #0E1E45 !important; font-size: 0.88rem !important; }
+[data-baseweb="select"] span { color: #161616 !important; font-size: 0.88rem !important; }
 
 /* Dropdown list popup */
 [data-baseweb="popover"] { z-index: 9999 !important; }
@@ -317,14 +317,14 @@ button[data-testid="stBaseButton-secondary"] *,
     background: #FFFFFF !important;
     border: 1px solid #E8E4DC !important;
     border-radius: 10px !important;
-    box-shadow: 0 8px 24px rgba(27,16,64,0.12) !important;
+    box-shadow: 0 8px 24px rgba(22,22,22,0.12) !important;
     padding: 4px !important;
     overflow: hidden !important;
 }
 [data-baseweb="menu"] ul { padding: 0 !important; }
 [role="option"] {
     background: transparent !important;
-    color: #0E1E45 !important;
+    color: #161616 !important;
     font-size: 0.82rem !important;
     font-weight: 500 !important;
     padding: 7px 10px !important;
@@ -332,10 +332,10 @@ button[data-testid="stBaseButton-secondary"] *,
     margin: 1px 2px !important;
 }
 [role="option"]:hover, [role="option"][aria-selected="true"] {
-    background: #EDE9E4 !important;
-    color: #0E1E45 !important;
+    background: #F2EDDA !important;
+    color: #161616 !important;
 }
-[role="option"] span, [role="option"] div { color: #0E1E45 !important; font-size: 0.82rem !important; }
+[role="option"] span, [role="option"] div { color: #161616 !important; font-size: 0.82rem !important; }
 
 /* Dataframe */
 [data-testid="stDataFrame"] { border-radius: 10px !important; overflow: hidden !important; border: 1px solid #E8E4DC !important; }
@@ -348,7 +348,7 @@ details {
     margin-bottom: 5px !important;
 }
 details > summary { padding: 8px 12px !important; font-size: 0.82rem !important; }
-summary { color: #0E1E45 !important; font-weight: 600 !important; }
+summary { color: #161616 !important; font-weight: 600 !important; }
 
 /* Alerts */
 [data-testid="stAlert"] { border-radius: 8px !important; border: none !important; padding: 8px 12px !important; font-size: 0.82rem !important; }
@@ -371,15 +371,15 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
     align-items: center !important;
     cursor: pointer !important;
 }
-[data-testid="stSidebar"] .stRadio > div > label:hover { background: #EDE9E4 !important; color: #0E1E45 !important; }
+[data-testid="stSidebar"] .stRadio > div > label:hover { background: #F2EDDA !important; color: #161616 !important; }
 /* Hide the actual radio circle */
 [data-testid="stSidebar"] .stRadio > div > label > div:first-child { display: none !important; }
 /* Highlight selected item — left accent bar + tint */
 [data-testid="stSidebar"] .stRadio > div > label[data-baseweb="radio"]:has(input:checked),
 [data-testid="stSidebar"] .stRadio > div > label:has(input[type="radio"]:checked) {
     background: #F4EAF6 !important;
-    box-shadow: inset 3px 0 0 #0E1E45 !important;
-    color: #0E1E45 !important;
+    box-shadow: inset 3px 0 0 #161616 !important;
+    color: #161616 !important;
     font-weight: 700 !important;
 }
 /* Workflow section labels above nav groups (pages 1, 5, 7) */
@@ -402,7 +402,7 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
 /* Skeptik boxes */
 .skeptik-before {
     border-left: 3px solid #3D3458;
-    background: #FAF8F4; border-radius: 0 6px 6px 0; padding: 10px 12px;
+    background: #FCFAEE; border-radius: 0 6px 6px 0; padding: 10px 12px;
     font-size: 0.82rem;
 }
 .skeptik-after {
@@ -418,9 +418,9 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker):not(:has([data-testid="stVerticalBlockBorderWrapper"] .agent-report-marker)) {
     background: linear-gradient(180deg, #FDFBF7 0%, #FFFFFF 120px) !important;
     border: 1px solid #E0D8E8 !important;
-    border-top: 4px solid #0E1E45 !important;
+    border-top: 4px solid #161616 !important;
     border-radius: 14px !important;
-    box-shadow: 0 10px 30px rgba(27,16,64,0.10), 0 2px 6px rgba(27,16,64,0.05) !important;
+    box-shadow: 0 10px 30px rgba(22,22,22,0.10), 0 2px 6px rgba(22,22,22,0.05) !important;
     padding: 14px 30px 22px !important;
     position: relative !important;
 }
@@ -444,17 +444,17 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
 }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] h1 {
     font-size: 1.2rem !important; margin: 8px 0 4px !important; letter-spacing: -0.02em !important;
-    padding-bottom: 8px !important; border-bottom: 2px solid #0E1E45 !important;
+    padding-bottom: 8px !important; border-bottom: 2px solid #161616 !important;
 }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] h2 {
-    font-size: 0.80rem !important; font-weight: 800 !important; color: #0E1E45 !important;
+    font-size: 0.80rem !important; font-weight: 800 !important; color: #161616 !important;
     text-transform: uppercase !important; letter-spacing: 0.10em !important;
     margin: 20px 0 8px !important; padding: 5px 10px !important;
     background: #F4EAF6 !important; border-radius: 6px !important;
     border-bottom: none !important; display: inline-block !important;
 }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] h3 {
-    font-size: 0.9rem !important; margin: 12px 0 4px !important; color: #0E1E45 !important;
+    font-size: 0.9rem !important; margin: 12px 0 4px !important; color: #161616 !important;
 }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] p {
     font-size: 0.88rem !important; line-height: 1.55 !important; color: #3D3458 !important; margin: 4px 0 !important;
@@ -462,20 +462,20 @@ hr { border-color: #E0DBD3 !important; margin: 8px 0 !important; }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] li {
     font-size: 0.88rem !important; line-height: 1.5 !important; color: #3D3458 !important; margin: 3px 0 !important;
 }
-[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] strong { color: #0E1E45 !important; }
+[data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] strong { color: #161616 !important; }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] em { color: #6B6280 !important; }
 [data-testid="stVerticalBlockBorderWrapper"]:has(.agent-report-marker) [data-testid="stMarkdownContainer"] hr {
     margin: 14px 0 !important; border-color: #EFEBE4 !important;
 }
 
 /* Spinner */
-[data-testid="stSpinner"] > div { border-top-color: #0E1E45 !important; }
+[data-testid="stSpinner"] > div { border-top-color: #161616 !important; }
 
 /* Caption */
 .stCaption { color: #6B6280 !important; font-size: 0.70rem !important; }
 
 /* Progress bar */
-.stProgress > div > div > div > div { background: #0E1E45 !important; border-radius: 4px !important; }
+.stProgress > div > div > div > div { background: #161616 !important; border-radius: 4px !important; }
 .stProgress > div > div > div { background: #E8E4DC !important; border-radius: 4px !important; }
 .stProgress { margin: 4px 0 !important; }
 
@@ -500,14 +500,14 @@ div[data-testid="column"] > div { gap: 0.55rem !important; }
 
 /* Tooltips — compact dark pill instead of full-width white slab */
 [data-testid="stTooltipContent"] {
-    background: #0E1E45 !important;
+    background: #161616 !important;
     color: #FFFFFF !important;
     border-radius: 8px !important;
     padding: 8px 12px !important;
     font-size: 0.74rem !important;
     line-height: 1.4 !important;
     max-width: 260px !important;
-    box-shadow: 0 4px 16px rgba(27,16,64,0.25) !important;
+    box-shadow: 0 4px 16px rgba(22,22,22,0.25) !important;
     border: none !important;
 }
 [data-testid="stTooltipContent"] p,
@@ -517,7 +517,7 @@ div[data-testid="column"] > div { gap: 0.55rem !important; }
 .stTabs [data-baseweb="tab-list"] button[aria-selected="true"],
 .stTabs [data-baseweb="tab-list"] button[aria-selected="true"] *,
 .stTabs [data-baseweb="tab-list"] button[aria-selected="true"] p {
-    color: #0E1E45 !important; fill: #0E1E45 !important;
+    color: #161616 !important; fill: #161616 !important;
 }
 .stButton > button[kind="primary"] p,
 .stButton > button[kind="primaryFormSubmit"] p,
@@ -707,7 +707,7 @@ def risk_icon(level):
             "Critical": "Critical", "At Risk": "At risk", "Healthy": "Healthy"}.get(level, "")
 
 def health_color(score):
-    if score < 40: return "#9B2335"
+    if score < 40: return "#C43D1B"
     if score < 60: return "#7A5C1E"
     return "#2D5A3D"
 
@@ -717,14 +717,14 @@ def model_tier_from_id(model_id):
     return "sonnet"
 
 def tier_color(tier):
-    return {"haiku": "#2D4A7A", "sonnet": "#3D3458", "opus": "#0E1E45"}.get(tier, "#0E1E45")
+    return {"haiku": "#2D4A7A", "sonnet": "#3D3458", "opus": "#161616"}.get(tier, "#161616")
 
 def render_meta_pills(result):
     """Compact, subtle pill strip: model tier · confidence · cost · tokens."""
     tier  = result.get("model_tier") or model_tier_from_id(result.get("model_used",""))
     color = tier_color(tier)
     conf  = result.get("confidence_score", 0)
-    conf_color = "#2D5A3D" if conf >= 0.75 else "#7A5C1E" if conf >= 0.55 else "#9B2335"
+    conf_color = "#2D5A3D" if conf >= 0.75 else "#7A5C1E" if conf >= 0.55 else "#C43D1B"
     disp  = result.get("model_display") or result.get("model_used","?")
     mock_pill = ("<span style='background:#F5F0E8;color:#7A5C1E;border:1px solid #D8C89A;"
                  "border-radius:20px;padding:2px 10px;font-size:0.68rem;font-weight:700'>MOCK</span>") if result.get("is_mock") else ""
@@ -828,7 +828,7 @@ def kpi_card(label, value, sub="", delta=None, delta_dir="flat", good_when="up")
     """Render an executive KPI card with optional MoM delta + risk coloration."""
     if delta is not None and delta_dir != "flat":
         is_good = (delta_dir == good_when)
-        dcolor  = "#2D5A3D" if is_good else "#9B2335"
+        dcolor  = "#2D5A3D" if is_good else "#C43D1B"
         arrow   = "▲" if delta_dir == "up" else "▼"
         delta_html = f"<span style='color:{dcolor};font-size:0.66rem;font-weight:700'>{arrow} {delta}</span>"
     elif delta is not None:
@@ -881,7 +881,7 @@ def build_exec_summary(summary, customers):
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 
 with st.sidebar:
-    st.markdown("<div style='padding:10px 0 6px'><span style='font-size:1.3rem;font-weight:900;color:#0E1E45;letter-spacing:-0.04em'>LINX</span><span style='font-size:0.65rem;font-weight:700;color:#6B6280;letter-spacing:0.12em;margin-left:8px;vertical-align:middle'>CX AGENT OS</span></div>", unsafe_allow_html=True)
+    st.markdown("<div style='padding:10px 0 6px'><span style='font-size:1.3rem;font-weight:900;color:#161616;letter-spacing:-0.04em'>LINX</span><span style='font-size:0.65rem;font-weight:700;color:#6B6280;letter-spacing:0.12em;margin-left:8px;vertical-align:middle'>CX AGENT OS</span></div>", unsafe_allow_html=True)
 
     # Ordered to follow the exec workflow: monitor → inspect → deliver → report → govern
     _pages = ["Executive Dashboard", "Customer 360", "Implementation Digest", "CSM Performance",
@@ -915,8 +915,8 @@ with st.sidebar:
   <div style="font-size:0.62rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px">Portfolio</div>
   <div style="display:flex;gap:6px;margin-bottom:10px">
     <div style="flex:1;background:#FDF1F2;border-radius:7px;padding:6px 8px;text-align:center">
-      <div style="font-size:1.1rem;font-weight:800;color:#9B2335;line-height:1">{hi}</div>
-      <div style="font-size:0.60rem;color:#9B2335;font-weight:600;margin-top:1px">High</div>
+      <div style="font-size:1.1rem;font-weight:800;color:#C43D1B;line-height:1">{hi}</div>
+      <div style="font-size:0.60rem;color:#C43D1B;font-weight:600;margin-top:1px">High</div>
     </div>
     <div style="flex:1;background:#FDF8EE;border-radius:7px;padding:6px 8px;text-align:center">
       <div style="font-size:1.1rem;font-weight:800;color:#7A5C1E;line-height:1">{med}</div>
@@ -929,11 +929,11 @@ with st.sidebar:
   </div>
   <div style="border-top:1px solid #E8E4DC;padding-top:8px;display:flex;align-items:baseline;justify-content:space-between">
     <div>
-      <div style="font-size:1.15rem;font-weight:800;color:#9B2335;line-height:1">${arr_risk/1e6:.1f}M</div>
+      <div style="font-size:1.15rem;font-weight:800;color:#C43D1B;line-height:1">${arr_risk/1e6:.1f}M</div>
       <div style="font-size:0.62rem;color:#6B6280;margin-top:1px">ARR at risk</div>
     </div>
     <div style="text-align:right">
-      <div style="font-size:1.15rem;font-weight:800;color:#0E1E45;line-height:1">{pct:.0f}%</div>
+      <div style="font-size:1.15rem;font-weight:800;color:#161616;line-height:1">{pct:.0f}%</div>
       <div style="font-size:0.62rem;color:#6B6280;margin-top:1px">of portfolio</div>
     </div>
   </div>
@@ -1012,7 +1012,7 @@ def show_agent_guide():
             "name": "Escalation Commander",
             "icon": "🚨",
             "model": "Opus",
-            "model_color": "#0E1E45",
+            "model_color": "#161616",
             "model_bg": "#EAE6E0",
             "when": "When a customer has an active escalation or is at risk of churning imminently.",
             "what": "Performs a full crisis analysis: determines likely root cause, quantifies customer impact, maps internal owners, builds a 48-hour recovery plan and 2-week stabilization plan, and drafts executive communications.",
@@ -1022,7 +1022,7 @@ def show_agent_guide():
             "name": "Skeptik QA Agent",
             "icon": "🔍",
             "model": "Opus",
-            "model_color": "#0E1E45",
+            "model_color": "#161616",
             "model_bg": "#EAE6E0",
             "when": "After running any other agent — especially before sharing a briefing or escalation plan with executives.",
             "what": "Adversarially reviews the most recent agent output for that customer. Challenges unsupported claims, flags missing evidence, identifies overconfident conclusions, and suggests alternative explanations. Revises the confidence score.",
@@ -1032,7 +1032,7 @@ def show_agent_guide():
             "name": "VP Chief of Staff",
             "icon": "📊",
             "model": "Opus",
-            "model_color": "#0E1E45",
+            "model_color": "#161616",
             "model_bg": "#EAE6E0",
             "when": "Weekly — generates the VP CX operating review across the full portfolio.",
             "what": "Synthesizes the entire portfolio into a board-ready weekly review: top 5 risks, ARR at risk, renewal watchlist, implementation bottlenecks, product feedback themes, support burden, cross-functional asks, and a CEO-ready paragraph summary.",
@@ -1074,7 +1074,7 @@ def show_agent_guide():
   <div style="font-size:0.68rem;color:#6B6280;align-self:center;margin-right:4px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em">Model routing</div>
   <span style="background:#E8EDF5;color:#2D4A7A;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:20px">Haiku — fast scanning</span>
   <span style="background:#EDEAF4;color:#3D3458;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:20px">Sonnet — synthesis</span>
-  <span style="background:#EAE6E0;color:#0E1E45;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:20px">Opus — judgment & adversarial</span>
+  <span style="background:#EAE6E0;color:#161616;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:20px">Opus — judgment & adversarial</span>
 </div>
 """, unsafe_allow_html=True)
 
@@ -1088,13 +1088,13 @@ def show_agent_guide():
         st.markdown(f"""
 <div style="padding:16px 4px;{border_top}">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px">
-    <div style="font-size:1.0rem;font-weight:800;color:#0E1E45;letter-spacing:-0.01em">{a['name']}</div>
+    <div style="font-size:1.0rem;font-weight:800;color:#161616;letter-spacing:-0.01em">{a['name']}</div>
     <span style="background:{a['model_bg']};color:{a['model_color']};font-size:0.65rem;font-weight:700;
           padding:3px 10px;border-radius:20px;flex-shrink:0">{a['model']}</span>
   </div>
   <div style="font-size:0.78rem;color:#3D3458;line-height:1.55;margin-bottom:8px">{a['what']}</div>
   <div style="font-size:0.70rem;color:#6B6280;margin-bottom:10px;padding:5px 10px;
-       background:#F5F2EE;border-radius:6px;border-left:2px solid #D8D3C8">
+       background:#F5F2EE;border-radius:6px;border-left:2px solid #D6D0B8">
     When: {a['when']}
   </div>
   <div style="display:flex;flex-wrap:wrap;gap:4px">{outputs_html}</div>
@@ -1169,13 +1169,13 @@ if page == "Executive Dashboard":
 
     # ── AI Executive Summary (narrative first — the "so what") ─────────────────
     st.markdown(f"""
-<div style="background:linear-gradient(135deg,#0E1E45 0%,#1A3060 100%);border-radius:12px;
+<div style="background:linear-gradient(135deg,#161616 0%,#2E2E2E 100%);border-radius:12px;
      padding:16px 20px;margin:2px 0 16px">
   <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-    <span style="font-size:0.62rem;font-weight:700;color:#9FB6E4;text-transform:uppercase;letter-spacing:0.12em">AI Executive Summary</span>
-    <span style="font-size:0.58rem;color:#7E93C4;background:#ffffff14;padding:2px 8px;border-radius:20px">Weekly · auto-generated</span>
+    <span style="font-size:0.62rem;font-weight:700;color:#F2C94C;text-transform:uppercase;letter-spacing:0.12em">AI Executive Summary</span>
+    <span style="font-size:0.58rem;color:#8F8A76;background:#ffffff14;padding:2px 8px;border-radius:20px">Weekly · auto-generated</span>
   </div>
-  <div style="color:#EFF3FB;font-size:0.92rem;line-height:1.65">{build_exec_summary(summary, customers)}</div>
+  <div style="color:#FAF7EA;font-size:0.92rem;line-height:1.65">{build_exec_summary(summary, customers)}</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -1213,18 +1213,18 @@ if page == "Executive Dashboard":
     col_risk, col_exp = st.columns(2)
 
     with col_risk:
-        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#9B2335;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Accounts Requiring Attention</div>", unsafe_allow_html=True)
+        st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#C43D1B;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:8px'>Accounts Requiring Attention</div>", unsafe_allow_html=True)
         at_risk = sorted([c for c in customers if c["risk_level"] == "High"], key=lambda c: -c["arr"])[:5]
         for c in at_risk:
             st.markdown(f"""
-<div style="background:#FFFFFF;border:1px solid #E8E4DC;border-left:3px solid #9B2335;
+<div style="background:#FFFFFF;border:1px solid #E8E4DC;border-left:3px solid #C43D1B;
      border-radius:8px;padding:10px 13px;margin-bottom:8px">
   <div style="display:flex;justify-content:space-between;align-items:baseline">
-    <span style="font-weight:700;color:#0E1E45;font-size:0.86rem">{c['name']}</span>
-    <span style="font-size:0.7rem;color:#9B2335;font-weight:700">${c['arr']/1e3:.0f}K ARR</span>
+    <span style="font-weight:700;color:#161616;font-size:0.86rem">{c['name']}</span>
+    <span style="font-size:0.7rem;color:#C43D1B;font-weight:700">${c['arr']/1e3:.0f}K ARR</span>
   </div>
   <div style="font-size:0.7rem;color:#6B6280;margin-top:1px">{c['industry']} · {c['customer_tier']} · {c['region']}</div>
-  <div style="font-size:0.74rem;color:#3D3458;margin-top:6px;line-height:1.4"><b style="color:#9B2335">Why:</b> {c['primary_risk_reason']}</div>
+  <div style="font-size:0.74rem;color:#3D3458;margin-top:6px;line-height:1.4"><b style="color:#C43D1B">Why:</b> {c['primary_risk_reason']}</div>
   <div style="font-size:0.74rem;color:#3D3458;margin-top:3px;line-height:1.4"><b style="color:#2D5A3D">Action:</b> {c['recommended_next_action']}</div>
 </div>""", unsafe_allow_html=True)
 
@@ -1239,12 +1239,12 @@ if page == "Executive Dashboard":
 <div style="background:#FFFFFF;border:1px solid #E8E4DC;border-left:3px solid #2D5A3D;
      border-radius:8px;padding:10px 13px;margin-bottom:8px">
   <div style="display:flex;justify-content:space-between;align-items:baseline">
-    <span style="font-weight:700;color:#0E1E45;font-size:0.86rem">{c['name']}</span>
+    <span style="font-weight:700;color:#161616;font-size:0.86rem">{c['name']}</span>
     <span style="font-size:0.7rem;color:#2D5A3D;font-weight:700">+${ep/1e3:.0f}K</span>
   </div>
   <div style="font-size:0.7rem;color:#6B6280;margin-top:1px">{c['industry']} · NRR {c.get('nrr_pct','?')}% · {int(ul*100)}% likely</div>
   <div style="font-size:0.74rem;color:#3D3458;margin-top:6px;line-height:1.4"><b style="color:#2D5A3D">Signal:</b> {c['roi_outcome']}; adoption {c.get('adoption_score','?')}%</div>
-  <div style="font-size:0.74rem;color:#3D3458;margin-top:3px;line-height:1.4"><b style="color:#0E1E45">Next:</b> {c['recommended_next_action']}</div>
+  <div style="font-size:0.74rem;color:#3D3458;margin-top:3px;line-height:1.4"><b style="color:#161616">Next:</b> {c['recommended_next_action']}</div>
 </div>""", unsafe_allow_html=True)
 
     # ── Drill-in: health heatmap + full portfolio table ───────────────────────
@@ -1264,7 +1264,7 @@ if page == "Executive Dashboard":
         st.markdown(
             "<div style='display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px'>" + "".join(tiles) + "</div>"
             "<div style='display:flex;gap:16px;font-size:0.66rem;color:#6B6280'>"
-            "<span><span style='display:inline-block;width:9px;height:9px;background:#9B2335;border-radius:2px;margin-right:4px'></span>Critical (&lt;40)</span>"
+            "<span><span style='display:inline-block;width:9px;height:9px;background:#C43D1B;border-radius:2px;margin-right:4px'></span>Critical (&lt;40)</span>"
             "<span><span style='display:inline-block;width:9px;height:9px;background:#7A5C1E;border-radius:2px;margin-right:4px'></span>At Risk (40–59)</span>"
             "<span><span style='display:inline-block;width:9px;height:9px;background:#2D5A3D;border-radius:2px;margin-right:4px'></span>Healthy (60+)</span>"
             "</div>",
@@ -1353,12 +1353,12 @@ elif page == "Customer 360":
     history   = data.get("health_history", [])
 
     # ── Header ────────────────────────────────────────────────────────────────
-    risk_color  = {"High":"#9B2335","Medium":"#C9952A","Low":"#2D5A3D"}.get(c.get("risk_level",""), "#0E1E45")
+    risk_color  = {"High":"#C43D1B","Medium":"#C9952A","Low":"#2D5A3D"}.get(c.get("risk_level",""), "#161616")
     risk_bg     = {"High":"#FDF1F2","Medium":"#FDF8EE","Low":"#EFF6F1"}.get(c.get("risk_level",""), "#F5F2EE")
     renewal_days = renewal.get("days_to_renewal", "?")
     open_tickets = sum(1 for t in tickets if t["status"] != "Resolved")
     champ_status = c.get("champion_status", "?")
-    champ_color  = {"Active":"#2D5A3D","Disengaged":"#7A5C1E","Left Company":"#9B2335"}.get(champ_status,"#6B6280")
+    champ_color  = {"Active":"#2D5A3D","Disengaged":"#7A5C1E","Left Company":"#C43D1B"}.get(champ_status,"#6B6280")
 
     st.markdown(f"""
     <div style="background:#FFFFFF;border:1px solid #E8E4DC;border-radius:12px;
@@ -1368,10 +1368,10 @@ elif page == "Customer 360":
           <div style="color:#6B6280;font-size:0.8rem">
             {c['industry']} &nbsp;·&nbsp; {c.get('customer_tier','?')} &nbsp;·&nbsp; {c.get('region','?')} &nbsp;·&nbsp;
             {c.get('employee_count','?'):,} employees &nbsp;·&nbsp;
-            <span style="font-weight:700;color:#0E1E45">${c['arr']:,} ARR</span>
+            <span style="font-weight:700;color:#161616">${c['arr']:,} ARR</span>
           </div>
           <div style="margin-top:10px;padding:8px 12px;background:#F5F2EE;border-radius:8px;font-size:0.78rem;color:#3D3458;line-height:1.5">
-            <span style="font-weight:700;color:#0E1E45">Risk:</span> {c.get('primary_risk_reason','')}
+            <span style="font-weight:700;color:#161616">Risk:</span> {c.get('primary_risk_reason','')}
             <br><span style="color:#6B6280">→</span> {c.get('recommended_next_action','')}
           </div>
         </div>
@@ -1386,7 +1386,7 @@ elif page == "Customer 360":
       <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
         <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:80px">
           <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Adoption</div>
-          <div style="font-size:1.05rem;font-weight:800;color:#0E1E45;line-height:1.3">{c.get('adoption_score',0)}<span style="font-size:0.65rem;font-weight:500;color:#6B6280">/100</span></div>
+          <div style="font-size:1.05rem;font-weight:800;color:#161616;line-height:1.3">{c.get('adoption_score',0)}<span style="font-size:0.65rem;font-weight:500;color:#6B6280">/100</span></div>
         </div>
         <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:80px">
           <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Churn Risk</div>
@@ -1394,7 +1394,7 @@ elif page == "Customer 360":
         </div>
         <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:80px">
           <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Renewal</div>
-          <div style="font-size:1.05rem;font-weight:800;color:#0E1E45;line-height:1.3">{renewal_days}d</div>
+          <div style="font-size:1.05rem;font-weight:800;color:#161616;line-height:1.3">{renewal_days}d</div>
         </div>
         <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:90px">
           <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Champion</div>
@@ -1402,11 +1402,11 @@ elif page == "Customer 360":
         </div>
         <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:70px">
           <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">NRR</div>
-          <div style="font-size:1.05rem;font-weight:800;color:{'#2D5A3D' if c.get('nrr_pct',0)>=105 else '#7A5C1E' if c.get('nrr_pct',0)>=98 else '#9B2335'};line-height:1.3">{c.get('nrr_pct','?')}%</div>
+          <div style="font-size:1.05rem;font-weight:800;color:{'#2D5A3D' if c.get('nrr_pct',0)>=105 else '#7A5C1E' if c.get('nrr_pct',0)>=98 else '#C43D1B'};line-height:1.3">{c.get('nrr_pct','?')}%</div>
         </div>
         <div style="background:#F5F2EE;border-radius:8px;padding:7px 14px;text-align:center;min-width:70px">
           <div style="font-size:0.60rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">NPS</div>
-          <div style="font-size:1.05rem;font-weight:800;color:{'#2D5A3D' if c.get('nps',0)>=8 else '#7A5C1E' if c.get('nps',0)>=5 else '#9B2335'};line-height:1.3">{c.get('nps','?')}</div>
+          <div style="font-size:1.05rem;font-weight:800;color:{'#2D5A3D' if c.get('nps',0)>=8 else '#7A5C1E' if c.get('nps',0)>=5 else '#C43D1B'};line-height:1.3">{c.get('nps','?')}</div>
         </div>
       </div>
     </div>
@@ -1424,7 +1424,7 @@ elif page == "Customer 360":
         # ── Renewal prediction + ROI + recommended action plan ────────────────
         rr      = c.get("renewal_risk_score", 0)
         renew_conf = round((1 - rr) * 100)
-        rconf_color = "#2D5A3D" if renew_conf >= 70 else "#7A5C1E" if renew_conf >= 45 else "#9B2335"
+        rconf_color = "#2D5A3D" if renew_conf >= 70 else "#7A5C1E" if renew_conf >= 45 else "#C43D1B"
         rverdict = "Likely to Renew" if renew_conf >= 70 else "Renewal at Risk" if renew_conf < 45 else "Needs Attention"
         # Build a concrete action plan from the account's signals
         plan = []
@@ -1557,7 +1557,7 @@ elif page == "Customer 360":
             result = st.session_state[recent_key]
             agent_label = recent_key.split(f"360_result_{cid}_")[-1]
             agent_nice  = agent_display_name(result.get("agent_name", agent_label))
-            st.markdown(f"<div style='font-size:0.78rem;font-weight:800;color:#0E1E45;letter-spacing:-0.01em;margin:12px 0 4px'>{agent_nice}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='font-size:0.78rem;font-weight:800;color:#161616;letter-spacing:-0.01em;margin:12px 0 4px'>{agent_nice}</div>", unsafe_allow_html=True)
 
             # Skeptik shows before/after
             if "SkeptikQAAgent" in recent_key:
@@ -1592,7 +1592,7 @@ elif page == "Customer 360":
         mrow = metrics[0] if metrics else {}
         if mrow:
             dau_trend = mrow.get('dau_trend_30d', 0)
-            trend_color = "#2D5A3D" if dau_trend >= 0 else "#9B2335"
+            trend_color = "#2D5A3D" if dau_trend >= 0 else "#C43D1B"
             trend_sign  = "+" if dau_trend >= 0 else ""
             usage_items = [
                 ("Daily Active Users", str(int(mrow.get("dau",0))),
@@ -1623,11 +1623,11 @@ elif page == "Customer 360":
             hdf = hdf.sort_values("date")
             chart = (
                 alt.Chart(hdf)
-                .mark_line(color="#0E1E45", strokeWidth=2.2, point=alt.OverlayMarkDef(color="#0E1E45", size=18))
+                .mark_line(color="#161616", strokeWidth=2.2, point=alt.OverlayMarkDef(color="#161616", size=18))
                 .encode(
                     x=alt.X("date:T", axis=alt.Axis(title=None, grid=False, labelColor="#6B6280", domainColor="#E8E4DC", tickColor="#E8E4DC", format="%b %d")),
                     y=alt.Y("health_score:Q", scale=alt.Scale(domain=[0, 100]),
-                            axis=alt.Axis(title=None, labelColor="#6B6280", gridColor="#F0EDE7", domainOpacity=0, tickOpacity=0)),
+                            axis=alt.Axis(title=None, labelColor="#6B6280", gridColor="#F1ECD9", domainOpacity=0, tickOpacity=0)),
                     tooltip=[alt.Tooltip("date:T", title="Date", format="%b %d"),
                              alt.Tooltip("health_score:Q", title="Health")],
                 )
@@ -1637,10 +1637,10 @@ elif page == "Customer 360":
             st.altair_chart(chart, use_container_width=True, theme=None)
 
         sec = c.get('security_review_status','?')
-        sec_color = {"Complete":"#2D5A3D","In Progress":"#7A5C1E","Blocked":"#9B2335","Not Started":"#6B6280"}.get(sec,"#6B6280")
+        sec_color = {"Complete":"#2D5A3D","In Progress":"#7A5C1E","Blocked":"#C43D1B","Not Started":"#6B6280"}.get(sec,"#6B6280")
         onb = c.get('onboarding_status','?')
         sent = c.get('sentiment','?')
-        sent_color = {"Positive":"#2D5A3D","Negative":"#9B2335","Neutral":"#6B6280"}.get(sent,"#6B6280")
+        sent_color = {"Positive":"#2D5A3D","Negative":"#C43D1B","Neutral":"#6B6280"}.get(sent,"#6B6280")
         st.markdown(f"""
 <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
   <div style="background:#F5F2EE;border-radius:8px;padding:6px 14px;font-size:0.75rem">
@@ -1649,7 +1649,7 @@ elif page == "Customer 360":
   </div>
   <div style="background:#F5F2EE;border-radius:8px;padding:6px 14px;font-size:0.75rem">
     <span style="color:#6B6280;font-weight:600">Onboarding</span>
-    <span style="margin-left:8px;font-weight:700;color:#0E1E45">{onb}</span>
+    <span style="margin-left:8px;font-weight:700;color:#161616">{onb}</span>
   </div>
   <div style="background:#F5F2EE;border-radius:8px;padding:6px 14px;font-size:0.75rem">
     <span style="color:#6B6280;font-weight:600">Sentiment</span>
@@ -1662,7 +1662,7 @@ elif page == "Customer 360":
             behind = impl.get("days_behind_schedule", 0)
             status = impl.get("overall_status", "?")
             pct    = impl.get("pct_complete", 0)
-            sc     = "#9B2335" if status in ("Stalled","Behind Schedule") else "#C9952A" if status == "Slight Delay" else "#2D5A3D"
+            sc     = "#C43D1B" if status in ("Stalled","Behind Schedule") else "#C9952A" if status == "Slight Delay" else "#2D5A3D"
             sc_bg  = "#FDF1F2" if status in ("Stalled","Behind Schedule") else "#FDF8EE" if status == "Slight Delay" else "#EFF6F1"
             st.markdown(f"""
 <div style="background:#FFFFFF;border:1px solid #E8E4DC;border-radius:10px;padding:12px 16px;margin-bottom:12px">
@@ -1675,9 +1675,9 @@ elif page == "Customer 360":
     <div style="width:{pct}%;background:{sc};height:100%;border-radius:50px"></div>
   </div>
   <div style="display:flex;gap:16px;margin-top:8px;font-size:0.72rem;color:#6B6280">
-    <span>Owner: <b style="color:#0E1E45">{impl.get('implementation_owner','?')}</b></span>
-    <span>Go-live: <b style="color:#0E1E45">{impl.get('go_live_target','?')}</b></span>
-    {f'<span style="color:#9B2335;font-weight:600">{behind}d behind schedule</span>' if behind > 0 else ''}
+    <span>Owner: <b style="color:#161616">{impl.get('implementation_owner','?')}</b></span>
+    <span>Go-live: <b style="color:#161616">{impl.get('go_live_target','?')}</b></span>
+    {f'<span style="color:#C43D1B;font-weight:600">{behind}d behind schedule</span>' if behind > 0 else ''}
   </div>
 </div>""", unsafe_allow_html=True)
         else:
@@ -1694,8 +1694,8 @@ elif page == "Customer 360":
   <span style="background:{m_bg};color:{m_color};font-size:0.65rem;font-weight:700;padding:2px 8px;
         border-radius:20px;white-space:nowrap;margin-top:1px">{status_m}</span>
   <div>
-    <div style="font-size:0.82rem;font-weight:600;color:#0E1E45">{mname}</div>
-    {f'<div style="font-size:0.72rem;color:#9B2335;margin-top:2px">{blocker}</div>' if blocker else ''}
+    <div style="font-size:0.82rem;font-weight:600;color:#161616">{mname}</div>
+    {f'<div style="font-size:0.72rem;color:#C43D1B;margin-top:2px">{blocker}</div>' if blocker else ''}
   </div>
 </div>""", unsafe_allow_html=True)
 
@@ -1703,16 +1703,16 @@ elif page == "Customer 360":
         st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Support Tickets</div>", unsafe_allow_html=True)
         open_t    = [t for t in tickets if t["status"] != "Resolved"]
         closed_t  = [t for t in tickets if t["status"] == "Resolved"]
-        st.markdown(f"<div style='font-size:0.78rem;font-weight:700;color:#0E1E45;margin-bottom:6px'>{len(open_t)} Open <span style=\"color:#6B6280;font-weight:400\">· {len(closed_t)} Resolved</span></div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='font-size:0.78rem;font-weight:700;color:#161616;margin-bottom:6px'>{len(open_t)} Open <span style=\"color:#6B6280;font-weight:400\">· {len(closed_t)} Resolved</span></div>", unsafe_allow_html=True)
         for t in sorted(tickets, key=lambda x: ("P1P2P3P4".index(x["severity"]) if x["severity"] in "P1P2P3P4" else 9, x["status"] == "Resolved")):
-            sc = {"P1":"#9B2335","P2":"#7A5C1E","P3":"#5C4A1E","P4":"#6B6280"}.get(t["severity"],"#6B6280")
-            st_color = {"Open": "#9B2335", "In Progress": "#7A5C1E"}.get(t["status"], "#2D5A3D")
+            sc = {"P1":"#C43D1B","P2":"#7A5C1E","P3":"#5C4A1E","P4":"#6B6280"}.get(t["severity"],"#6B6280")
+            st_color = {"Open": "#C43D1B", "In Progress": "#7A5C1E"}.get(t["status"], "#2D5A3D")
             st.markdown(f"""<div class="card">
                 <div style="display:flex;justify-content:space-between;align-items:center">
                     <span style="background:{sc}18;color:{sc};font-weight:700;font-size:0.72rem;padding:2px 8px;border-radius:20px;border:1px solid {sc}44">{t['severity']}</span>
                     <span style="color:{st_color};font-size:0.72rem;font-weight:700">{t['status']}</span>
                 </div>
-                <div style="color:#0E1E45;font-size:0.88rem;margin-top:6px;font-weight:500">{t['title']}</div>
+                <div style="color:#161616;font-size:0.88rem;margin-top:6px;font-weight:500">{t['title']}</div>
                 <div style="color:#6B6280;font-size:0.72rem;margin-top:3px">Opened {t['opened_at'][:10]} · Assignee: {t.get('assignee','?')}</div>
                 {f'<div style="color:#7A5C1E;font-size:0.72rem;margin-top:2px">{t["escalation_reference"]}</div>' if t.get("escalation_reference") else ''}
             </div>""", unsafe_allow_html=True)
@@ -1723,7 +1723,7 @@ elif page == "Customer 360":
             st.markdown("<div style='font-size:0.78rem;color:#2D5A3D;padding:8px 0'>No active escalations.</div>", unsafe_allow_html=True)
         for e in escs:
             is_crit = e["severity"] == "Critical"
-            sc      = "#9B2335" if is_crit else "#7A5C1E"
+            sc      = "#C43D1B" if is_crit else "#7A5C1E"
             sc_bg   = "#FDF1F2" if is_crit else "#FDF8EE"
             exec_badge = "<span style='background:#EAE6E0;color:#3D3458;font-size:0.62rem;font-weight:700;padding:2px 7px;border-radius:20px;margin-left:6px'>Exec Aware</span>" if e.get("executive_aware") else ""
             st.markdown(f"""
@@ -1739,18 +1739,18 @@ elif page == "Customer 360":
     </div>
     <span style="font-size:0.68rem;color:#9B93A8">{e['opened_at'][:10]}</span>
   </div>
-  <div style="font-size:0.85rem;font-weight:600;color:#0E1E45;margin-top:7px">{e['title']}</div>
+  <div style="font-size:0.85rem;font-weight:600;color:#161616;margin-top:7px">{e['title']}</div>
   <div style="font-size:0.72rem;color:#6B6280;margin-top:3px">Owner: {e['owner']}</div>
   {f'<div style="font-size:0.72rem;color:#6B6280;margin-top:4px;font-style:italic">{e["resolution_plan"]}</div>' if e.get("resolution_plan") else ''}
 </div>""", unsafe_allow_html=True)
 
     with tab_stk:
         st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin-bottom:6px'>Stakeholders</div>", unsafe_allow_html=True)
-        role_colors = {"Champion":"#0E1E45","Technical Sponsor":"#3D3458","Business Sponsor":"#5C4A1E",
-                       "Executive Sponsor":"#2D3A4A","Economic Buyer":"#9B2335"}
+        role_colors = {"Champion":"#161616","Technical Sponsor":"#3D3458","Business Sponsor":"#5C4A1E",
+                       "Executive Sponsor":"#2D3A4A","Economic Buyer":"#C43D1B"}
         role_bg = {"Champion":"#EAE6E0","Technical Sponsor":"#EDEAF4","Business Sponsor":"#F0EBE0",
                    "Executive Sponsor":"#E8EBF0","Economic Buyer":"#F5ECEC"}
-        eng_colors = {"High":"#2D5A3D","Medium":"#7A5C1E","Low":"#9B2335","None":"#6B6280"}
+        eng_colors = {"High":"#2D5A3D","Medium":"#7A5C1E","Low":"#C43D1B","None":"#6B6280"}
         for s in stk:
             rc = role_colors.get(s["role"],"#6B6280")
             rb = role_bg.get(s["role"],"#EAE6E0")
@@ -1758,7 +1758,7 @@ elif page == "Customer 360":
             st.markdown(f"""<div class="card">
                 <div style="display:flex;justify-content:space-between;align-items:flex-start">
                     <div>
-                        <span style="font-weight:700;color:#0E1E45;font-size:0.95rem">{s['name']}</span>
+                        <span style="font-weight:700;color:#161616;font-size:0.95rem">{s['name']}</span>
                         <div style="font-size:0.80rem;color:#6B6280;margin-top:1px">{s['title']}</div>
                     </div>
                     <span style="font-size:0.72rem;color:{ec};font-weight:700">{s.get('engagement_level','?')} engagement</span>
@@ -1771,7 +1771,7 @@ elif page == "Customer 360":
 
     with tab_notes:
         st.markdown("<div style='font-size:0.72rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.10em;margin:14px 0 6px'>Meeting Notes</div>", unsafe_allow_html=True)
-        sent_colors = {"Positive":"#2D5A3D","Neutral":"#6B6280","Negative":"#9B2335"}
+        sent_colors = {"Positive":"#2D5A3D","Neutral":"#6B6280","Negative":"#C43D1B"}
         for n in notes:
             sc = sent_colors.get(n.get("sentiment_signal",""),"#6B6280")
             import json as _json
@@ -1785,14 +1785,14 @@ elif page == "Customer 360":
                     <span style="color:#6B6280;font-size:0.75rem">{n['date'][:10]} · <b style="color:#3D3458">{n.get('meeting_type','?')}</b></span>
                     <span style="background:{sent_bg};color:{sc};font-size:0.70rem;font-weight:700;padding:2px 8px;border-radius:20px">{n.get('sentiment_signal','?')}</span>
                 </div>
-                <div style="color:#0E1E45;font-size:0.88rem;margin-top:6px;line-height:1.5">{n['summary']}</div>
+                <div style="color:#161616;font-size:0.88rem;margin-top:6px;line-height:1.5">{n['summary']}</div>
                 <div style="color:#6B6280;font-size:0.72rem;margin-top:4px">Attendees: {n.get('attendees_internal','?')} · {n.get('attendees_customer','?')}</div>
                 {('<div style="margin-top:6px">' + ''.join(f'<div style="font-size:0.75rem;color:#3D3458;margin-top:2px">→ {a}</div>' for a in actions) + '</div>') if actions else ''}
             </div>""", unsafe_allow_html=True)
 
     with tab_renew:
         if renewal:
-            rc_color = "#9B2335" if c.get("renewal_risk_score",0) > 0.6 else "#7A5C1E" if c.get("renewal_risk_score",0) > 0.3 else "#2D5A3D"
+            rc_color = "#C43D1B" if c.get("renewal_risk_score",0) > 0.6 else "#7A5C1E" if c.get("renewal_risk_score",0) > 0.3 else "#2D5A3D"
             r1, r2, r3, r4 = st.columns(4)
             with r1: st.metric("Days to Renewal", renewal.get("days_to_renewal","?"))
             with r2: st.metric("Renewal Stage", renewal.get("renewal_stage","?"))
@@ -1884,7 +1884,7 @@ elif page == "CSM Performance":
             issues.append(f"{s['escalations']} open escalation{'s' if s['escalations'] != 1 else ''}")
         if not issues:
             return ("#2D5A3D", "Book is healthy — push expansion and references")
-        return ("#9B2335", "Coach on: " + " · ".join(issues[:3]))
+        return ("#C43D1B", "Coach on: " + " · ".join(issues[:3]))
 
     # Summary KPI row across the CS team
     total_arr_risk  = sum(s["arr_risk"] for s in csm_stats.values())
@@ -1915,7 +1915,7 @@ elif page == "CSM Performance":
 <div style="background:#FFFFFF;border:1px solid #E8E4DC;border-radius:10px;padding:13px 16px;margin-bottom:9px">
   <div style="display:flex;align-items:center;gap:14px">
     <div style="flex:0 0 150px">
-      <div style="font-weight:700;color:#0E1E45;font-size:0.92rem">{owner}</div>
+      <div style="font-weight:700;color:#161616;font-size:0.92rem">{owner}</div>
       <div style="font-size:0.68rem;color:#6B6280">{s['accounts']} accounts · ${s['arr']/1e6:.1f}M ARR</div>
     </div>
     <div style="flex:0 0 70px;text-align:center">
@@ -1924,22 +1924,22 @@ elif page == "CSM Performance":
     </div>
     <div style="flex:1">
       <div style="display:flex;height:8px;border-radius:50px;overflow:hidden;gap:2px">
-        <div style="width:{hp:.1f}%;background:#9B2335"></div>
+        <div style="width:{hp:.1f}%;background:#C43D1B"></div>
         <div style="width:{mp:.1f}%;background:#C9952A"></div>
         <div style="width:{lp:.1f}%;background:#2D5A3D"></div>
       </div>
       <div style="display:flex;gap:12px;margin-top:5px;font-size:0.66rem;color:#6B6280">
-        <span style="color:#9B2335;font-weight:600">{s['high']} high</span>
+        <span style="color:#C43D1B;font-weight:600">{s['high']} high</span>
         <span style="color:#7A5C1E;font-weight:600">{s['med']} med</span>
         <span style="color:#2D5A3D;font-weight:600">{s['low']} healthy</span>
       </div>
     </div>
     <div style="flex:0 0 90px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
-      <div style="font-size:0.95rem;font-weight:800;color:{'#9B2335' if s['arr_risk'] else '#2D5A3D'};line-height:1.2">${s['arr_risk']/1e6:.1f}M</div>
+      <div style="font-size:0.95rem;font-weight:800;color:{'#C43D1B' if s['arr_risk'] else '#2D5A3D'};line-height:1.2">${s['arr_risk']/1e6:.1f}M</div>
       <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">ARR at Risk</div>
     </div>
     <div style="flex:0 0 80px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
-      <div style="font-size:0.95rem;font-weight:800;color:#0E1E45;line-height:1.2">{avg_nrr:.0f}%</div>
+      <div style="font-size:0.95rem;font-weight:800;color:#161616;line-height:1.2">{avg_nrr:.0f}%</div>
       <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Avg NRR</div>
     </div>
     <div style="flex:0 0 90px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
@@ -1947,11 +1947,11 @@ elif page == "CSM Performance":
       <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Expansion</div>
     </div>
     <div style="flex:0 0 80px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
-      <div style="font-size:0.95rem;font-weight:800;color:#0E1E45;line-height:1.2">{s['renewals_90']}</div>
+      <div style="font-size:0.95rem;font-weight:800;color:#161616;line-height:1.2">{s['renewals_90']}</div>
       <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Renewals 90d</div>
     </div>
     <div style="flex:0 0 100px;text-align:center;border-left:1px solid #E8E4DC;padding-left:12px">
-      <div style="font-size:0.95rem;font-weight:800;color:{'#2D5A3D' if (not s['at_risk_n'] or s['actioned']/s['at_risk_n'] >= 0.5) else '#9B2335'};line-height:1.2">{s['actioned']}/{s['at_risk_n']}</div>
+      <div style="font-size:0.95rem;font-weight:800;color:{'#2D5A3D' if (not s['at_risk_n'] or s['actioned']/s['at_risk_n'] >= 0.5) else '#C43D1B'};line-height:1.2">{s['actioned']}/{s['at_risk_n']}</div>
       <div style="font-size:0.56rem;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Risk Actioned</div>
     </div>
   </div>
@@ -2029,8 +2029,8 @@ elif page == "Agent Console":
                 export_button(r["output_text"],
                               f"{selected_agent}_{datetime.now().strftime('%Y%m%d_%H%M')}.md")
         else:
-            st.markdown("""<div style="border:2px dashed #D8D3C8;border-radius:14px;padding:48px;text-align:center;background:#FFFFFF">
-                <div style="font-size:0.95rem;font-weight:600;color:#0E1E45">Configure an agent and click Run</div>
+            st.markdown("""<div style="border:2px dashed #D6D0B8;border-radius:14px;padding:48px;text-align:center;background:#FFFFFF">
+                <div style="font-size:0.95rem;font-weight:600;color:#161616">Configure an agent and click Run</div>
                 <div style="margin-top:4px;font-size:0.80rem;color:#6B6280">Model routing rationale, cost, and confidence will appear here</div>
             </div>""", unsafe_allow_html=True)
 
@@ -2138,7 +2138,7 @@ elif page == "Briefings":
 elif page == "Implementation Digest":
     page_header("Implementation Digest", "Delivery health and timeline across all active implementations")
 
-    conf_colors = {"Very Low": "#9B2335", "Low": "#C8642A", "Medium": "#7A5C1E", "High": "#2D5A3D"}
+    conf_colors = {"Very Low": "#C43D1B", "Low": "#C8642A", "Medium": "#7A5C1E", "High": "#2D5A3D"}
 
     # Pure-SQL overview — instant, no LLM calls. The AI narrative is on demand below.
     rows = get_implementation_overview()
@@ -2155,11 +2155,11 @@ elif page == "Implementation Digest":
 
         # ── KPI bar ────────────────────────────────────────────────────────────
         kpis = [
-            ("Active Projects", str(n),         "#0E1E45", "#FFFFFF", "#E8E4DC"),
-            ("At Risk",         str(at_risk),   "#9B2335", "#FDF1F2", "#F0C8CC"),
+            ("Active Projects", str(n),         "#161616", "#FFFFFF", "#E8E4DC"),
+            ("At Risk",         str(at_risk),   "#C43D1B", "#FDF1F2", "#F0C8CC"),
             ("Medium Conf.",    str(medium),    "#7A5C1E", "#FDFAF0", "#E8DCA0"),
             ("On Track",        str(on_track),  "#2D5A3D", "#F0FAF4", "#A8D8B8"),
-            ("Avg Completion",  f"{avg_pct}%",  "#0E1E45", "#FFFFFF", "#E8E4DC"),
+            ("Avg Completion",  f"{avg_pct}%",  "#161616", "#FFFFFF", "#E8E4DC"),
             ("Not Kicked Off",  str(not_kicked),"#6B6280", "#FFFFFF", "#E8E4DC"),
         ]
         cells = "".join(
@@ -2192,18 +2192,18 @@ elif page == "Implementation Digest":
         if worst:
             cells = "".join(
                 f"<div style='flex:1;background:#FFFFFF;border:1px solid #E8E4DC;border-left:3px solid "
-                f"{conf_colors.get(r['launch_confidence'], '#0E1E45')};border-radius:10px;padding:12px 14px'>"
+                f"{conf_colors.get(r['launch_confidence'], '#161616')};border-radius:10px;padding:12px 14px'>"
                 f"<div style='display:flex;justify-content:space-between;align-items:baseline'>"
-                f"<span style='font-weight:700;color:#0E1E45;font-size:0.88rem'>{r['customer_name']}</span>"
-                f"<span style='font-size:0.66rem;font-weight:700;color:{conf_colors.get(r['launch_confidence'],'#0E1E45')}'>{r['launch_confidence']} confidence</span></div>"
+                f"<span style='font-weight:700;color:#161616;font-size:0.88rem'>{r['customer_name']}</span>"
+                f"<span style='font-size:0.66rem;font-weight:700;color:{conf_colors.get(r['launch_confidence'],'#161616')}'>{r['launch_confidence']} confidence</span></div>"
                 f"<div style='font-size:0.70rem;color:#6B6280;margin-top:2px'>{int(r['pct_complete'])}% complete · "
                 f"{('on time' if r['days_behind_schedule']==0 else str(r['days_behind_schedule'])+'d behind')} · owner {r['implementation_owner']}</div>"
-                f"<div style='font-size:0.78rem;color:#0E1E45;font-weight:600;margin-top:7px'>→ {impl_next_action(r)}</div>"
+                f"<div style='font-size:0.78rem;color:#161616;font-weight:600;margin-top:7px'>→ {impl_next_action(r)}</div>"
                 f"</div>"
                 for r in worst
             )
             st.markdown(
-                "<div style='font-size:0.72rem;font-weight:700;color:#9B2335;text-transform:uppercase;"
+                "<div style='font-size:0.72rem;font-weight:700;color:#C43D1B;text-transform:uppercase;"
                 "letter-spacing:0.10em;margin-bottom:8px'>This Week's Priorities</div>"
                 f"<div style='display:flex;gap:10px;margin-bottom:18px'>{cells}</div>",
                 unsafe_allow_html=True,
@@ -2227,17 +2227,17 @@ elif page == "Implementation Digest":
         )
         body = []
         for r in rows:
-            cc_   = conf_colors.get(r["launch_confidence"], "#0E1E45")
+            cc_   = conf_colors.get(r["launch_confidence"], "#161616")
             cbg   = conf_bg.get(r["launch_confidence"], "#F5F2EE")
             pct   = int(r["pct_complete"])
             behind = ("<span style='color:#2D5A3D;font-weight:600'>On time</span>"
                       if r["days_behind_schedule"] == 0
-                      else f"<span style='color:#9B2335;font-weight:600'>{r['days_behind_schedule']}d behind</span>")
+                      else f"<span style='color:#C43D1B;font-weight:600'>{r['days_behind_schedule']}d behind</span>")
             body.append(
                 f"<div style='display:grid;{grid}gap:12px;padding:13px 18px;align-items:center;"
                 f"border-top:1px solid #F0EBE7;font-size:0.82rem' "
                 f"onmouseover=\"this.style.background='#FBF7FA'\" onmouseout=\"this.style.background='transparent'\">"
-                f"<div style='font-weight:700;color:#0E1E45'>{r['customer_name']}</div>"
+                f"<div style='font-weight:700;color:#161616'>{r['customer_name']}</div>"
                 f"<div><span style='background:{cbg};color:{cc_};font-size:0.68rem;font-weight:700;"
                 f"padding:3px 10px;border-radius:20px;white-space:nowrap'>{r['launch_confidence']}</span></div>"
                 f"<div style='display:flex;align-items:center;gap:8px'>"
@@ -2247,13 +2247,13 @@ elif page == "Implementation Digest":
                 f"<div style='color:#3D3458'>{r['milestones_complete']}/{r['milestones_total']}</div>"
                 f"<div style='color:#3D3458'>{r['go_live_target'] or '—'}</div>"
                 f"<div>{behind}</div>"
-                f"<div style='color:#0E1E45;font-weight:500'>{impl_next_action(r)}</div>"
+                f"<div style='color:#161616;font-weight:500'>{impl_next_action(r)}</div>"
                 f"<div style='color:#6B6280'>{r['implementation_owner']}</div>"
                 f"</div>"
             )
         st.markdown(
             f"<div style='background:#FFFFFF;border:1px solid #E8E4DC;border-radius:14px;"
-            f"box-shadow:0 1px 6px rgba(27,16,64,0.05);overflow:hidden;margin-bottom:16px'>{head}{''.join(body)}</div>",
+            f"box-shadow:0 1px 6px rgba(22,22,22,0.05);overflow:hidden;margin-bottom:16px'>{head}{''.join(body)}</div>",
             unsafe_allow_html=True,
         )
 
@@ -2267,7 +2267,7 @@ elif page == "Implementation Digest":
         sel_idx = proj_names.index(sel_name)
         if sel_idx is not None:
             r  = rows[sel_idx]
-            cc = conf_colors.get(r["launch_confidence"], "#0E1E45")
+            cc = conf_colors.get(r["launch_confidence"], "#161616")
 
             done = ", ".join(r["completed_milestones"]) or "None yet"
             wip  = ", ".join(r["in_progress_milestones"]) or "—"
@@ -2276,21 +2276,21 @@ elif page == "Implementation Digest":
             st.markdown(f"""
 <div style="background:#FFFFFF;border:1px solid #E8E4DC;border-left:4px solid {cc};border-radius:12px;padding:16px 20px;margin-top:6px">
   <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
-    <div style="font-size:1.05rem;font-weight:800;color:#0E1E45">{r['customer_name']}</div>
+    <div style="font-size:1.05rem;font-weight:800;color:#161616">{r['customer_name']}</div>
     <div style="font-size:0.8rem;font-weight:700;color:{cc}">{r['launch_confidence']} launch confidence · {r['overall_status']}</div>
   </div>
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
-    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Kicked Off</div><div style="font-size:0.92rem;font-weight:800;color:#0E1E45">{('Yes · '+r['kickoff_date']) if r['kickoff_date'] else ('In progress' if r['kicked_off'] else 'Not started')}</div></div>
-    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Contract Age</div><div style="font-size:0.92rem;font-weight:800;color:#0E1E45">{(str(r['days_post_signature'])+' days') if r['days_post_signature'] is not None else '—'}</div></div>
-    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Go-Live Target</div><div style="font-size:0.92rem;font-weight:800;color:#0E1E45">{r['go_live_target'] or '—'}</div></div>
-    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">To Go-Live</div><div style="font-size:0.92rem;font-weight:800;color:#0E1E45">{(str(r['days_to_go_live'])+' days') if r['days_to_go_live'] is not None else '—'}</div></div>
-    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Schedule</div><div style="font-size:0.92rem;font-weight:800;color:{'#2D5A3D' if r['days_behind_schedule']==0 else '#9B2335'}">{'On time' if r['days_behind_schedule']==0 else str(r['days_behind_schedule'])+'d behind'}</div></div>
-    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Milestones</div><div style="font-size:0.92rem;font-weight:800;color:#0E1E45">{r['milestones_complete']} / {r['milestones_total']} complete</div></div>
+    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Kicked Off</div><div style="font-size:0.92rem;font-weight:800;color:#161616">{('Yes · '+r['kickoff_date']) if r['kickoff_date'] else ('In progress' if r['kicked_off'] else 'Not started')}</div></div>
+    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Contract Age</div><div style="font-size:0.92rem;font-weight:800;color:#161616">{(str(r['days_post_signature'])+' days') if r['days_post_signature'] is not None else '—'}</div></div>
+    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Go-Live Target</div><div style="font-size:0.92rem;font-weight:800;color:#161616">{r['go_live_target'] or '—'}</div></div>
+    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">To Go-Live</div><div style="font-size:0.92rem;font-weight:800;color:#161616">{(str(r['days_to_go_live'])+' days') if r['days_to_go_live'] is not None else '—'}</div></div>
+    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Schedule</div><div style="font-size:0.92rem;font-weight:800;color:{'#2D5A3D' if r['days_behind_schedule']==0 else '#C43D1B'}">{'On time' if r['days_behind_schedule']==0 else str(r['days_behind_schedule'])+'d behind'}</div></div>
+    <div style="background:#F5F2EE;border-radius:8px;padding:7px 13px"><div style="font-size:0.58rem;font-weight:700;color:#6B6280;text-transform:uppercase;letter-spacing:0.08em">Milestones</div><div style="font-size:0.92rem;font-weight:800;color:#161616">{r['milestones_complete']} / {r['milestones_total']} complete</div></div>
   </div>
   <div style="font-size:0.78rem;color:#3D3458;line-height:1.5"><b style="color:#2D5A3D">Implemented:</b> {done}</div>
   <div style="font-size:0.78rem;color:#3D3458;line-height:1.5;margin-top:3px"><b style="color:#7A5C1E">In progress:</b> {wip}</div>
-  <div style="font-size:0.78rem;color:#3D3458;line-height:1.5;margin-top:3px"><b style="color:#9B2335">Blockers:</b> {blk}</div>
-  <div style="margin-top:10px;padding:9px 12px;background:#F4EAF6;border-radius:8px;font-size:0.82rem;color:#0E1E45;font-weight:600">Recommended action: {impl_next_action(r)}</div>
+  <div style="font-size:0.78rem;color:#3D3458;line-height:1.5;margin-top:3px"><b style="color:#C43D1B">Blockers:</b> {blk}</div>
+  <div style="margin-top:10px;padding:9px 12px;background:#F4EAF6;border-radius:8px;font-size:0.82rem;color:#161616;font-weight:600">Recommended action: {impl_next_action(r)}</div>
 </div>""", unsafe_allow_html=True)
 
             ai_key   = f"impl_ai_{r['customer_id']}"

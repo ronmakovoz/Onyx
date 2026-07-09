@@ -78,7 +78,7 @@ export default function BriefingsPage() {
             <button
               onClick={() => run("ceo")}
               disabled={busy !== null || selCid === null}
-              className="bg-navy text-white rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#16306E] disabled:opacity-60"
+              className="bg-navy text-white rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#000000] disabled:opacity-60"
             >
               {busy === "ceo" ? "Generating…" : "Generate CEO Briefing"}
             </button>
@@ -86,7 +86,7 @@ export default function BriefingsPage() {
               <button
                 onClick={() => run("skeptik")}
                 disabled={busy !== null}
-                className="bg-white text-navy border-[1.5px] border-[#C4D0E8] rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#F0ECE8] disabled:opacity-60"
+                className="bg-white text-navy border-[1.5px] border-[#DCD5B8] rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#F2EDDA] disabled:opacity-60"
               >
                 {busy === "skeptik" ? "Reviewing…" : "Review with Skeptik Agent"}
               </button>
@@ -116,7 +116,7 @@ export default function BriefingsPage() {
           <button
             onClick={() => run("vp")}
             disabled={busy !== null}
-            className="bg-navy text-white rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#16306E] disabled:opacity-60 mb-4"
+            className="bg-navy text-white rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#000000] disabled:opacity-60 mb-4"
           >
             {busy === "vp" ? "Generating…" : "Generate Weekly VP CX Review"}
           </button>

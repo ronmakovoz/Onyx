@@ -98,13 +98,13 @@ export const fmtK = (v: number) => `$${(v / 1e3).toFixed(0)}K`;
 export const fmtUSD = (v: number) => `$${v.toLocaleString()}`;
 
 export function healthColor(score: number): string {
-  if (score < 40) return "#9B2335";
+  if (score < 40) return "#C43D1B";
   if (score < 60) return "#7A5C1E";
   return "#2D5A3D";
 }
 
 export const riskColor: Record<string, string> = {
-  High: "#9B2335",
+  High: "#C43D1B",
   Medium: "#7A5C1E",
   Low: "#2D5A3D",
 };
@@ -116,7 +116,7 @@ export const riskBg: Record<string, string> = {
 };
 
 export const confColors: Record<string, string> = {
-  "Very Low": "#9B2335",
+  "Very Low": "#C43D1B",
   Low: "#C8642A",
   Medium: "#7A5C1E",
   High: "#2D5A3D",

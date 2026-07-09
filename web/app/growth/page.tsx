@@ -117,8 +117,8 @@ export default function GrowthPage() {
               <tr
                 key={r.customer_id}
                 onClick={() => setSel(sel?.customer_id === r.customer_id ? null : r)}
-                className={`border-b border-[#F0EDE7] cursor-pointer transition-colors ${
-                  sel?.customer_id === r.customer_id ? "bg-lavender" : "hover:bg-[#FAF8F4]"
+                className={`border-b border-[#F1ECD9] cursor-pointer transition-colors ${
+                  sel?.customer_id === r.customer_id ? "bg-lavender" : "hover:bg-[#FCFAEE]"
                 }`}
               >
                 <td className="px-4 py-[9px] whitespace-nowrap">
@@ -140,7 +140,7 @@ export default function GrowthPage() {
                         className="inline-block w-[14px] h-[14px] rounded-full border-2 border-dashed border-[#2D5A3D] bg-[#EBF2EE]"
                       />
                     ) : (
-                      <span className="inline-block w-[6px] h-[6px] rounded-full bg-[#E4E0D8]" />
+                      <span className="inline-block w-[6px] h-[6px] rounded-full bg-[#E5DFC8]" />
                     )}
                   </td>
                 ))}
@@ -164,7 +164,7 @@ export default function GrowthPage() {
           Recommended (peers own it)
         </span>
         <span className="flex items-center gap-2">
-          <span className="inline-block w-[6px] h-[6px] rounded-full bg-[#E4E0D8]" /> Not owned, weak peer signal
+          <span className="inline-block w-[6px] h-[6px] rounded-full bg-[#E5DFC8]" /> Not owned, weak peer signal
         </span>
       </div>
 
@@ -190,7 +190,7 @@ export default function GrowthPage() {
           {sel.recommended.length ? (
             <div className="grid md:grid-cols-3 gap-3">
               {sel.recommended.map((o) => (
-                <div key={o.product_id} className="border border-line rounded-[10px] p-3 bg-[#FAF8F4]">
+                <div key={o.product_id} className="border border-line rounded-[10px] p-3 bg-[#FCFAEE]">
                   <div className="font-bold text-navy text-[0.85rem] mb-1">{o.product_name}</div>
                   <div className="text-[0.72rem] text-ink leading-relaxed mb-2">{o.description}</div>
                   <div className="text-[0.78rem] font-extrabold text-green mb-1">est. {fmtK(o.estimated_arr)}/yr</div>
@@ -209,13 +209,13 @@ export default function GrowthPage() {
           <div className="mt-4 flex gap-3">
             <Link
               href={`/customers/${sel.customer_id}`}
-              className="bg-navy text-white rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#16306E] transition-colors"
+              className="bg-navy text-white rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#000000] transition-colors"
             >
               Open Customer 360
             </Link>
             <button
               onClick={() => window.open(`/api/customers/${sel.customer_id}/debate`, "_blank")}
-              className="bg-white text-navy border-[1.5px] border-[#C4D0E8] rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#F0ECE8] transition-colors"
+              className="bg-white text-navy border-[1.5px] border-[#DCD5B8] rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#F2EDDA] transition-colors"
             >
               ⚔ Red Team the Renewal ↗
             </button>

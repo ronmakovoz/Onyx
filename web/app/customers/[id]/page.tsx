@@ -55,8 +55,8 @@ function HealthChart({ history }: { history: { date: string; health_score: numbe
         <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" className="w-full h-[160px] block">
           <defs>
             <linearGradient id="healthFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#0E1E45" stopOpacity="0.10" />
-              <stop offset="100%" stopColor="#0E1E45" stopOpacity="0" />
+              <stop offset="0%" stopColor="#161616" stopOpacity="0.10" />
+              <stop offset="100%" stopColor="#161616" stopOpacity="0" />
             </linearGradient>
           </defs>
           {[lo, mid, hi].map((g) => (
@@ -66,7 +66,7 @@ function HealthChart({ history }: { history: { date: string; health_score: numbe
               x2={W}
               y1={yOf(g)}
               y2={yOf(g)}
-              stroke="#F0EDE7"
+              stroke="#F1ECD9"
               strokeWidth={1}
               vectorEffect="non-scaling-stroke"
             />
@@ -74,7 +74,7 @@ function HealthChart({ history }: { history: { date: string; health_score: numbe
           <polygon points={area} fill="url(#healthFill)" />
           <polyline
             fill="none"
-            stroke="#0E1E45"
+            stroke="#161616"
             strokeWidth={2.2}
             vectorEffect="non-scaling-stroke"
             points={pts.map(([x, y]) => `${x},${y}`).join(" ")}
@@ -138,19 +138,19 @@ export default function CustomerDetailPage() {
   const renewal = data.renewal || null;
   const history: any[] = data.health_history || [];
 
-  const rc = riskColor[c.risk_level] || "#0E1E45";
+  const rc = riskColor[c.risk_level] || "#161616";
   const rb = riskBg[c.risk_level] || "#F5F2EE";
   const openTickets = tickets.filter((t) => t.status !== "Resolved").length;
   const renewalDays = renewal?.days_to_renewal ?? "?";
   const champColor =
-    { Active: "#2D5A3D", Disengaged: "#7A5C1E", "Left Company": "#9B2335" }[
+    { Active: "#2D5A3D", Disengaged: "#7A5C1E", "Left Company": "#C43D1B" }[
       c.champion_status as string
     ] || "#6B6280";
 
   // Overview derivations (mirror app.py)
   const rr = c.renewal_risk_score ?? 0;
   const renewConf = Math.round((1 - rr) * 100);
-  const rconfColor = renewConf >= 70 ? "#2D5A3D" : renewConf >= 45 ? "#7A5C1E" : "#9B2335";
+  const rconfColor = renewConf >= 70 ? "#2D5A3D" : renewConf >= 45 ? "#7A5C1E" : "#C43D1B";
   const rverdict =
     renewConf >= 70 ? "Likely to Renew" : renewConf < 45 ? "Renewal at Risk" : "Needs Attention";
 
@@ -223,7 +223,7 @@ export default function CustomerDetailPage() {
           <select
             value={cid}
             onChange={(e) => router.push(`/customers/${e.target.value}`)}
-            className="bg-white border border-[#E0D8E8] rounded-xl px-3 py-2 text-[0.88rem] text-navy shadow-card outline-none hover:border-[#9FB6E4] max-w-[340px]"
+            className="bg-white border border-[#E0D8E8] rounded-xl px-3 py-2 text-[0.88rem] text-navy shadow-card outline-none hover:border-[#F2C94C] max-w-[340px]"
             aria-label="Switch account"
           >
             {allCustomers.map((cu) => (
@@ -274,12 +274,12 @@ export default function CustomerDetailPage() {
           <StatChip
             label="NRR"
             value={`${c.nrr_pct ?? "?"}%`}
-            valueColor={(c.nrr_pct ?? 0) >= 105 ? "#2D5A3D" : (c.nrr_pct ?? 0) >= 98 ? "#7A5C1E" : "#9B2335"}
+            valueColor={(c.nrr_pct ?? 0) >= 105 ? "#2D5A3D" : (c.nrr_pct ?? 0) >= 98 ? "#7A5C1E" : "#C43D1B"}
           />
           <StatChip
             label="NPS"
             value={c.nps ?? "?"}
-            valueColor={(c.nps ?? 0) >= 8 ? "#2D5A3D" : (c.nps ?? 0) >= 5 ? "#7A5C1E" : "#9B2335"}
+            valueColor={(c.nps ?? 0) >= 8 ? "#2D5A3D" : (c.nps ?? 0) >= 5 ? "#7A5C1E" : "#C43D1B"}
           />
         </div>
       </div>
@@ -345,7 +345,7 @@ export default function CustomerDetailPage() {
                     className={`rounded-full text-[0.78rem] font-semibold py-[6px] px-3 transition-all ${
                       curStatus === s
                         ? "bg-navy text-white border-[1.5px] border-navy shadow"
-                        : "bg-white text-navy border-[1.5px] border-[#C4D0E8] hover:bg-[#F0ECE8]"
+                        : "bg-white text-navy border-[1.5px] border-[#DCD5B8] hover:bg-[#F2EDDA]"
                     }`}
                   >
                     {s === "Dismissed" ? "Dismiss" : s}
@@ -430,13 +430,13 @@ export default function CustomerDetailPage() {
             <button
               onClick={runAgent}
               disabled={running}
-              className="bg-navy text-white rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#16306E] disabled:opacity-60 transition-colors"
+              className="bg-navy text-white rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#000000] disabled:opacity-60 transition-colors"
             >
               {running ? "Running…" : "Run Agent"}
             </button>
             <button
               onClick={() => window.open(`/api/customers/${cid}/debate`, "_blank")}
-              className="bg-white text-navy border-[1.5px] border-[#C4D0E8] rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#F0ECE8] transition-colors"
+              className="bg-white text-navy border-[1.5px] border-[#DCD5B8] rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#F2EDDA] transition-colors"
               title="Bull and Bear agents argue this account in parallel; an Opus judge issues a calibrated renewal probability"
             >
               ⚔ Red Team Debate ↗
@@ -489,7 +489,7 @@ export default function CustomerDetailPage() {
                 <Pill
                   color={
                     ["Stalled", "Behind Schedule"].includes(impl.overall_status)
-                      ? "#9B2335"
+                      ? "#C43D1B"
                       : impl.overall_status === "Slight Delay"
                       ? "#C9952A"
                       : "#2D5A3D"
@@ -550,8 +550,8 @@ export default function CustomerDetailPage() {
               {openTickets} Open <span className="text-muted font-normal">· {tickets.length - openTickets} Resolved</span>
             </div>
             {tickets.map((t, i) => {
-              const sc = { P1: "#9B2335", P2: "#7A5C1E", P3: "#5C4A1E", P4: "#6B6280" }[t.severity as string] || "#6B6280";
-              const stc = { Open: "#9B2335", "In Progress": "#7A5C1E" }[t.status as string] || "#2D5A3D";
+              const sc = { P1: "#C43D1B", P2: "#7A5C1E", P3: "#5C4A1E", P4: "#6B6280" }[t.severity as string] || "#6B6280";
+              const stc = { Open: "#C43D1B", "In Progress": "#7A5C1E" }[t.status as string] || "#2D5A3D";
               return (
                 <Card key={i} className="mb-2">
                   <div className="flex justify-between items-center">
@@ -571,7 +571,7 @@ export default function CustomerDetailPage() {
             {!escs.length ? <div className="text-green text-[0.78rem]">No active escalations.</div> : null}
             {escs.map((e, i) => {
               const crit = e.severity === "Critical";
-              const sc = crit ? "#9B2335" : "#7A5C1E";
+              const sc = crit ? "#C43D1B" : "#7A5C1E";
               return (
                 <Card key={i} className="mb-2" accent={sc}>
                   <div className="flex items-center justify-between">
@@ -599,7 +599,7 @@ export default function CustomerDetailPage() {
           <div>
             <SectionLabel>Stakeholders</SectionLabel>
             {stk.map((s, i) => {
-              const ec = { High: "#2D5A3D", Medium: "#7A5C1E", Low: "#9B2335" }[s.engagement_level as string] || "#6B6280";
+              const ec = { High: "#2D5A3D", Medium: "#7A5C1E", Low: "#C43D1B" }[s.engagement_level as string] || "#6B6280";
               return (
                 <Card key={i} className="mb-2">
                   <div className="flex justify-between items-start">
@@ -612,7 +612,7 @@ export default function CustomerDetailPage() {
                     </span>
                   </div>
                   <div className="mt-[6px] flex items-center gap-2">
-                    <Pill color="#0E1E45" bg="#EAE6E0">{s.role}</Pill>
+                    <Pill color="#161616" bg="#EAE6E0">{s.role}</Pill>
                     <span className="text-muted text-[0.72rem]">{s.email}</span>
                   </div>
                 </Card>
@@ -622,7 +622,7 @@ export default function CustomerDetailPage() {
           <div>
             <SectionLabel>Meeting Notes</SectionLabel>
             {notes.map((n, i) => {
-              const sc = { Positive: "#2D5A3D", Negative: "#9B2335" }[n.sentiment_signal as string] || "#6B6280";
+              const sc = { Positive: "#2D5A3D", Negative: "#C43D1B" }[n.sentiment_signal as string] || "#6B6280";
               const sb = { Positive: "#EBF2EE", Negative: "#F5ECEC" }[n.sentiment_signal as string] || "#EFEBE5";
               let actions: string[] = [];
               try {

@@ -182,14 +182,14 @@ export default function DashboardPage() {
 
       {/* AI Executive Summary */}
       <div
-        className="rounded-xl px-5 py-4 mb-5 border border-[#C6D4EE]"
-        style={{ background: "linear-gradient(135deg, #EAF0FB 0%, #DEE8F8 100%)" }}
+        className="rounded-xl px-5 py-4 mb-5 border border-[#EAD98F]"
+        style={{ background: "linear-gradient(135deg, #FBF4D8 0%, #F7ECC0 100%)" }}
       >
         <div className="flex items-center gap-2 mb-2">
-          <span className="text-[0.62rem] font-bold text-[#2E5CCC] uppercase tracking-[0.12em]">
+          <span className="text-[0.62rem] font-bold text-[#2E77F1] uppercase tracking-[0.12em]">
             AI Executive Summary
           </span>
-          <span className="text-[0.58rem] text-[#2E5CCC] bg-navy/5 px-2 py-[2px] rounded-full">
+          <span className="text-[0.58rem] text-[#2E77F1] bg-navy/5 px-2 py-[2px] rounded-full">
             auto-generated · live data
           </span>
         </div>
@@ -292,7 +292,7 @@ export default function DashboardPage() {
       {/* Two columns: at-risk + expansion */}
       <div className="grid lg:grid-cols-2 gap-5">
         <div>
-          <SectionLabel color="#9B2335">Accounts Requiring Attention</SectionLabel>
+          <SectionLabel color="#C43D1B">Accounts Requiring Attention</SectionLabel>
           {atRisk.map((c) => {
             const days = daysUntil(c.renewal_date);
             return (

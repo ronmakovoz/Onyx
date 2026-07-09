@@ -35,7 +35,7 @@ function csmFocus(s: CsmRow): [string, string] {
   if (s.champ_gap) issues.push(`champion gap at ${s.champ_gap} account${s.champ_gap !== 1 ? "s" : ""}`);
   if (s.escalations) issues.push(`${s.escalations} open escalation${s.escalations !== 1 ? "s" : ""}`);
   if (!issues.length) return ["#2D5A3D", "Book is healthy — push expansion and references"];
-  return ["#9B2335", "Coach on: " + issues.slice(0, 3).join(" · ")];
+  return ["#C43D1B", "Coach on: " + issues.slice(0, 3).join(" · ")];
 }
 
 const GRID =
@@ -121,7 +121,7 @@ export default function CsmPage() {
                 </div>
                 <div>
                   <div className="flex h-2 rounded-full overflow-hidden gap-[2px]">
-                    <div style={{ width: `${(s.high / tot) * 100}%`, background: "#9B2335" }} />
+                    <div style={{ width: `${(s.high / tot) * 100}%`, background: "#C43D1B" }} />
                     <div style={{ width: `${(s.med / tot) * 100}%`, background: "#C9952A" }} />
                     <div style={{ width: `${(s.low / tot) * 100}%`, background: "#2D5A3D" }} />
                   </div>
@@ -129,13 +129,13 @@ export default function CsmPage() {
                     {s.high} high · {s.med} med · {s.low} healthy
                   </div>
                 </div>
-                <div className="font-bold" style={{ color: s.arr_risk ? "#9B2335" : "#2D5A3D" }}>
+                <div className="font-bold" style={{ color: s.arr_risk ? "#C43D1B" : "#2D5A3D" }}>
                   {fmtM(s.arr_risk)}
                 </div>
                 <div className="text-ink font-semibold">{Math.round(s.avg_nrr)}%</div>
                 <div className="text-green font-semibold">{fmtK(s.expansion)}</div>
                 <div className="text-ink">{s.renewals_90}</div>
-                <div className="font-bold" style={{ color: followOk ? "#2D5A3D" : "#9B2335" }}>
+                <div className="font-bold" style={{ color: followOk ? "#2D5A3D" : "#C43D1B" }}>
                   {s.actioned}/{s.at_risk_n}
                 </div>
               </div>
@@ -188,19 +188,19 @@ export default function CsmPage() {
               <div className="grid grid-cols-3 gap-[10px] mb-5">
                 {(
                   [
-                    ["ARR at Risk", fmtM(selected.arr_risk), selected.arr_risk ? "#9B2335" : "#2D5A3D"],
-                    ["Avg NRR", `${Math.round(selected.avg_nrr)}%`, "#0E1E45"],
+                    ["ARR at Risk", fmtM(selected.arr_risk), selected.arr_risk ? "#C43D1B" : "#2D5A3D"],
+                    ["Avg NRR", `${Math.round(selected.avg_nrr)}%`, "#161616"],
                     ["Expansion", fmtK(selected.expansion), "#2D5A3D"],
-                    ["Renewals 90d", String(selected.renewals_90), "#0E1E45"],
-                    ["Overdue QBRs", String(selected.qbr_overdue), selected.qbr_overdue ? "#9B2335" : "#2D5A3D"],
-                    ["Champion Gaps", String(selected.champ_gap), selected.champ_gap ? "#9B2335" : "#2D5A3D"],
-                    ["Open Escalations", String(selected.escalations), selected.escalations ? "#9B2335" : "#2D5A3D"],
+                    ["Renewals 90d", String(selected.renewals_90), "#161616"],
+                    ["Overdue QBRs", String(selected.qbr_overdue), selected.qbr_overdue ? "#C43D1B" : "#2D5A3D"],
+                    ["Champion Gaps", String(selected.champ_gap), selected.champ_gap ? "#C43D1B" : "#2D5A3D"],
+                    ["Open Escalations", String(selected.escalations), selected.escalations ? "#C43D1B" : "#2D5A3D"],
                     [
                       "Risk Actioned",
                       `${selected.actioned}/${selected.at_risk_n}`,
                       !selected.at_risk_n || selected.actioned / selected.at_risk_n >= 0.5
                         ? "#2D5A3D"
-                        : "#9B2335",
+                        : "#C43D1B",
                     ],
                   ] as [string, string, string][]
                 ).map(([lbl, val, color]) => (

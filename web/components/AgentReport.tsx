@@ -8,7 +8,7 @@ export function MetaPills({ result }: { result: AgentResult }) {
   const tier = result.model_tier || modelTierFromId(result.model_used || "");
   const color = tierColor(tier);
   const conf = result.confidence_score ?? 0;
-  const confColor = conf >= 0.75 ? "#2D5A3D" : conf >= 0.55 ? "#7A5C1E" : "#9B2335";
+  const confColor = conf >= 0.75 ? "#2D5A3D" : conf >= 0.55 ? "#7A5C1E" : "#C43D1B";
   const disp = result.model_display || result.model_used || "?";
   const sep = <span className="text-[#C8C2B8]">·</span>;
   return (

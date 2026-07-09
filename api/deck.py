@@ -37,12 +37,12 @@ def _split_row(item: str, n: int) -> list[str]:
 
 # Circuit-trace background motif (subtle, like the brand deck)
 _TRACES = """<svg class="traces" viewBox="0 0 1280 720" preserveAspectRatio="none">
-<g stroke="#0E1E45" stroke-opacity="0.05" stroke-width="1.5" fill="none">
+<g stroke="#161616" stroke-opacity="0.05" stroke-width="1.5" fill="none">
 <path d="M-20 120 H 240 L 300 180 H 520"/><path d="M1300 90 H 1080 L 1020 150 H 880"/>
 <path d="M-20 600 H 180 L 260 520 H 420"/><path d="M1300 640 H 1120 L 1040 560 H 900"/>
 <path d="M120 740 V 620 L 200 540"/><path d="M1180 -20 V 110 L 1100 190"/>
 </g>
-<g fill="#0E1E45" fill-opacity="0.07">
+<g fill="#161616" fill-opacity="0.07">
 <circle cx="520" cy="180" r="4"/><circle cx="880" cy="150" r="4"/><circle cx="420" cy="520" r="4"/>
 <circle cx="900" cy="560" r="4"/><circle cx="200" cy="540" r="4"/><circle cx="1100" cy="190" r="4"/>
 </g></svg>"""
@@ -333,12 +333,12 @@ def render_kickoff_deck(structured: dict, ctx: dict) -> str:
     phase_colors = {
         "Foundation": ("#7C5CBF", "#EDE7F8"), "Integration": ("#2D6A8A", "#E4F0F6"),
         "Pilot": ("#B06A2E", "#FBEFE6"), "Validation": ("#7A5C1E", "#F7F0DC"),
-        "Launch": ("#2D5A3D", "#E8F5EC"), "Value": ("#9B2335", "#FBEAEC"),
+        "Launch": ("#2D5A3D", "#E8F5EC"), "Value": ("#C43D1B", "#FBEAEC"),
     }
     tl_rows = ""
     for item in timeline:
         phase, milestone, date, owner = _split_row(item, 4)
-        pc, pb = phase_colors.get(phase, ("#0E1E45", "#EFEBE4"))
+        pc, pb = phase_colors.get(phase, ("#161616", "#EFEBE4"))
         tl_rows += f"""<tr>
           <td><span class="chip" style="color:{pc};background:{pb}">{_esc(phase)}</span></td>
           <td class="tl-milestone">{_esc(milestone)}</td>
@@ -409,7 +409,7 @@ def render_deck_loading(customer: str, customer_id: int, live: bool) -> str:
   .dot:nth-child(3) {{ animation-delay:0.4s; }}
   @keyframes pulse {{ 0%,100% {{ opacity:0.25; transform:scale(0.85); }}
     50% {{ opacity:1; transform:scale(1.15); }} }}
-  .err {{ display:none; margin-top:24px; color:#9B2335; font-size:14px; font-weight:600; }}
+  .err {{ display:none; margin-top:24px; color:#C43D1B; font-size:14px; font-weight:600; }}
 </style></head>
 <body><div class="box">
   <div class="wordmark">linx</div>

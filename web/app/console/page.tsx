@@ -106,7 +106,7 @@ export default function ConsolePage() {
           <button
             onClick={run}
             disabled={running}
-            className="w-full bg-navy text-white rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#16306E] disabled:opacity-60"
+            className="w-full bg-navy text-white rounded-full px-5 py-2 text-[0.78rem] font-semibold hover:bg-[#000000] disabled:opacity-60"
           >
             {running ? "Running…" : `Run ${agentDisplayName(selAgent)}`}
           </button>
@@ -126,7 +126,7 @@ export default function ConsolePage() {
           {result && !running ? (
             <AgentReport result={result} />
           ) : !running ? (
-            <div className="border-2 border-dashed border-[#D8D3C8] rounded-[14px] p-12 text-center bg-white">
+            <div className="border-2 border-dashed border-[#D6D0B8] rounded-[14px] p-12 text-center bg-white">
               <div className="text-[0.95rem] font-semibold text-navy">Configure an agent and click Run</div>
               <div className="mt-1 text-[0.80rem] text-muted">
                 Model routing rationale, cost, and confidence will appear here

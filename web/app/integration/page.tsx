@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { PageHeader } from "@/components/ui";
 
-const NAVY = "#0E1E45";
-const PURPLE = "#2E5CCC";
-const GREEN = "#1F6B4A";
+const NAVY = "#161616";
+const PURPLE = "#2E77F1";
+const GREEN = "#2F9E55";
 
 // Step 1 — discover identities through IdPs and HRIS (read-only API)
 const SECURITY_STACK = ["Okta", "Entra ID", "Google WS", "Workday"];
@@ -33,7 +33,7 @@ const GUARDIAN = [
   { label: "Just-in-Time Access", bg: "#FDF3DC", border: "#EAD08F" },
   { label: "Privilege Cleanup", bg: "#FBE8D8", border: "#EDBE94" },
   { label: "MFA Enforcement", bg: "#FBE3E1", border: "#EFB0AB" },
-  { label: "Audit & Compliance", bg: "#FFFFFF", border: "#D8D3C8" },
+  { label: "Audit & Compliance", bg: "#FFFFFF", border: "#D6D0B8" },
 ];
 
 const STEPS = [
@@ -95,27 +95,27 @@ export default function IntegrationPage() {
           </defs>
 
           {/* ===== Step 1: Discover Identities ===== */}
-          <rect x="20" y="30" width="330" height="130" rx="12" fill="#FAF8F4" stroke="#D8D3C8" strokeDasharray="6 4" />
+          <rect x="20" y="30" width="330" height="130" rx="12" fill="#FCFAEE" stroke="#D6D0B8" strokeDasharray="6 4" />
           <text x="36" y="54" fontSize="13" fontWeight="800" fill={NAVY}>Step 1: Discover Identities</text>
-          <rect x="36" y="66" width="298" height="78" rx="9" fill="#fff" stroke="#E4E0D8" />
+          <rect x="36" y="66" width="298" height="78" rx="9" fill="#fff" stroke="#E5DFC8" />
           <text x="50" y="86" fontSize="10" fontWeight="700" fill="#8A8475" fontFamily="monospace">IdP &amp; HRIS</text>
           {SECURITY_STACK.map((s, i) => (
             <g key={s}>
-              <rect x={50 + i * 70} y={96} width="64" height="32" rx="7" fill="#F4F1EB" stroke="#E4E0D8" />
+              <rect x={50 + i * 70} y={96} width="64" height="32" rx="7" fill="#F7F3E2" stroke="#E5DFC8" />
               <text x={82 + i * 70} y={115} textAnchor="middle" fontSize="8.5" fontWeight="700" fill={NAVY}>{s}</text>
             </g>
           ))}
 
           {/* ===== Step 2: Connect To Apps & Infra ===== */}
-          <rect x="20" y="180" width="330" height="330" rx="12" fill="#FAF8F4" stroke="#D8D3C8" strokeDasharray="6 4" />
+          <rect x="20" y="180" width="330" height="330" rx="12" fill="#FCFAEE" stroke="#D6D0B8" strokeDasharray="6 4" />
           <text x="36" y="204" fontSize="13" fontWeight="800" fill={NAVY}>Step 2: Connect To Apps & Infra</text>
           {CONNECT_GROUPS.map((g, gi) => (
             <g key={g.label}>
-              <rect x="36" y={216 + gi * 94} width="298" height="84" rx="9" fill="#fff" stroke="#E4E0D8" />
+              <rect x="36" y={216 + gi * 94} width="298" height="84" rx="9" fill="#fff" stroke="#E5DFC8" />
               <text x="50" y={236 + gi * 94} fontSize="10" fontWeight="700" fill="#8A8475" fontFamily="monospace">{g.label}</text>
               {g.items.map((it, ii) => (
                 <g key={it}>
-                  <rect x={50 + (ii % 2) * 138} y={244 + gi * 94 + Math.floor(ii / 2) * 26} width="130" height="22" rx="6" fill="#F4F1EB" stroke="#E4E0D8" />
+                  <rect x={50 + (ii % 2) * 138} y={244 + gi * 94 + Math.floor(ii / 2) * 26} width="130" height="22" rx="6" fill="#F7F3E2" stroke="#E5DFC8" />
                   <text x={115 + (ii % 2) * 138} y={259 + gi * 94 + Math.floor(ii / 2) * 26} textAnchor="middle" fontSize="9" fontWeight="700" fill={NAVY}>{it}</text>
                 </g>
               ))}
@@ -128,7 +128,7 @@ export default function IntegrationPage() {
             const p = flowPath(350, 110, BX, bMidY - 60);
             return (
               <g>
-                <path d={p} fill="none" stroke="#CBD8F0" strokeWidth="1.5" />
+                <path d={p} fill="none" stroke="#E8E0BE" strokeWidth="1.5" />
                 <text x="368" y="100" fontSize="9" fill="#8A8475" fontFamily="monospace">API Integration (Read-Only)</text>
                 <circle r="5" fill={PURPLE} filter="url(#glow)">
                   <animateMotion dur="2.8s" repeatCount="indefinite" path={p} />
@@ -141,7 +141,7 @@ export default function IntegrationPage() {
             const p = flowPath(350, 345, BX, bMidY + 40);
             return (
               <g>
-                <path d={p} fill="none" stroke="#CBD8F0" strokeWidth="1.5" />
+                <path d={p} fill="none" stroke="#E8E0BE" strokeWidth="1.5" />
                 <text x="360" y="394" fontSize="9" fill="#8A8475" fontFamily="monospace">API Integration (Read-Only)</text>
                 <text x="360" y="406" fontSize="9" fill="#8A8475" fontFamily="monospace">- or - Gateway</text>
                 <circle r="5" fill={PURPLE} filter="url(#glow)">
@@ -155,13 +155,13 @@ export default function IntegrationPage() {
           })()}
 
           {/* ===== Linx Identity Graph ===== */}
-          <rect x={BX} y={BY} width={BW} height={BH} rx="16" fill="#EAF0FB" stroke="#B7C8EC" strokeWidth="1.5" />
+          <rect x={BX} y={BY} width={BW} height={BH} rx="16" fill="#FBF4D8" stroke="#E4D391" strokeWidth="1.5" />
           <text x={BX + BW / 2} y={BY - 14} textAnchor="middle" fontSize="13" fontWeight="900" fill={NAVY} letterSpacing="0.5">
             LINX <tspan fontWeight="600">Cloud Platform</tspan>
           </text>
           {BACKEND.map((b, i) => (
             <g key={b}>
-              <rect x={BX + 18} y={BY + 24 + i * 62} width={BW - 36} height="48" rx="9" fill="#fff" stroke="#CBD8F0" />
+              <rect x={BX + 18} y={BY + 24 + i * 62} width={BW - 36} height="48" rx="9" fill="#fff" stroke="#E8E0BE" />
               <text x={BX + BW / 2} y={BY + 52 + i * 62} textAnchor="middle" fontSize="10.5" fontWeight="700" fill={NAVY}>
                 {b}
               </text>
@@ -183,7 +183,7 @@ export default function IntegrationPage() {
           })}
 
           {/* ===== Linx Autopilot ===== */}
-          <rect x="740" y="26" width="240" height="488" rx="14" fill="#FAF8F4" stroke="#D8D3C8" strokeDasharray="6 4" />
+          <rect x="740" y="26" width="240" height="488" rx="14" fill="#FCFAEE" stroke="#D6D0B8" strokeDasharray="6 4" />
           <text x="860" y="48" textAnchor="middle" fontSize="12" fontWeight="900" fill={NAVY} letterSpacing="0.5">
             LINX <tspan fontWeight="600">Autopilot</tspan>
           </text>
@@ -215,16 +215,16 @@ export default function IntegrationPage() {
             className={`text-left rounded-xl border p-4 transition-all ${
               step === i
                 ? "bg-navy text-white border-navy shadow-card"
-                : "bg-white text-ink border-line hover:border-[#9FB6E4]"
+                : "bg-white text-ink border-line hover:border-[#F2C94C]"
             }`}
           >
-            <div className={`text-[0.62rem] font-bold uppercase tracking-[0.12em] mb-1 ${step === i ? "text-[#9FB6E4]" : "text-muted"}`}>
+            <div className={`text-[0.62rem] font-bold uppercase tracking-[0.12em] mb-1 ${step === i ? "text-[#F2C94C]" : "text-muted"}`}>
               Step {s.n}
             </div>
             <div className={`text-[1rem] font-extrabold mb-2 ${step === i ? "text-white" : "text-navy"}`}>
               {s.title}
             </div>
-            <div className={`text-[0.74rem] leading-relaxed ${step === i ? "text-[#E2EAF8]" : "text-muted"}`}>
+            <div className={`text-[0.74rem] leading-relaxed ${step === i ? "text-[#F5F0DC]" : "text-muted"}`}>
               {s.body}
             </div>
           </button>

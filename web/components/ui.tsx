@@ -53,7 +53,7 @@ export function KpiCard({
 // ── Pill / badge ───────────────────────────────────────────────────────────
 export function Pill({
   children,
-  color = "#0E1E45",
+  color = "#161616",
   bg = "#F5F2EE",
   bordered = false,
 }: {
@@ -77,7 +77,7 @@ export function Pill({
 }
 
 // ── Progress bar ───────────────────────────────────────────────────────────
-export function ProgressBar({ pct, color = "#0E1E45" }: { pct: number; color?: string }) {
+export function ProgressBar({ pct, color = "#161616" }: { pct: number; color?: string }) {
   return (
     <div className="flex-1 h-[6px] bg-[#EFEAE5] rounded-md overflow-hidden">
       <div
@@ -136,7 +136,7 @@ export function PageHeader({ title, subtitle }: { title: string; subtitle?: stri
 export function StatChip({
   label,
   value,
-  valueColor = "#0E1E45",
+  valueColor = "#161616",
 }: {
   label: string;
   value: ReactNode;
