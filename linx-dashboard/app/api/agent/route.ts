@@ -31,7 +31,7 @@ export async function POST(request: Request) {
   const prompt = `You are the ${agent.name} for a Linx Security Customer Success executive. ${agent.description}\nUse only the supplied synthetic data. Produce a concise executive document with uppercase section headings, quantified evidence, clear risks, and 3-5 specific next actions. Never claim the data is production data.\n\nCONTEXT:\n${context}`;
 
   try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "Content-Type": "application/json", "x-api-key": apiKey, "anthropic-version": "2023-06-01" }, body: JSON.stringify({ model, max_tokens: 1400, temperature: 0.25, messages: [{ role: "user", content: prompt }] }) });
+    const response = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "Content-Type": "application/json", "x-api-key": apiKey, "anthropic-version": "2023-06-01" }, body: JSON.stringify({ model, max_tokens: 1400, messages: [{ role: "user", content: prompt }] }) });
     if (!response.ok) throw new Error(`Anthropic returned ${response.status}`);
     const data = await response.json() as { content?: Array<{ type: string; text?: string }> };
     const report = data.content?.find((item) => item.type === "text")?.text;

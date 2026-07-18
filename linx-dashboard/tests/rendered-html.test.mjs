@@ -44,6 +44,7 @@ test("keeps live Anthropic routing and demo fallback explicit", async () => {
 
   assert.match(agentRoute, /api\.anthropic\.com\/v1\/messages/);
   assert.match(agentRoute, /ANTHROPIC_API_KEY/);
+  assert.doesNotMatch(agentRoute, /temperature:/);
   assert.match(agentRoute, /mockReport/);
   assert.match(modeRoute, /live:\s*available/);
   assert.match(exampleEnv, /ANTHROPIC_API_KEY=/);
