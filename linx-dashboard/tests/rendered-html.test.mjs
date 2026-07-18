@@ -8,7 +8,9 @@ test("defines the Linx executive dashboard and metadata", async () => {
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
   ]);
 
-  assert.match(layout, /title:\s*"Linx CX Intelligence OS"/);
+  assert.match(layout, /const title = "Linx CX Intelligence OS"/);
+  assert.match(layout, /new URL\("\/og\.png", baseUrl\)/);
+  assert.match(layout, /card:\s*"summary_large_image"/);
   assert.match(page, /Executive Dashboard/);
   assert.match(page, /AI EXECUTIVE SUMMARY/);
   assert.match(page, /Synthetic customer and performance data/);
