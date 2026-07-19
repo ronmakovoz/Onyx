@@ -27,12 +27,35 @@ test("defines every core workspace route", async () => {
     ["agents", /Agent Studio/],
     ["integration", /How Linx Connects/],
     ["audit", /Audit & Costs/],
+    ["activity", /ActivityDashboard/],
   ];
 
   for (const [route, expected] of routes) {
     const page = await readFile(new URL(`../app/${route}/page.tsx`, import.meta.url), "utf8");
     assert.match(page, expected, route);
   }
+});
+
+test("adds durable, owner-only activity analytics", async () => {
+  const [layout, tracker, activityPage, summaryRoute, schema, hosting] = await Promise.all([
+    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/AnalyticsTracker.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/activity/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/api/analytics/summary/route.ts", import.meta.url), "utf8"),
+    readFile(new URL("../db/schema.ts", import.meta.url), "utf8"),
+    readFile(new URL("../.openai/hosting.json", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(layout, /<AnalyticsTracker \/>/);
+  assert.match(tracker, /session_start|page_view/);
+  assert.match(tracker, /document\.addEventListener\("click"/);
+  assert.match(tracker, /sessionDurationMs/);
+  assert.match(activityPage, /requireChatGPTUser\("\/activity"\)/);
+  assert.match(activityPage, /isOwnerEmail/);
+  assert.match(summaryRoute, /isOwnerEmail/);
+  assert.match(schema, /analyticsSessions/);
+  assert.match(schema, /analyticsEvents/);
+  assert.equal(JSON.parse(hosting).d1, "DB");
 });
 
 test("keeps live Anthropic routing and demo fallback explicit", async () => {

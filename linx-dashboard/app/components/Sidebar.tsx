@@ -14,11 +14,17 @@ const groups = [
 export default function Sidebar() {
   const pathname = usePathname();
   const [live, setLive] = useState(false);
+  const [owner, setOwner] = useState(false);
 
   useEffect(() => {
-    void fetch("/api/mode")
-      .then((response) => response.json())
-      .then((result: { live?: boolean }) => setLive(result.live === true))
+    void Promise.all([
+      fetch("/api/mode").then((response) => response.json()) as Promise<{ live?: boolean }>,
+      fetch("/api/viewer").then((response) => response.json()) as Promise<{ isOwner?: boolean }>,
+    ])
+      .then(([mode, viewer]) => {
+        setLive(mode.live === true);
+        setOwner(viewer.isOwner === true);
+      })
       .catch(() => undefined);
   }, []);
 
@@ -42,6 +48,14 @@ export default function Sidebar() {
             </nav>
           </section>
         ))}
+        {owner && (
+          <section>
+            <h2>Private</h2>
+            <nav>
+              <Link href="/activity" className={pathname.startsWith("/activity") ? "active" : ""}>Activity Analytics</Link>
+            </nav>
+          </section>
+        )}
       </div>
 
       <div className={`mode-card ${live ? "live" : ""}`}>

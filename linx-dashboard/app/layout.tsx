@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { headers } from "next/headers";
 import "./globals.css";
 import Sidebar from "./components/Sidebar";
+import AnalyticsTracker from "./components/AnalyticsTracker";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -74,6 +75,7 @@ export default function RootLayout({
           <Sidebar />
           <main className="app-main">{children}</main>
         </div>
+        <AnalyticsTracker />
       </body>
     </html>
   );

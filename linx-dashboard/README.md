@@ -26,6 +26,7 @@ This starter does not use `wrangler.jsonc`.
 - Product whitespace and expansion recommendations
 - Account briefings and AI agent workflows
 - Linx architecture, model routing, audit, and cost visibility
+- Owner-only activity analytics for opens, navigation, clicks, and engagement time
 
 ## Anthropic
 
