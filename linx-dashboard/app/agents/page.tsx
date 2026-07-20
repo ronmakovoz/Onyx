@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { accounts, agents } from "../lib/data";
 import { PageHeader, SectionTitle } from "../components/UI";
+import ReportDocument from "../components/ReportDocument";
 
 export default function AgentsPage() {
   const [agentId, setAgentId] = useState(agents[0].id);
@@ -39,7 +40,7 @@ export default function AgentsPage() {
         </section>
         <section>
           <SectionTitle meta={meta.model ? `${meta.live ? "LIVE" : "DEMO"} · ${meta.model} · ${meta.confidence}% confidence` : undefined}>Agent output</SectionTitle>
-          <div className={`card report agent-output ${busy ? "loading" : ""}`}>{busy ? <div className="report-placeholder"><i /><strong>Running {agent.name}…</strong><p>Grounding recommendations in identity-program and commercial context.</p></div> : result ? <pre>{result}</pre> : <div className="empty-report"><span>✦</span><strong>Configure an agent and click Run</strong><p>Recommendations, model choice, and confidence will appear here.</p></div>}</div>
+          <div className={`card report agent-output ${busy ? "loading" : ""}`}>{busy ? <div className="report-placeholder"><i /><strong>Running {agent.name}…</strong><p>Grounding recommendations in identity-program and commercial context.</p></div> : result ? <ReportDocument content={result} /> : <div className="empty-report"><span>✦</span><strong>Configure an agent and click Run</strong><p>Recommendations, model choice, and confidence will appear here.</p></div>}</div>
         </section>
       </div>
     </div>

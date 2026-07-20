@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { accounts } from "../lib/data";
 import { PageHeader, SectionTitle } from "../components/UI";
+import ReportDocument from "../components/ReportDocument";
 
 export default function BriefingsPage() {
   const [tab, setTab] = useState<"account" | "vp">("account");
@@ -38,7 +39,7 @@ export default function BriefingsPage() {
         </div>
         <div>
           <SectionTitle meta={model || undefined}>Generated document</SectionTitle>
-          <div className={`card report ${busy ? "loading" : ""}`}>{busy ? <div className="report-placeholder"><i /><strong>Analyzing portfolio context…</strong><p>Connecting health, adoption, outcomes, and commercial signals.</p></div> : result ? <pre>{result}</pre> : <div className="empty-report"><span>✦</span><strong>Ready to generate</strong><p>Your executive-grade document will appear here.</p></div>}</div>
+          <div className={`card report ${busy ? "loading" : ""}`}>{busy ? <div className="report-placeholder"><i /><strong>Analyzing portfolio context…</strong><p>Connecting health, adoption, outcomes, and commercial signals.</p></div> : result ? <ReportDocument content={result} /> : <div className="empty-report"><span>✦</span><strong>Ready to generate</strong><p>Your executive-grade document will appear here.</p></div>}</div>
         </div>
       </section>
     </div>

@@ -72,3 +72,18 @@ test("keeps live Anthropic routing and demo fallback explicit", async () => {
   assert.match(modeRoute, /live:\s*available/);
   assert.match(exampleEnv, /ANTHROPIC_API_KEY=/);
 });
+
+test("formats model reports instead of exposing Markdown syntax", async () => {
+  const [agentsPage, briefingsPage, renderer] = await Promise.all([
+    readFile(new URL("../app/agents/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/briefings/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/components/ReportDocument.tsx", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(agentsPage, /<ReportDocument content=\{result\} \/>/);
+  assert.match(briefingsPage, /<ReportDocument content=\{result\} \/>/);
+  assert.doesNotMatch(agentsPage + briefingsPage, /<pre>/);
+  assert.match(renderer, /<h1|<h2|<ul|<ol|<table/);
+  assert.match(renderer, /target="_blank" rel="noreferrer"/);
+  assert.doesNotMatch(renderer, /dangerouslySetInnerHTML/);
+});
