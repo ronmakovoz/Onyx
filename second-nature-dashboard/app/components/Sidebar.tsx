@@ -5,9 +5,9 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const groups = [
-  { label: "Monitor", items: [["Dashboard", "/"], ["Accounts", "/accounts"], ["Rollouts", "/implementation"], ["CSM Performance", "/team"]] },
+  { label: "Monitor", items: [["Dashboard", "/"], ["Accounts", "/accounts"], ["Launches", "/implementation"], ["CSM Performance", "/team"]] },
   { label: "Grow", items: [["Growth & Whitespace", "/growth"]] },
-  { label: "Deliver", items: [["Briefings", "/briefings"], ["Agent Studio", "/agents"], ["How It Connects", "/integration"]] },
+  { label: "Deliver", items: [["Briefings", "/briefings"], ["Agent Studio", "/agents"], ["Platform Model", "/integration"]] },
   { label: "Govern", items: [["Audit & Costs", "/audit"]] },
 ] as const;
 
@@ -31,9 +31,9 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
       <Link className="brand" href="/" aria-label="Second Nature dashboard home">
-        <span className="brand-mark">S</span>
+        <span className="brand-mark">SN</span>
         <span className="brand-word">second<br />nature</span>
-        <small>CX INTELLIGENCE OS</small>
+        <small>RESIDENT EXPERIENCE OS</small>
       </Link>
 
       <div className="sidebar-nav">

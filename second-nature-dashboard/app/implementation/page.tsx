@@ -14,10 +14,10 @@ export default function ImplementationPage() {
 
   return (
     <div>
-      <PageHeader title="Rollout Command Center" subtitle="Delivery health from content intake through measurable readiness outcomes" />
-      <section className="kpi-grid four"><Kpi label="Active programs" value="6" detail="enterprise rollouts" tone="blue" /><Kpi label="At risk" value={String(atRisk)} detail="need executive action" tone="coral" /><Kpi label="Average completion" value={`${average}%`} detail="across all milestones" tone="green" /><Kpi label="Median time to value" value="14d" detail="first scored cohort" tone="yellow" /></section>
+      <PageHeader title="Launch Command Center" subtitle="Delivery health from property-accounting integration through resident activation" />
+      <section className="kpi-grid four"><Kpi label="Active launches" value="6" detail="property-manager rollouts" tone="blue" /><Kpi label="At risk" value={String(atRisk)} detail="need executive action" tone="coral" /><Kpi label="Average completion" value={`${average}%`} detail="across all milestones" tone="green" /><Kpi label="Median time to value" value="31d" detail="first activated properties" tone="yellow" /></section>
 
-      <SectionTitle meta="click a row for project detail">All implementation programs</SectionTitle>
+      <SectionTitle meta="click a row for project detail">All portfolio launches</SectionTitle>
       <div className="implementation-layout">
         <section className="card implementation-table">
           <div className="impl-head"><span>Account / phase</span><span>Confidence</span><span>Progress</span><span>Target</span><span>Schedule</span></div>
@@ -38,7 +38,7 @@ export default function ImplementationPage() {
           <div className="project-grid"><div><span>Go-live target</span><strong>{project.target}</strong></div><div><span>Schedule</span><strong className={project.delay ? "urgent" : "healthy"}>{project.delay ? `${project.delay} days behind` : "On time"}</strong></div></div>
           <div className="project-block"><span>ACTIVE BLOCKER</span><p>{project.blocker}</p></div>
           <div className="project-action"><span>RECOMMENDED ACTION</span><p>{project.action}</p></div>
-          <div className="milestone-list"><span className="done">✓ Content intake &amp; goals</span><span className="done">✓ Scenario and scoring baseline</span><span className={project.progress > 70 ? "done" : "active"}>{project.progress > 70 ? "✓" : "●"} Cohort assignment &amp; manager enablement</span><span className="pending">○ Certification and value validation</span></div>
+          <div className="milestone-list"><span className="done">✓ Build the resident experience</span><span className="done">✓ Integrate PAS, fields, and GL codes</span><span className={project.progress > 70 ? "done" : "active"}>{project.progress > 70 ? "✓" : "●"} Go live with addenda and resident education</span><span className="pending">○ Scale toward 100% portfolio activation</span></div>
         </aside>
       </div>
     </div>

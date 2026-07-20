@@ -8,7 +8,7 @@ test("defines the Second Nature executive dashboard and metadata", async () => {
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
   ]);
 
-  assert.match(layout, /const title = "Second Nature CX Intelligence OS"/);
+  assert.match(layout, /const title = "Second Nature Resident Experience Intelligence OS"/);
   assert.match(layout, /new URL\("\/og\.png", baseUrl\)/);
   assert.match(layout, /card:\s*"summary_large_image"/);
   assert.match(page, /Executive Dashboard/);
@@ -20,7 +20,7 @@ test("defines the Second Nature executive dashboard and metadata", async () => {
 test("defines every core workspace route", async () => {
   const routes = [
     ["accounts", /Account Intelligence/],
-    ["implementation", /Rollout Command Center/],
+    ["implementation", /Launch Command Center/],
     ["team", /CSM Performance/],
     ["growth", /Growth & Whitespace/],
     ["briefings", /Executive Briefings/],

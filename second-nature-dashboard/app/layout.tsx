@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const title = "Second Nature CX Intelligence OS";
+const title = "Second Nature Resident Experience Intelligence OS";
 const description =
-  "Customer Success intelligence, revenue-readiness health, and AI workflows for Second Nature.";
+  "Customer Success intelligence for Second Nature Resident Onboarding, Resident Benefits Packages, and Maestro.";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
@@ -49,7 +49,7 @@ export async function generateMetadata(): Promise<Metadata> {
         url: socialImage,
         width: 1731,
         height: 909,
-        alt: "Second Nature CX Intelligence OS revenue readiness and executive analytics",
+        alt: "Second Nature resident experience portfolio and executive analytics",
       }],
     },
     twitter: {

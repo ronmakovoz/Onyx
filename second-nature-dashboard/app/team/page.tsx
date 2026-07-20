@@ -25,8 +25,8 @@ export default function TeamPage() {
 
   return (
     <div>
-      <PageHeader title="CSM Performance" subtitle="Portfolio health, learner adoption, renewal exposure, and expansion by Customer Success Manager" />
-      <section className="kpi-grid four"><Kpi label="CS managers" value={String(owners.length)} detail={`${accounts.length} enterprise accounts`} tone="blue" /><Kpi label="ARR at risk" value={formatMoney(totalAtRisk)} detail="across three accounts" tone="coral" /><Kpi label="Average adoption" value="74%" detail="readiness-program utilization" tone="green" /><Kpi label="Expansion coverage" value="7/10" detail="accounts with modeled plays" tone="yellow" /></section>
+      <PageHeader title="CSM Performance" subtitle="Portfolio health, resident activation, renewal exposure, and expansion by Customer Success Manager" />
+      <section className="kpi-grid four"><Kpi label="CS managers" value={String(owners.length)} detail={`${accounts.length} property-manager accounts`} tone="blue" /><Kpi label="ARR at risk" value={formatMoney(totalAtRisk)} detail="across three accounts" tone="coral" /><Kpi label="Average adoption" value="74%" detail="resident-experience platform" tone="green" /><Kpi label="Expansion coverage" value="7/10" detail="accounts with modeled plays" tone="yellow" /></section>
 
       <div className="team-layout">
         <section><SectionTitle meta="sorted by book health">Team overview</SectionTitle><div className="card team-table">
@@ -37,7 +37,7 @@ export default function TeamPage() {
         </div></section>
 
         <aside><SectionTitle>{selected.owner}&apos;s book</SectionTitle><div className="card team-book">
-          <div className="coach-callout"><span>COACHING FOCUS</span><strong>{selected.high ? "Recover renewal-critical programs" : "Convert healthy adoption into expansion"}</strong><p>{selected.high ? "Tighten sponsor coverage, implementation recovery, and value evidence." : "Prioritize peer-evidenced platform whitespace."}</p></div>
+          <div className="coach-callout"><span>PORTFOLIO FOCUS</span><strong>{selected.high ? "Recover renewal-critical launches" : "Convert healthy activation into expansion"}</strong><p>{selected.high ? "Tighten sponsor coverage, PAS integration, resident activation, and value evidence." : "Prioritize peer-evidenced onboarding and benefit whitespace."}</p></div>
           {selected.book.sort((a, b) => a.health - b.health).map((account) => <div className="book-row" key={account.id}><div className="book-health" style={{ color: riskColor(account.risk) }}>{account.health}</div><div><strong>{account.name}</strong><p>{account.nextAction}</p></div><RiskPill risk={account.risk} /></div>)}
         </div></aside>
       </div>

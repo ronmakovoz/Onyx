@@ -26,7 +26,7 @@ export default function AgentsPage() {
 
   return (
     <div>
-      <PageHeader title="Agent Studio" subtitle="Run Second Nature-specific Customer Success agents and inspect their reasoning context" />
+      <PageHeader title="Agent Studio" subtitle="Run Second Nature resident-experience agents and inspect their account context" />
       <div className="agent-layout">
         <section>
           <SectionTitle>Configure</SectionTitle>
@@ -39,7 +39,7 @@ export default function AgentsPage() {
         </section>
         <section>
           <SectionTitle meta={meta.model ? `${meta.live ? "LIVE" : "DEMO"} · ${meta.model} · ${meta.confidence}% confidence` : undefined}>Agent output</SectionTitle>
-          <div className={`card report agent-output ${busy ? "loading" : ""}`}>{busy ? <div className="report-placeholder"><i /><strong>Running {agent.name}…</strong><p>Grounding recommendations in readiness-program and commercial context.</p></div> : result ? <pre>{result}</pre> : <div className="empty-report"><span>✦</span><strong>Configure an agent and click Run</strong><p>Recommendations, model choice, and confidence will appear here.</p></div>}</div>
+          <div className={`card report agent-output ${busy ? "loading" : ""}`}>{busy ? <div className="report-placeholder"><i /><strong>Running {agent.name}…</strong><p>Grounding recommendations in resident, property, operational, and commercial context.</p></div> : result ? <pre>{result}</pre> : <div className="empty-report"><span>✦</span><strong>Configure an agent and click Run</strong><p>Recommendations, model choice, and confidence will appear here.</p></div>}</div>
         </section>
       </div>
     </div>

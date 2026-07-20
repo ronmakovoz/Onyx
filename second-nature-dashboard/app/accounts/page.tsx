@@ -17,7 +17,7 @@ export default function AccountsPage() {
 
   return (
     <div>
-      <PageHeader title="Account Intelligence" subtitle="Portfolio triage and customer 360 for every AI role-play program" />
+      <PageHeader title="Account Intelligence" subtitle="Portfolio triage and customer 360 for every property-management partner" />
 
       <section className="account-toolbar card">
         <input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search account, industry, or owner…" aria-label="Search accounts" />
@@ -45,22 +45,22 @@ export default function AccountsPage() {
             <div><span>ARR</span><strong>{formatMoney(selected.arr)}</strong></div>
             <div><span>Renewal</span><strong>{selected.renewalDays}d</strong></div>
             <div><span>Adoption</span><strong>{selected.adoption}%</strong></div>
-            <div><span>Certified</span><strong>{selected.certification}%</strong></div>
+            <div><span>RBP active</span><strong>{selected.rbpActivation}%</strong></div>
           </div>
           <div className="insight-box"><span>PRIMARY RISK</span><p>{selected.riskReason}</p><strong>→ {selected.nextAction}</strong></div>
 
-          <SectionTitle>Readiness telemetry</SectionTitle>
+          <SectionTitle>Resident experience telemetry</SectionTitle>
           <div className="detail-telemetry">
-            <div><span>Learners</span><b>{selected.learners.toLocaleString()}</b></div>
-            <div><span>Role plays</span><b>{selected.roleplays.toLocaleString()}</b></div>
-            <div><span>Scenarios</span><b>{selected.scenarios}</b></div>
-            <div><span>Score lift</span><b>+{selected.scoreLift}%</b></div>
+            <div><span>Doors</span><b>{selected.doors.toLocaleString()}</b></div>
+            <div><span>Residents</span><b>{selected.residents.toLocaleString()}</b></div>
+            <div><span>Onboardings</span><b>{selected.onboardings.toLocaleString()}</b></div>
+            <div><span>Lease completion</span><b>{selected.leaseCompletion}%</b></div>
           </div>
 
           <SectionTitle>Platform footprint</SectionTitle>
           <div className="product-tags">{products.map((product) => <span className={selected.products.includes(product.id) ? "owned" : "gap"} key={product.id}><i style={{ background: product.accent }} />{product.short}</span>)}</div>
 
-          {selected.expansion > 0 && <div className="expansion-callout"><span>IDENTIFIED WHITESPACE</span><strong>{formatMoney(selected.expansion)}</strong><p>Peer-evidenced expansion across unowned Second Nature capabilities.</p></div>}
+          {selected.expansion > 0 && <div className="expansion-callout"><span>IDENTIFIED WHITESPACE</span><strong>{formatMoney(selected.expansion)}</strong><p>Peer-evidenced expansion across Resident Onboarding, Maestro™, and RBP benefits.</p></div>}
         </aside>
       </div>
     </div>

@@ -1,8 +1,10 @@
-# Second Nature CX Intelligence OS
+# Second Nature Resident Experience Intelligence OS
 
 An Onyx-inspired Customer Success intelligence dashboard tailored to Second
-Nature's enterprise AI role-play and coaching platform. All account, portfolio,
-learner, performance, and cost data is synthetic demonstration data.
+Nature's property-management Resident Experience Platform. It models Resident
+Onboarding, Resident Benefits Packages, Maestro orchestration, portfolio
+activation, renewals, and expansion. All account, resident, portfolio,
+performance, and cost data is synthetic demonstration data.
 
 ## Prerequisites
 
@@ -21,11 +23,11 @@ This project does not use `wrangler.jsonc`.
 ## Product Areas
 
 - Executive portfolio health and renewal risk
-- Customer 360 with learner, role-play, certification, and readiness telemetry
-- Rollout command center and CSM performance
-- Platform whitespace and expansion recommendations
-- Enablement briefings and AI agent workflows
-- Second Nature integration model, audit, and cost visibility
+- Customer 360 with doors, residents, onboarding, RBP activation, and lease telemetry
+- Launch command center and CSM performance
+- Resident-experience whitespace and expansion recommendations
+- Executive briefings and Anthropic-powered agent workflows
+- Maestro and property-accounting integration model, audit, and cost visibility
 - Owner-only activity analytics for opens, navigation, clicks, and engagement time
 
 ## Anthropic
