@@ -21,7 +21,7 @@ export default function DashboardPage() {
           <span>WHAT LINX IS</span>
           <h2>One identity platform from fragmented access data to governed action.</h2>
           <p>Linx connects identity data without agents, maps every human, non-human, and AI-agent relationship in the Identity Graph, applies identity intelligence, then governs and remediates access.</p>
-          <Link href="/integration">Explore the Linx product map →</Link>
+          <Link href="/integration">See how Linx connects →</Link>
         </div>
         <div className="product-foundation-flow" aria-label="Linx platform foundation">
           {platformCapabilities.map((capability, index) => (
