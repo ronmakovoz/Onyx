@@ -15,9 +15,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const title = "Linx CX Intelligence OS";
+const title = "Linx Customer & Product Intelligence OS";
 const description =
-  "Customer Success intelligence, identity-program health, and AI workflows for Linx Security.";
+  "Customer Success intelligence grounded in Linx's Identity Graph, identity-security solutions, and AI workflows.";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
     ? forwardedProtocol
     : "https";
   const baseUrl = new URL(`${protocol}://${host}`);
-  const socialImage = new URL("/og.png", baseUrl).toString();
+  const socialImage = new URL("/og-v2.png", baseUrl).toString();
 
   return {
     metadataBase: baseUrl,
@@ -47,9 +47,9 @@ export async function generateMetadata(): Promise<Metadata> {
       type: "website",
       images: [{
         url: socialImage,
-        width: 1792,
-        height: 938,
-        alt: "Linx CX Intelligence OS identity graph and executive analytics",
+        width: 1731,
+        height: 909,
+        alt: "Linx Customer and Product Intelligence identity graph and governed AI action flow",
       }],
     },
     twitter: {

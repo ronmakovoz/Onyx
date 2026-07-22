@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { accounts, atRiskArr, expansionArr, formatMoney, totalArr } from "./lib/data";
+import { accounts, atRiskArr, expansionArr, formatMoney, platformCapabilities, solutionProducts, totalArr } from "./lib/data";
 import { Kpi, PageHeader, Progress, RiskPill, SectionTitle } from "./components/UI";
 
 export default function DashboardPage() {
@@ -11,15 +11,43 @@ export default function DashboardPage() {
   return (
     <div>
       <PageHeader
-        title="Executive Dashboard"
-        subtitle="Portfolio health · identity-program outcomes · renewal and growth signals"
+        title="Executive & Product Dashboard"
+        subtitle="Customer health, product adoption, identity outcomes, and growth signals"
         action={<span className="date-chip">Live demo · Q3 FY26</span>}
       />
+
+      <section className="product-compass card">
+        <div className="product-compass-copy">
+          <span>WHAT LINX IS</span>
+          <h2>One identity platform from fragmented access data to governed action.</h2>
+          <p>Linx connects identity data without agents, maps every human, non-human, and AI-agent relationship in the Identity Graph, applies identity intelligence, then governs and remediates access.</p>
+          <Link href="/integration">Explore the Linx product map →</Link>
+        </div>
+        <div className="product-foundation-flow" aria-label="Linx platform foundation">
+          {platformCapabilities.map((capability, index) => (
+            <div key={capability.id}>
+              <i>{String(index + 1).padStart(2, "0")}</i>
+              <span>{capability.stage}</span>
+              <strong>{capability.name}</strong>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="solution-ribbon" aria-label="Linx solution modules">
+        {solutionProducts.map((solution) => (
+          <article key={solution.id} style={{ borderTopColor: solution.accent }}>
+            <span>{solution.short}</span>
+            <strong>{solution.name}</strong>
+            <p>{solution.outcome}</p>
+          </article>
+        ))}
+      </section>
 
       <section className="executive-brief">
         <div className="brief-label"><span>✦</span> AI EXECUTIVE SUMMARY <small>portfolio context</small></div>
         <p>
-          Portfolio health is <strong>stable with concentrated renewal risk</strong>. Three accounts represent {formatMoney(atRiskArr)} of ARR at risk, led by Pioneer Systems and Aperture Health. Adoption is strongest where the Identity Graph is paired with automated remediation. The clearest growth motion is expanding healthy IGA and ISPM accounts into <strong>JIT access, non-human identity governance, Autopilot, and AI Access Control</strong>.
+          Portfolio health is <strong>stable with concentrated renewal risk</strong>. Three accounts represent {formatMoney(atRiskArr)} of ARR at risk, led by Pioneer Systems and Aperture Health. Adoption is strongest where the shared Identity Graph foundation is paired with closed-loop remediation. The clearest solution growth motions are <strong>JIT Access, Agentic Identity Governance, and AI Access Control</strong>; Autopilot strengthens continuous operations across those programs.
         </p>
         <div className="brief-metrics">
           <span><i className="dot green" /> 4 healthy</span>
@@ -83,7 +111,7 @@ export default function DashboardPage() {
         </div>
       </section>
 
-      <footer className="demo-footer">Linx CX Intelligence OS · Synthetic customer and performance data · Product positioning based on public Linx materials</footer>
+      <footer className="demo-footer">Linx Customer &amp; Product Intelligence OS · Synthetic customer and performance data · Product positioning based on public Linx materials</footer>
     </div>
   );
 }

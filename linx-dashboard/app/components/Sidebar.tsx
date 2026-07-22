@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 const groups = [
   { label: "Monitor", items: [["Dashboard", "/"], ["Accounts", "/accounts"], ["Implementation", "/implementation"], ["CSM Performance", "/team"]] },
   { label: "Grow", items: [["Growth & Whitespace", "/growth"]] },
-  { label: "Deliver", items: [["Briefings", "/briefings"], ["Agent Studio", "/agents"], ["How Linx Connects", "/integration"]] },
+  { label: "Deliver", items: [["Briefings", "/briefings"], ["Agent Studio", "/agents"], ["Linx Product Map", "/integration"]] },
   { label: "Govern", items: [["Audit & Costs", "/audit"]] },
 ] as const;
 
@@ -33,7 +33,7 @@ export default function Sidebar() {
       <Link className="brand" href="/" aria-label="Linx dashboard home">
         <span className="brand-word">linx</span>
         <span className="brand-dot" />
-        <small>CX INTELLIGENCE OS</small>
+        <small>CUSTOMER &amp; PRODUCT OS</small>
       </Link>
 
       <div className="sidebar-nav">

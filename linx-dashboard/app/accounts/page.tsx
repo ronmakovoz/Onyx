@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { accounts, formatMoney, products, riskColor, type Risk } from "../lib/data";
+import { accounts, expansionPlays, formatMoney, platformCapabilities, riskColor, solutionProducts, type Risk } from "../lib/data";
 import { PageHeader, Progress, RiskPill, SectionTitle } from "../components/UI";
 
 export default function AccountsPage() {
@@ -14,6 +14,8 @@ export default function AccountsPage() {
     return matchSearch && (risk === "All" || account.risk === risk);
   }), [search, risk]);
   const selected = accounts.find((account) => account.id === selectedId) ?? accounts[0];
+  const nextPlay = (expansionPlays[selected.id] ?? [])[0];
+  const nextSolution = solutionProducts.find((product) => product.id === nextPlay?.productId);
 
   return (
     <div>
@@ -57,10 +59,13 @@ export default function AccountsPage() {
             <div><span>Champion</span><b>{selected.champion}</b></div>
           </div>
 
-          <SectionTitle>Platform footprint</SectionTitle>
-          <div className="product-tags">{products.map((product) => <span className={selected.products.includes(product.id) ? "owned" : "gap"} key={product.id}><i style={{ background: product.accent }} />{product.short}</span>)}</div>
+          <SectionTitle meta="shared foundation">Platform foundation</SectionTitle>
+          <div className="foundation-note"><strong>Identity Graph + intelligence + action</strong><p>{platformCapabilities.length} platform capabilities connect and normalize data, explain identity risk, and close the loop through Copilot, automation, and Autopilot.</p></div>
 
-          {selected.expansion > 0 && <div className="expansion-callout"><span>IDENTIFIED WHITESPACE</span><strong>{formatMoney(selected.expansion)}</strong><p>Peer-evidenced expansion across unowned Linx capabilities.</p></div>}
+          <SectionTitle meta="customer-facing modules">Solution footprint</SectionTitle>
+          <div className="product-tags">{solutionProducts.map((product) => <span title={`${product.name}: ${product.description}`} className={selected.solutions.includes(product.id) ? "owned" : "gap"} key={product.id}><i style={{ background: product.accent }} />{product.short}</span>)}</div>
+
+          {selected.expansion > 0 && <div className="expansion-callout"><span>NEXT EVIDENCE-BASED PLAY</span><strong>{formatMoney(selected.expansion)}</strong><p>{nextSolution ? `${nextSolution.name}: ${nextPlay?.rationale ?? nextSolution.outcome}` : "Expansion follows proof of durable adoption in the core identity program."}</p></div>}
         </aside>
       </div>
     </div>

@@ -38,7 +38,7 @@ export default function ImplementationPage() {
           <div className="project-grid"><div><span>Go-live target</span><strong>{project.target}</strong></div><div><span>Schedule</span><strong className={project.delay ? "urgent" : "healthy"}>{project.delay ? `${project.delay} days behind` : "On time"}</strong></div></div>
           <div className="project-block"><span>ACTIVE BLOCKER</span><p>{project.blocker}</p></div>
           <div className="project-action"><span>RECOMMENDED ACTION</span><p>{project.action}</p></div>
-          <div className="milestone-list"><span className="done">✓ Source connection &amp; normalization</span><span className="done">✓ Identity Graph baseline</span><span className={project.progress > 70 ? "done" : "active"}>{project.progress > 70 ? "✓" : "●"} Governance workflow design</span><span className="pending">○ Remediation and value validation</span></div>
+          <div className="milestone-list"><span className="done">✓ Connect identity data sources</span><span className="done">✓ Normalize the Identity Graph</span><span className={project.progress > 70 ? "done" : "active"}>{project.progress > 70 ? "✓" : "●"} Activate the priority solution workflow</span><span className="pending">○ Automate remediation and validate value</span></div>
         </aside>
       </div>
     </div>

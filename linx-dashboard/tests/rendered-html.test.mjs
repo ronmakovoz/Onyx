@@ -8,10 +8,10 @@ test("defines the Linx executive dashboard and metadata", async () => {
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
   ]);
 
-  assert.match(layout, /const title = "Linx CX Intelligence OS"/);
-  assert.match(layout, /new URL\("\/og\.png", baseUrl\)/);
+  assert.match(layout, /const title = "Linx Customer & Product Intelligence OS"/);
+  assert.match(layout, /new URL\("\/og-v2\.png", baseUrl\)/);
   assert.match(layout, /card:\s*"summary_large_image"/);
-  assert.match(page, /Executive Dashboard/);
+  assert.match(page, /Executive & Product Dashboard/);
   assert.match(page, /AI EXECUTIVE SUMMARY/);
   assert.match(page, /Synthetic customer and performance data/);
   assert.doesNotMatch(page, /Your site is taking shape|react-loading-skeleton/);
@@ -25,7 +25,7 @@ test("defines every core workspace route", async () => {
     ["growth", /Growth & Whitespace/],
     ["briefings", /Executive Briefings/],
     ["agents", /Agent Studio/],
-    ["integration", /How Linx Connects/],
+    ["integration", /Linx Product Map/],
     ["audit", /Audit & Costs/],
     ["activity", /ActivityDashboard/],
   ];
@@ -71,6 +71,35 @@ test("keeps live Anthropic routing and demo fallback explicit", async () => {
   assert.match(agentRoute, /mockReport/);
   assert.match(modeRoute, /live:\s*available/);
   assert.match(exampleEnv, /ANTHROPIC_API_KEY=/);
+});
+
+test("separates the Linx platform foundation from customer-facing solutions", async () => {
+  const [data, dashboard, accounts, growth, productMap, agentRoute] = await Promise.all([
+    readFile(new URL("../app/lib/data.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/accounts/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/growth/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/integration/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/api/agent/route.ts", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(data, /export const platformCapabilities/);
+  assert.match(data, /export const solutionProducts/);
+  assert.match(data, /Modern IGA/);
+  assert.match(data, /Identity Security Posture Management/);
+  assert.match(data, /Just-in-Time Access/);
+  assert.match(data, /Identity Lifecycle Management/);
+  assert.match(data, /Non-Human & Agentic Identity Governance/);
+  assert.match(data, /AI Access Control/);
+  assert.match(data, /inline MCP gateway/);
+  assert.match(dashboard, /One identity platform/);
+  assert.match(accounts, /Platform foundation/);
+  assert.match(growth, /Solution Growth & Whitespace/);
+  assert.match(productMap, /AI identities: two layers of control/);
+  assert.match(productMap, /target="_blank" rel="noreferrer"/);
+  assert.match(agentRoute, /LINX_PRODUCT_CONTEXT/);
+  assert.match(agentRoute, /Do not describe the Identity Graph/);
+  assert.doesNotMatch(data, /export const products\s*=/);
 });
 
 test("formats model reports instead of exposing Markdown syntax", async () => {
