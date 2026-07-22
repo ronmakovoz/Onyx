@@ -42,7 +42,7 @@ export const solutionProducts: SolutionProduct[] = [
 ];
 
 export const platformCapabilities = [
-  { id: "integrations", name: "Flexible integrations", stage: "Connect", description: "Agentlessly ingest identity and entitlement data from SaaS, cloud, on-prem, HR, and custom applications." },
+  { id: "integrations", name: "Flexible integrations", stage: "Connect", description: "Agentlessly ingest identity and entitlement data through out-of-the-box or custom connectors, using scoped APIs and protocol context from systems such as OAuth, SCIM, and SAML." },
   { id: "graph", name: "Identity Graph", stage: "Map", description: "Normalize and correlate humans, non-human identities, AI agents, accounts, roles, entitlements, and resources." },
   { id: "intelligence", name: "Identity intelligence", stage: "Understand", description: "Classify privilege, map blast radius, compare peers and usage, and apply semantic reasoning to access." },
   { id: "copilot", name: "AI Copilot", stage: "Decide", description: "Investigate, explain, recommend, report, and trigger governed action from identity-specific context." },
@@ -91,7 +91,7 @@ export const expansionPlays: Record<number, ExpansionPlay[]> = {
 };
 
 export const LINX_PRODUCT_CONTEXT = `Linx is an AI-native identity security and governance platform for human, non-human, and agentic identities.
-Foundation: agentless integrations feed the Identity Graph; the graph normalizes identity, account, entitlement, role, application, and resource relationships.
+Foundation: flexible, agentless integrations feed the Identity Graph; the graph normalizes identity, account, entitlement, role, application, and resource relationships. Integration protocols have distinct roles: OAuth authorizes scoped API access for a connector; SCIM standardizes user and group provisioning and deprovisioning; SAML supplies authentication and federation context. Do not present them as interchangeable data transports. Linx correlates those signals with connector APIs, directories, webhooks, and files, then uses SCIM or target APIs for write-back where supported and approved.
 Intelligence and action: Identity Intelligence analyzes privilege, blast radius, peers, usage, behavior, and semantic context. Copilot supports investigation, explanation, reporting, and governed actions. Automation & Remediation closes the loop. Autopilot continuously monitors and either remediates policy-aligned risk or escalates ambiguous decisions with context.
 Solution modules: Modern IGA; Identity Security Posture Management; Just-in-Time Access; Identity Lifecycle Management; Non-Human & Agentic Identity Governance; AI Access Control.
 Important distinction: Agentic Identity Governance discovers agents and governs their ownership, lifecycle, access, and policy. AI Access Control is the inline MCP gateway that evaluates individual tool calls before execution and logs the full agent-to-human or agent-to-NHI identity chain.`;

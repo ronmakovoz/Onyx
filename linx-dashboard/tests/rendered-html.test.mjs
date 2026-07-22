@@ -25,7 +25,7 @@ test("defines every core workspace route", async () => {
     ["growth", /Growth & Whitespace/],
     ["briefings", /Executive Briefings/],
     ["agents", /Agent Studio/],
-    ["integration", /Linx Product Map/],
+    ["integration", /How Linx Connects/],
     ["audit", /Audit & Costs/],
     ["activity", /ActivityDashboard/],
   ];
@@ -96,9 +96,18 @@ test("separates the Linx platform foundation from customer-facing solutions", as
   assert.match(accounts, /Platform foundation/);
   assert.match(growth, /Solution Growth & Whitespace/);
   assert.match(productMap, /AI identities: two layers of control/);
+  assert.match(productMap, /Actual integration walkthrough/);
+  assert.match(productMap, /Workday → Okta → Salesforce/);
+  assert.match(productMap, /OAuth 2\.0/);
+  assert.match(productMap, /SCIM 2\.0/);
+  assert.match(productMap, /SAML 2\.0/);
+  assert.match(productMap, /SAML, SCIM, and OAuth solve different parts/);
   assert.match(productMap, /target="_blank" rel="noreferrer"/);
   assert.match(agentRoute, /LINX_PRODUCT_CONTEXT/);
   assert.match(agentRoute, /Do not describe the Identity Graph/);
+  assert.match(data, /OAuth authorizes scoped API access/);
+  assert.match(data, /SCIM standardizes user and group provisioning/);
+  assert.match(data, /SAML supplies authentication and federation context/);
   assert.doesNotMatch(data, /export const products\s*=/);
 });
 

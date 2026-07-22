@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 const groups = [
   { label: "Monitor", items: [["Dashboard", "/"], ["Accounts", "/accounts"], ["Implementation", "/implementation"], ["CSM Performance", "/team"]] },
   { label: "Grow", items: [["Growth & Whitespace", "/growth"]] },
-  { label: "Deliver", items: [["Briefings", "/briefings"], ["Agent Studio", "/agents"], ["Linx Product Map", "/integration"]] },
+  { label: "Deliver", items: [["Briefings", "/briefings"], ["Agent Studio", "/agents"], ["How Linx Connects", "/integration"]] },
   { label: "Govern", items: [["Audit & Costs", "/audit"]] },
 ] as const;
 
