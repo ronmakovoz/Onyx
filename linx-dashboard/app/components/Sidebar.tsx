@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 const groups = [
   { label: "Monitor", items: [["Dashboard", "/"], ["Accounts", "/accounts"], ["Implementation", "/implementation"], ["CSM Performance", "/team"]] },
   { label: "Grow", items: [["Growth & Whitespace", "/growth"]] },
-  { label: "Deliver", items: [["Briefings", "/briefings"], ["Agent Studio", "/agents"], ["How Linx Connects", "/integration"]] },
+  { label: "Deliver", items: [["Briefings", "/briefings"], ["Agent Studio", "/agents"], ["How Linx Connects", "/integration"], ["Integration Guide ↗", "/linx-security-integration-guide.html"]] },
   { label: "Govern", items: [["Audit & Costs", "/audit"]] },
 ] as const;
 
@@ -42,6 +42,7 @@ export default function Sidebar() {
             <h2>{group.label}</h2>
             <nav>
               {group.items.map(([name, href]) => {
+                if (href.endsWith(".html")) return <a key={href} href={href} target="_blank" rel="noreferrer">{name}</a>;
                 const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
                 return <Link key={href} href={href} className={active ? "active" : ""}>{name}</Link>;
               })}

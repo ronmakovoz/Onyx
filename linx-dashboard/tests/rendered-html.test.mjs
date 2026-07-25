@@ -128,3 +128,20 @@ test("formats model reports instead of exposing Markdown syntax", async () => {
   assert.match(renderer, /target="_blank" rel="noreferrer"/);
   assert.doesNotMatch(renderer, /dangerouslySetInnerHTML/);
 });
+
+test("publishes the supplied technical integration guide inside the application", async () => {
+  const [sidebar, connectionPage, guide] = await Promise.all([
+    readFile(new URL("../app/components/Sidebar.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/integration/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../public/linx-security-integration-guide.html", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(sidebar, /Integration Guide ↗/);
+  assert.match(sidebar, /target="_blank" rel="noreferrer"/);
+  assert.match(connectionPage, /Open technical guide ↗/);
+  assert.match(guide, /Linx Security: client integration guide/);
+  assert.match(guide, /Confidence register/);
+  assert.match(guide, /Protocol reference: direction matters/);
+  assert.match(guide, /Vendor due diligence/);
+  assert.match(guide, /Open → isolate|Open \\u2192 isolate/);
+});

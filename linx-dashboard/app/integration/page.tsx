@@ -104,7 +104,10 @@ export default function IntegrationPage() {
 
       <div className="connection-note">
         <p><strong>Keep the roles straight:</strong> OAuth authorizes the connection, SAML supplies authentication context, and SCIM changes users and groups. They are complementary—not interchangeable.</p>
-        <a href="https://www.linx.security/platform/integrations" target="_blank" rel="noreferrer">View Linx integrations →</a>
+        <div className="connection-actions">
+          <a className="guide-link" href="/linx-security-integration-guide.html" target="_blank" rel="noreferrer">Open technical guide ↗</a>
+          <a href="https://www.linx.security/platform/integrations" target="_blank" rel="noreferrer">Linx integrations ↗</a>
+        </div>
       </div>
       <p className="source-note">This is an illustrative integration. The exact read and write path depends on each connected system and the customer&apos;s approval policy.</p>
     </div>

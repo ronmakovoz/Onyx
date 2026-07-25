@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linx Security: Client Integration Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F8FB;
+  --card:#FFFFFF;
+  --ink:#16202E;
+  --ink-soft:#55637A;
+  --ink-faint:#8492A8;
+  --rule:#DCE3EC;
+  --rule-soft:#EAEFF5;
+  --vendor:#35618F;
+  --vendor-bg:#E8F0F8;
+  --protocol:#1F6B5A;
+  --protocol-bg:#E4F1ED;
+  --open:#9A5309;
+  --open-bg:#FBF0E2;
+  --code-bg:#EEF2F7;
+  --sans:"IBM Plex Sans Condensed",system-ui,sans-serif;
+  --serif:"IBM Plex Serif",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --measure:74ch;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --paper:#11161D;--card:#161C25;--ink:#DDE4ED;--ink-soft:#9AA7B8;--ink-faint:#6C7C90;
+    --rule:#28313D;--rule-soft:#1E2530;
+    --vendor:#79ABDD;--vendor-bg:#182635;--protocol:#5FBFA5;--protocol-bg:#142824;
+    --open:#DEA059;--open-bg:#2A2013;--code-bg:#1B222C;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--serif);font-size:17px;line-height:1.66;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--vendor);text-decoration:none;border-bottom:1px solid var(--rule)}
+a:hover{border-bottom-color:currentColor}
+:focus-visible{outline:2px solid var(--vendor);outline-offset:3px;border-radius:2px}
+
+.masthead{border-bottom:1px solid var(--rule);background:var(--card)}
+.masthead-inner{max-width:1180px;margin:0 auto;padding:44px 32px 30px}
+.eyebrow{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-faint);margin:0 0 16px
+}
+h1{
+  font-family:var(--sans);font-weight:600;font-size:clamp(30px,4.6vw,46px);
+  line-height:1.08;letter-spacing:-.015em;margin:0 0 12px;max-width:20ch
+}
+.standfirst{font-size:18px;color:var(--ink-soft);margin:0;max-width:62ch}
+.meta{
+  display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:26px;padding-top:20px;
+  border-top:1px solid var(--rule-soft);
+  font-family:var(--mono);font-size:12px;color:var(--ink-faint)
+}
+.meta b{font-weight:500;color:var(--ink-soft)}
+
+.register{max-width:1180px;margin:0 auto;padding:22px 32px;border-bottom:1px solid var(--rule)}
+.register-head{font-family:var(--mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 14px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch}
+.chip{
+  display:flex;flex-direction:column;gap:3px;flex:1 1 210px;text-align:left;
+  padding:11px 14px;border:1px solid var(--rule);border-left-width:4px;border-radius:3px;
+  background:var(--card);cursor:pointer;font:inherit;transition:background .16s,border-color .16s
+}
+.chip:hover{border-color:var(--ink-faint)}
+.chip-k{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.04em}
+.chip-d{font-family:var(--sans);font-size:13px;line-height:1.35;color:var(--ink-soft)}
+.chip-v{border-left-color:var(--vendor)} .chip-v .chip-k{color:var(--vendor)}
+.chip-p{border-left-color:var(--protocol)} .chip-p .chip-k{color:var(--protocol)}
+.chip-o{border-left-color:var(--open)} .chip-o .chip-k{color:var(--open)}
+.chip[aria-pressed="true"]{background:var(--open-bg);border-color:var(--open)}
+.chip-note{font-family:var(--sans);font-size:13px;color:var(--ink-faint);margin:12px 0 0}
+
+.shell{max-width:1180px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:212px 1fr;gap:56px;align-items:start}
+.toc{position:sticky;top:0;padding:38px 0;max-height:100vh;overflow-y:auto}
+.toc-head{font-family:var(--mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 14px}
+.toc ol{list-style:none;margin:0;padding:0}
+.toc li{margin:0}
+.toc a{
+  display:flex;gap:9px;padding:5px 0 5px 11px;border:0;border-left:2px solid var(--rule-soft);
+  font-family:var(--sans);font-size:13.5px;line-height:1.35;color:var(--ink-soft)
+}
+.toc a:hover{color:var(--ink);border-left-color:var(--ink-faint)}
+.toc a.on{color:var(--ink);font-weight:600;border-left-color:var(--vendor)}
+.toc-n{font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);min-width:16px}
+
+.doc{padding:38px 0 96px;min-width:0;max-width:var(--measure)}
+.sec{padding-top:26px;margin-bottom:8px}
+.sec-n{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--ink-faint);margin:0 0 6px}
+h2{
+  font-family:var(--sans);font-weight:600;font-size:29px;line-height:1.16;letter-spacing:-.012em;
+  margin:0 0 20px;padding-bottom:14px;border-bottom:1px solid var(--rule)
+}
+h3{font-family:var(--sans);font-weight:600;font-size:19.5px;line-height:1.25;margin:34px 0 12px}
+h4{font-family:var(--sans);font-weight:600;font-size:16px;margin:26px 0 8px;color:var(--ink-soft)}
+p{margin:0 0 16px}
+ul,ol.body-list{margin:0 0 18px;padding-left:22px}
+li{margin:0 0 8px}
+strong{font-weight:600}
+em{font-style:italic}
+
+.claim{
+  border-left:3px solid var(--rule);padding:2px 0 2px 18px;margin:0 0 20px;
+  transition:opacity .2s,filter .2s
+}
+.claim>:last-child{margin-bottom:0}
+.m-vendor{border-left-color:var(--vendor)}
+.m-protocol{border-left-color:var(--protocol)}
+.m-open{border-left-color:var(--open)}
+.tag{
+  display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:2px;
+  margin-right:8px;vertical-align:1px
+}
+.t-vendor{background:var(--vendor-bg);color:var(--vendor)}
+.t-protocol{background:var(--protocol-bg);color:var(--protocol)}
+.t-open{background:var(--open-bg);color:var(--open)}
+
+pre{
+  font-family:var(--mono);font-size:12.5px;line-height:1.62;background:var(--code-bg);
+  border:1px solid var(--rule);border-radius:3px;padding:16px 18px;overflow-x:auto;margin:0 0 20px
+}
+code{font-family:var(--mono);font-size:.87em;background:var(--code-bg);padding:1px 5px;border-radius:2px}
+pre code{background:none;padding:0;font-size:inherit}
+.figure{background:var(--card);text-align:left}
+.figcap{
+  font-family:var(--sans);font-size:13px;color:var(--ink-faint);
+  margin:-12px 0 22px;padding-left:2px
+}
+
+.tw{overflow-x:auto;margin:0 0 22px;border:1px solid var(--rule);border-radius:3px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:14px}
+th{
+  text-align:left;font-weight:600;padding:11px 14px;background:var(--rule-soft);
+  border-bottom:1px solid var(--rule);white-space:nowrap
+}
+td{padding:11px 14px;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td code{font-size:12.5px}
+
+.check{list-style:none;padding-left:0}
+.check li{position:relative;padding-left:28px}
+.check li::before{
+  content:"";position:absolute;left:0;top:6px;width:13px;height:13px;
+  border:1.5px solid var(--ink-faint);border-radius:2px
+}
+.pull{
+  font-family:var(--sans);font-size:16px;line-height:1.5;color:var(--ink-soft);
+  background:var(--card);border:1px solid var(--rule);border-radius:3px;
+  padding:16px 18px;margin:0 0 22px
+}
+.pull b{color:var(--ink);font-weight:600}
+
+.focus-open .sec>*:not(h2):not(.sec-n):not(.m-open),
+.focus-open .claim:not(.m-open){opacity:.16;filter:grayscale(1)}
+.focus-open .m-open{opacity:1;filter:none}
+
+.foot{border-top:1px solid var(--rule);background:var(--card);margin-top:40px}
+.foot-inner{
+  max-width:1180px;margin:0 auto;padding:26px 32px;
+  font-family:var(--sans);font-size:13px;color:var(--ink-faint)
+}
+
+@media (max-width:900px){
+  .shell{grid-template-columns:1fr;gap:0;padding:0 22px}
+  .masthead-inner,.register,.foot-inner{padding-left:22px;padding-right:22px}
+  .toc{position:static;max-height:none;padding:26px 0 0;border-bottom:1px solid var(--rule)}
+  .toc ol{columns:2;column-gap:22px}
+  .doc{padding-top:26px}
+  body{font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important}
+}
+@media print{
+  body{background:#fff;font-size:10.5pt;color:#000}
+  .toc,.register,.foot{display:none}
+  .shell{display:block;max-width:none;padding:0}
+  .doc{max-width:none;padding:0}
+  .sec{break-inside:auto;page-break-inside:auto}
+  h2{page-break-after:avoid;font-size:16pt}
+  h3{page-break-after:avoid}
+  pre,.tw{page-break-inside:avoid;border-color:#bbb}
+  .claim{border-left-width:2px}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">Technical integration reference</p>
+    <h1>Linx Security: client integration guide</h1>
+    <p class="standfirst">How the Linx identity security and governance platform connects to a customer environment: connector authorization, ingestion, correlation, write-back, and agentic enforcement.</p>
+    <div class="meta">
+      <span><b>Version</b> July 2026</span>
+      <span><b>Audience</b> Identity engineering, security architecture, vendor evaluation</span>
+      <span><b>Open items</b> <span id="opencount">15</span></span>
+    </div>
+  </div>
+</header>
+
+<section class="register" aria-label="Confidence register">
+  <p class="register-head">Confidence register</p>
+  <div class="chips">
+    <div class="chip chip-v"><span class="chip-k">Vendor</span><span class="chip-d">Stated by Linx in public product material. High for intent, unverified for implementation.</span></div>
+    <div class="chip chip-p"><span class="chip-k">Protocol</span><span class="chip-d">Determined by the identity provider's own API. Any agentless platform is constrained identically.</span></div>
+    <button class="chip chip-o" id="filter" aria-pressed="false"><span class="chip-k">Open &rarr; isolate</span><span class="chip-d">Not publicly documented. Confirm directly with Linx. Click to show only these.</span></button>
+  </div>
+  <p class="chip-note">The colored rule down the left of each block carries its confidence level, so the page can be scanned for what is verified and what is not.</p>
+</section>
+
+<div class="shell">
+
+<nav class="toc" aria-label="Contents">
+  <p class="toc-head">Contents</p>
+  <ol id="toclist">
+    <li><a href="#s0"><span class="toc-n">00</span>How to read this</a></li>
+    <li><a href="#s1"><span class="toc-n">01</span>Platform overview</a></li>
+    <li><a href="#s2"><span class="toc-n">02</span>Architecture</a></li>
+    <li><a href="#s3"><span class="toc-n">03</span>Pre-integration checklist</a></li>
+    <li><a href="#s4"><span class="toc-n">04</span>Identity providers</a></li>
+    <li><a href="#s5"><span class="toc-n">05</span>HR source of truth</a></li>
+    <li><a href="#s6"><span class="toc-n">06</span>Apps, cloud, NHIs</a></li>
+    <li><a href="#s7"><span class="toc-n">07</span>Correlation and graph</a></li>
+    <li><a href="#s8"><span class="toc-n">08</span>Steady-state sync</a></li>
+    <li><a href="#s9"><span class="toc-n">09</span>Write-back</a></li>
+    <li><a href="#s10"><span class="toc-n">10</span>MCP gateway</a></li>
+    <li><a href="#s11"><span class="toc-n">11</span>Protocol directions</a></li>
+    <li><a href="#s12"><span class="toc-n">12</span>Rollout plan</a></li>
+    <li><a href="#s13"><span class="toc-n">13</span>Due diligence</a></li>
+    <li><a href="#s14"><span class="toc-n">14</span>Sources</a></li>
+  </ol>
+</nav>
+
+<main class="doc">
+
+<section class="sec" id="s0">
+  <p class="sec-n">00</p>
+  <h2>How to read this document</h2>
+  <p>This guide draws on two categories of information, and they carry different confidence levels. Keep the distinction in mind, especially if you are using this for vendor due diligence.</p>
+  <p>Linx does not publish public technical documentation. Compliance artifacts (SOC 2, HIPAA) are gated behind their trust center at <code>trust.linx.security</code>. Everything marked <span class="tag t-protocol">Protocol</span> below is derived from the published APIs of Okta, Microsoft, Google, Ping, and others, which admit only a small number of legitimate authorization paths. Where Linx has a choice among those paths, this guide flags the choice rather than assuming one.</p>
+</section>
+
+<section class="sec" id="s1">
+  <p class="sec-n">01</p>
+  <h2>Platform overview</h2>
+  <p>Linx Security is an identity security, governance, and administration platform (IGA plus ISPM) founded in 2023, headquartered in New York, and funded through a $50M Series B led by Insight Partners in March 2026. Named customers include Wiz, Aramark, Peloton, Discount Tire, Allegro Microsystems, New American Funding, Evolv, SmartCentres, and Achieve.</p>
+  <div class="claim m-vendor">
+    <p><span class="tag t-vendor">Vendor</span>The platform covers five functional areas:</p>
+    <ol class="body-list">
+      <li><b>Modern IGA.</b> Access requests, approvals, provisioning, and automated user access reviews across SaaS, cloud, and on-premises.</li>
+      <li><b>Identity Security Posture Management.</b> Continuous mapping of identities, entitlements, and resources to surface dormant accounts, admin sprawl, SSO bypass, and missing MFA.</li>
+      <li><b>Just-in-Time access.</b> Time-bound, right-sized grants replacing standing privilege, with AI risk scoring on each request.</li>
+      <li><b>Identity lifecycle management.</b> Automated joiner, mover, leaver flows with role-based and attribute-based enforcement.</li>
+      <li><b>Non-human and agentic identity governance.</b> Service accounts, API keys, bots, and AI agents in the same graph as humans, each tied to an owner and purpose.</li>
+    </ol>
+  </div>
+  <div class="claim m-vendor">
+    <p><span class="tag t-vendor">Vendor</span>The delivery model is multi-tenant SaaS at <code>app.linxsecurity.io</code>, transactable through the AWS and Azure marketplaces. The integration model is agentless: no migration, no parallel infrastructure, and no long implementation before value.</p>
+  </div>
+</section>
+
+<section class="sec" id="s2">
+  <p class="sec-n">02</p>
+  <h2>Architecture and trust boundary</h2>
+  <h3>Topology</h3>
+  <p>Two trust zones, connected only by outbound HTTPS initiated from the Linx tenant.</p>
+<pre class="figure">CUSTOMER ENVIRONMENT                        LINX TENANT (SaaS)
+┌─────────────────────────────┐             ┌─────────────────────────────┐
+│  Identity providers         │             │  Connector runtime          │
+│  Okta, Entra, Google, Ping  │ ──reads──▶  │  auth, poll, normalize      │
+├─────────────────────────────┤             └──────────────┬──────────────┘
+│  HR source of truth         │                            │
+│  Workday, BambooHR, UKG     │                            ▼
+├─────────────────────────────┤             ┌─────────────────────────────┐
+│  Apps, cloud, on-prem       │             │  Identity graph             │
+│  SaaS, AWS, Azure, AD       │ ◀──writes── │  humans, NHIs, agents       │
+└─────────────────────────────┘             └──────────────┬──────────────┘
+                                                           │
+                                                           ▼
+                                            ┌─────────────────────────────┐
+                                            │  Policy and action engine   │
+                                            │  detect, decide, remediate  │
+                                            └─────────────────────────────┘</pre>
+  <p class="figcap">Figure 1. All connections originate from the Linx side.</p>
+
+  <h3>Network implications</h3>
+  <div class="claim m-protocol">
+    <p><span class="tag t-protocol">Protocol</span>Because all connectors are outbound API clients, the customer opens no inbound firewall rules and deploys no software for cloud-hosted targets. Two exceptions require attention:</p>
+    <ul>
+      <li><b>Webhook and event delivery.</b> If Linx subscribes to Okta event hooks or Microsoft Graph change notifications, the IdP delivers events inbound to a Linx-hosted endpoint. That endpoint is on the Linx side, so the customer still opens nothing, but the customer's IdP is now making outbound calls to a vendor URL, which some egress policies restrict.</li>
+      <li><b>On-premises targets.</b> Anything not reachable from the public internet (Active Directory, PingFederate, legacy LDAP, on-prem ERP) cannot be reached by a purely outbound SaaS connector. See section 4.5.</li>
+    </ul>
+  </div>
+
+  <h3>Data handling questions to resolve</h3>
+  <div class="claim m-open">
+    <p><span class="tag t-open">Open</span>Confirm before contract:</p>
+    <ul>
+      <li>Data residency and region pinning for the tenant.</li>
+      <li>Per-tenant key isolation for signing keys, refresh tokens, and API credentials, versus a shared vault with logical separation.</li>
+      <li>Retention period for ingested audit and sign-in logs.</li>
+      <li>Whether identity attributes are pseudonymized at rest.</li>
+      <li>Sub-processor list, particularly for the AI inference layer, and whether customer identity data is used in any model training.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="s3">
+  <p class="sec-n">03</p>
+  <h2>Pre-integration checklist</h2>
+  <p>Gather before the first connector is configured.</p>
+  <h4>Access and approvals</h4>
+  <ul class="check">
+    <li>Named owner for each target system, with authority to grant tenant-wide consent</li>
+    <li>Change advisory approval for the IdP consent grant, which is tenant-wide and not reversible per-object</li>
+    <li>Decision on read-only pilot versus read plus write from day one (see 9.4)</li>
+    <li>Security review of the vendor's egress endpoints and IP ranges for allowlisting</li>
+  </ul>
+  <h4>Environment inventory</h4>
+  <ul class="check">
+    <li>Primary IdP and any secondary or legacy IdPs still issuing tokens</li>
+    <li>Authoritative HR system and its worker population, including contingent workers</li>
+    <li>Application inventory with owner, criticality, and provisioning method</li>
+    <li>Cloud accounts, subscriptions, and projects in scope</li>
+    <li>Known non-human identity population: service accounts, API keys, CI/CD tokens, bots</li>
+  </ul>
+  <h4>Correlation readiness</h4>
+  <ul class="check">
+    <li>A stable join key present in both HR and the IdP (employee ID is strongest, email is weakest)</li>
+    <li>Documented naming conventions for service accounts and shared accounts</li>
+    <li>List of exception accounts that must never be auto-remediated (break-glass, vendor support, legacy service identities)</li>
+  </ul>
+  <p class="pull"><b>Scale note.</b> One Achieve customer described integrating 314+ applications. Plan the application phase as an ongoing program, not a one-time cutover.</p>
+</section>
+
+<section class="sec" id="s4">
+  <p class="sec-n">04</p>
+  <h2>Phase 1: Identity provider connectors</h2>
+  <p>This is the foundational connector. Everything else correlates against it.</p>
+
+  <h3>4.1 Okta</h3>
+  <div class="claim m-protocol">
+    <p><span class="tag t-protocol">Protocol</span><b>Path A, scoped OAuth (preferred).</b> An OIDC service application with <code>private_key_jwt</code> client authentication. Linx holds an RSA private key and publishes the public key as a JWKS. Each token request signs a client assertion.</p>
+<pre>POST https://{yourOrg}.okta.com/oauth2/v1/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials
+&amp;scope=okta.users.read okta.groups.read okta.apps.read
+&amp;client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer
+&amp;client_assertion={signed_JWT}</pre>
+<pre>{
+  "token_type": "Bearer",
+  "expires_in": 3600,
+  "access_token": "eyJ...",
+  "scope": "okta.users.read okta.groups.read okta.apps.read"
+}</pre>
+    <p><b>Path B, SSWS API token (legacy).</b> A static token bound to a service account, sent as <code>Authorization: SSWS {token}</code>. It inherits that account's admin role rather than a scope list. Two operational hazards: Okta API tokens are revoked after 30 days of inactivity, and tokens issued by a deactivated user are rejected outright, so the service account must be excluded from your own offboarding automation.</p>
+  </div>
+  <div class="claim m-open">
+    <p><span class="tag t-open">Open</span>Ask Linx which path their Okta connector uses. Scoped OAuth is the correct answer. If the answer is SSWS, ask whether the token can be bound to a custom admin role with a restricted resource set rather than a super admin.</p>
+  </div>
+
+  <h4>Read scopes</h4>
+  <div class="tw"><table>
+    <thead><tr><th>Scope</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><code>okta.users.read</code></td><td>User objects, status, profile attributes</td></tr>
+      <tr><td><code>okta.groups.read</code></td><td>Groups and memberships</td></tr>
+      <tr><td><code>okta.apps.read</code></td><td>App integrations and assignments</td></tr>
+      <tr><td><code>okta.roles.read</code></td><td>Admin role assignments</td></tr>
+      <tr><td><code>okta.policies.read</code></td><td>Sign-on, MFA enrollment, authentication policies</td></tr>
+      <tr><td><code>okta.logs.read</code></td><td>System Log, for last-login and activity</td></tr>
+      <tr><td><code>okta.devices.read</code></td><td>Device posture, where licensed</td></tr>
+    </tbody>
+  </table></div>
+  <p><code>okta.schemas.read</code> is not granted by the standard read-only admin role, which matters if custom profile attributes carry your correlation key.</p>
+
+  <h4>Key read endpoints</h4>
+<pre>GET /api/v1/users?limit=200
+GET /api/v1/groups
+GET /api/v1/groups/{groupId}/users
+GET /api/v1/apps
+GET /api/v1/apps/{appId}/users
+GET /api/v1/apps/{appId}/groups
+GET /api/v1/users/{userId}/factors      # MFA enrollment
+GET /api/v1/policies?type=OKTA_SIGN_ON
+GET /api/v1/iam/assignees/users         # admin role assignments
+GET /api/v1/users/{userId}/grants       # OAuth grants to third parties
+GET /api/v1/logs?since={iso8601}        # System Log
+GET /api/v1/apiTokens                   # standing tokens, common NHI blind spot</pre>
+
+  <div class="claim m-protocol">
+    <p><span class="tag t-protocol">Protocol</span><b>Pagination.</b> Cursor-based via the <code>Link</code> header with <code>rel="next"</code>. Maximum 200 records per page. No offset parameter, no total count.</p>
+    <p><b>Rate limiting.</b> Per-org and per-endpoint. Responses carry <code>X-Rate-Limit-Limit</code>, <code>X-Rate-Limit-Remaining</code>, and <code>X-Rate-Limit-Reset</code>. On exhaustion Okta returns <code>429</code>. A well-built connector reads the remaining header and paces itself rather than waiting for the 429. Ask what percentage of your org's budget a full sync consumes, because a governance vendor competing with your own automations for the same budget causes production incidents.</p>
+    <p><b>Change detection.</b> Okta has no delta query. Either poll <code>GET /api/v1/logs?since={cursor}</code>, where latency equals the poll interval, or use event hooks. Event hooks require a one-time verification handshake: Okta sends a <code>GET</code> with an <code>X-Okta-Verification-Challenge</code> header, and the endpoint must echo the value back before Okta will deliver events.</p>
+  </div>
+
+  <h3>4.2 Microsoft Entra ID</h3>
+  <div class="claim m-protocol">
+    <p><span class="tag t-protocol">Protocol</span>Tenant-wide admin consent for a multi-tenant application, followed by the client credentials grant. Three credential types, in ascending order of security: client secret (a shared password, avoid), certificate assertion, and workload identity federation (Linx presents a token from its own IdP, no secret or certificate ever exchanged).</p>
+<pre>GET https://login.microsoftonline.com/{tenantId}/adminconsent
+    ?client_id={appId}
+    &amp;redirect_uri={vendorCallback}</pre>
+<pre>POST https://login.microsoftonline.com/{tenantId}/oauth2/v2.0/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials
+&amp;client_id={appId}
+&amp;scope=https://graph.microsoft.com/.default
+&amp;client_assertion_type=urn:ietf:params:oauth:client-assertion-type:jwt-bearer
+&amp;client_assertion={signed_JWT}</pre>
+    <p>The <code>.default</code> scope means "every application permission already consented for this app," which is why the consent grant, not the token request, is the real access control decision.</p>
+  </div>
+
+  <h4>Application permissions, read</h4>
+  <div class="tw"><table>
+    <thead><tr><th>Permission</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><code>User.Read.All</code></td><td>User objects and attributes</td></tr>
+      <tr><td><code>Group.Read.All</code></td><td>Groups and transitive membership</td></tr>
+      <tr><td><code>Directory.Read.All</code></td><td>Broad directory read, including org structure</td></tr>
+      <tr><td><code>Application.Read.All</code></td><td>App registrations, service principals, credentials</td></tr>
+      <tr><td><code>RoleManagement.Read.Directory</code></td><td>Directory role assignments</td></tr>
+      <tr><td><code>AuditLog.Read.All</code></td><td>Sign-in logs and directory audit</td></tr>
+      <tr><td><code>Policy.Read.All</code></td><td>Conditional Access policy</td></tr>
+      <tr><td><code>UserAuthenticationMethod.Read.All</code></td><td>Registered MFA methods</td></tr>
+      <tr><td><code>IdentityRiskyUser.Read.All</code></td><td>Identity Protection risk state</td></tr>
+      <tr><td><code>PrivilegedAccess.Read.AzureAD</code></td><td>PIM eligible and active assignments</td></tr>
+      <tr><td><code>EntitlementManagement.Read.All</code></td><td>Access packages</td></tr>
+    </tbody>
+  </table></div>
+  <p>For Azure resource-plane visibility a separate grant is required through Azure RBAC: the <code>Reader</code> role at management group scope, giving access to ARM and <code>Microsoft.Authorization/roleAssignments</code>.</p>
+
+  <h4>Key read endpoints</h4>
+<pre>GET /v1.0/users?$select=id,userPrincipalName,accountEnabled,employeeId
+GET /v1.0/groups
+GET /v1.0/groups/{id}/transitiveMembers
+GET /v1.0/servicePrincipals
+GET /v1.0/applications                    # credential expiry lives here
+GET /v1.0/oauth2PermissionGrants          # delegated consent, shadow SaaS signal
+GET /v1.0/servicePrincipals/{id}/appRoleAssignedTo
+GET /v1.0/roleManagement/directory/roleAssignments
+GET /v1.0/auditLogs/signIns
+GET /v1.0/reports/authenticationMethods/userRegistrationDetails
+GET /v1.0/identityProtection/riskyUsers</pre>
+
+  <div class="claim m-protocol">
+    <p><span class="tag t-protocol">Protocol</span><b>Delta query.</b> Entra is the only major IdP with a first-class incremental primitive. <code>GET /v1.0/users/delta</code> returns changed objects plus an opaque <code>@odata.deltaLink</code>. Replay that link on the next run to receive only what changed, including deletions as <code>@removed</code> annotations. This is why an Entra-primary environment syncs far more cheaply than an Okta-primary one.</p>
+    <p><b>Batching.</b> <code>POST /v1.0/$batch</code> accepts up to 20 sub-requests, materially reducing round trips on per-user fan-out. <b>Pagination</b> is <code>@odata.nextLink</code>, opaque, followed until absent. <b>Throttling</b> is <code>429</code> with <code>Retry-After</code>, applied per-app per-tenant, so a badly paced vendor sync degrades your other Graph consumers.</p>
+    <p><b>Change notifications.</b> <code>POST /v1.0/subscriptions</code> with a <code>notificationUrl</code>, <code>clientState</code>, and <code>expirationDateTime</code>. Microsoft validates the endpoint by sending a <code>validationToken</code> that must be echoed within 10 seconds. Subscriptions have a maximum lifetime, roughly 3 days for directory resources, and must be renewed. Ask how renewal failure is detected and alerted.</p>
+  </div>
+
+  <h3>4.3 Google Workspace</h3>
+  <div class="claim m-protocol">
+    <p><span class="tag t-protocol">Protocol</span>Domain-wide delegation. In Admin Console under Security, Access and data control, API controls, Domain-wide delegation, authorize the vendor's OAuth client ID against an explicit scope list. The service account then impersonates an administrator.</p>
+<pre>POST https://oauth2.googleapis.com/token
+
+grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
+&amp;assertion={signed_JWT}</pre>
+    <p>Where the JWT contains <code>iss</code> (service account), <code>sub</code> (the impersonated admin's email), <code>scope</code>, and <code>aud</code>.</p>
+  </div>
+  <p class="pull"><b>The structural weakness.</b> There is no way to scope domain-wide delegation below "acts as the impersonated administrator." The scope list is the only control surface. Grant the minimum, review it periodically, and treat the delegation entry itself as a privileged object in your own posture management.</p>
+
+  <h4>Read scopes and endpoints</h4>
+<pre>.../auth/admin.directory.user.readonly
+.../auth/admin.directory.group.readonly
+.../auth/admin.directory.group.member.readonly
+.../auth/admin.directory.rolemanagement.readonly
+.../auth/admin.reports.audit.readonly
+.../auth/cloud-identity.groups.readonly</pre>
+<pre>GET /admin/directory/v1/users?customer=my_customer
+GET /admin/directory/v1/groups
+GET /admin/directory/v1/groups/{groupKey}/members
+GET /admin/directory/v1/roleassignments
+GET /admin/directory/v1/users/{userKey}/tokens
+GET /admin/reports/v1/activity/users/all/applications/login
+GET /admin/reports/v1/activity/users/all/applications/token</pre>
+  <p>The <code>tokens</code> endpoint deserves attention. It enumerates every third-party OAuth grant a user has issued, which is the single richest source for shadow SaaS discovery in a Google environment. MFA state comes from the <code>isEnrolledIn2Sv</code> and <code>isEnforcedIn2Sv</code> fields on the user object. Pagination is <code>pageToken</code> and <code>nextPageToken</code>. Change detection is weaker than the other two: most implementations poll the Reports API.</p>
+
+  <h3>4.4 Secondary identity providers</h3>
+  <div class="claim m-protocol">
+    <p><span class="tag t-protocol">Protocol</span><b>PingOne.</b> A worker application using client credentials against <code>https://auth.pingone.com/{envId}/as/token</code>, with the "Identity Data Read Only" role. Read endpoints sit under <code>https://api.pingone.com/v1/environments/{envId}/</code> for <code>users</code>, <code>groups</code>, <code>populations</code>, <code>applications</code>, <code>roleAssignments</code>, and <code>activities</code>.</p>
+    <p><b>PingFederate.</b> Administrative API at <code>/pf-admin-api/v1/</code>, typically on-premises. Treat as an on-prem target.</p>
+    <p><b>JumpCloud.</b> Static API key in an <code>x-api-key</code> header. Read <code>/api/systemusers</code>, <code>/api/v2/usergroups</code>, <code>/api/v2/applications</code>, and Directory Insights for events. A static unscoped key is a weaker credential model than either Okta or Entra offer.</p>
+  </div>
+
+  <h3>4.5 On-premises Active Directory</h3>
+  <div class="claim m-open">
+    <p><span class="tag t-open">Open</span><b>This is the most important open question in the integration.</b> "Agentless" and "on-premises directory support" are in tension. A purely outbound SaaS connector cannot reach a domain controller. Three plausible resolutions, with very different security implications:</p>
+    <ol class="body-list">
+      <li><b>Read AD indirectly through Entra Connect.</b> Hybrid-joined objects synced to Entra carry <code>onPremisesSamAccountName</code>, <code>onPremisesDistinguishedName</code>, <code>onPremisesSyncEnabled</code>, and <code>onPremisesImmutableId</code>. Useful AD visibility with zero on-prem footprint, but only for synced objects. Unsynced OUs, disabled-but-present accounts, and AD-only service accounts stay invisible, and those are exactly where offboarding gaps hide.</li>
+      <li><b>A customer-hosted collector or relay.</b> Something runs inside the network, reads over LDAPS or Kerberos, and pushes outbound. Works fully, but the agentless claim carries an asterisk. Ask about the runtime, the patching model, the credential it uses, and whether it can run read-only.</li>
+      <li><b>A cloud-hosted connector over private link or VPN.</b> Rare, high friction.</li>
+    </ol>
+    <p>Ask which applies, and specifically whether AD-only accounts with no Entra representation appear in the graph. If they do not, partial-offboarding detection has a blind spot in precisely the system most likely to retain stale access.</p>
+  </div>
+</section>
+
+<section class="sec" id="s5">
+  <p class="sec-n">05</p>
+  <h2>Phase 2: HR system as authoritative source</h2>
+  <div class="claim m-vendor">
+    <p><span class="tag t-vendor">Vendor</span>Joiner, mover, and leaver workflows execute automatically when events trigger them. That requires an authoritative worker record upstream of the IdP.</p>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th>System</th><th>Authorization</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Workday</td><td>OAuth 2.0 client credentials or refresh token, bound to an Integration System User</td><td>Data via REST, RaaS custom reports, or the SOAP Human_Resources service. The ISU's security group scoping is the real permission boundary</td></tr>
+      <tr><td>BambooHR</td><td>API key over HTTP Basic</td><td>Simple, but a static long-lived credential</td></tr>
+      <tr><td>SAP SuccessFactors</td><td>OData v2 with OAuth SAML bearer assertion</td><td>Assertion-based, no shared secret</td></tr>
+      <tr><td>UKG Pro</td><td>Service account plus API keys</td><td></td></tr>
+      <tr><td>HiBob</td><td>Service user token</td><td></td></tr>
+    </tbody>
+  </table></div>
+  <h4>Integration design points</h4>
+  <ul>
+    <li><b>Effective dating.</b> HR systems carry future-dated hires and terminations. A connector reading only current state will fire leaver automation late. Confirm that Linx reads effective dates, not just current status.</li>
+    <li><b>Contingent workers.</b> Contractors often live in a different Workday population or outside HR entirely. Decide their authoritative source explicitly, because they are statistically the largest source of orphaned accounts.</li>
+    <li><b>Termination signal latency.</b> The gap between an HR termination write and the leaver workflow firing is your exposure window. If the HR connector polls nightly, that window is up to 24 hours regardless of how fast the remediation engine is.</li>
+  </ul>
+</section>
+
+<section class="sec" id="s6">
+  <p class="sec-n">06</p>
+  <h2>Phase 3: Applications, cloud, and non-human identities</h2>
+  <div class="claim m-vendor">
+    <p><span class="tag t-vendor">Vendor</span>Out-of-the-box connectors cover identity providers, HR systems, cloud infrastructure, SaaS applications, and on-premises directories, plus an AI-powered custom connector intended to integrate legacy, homegrown, or niche applications without custom coding.</p>
+  </div>
+
+  <h3>6.1 Standard patterns</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Target</th><th>Authorization</th><th>Read surface</th></tr></thead>
+    <tbody>
+      <tr><td>SCIM-capable SaaS</td><td>Bearer token or OAuth</td><td><code>GET /Users</code>, <code>GET /Groups</code></td></tr>
+      <tr><td>OAuth SaaS</td><td>Authorization code with admin consent</td><td>Vendor-specific admin REST</td></tr>
+      <tr><td>AWS</td><td>Cross-account IAM role, <code>sts:AssumeRole</code> with an <code>ExternalId</code></td><td><code>iam:List*</code>, <code>iam:Get*</code>, credential report, Access Analyzer, CloudTrail</td></tr>
+      <tr><td>Azure</td><td>Same app registration, plus ARM <code>Reader</code> at management group</td><td>Role assignments, managed identities</td></tr>
+      <tr><td>GCP</td><td>Service account with org-level viewer</td><td>Cloud Identity, IAM policy bindings</td></tr>
+      <tr><td>GitHub</td><td>GitHub App installation, token from an app-signed JWT</td><td>Org members, teams, outside collaborators, PATs, deploy keys</td></tr>
+      <tr><td>Snowflake</td><td>Key-pair authentication</td><td><code>ACCOUNT_USAGE</code> views</td></tr>
+      <tr><td>Salesforce</td><td>Connected app, JWT bearer flow</td><td>Users, profiles, permission sets</td></tr>
+    </tbody>
+  </table></div>
+  <p>The AWS <code>ExternalId</code> is worth checking specifically. It is the standard defense against the confused deputy problem in cross-account vendor roles, and its absence is a meaningful finding.</p>
+
+  <h3>6.2 The AI custom connector</h3>
+  <div class="claim m-open">
+    <p><span class="tag t-open">Open</span>For an application with a documented REST API, "no custom coding" plausibly means an LLM generates the mapping and pagination logic from the API documentation. For an application with no API at all, something else must be happening: screen-driven collection, a file or report drop, or a database read. Ask which. The answer determines whether the connector is a supported artifact with a support SLA or a generated script that silently breaks when the target changes.</p>
+    <p>Follow-ups: is the generated connector reviewable before it runs, is it version controlled, and who owns a break at 2am.</p>
+  </div>
+
+  <h3>6.3 Non-human identity discovery</h3>
+  <div class="claim m-protocol">
+    <p><span class="tag t-protocol">Protocol</span>The discovery sources that actually produce an NHI inventory:</p>
+    <ul>
+      <li>Entra: <code>servicePrincipals</code>, <code>applications</code> with credential expiry, managed identities</li>
+      <li>Okta: <code>/api/v1/apiTokens</code>, service-type app integrations</li>
+      <li>Google: <code>tokens</code> per user, service accounts in the linked GCP org</li>
+      <li>AWS: IAM users with access keys, roles with trust policies, key age from the credential report</li>
+      <li>GitHub: personal access tokens, deploy keys, Actions secrets</li>
+      <li>Naming-convention heuristics over the human directory, which is how genuinely undocumented service accounts surface</li>
+    </ul>
+  </div>
+  <p>Ownership assignment is the hard part, and it is a data quality exercise rather than a technical one. Budget for it.</p>
+</section>
+
+<section class="sec" id="s7">
+  <p class="sec-n">07</p>
+  <h2>Identity correlation and the graph</h2>
+  <div class="claim m-vendor">
+    <p><span class="tag t-vendor">Vendor</span>Data is modeled across human, non-human, and agentic identities to reveal access and risk relationships, surfacing dormant accounts, admin sprawl, SSO bypass, and missing MFA.</p>
+  </div>
+  <p>Linx's own product material illustrates the output well: one person resolved across an Okta account carrying an admin role, an Entra account, an Active Directory account, and a GitHub account tagged "local." That local tag denotes an account existing outside SSO, and it is the SSO-bypass finding. It only exists because the correlation step stitched four directories together first.</p>
+
+  <h3>Join keys, strongest to weakest</h3>
+  <ol class="body-list">
+    <li><code>employeeId</code> present in both HR and IdP</li>
+    <li><code>onPremisesImmutableId</code> or <code>sourceAnchor</code> for hybrid AD</li>
+    <li><code>onPremisesSamAccountName</code></li>
+    <li><code>userPrincipalName</code></li>
+    <li>Primary email</li>
+    <li>Normalized display name plus manager chain (fuzzy, last resort)</li>
+  </ol>
+  <p>If your environment lacks a stable ID in the IdP, fixing that before deployment will do more for output quality than any platform tuning.</p>
+
+  <h3>Derived findings and their inputs</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Finding</th><th>Requires</th></tr></thead>
+    <tbody>
+      <tr><td>Partially offboarded user</td><td>HR termination state plus every downstream account</td></tr>
+      <tr><td>SSO bypass</td><td>App-level local accounts plus IdP app assignment</td></tr>
+      <tr><td>Missing MFA</td><td>Factor enrollment plus policy scope, not just policy existence</td></tr>
+      <tr><td>Dormant account</td><td>Last-login from the log source, not the user object</td></tr>
+      <tr><td>Admin sprawl</td><td>Role assignments plus role privilege, plus PIM eligibility</td></tr>
+      <tr><td>Orphaned NHI</td><td>Credential inventory plus last-use plus an owner field</td></tr>
+    </tbody>
+  </table></div>
+  <p class="pull"><b>Note the pattern.</b> Most useful findings require two or three connectors, not one. A single-IdP pilot will underrepresent the platform's output.</p>
+</section>
+
+<section class="sec" id="s8">
+  <p class="sec-n">08</p>
+  <h2>Runtime: the steady-state sync loop</h2>
+  <div class="claim m-vendor">
+    <p><span class="tag t-vendor">Vendor</span>The platform ingests activity logs, access policies, and configuration data, then processes it through a data layer that maps identity relationships and privilege structures.</p>
+  </div>
+<pre class="figure">Full baseline sync   ───┐
+paginate every object   │
+                        │
+Incremental delta    ───┼──▶  Normalize  ──────▶  Identity graph
+cursor since last run   │     one person,         nodes and edges
+                        │     many IDs
+Event subscription   ───┘
+webhook, near real time</pre>
+  <p class="figcap">Figure 2. Baseline runs once. Delta and events then repeat continuously.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Mode</th><th>Okta</th><th>Entra ID</th><th>Google</th></tr></thead>
+    <tbody>
+      <tr><td>Baseline</td><td><code>Link: rel="next"</code>, 200/page</td><td><code>@odata.nextLink</code>, <code>$batch</code> 20</td><td><code>pageToken</code></td></tr>
+      <tr><td>Incremental</td><td>None. Poll System Log with <code>since</code></td><td><code>/users/delta</code> with <code>@odata.deltaLink</code></td><td>Reports API polling</td></tr>
+      <tr><td>Events</td><td>Event hooks, verification challenge</td><td>Change notifications, <code>validationToken</code>, renewal required</td><td>Limited push channels</td></tr>
+      <tr><td>Throttle signal</td><td><code>429</code> plus <code>X-Rate-Limit-Reset</code></td><td><code>429</code> plus <code>Retry-After</code></td><td><code>429</code> / <code>rateLimitExceeded</code></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="claim m-open">
+    <p><span class="tag t-open">Open</span>Questions on the loop:</p>
+    <ul>
+      <li>Baseline sync duration for an org of your size, and what fraction of your API rate limit it consumes.</li>
+      <li>The configured or minimum delta interval.</li>
+      <li>Whether event subscriptions are used, and if a subscription lapses, whether the failure is detected or the graph silently goes stale.</li>
+      <li>Whether there is a manual re-sync trigger for incident response.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="s9">
+  <p class="sec-n">09</p>
+  <h2>Write-back and remediation</h2>
+  <div class="claim m-vendor">
+    <p><span class="tag t-vendor">Vendor</span>Most tools stop at the ticket. Linx automates the full remediation lifecycle from detection to action, with human oversight built in where it matters. Whether Linx acts autonomously or escalates, every decision is logged, policy-scoped, and traceable.</p>
+  </div>
+<pre class="figure">                    Issue detected
+                (partially offboarded)
+                          │
+                          ▼
+                   Policy evaluation
+                 (risk, blast radius)
+                    ┌─────┴─────┐
+                    ▼           ▼
+         Autonomous action   Human approval
+       (inside guardrails)  (escalate to owner)
+                    └─────┬─────┘
+                          ▼
+                    Execute change
+              (suspend, revoke, strip)
+                          │
+                          ▼
+                    Verify and log
+                 (re-read, then audit)</pre>
+  <p class="figcap">Figure 3. The verify step matters more than it looks. A <code>204 No Content</code> means the API accepted the call, not that the effect propagated, particularly in hybrid environments where a change must replicate back on-premises.</p>
+
+  <h3>9.2 Exact write calls</h3>
+  <div class="claim m-protocol">
+    <p><span class="tag t-protocol">Protocol</span><b>Okta.</b> Requires <code>okta.users.manage</code>, <code>okta.groups.manage</code>, <code>okta.apps.manage</code>, <code>okta.sessions.manage</code>.</p>
+<pre>POST   /api/v1/users/{id}/lifecycle/suspend      ─▶ 200
+POST   /api/v1/users/{id}/lifecycle/deactivate   ─▶ 200
+DELETE /api/v1/groups/{groupId}/users/{userId}   ─▶ 204
+DELETE /api/v1/apps/{appId}/users/{userId}       ─▶ 204
+DELETE /api/v1/users/{id}/sessions               ─▶ 204   revoke sessions
+DELETE /api/v1/users/{id}/grants                 ─▶ 204   revoke OAuth grants</pre>
+    <p><b>Microsoft Entra ID.</b> Requires <code>User.ReadWrite.All</code>, <code>GroupMember.ReadWrite.All</code>, <code>AppRoleAssignment.ReadWrite.All</code>, <code>RoleManagement.ReadWrite.Directory</code>.</p>
+<pre>PATCH  /v1.0/users/{id}                          ─▶ 204   accountEnabled: false
+POST   /v1.0/users/{id}/revokeSignInSessions     ─▶ 200   {"value": true}
+DELETE /v1.0/groups/{id}/members/{userId}/$ref   ─▶ 204
+DELETE /v1.0/servicePrincipals/{id}/appRoleAssignedTo/{aid}  ─▶ 204
+POST   /v1.0/roleManagement/directory/roleEligibilityScheduleRequests
+                                                 ─▶ 201   PIM, for JIT</pre>
+    <p><b>Google Workspace.</b></p>
+<pre>PUT    /admin/directory/v1/users/{userKey}          ─▶ 200   suspended: true
+POST   /admin/directory/v1/users/{userKey}/signOut  ─▶ 204
+DELETE /admin/directory/v1/groups/{gk}/members/{mk} ─▶ 204
+DELETE /admin/directory/v1/users/{uk}/tokens/{cid}  ─▶ 204</pre>
+    <p><b>Downstream SaaS, SCIM outbound.</b></p>
+<pre>PATCH /scim/v2/Users/{id}
+{
+  "schemas": ["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+  "Operations": [{"op": "replace", "path": "active", "value": false}]
+}</pre>
+  </div>
+
+  <h3>9.3 Just-in-Time access</h3>
+  <div class="claim m-vendor">
+    <p><span class="tag t-vendor">Vendor</span>Standing privileges are replaced with time-bound, right-sized grants, with AI evaluating each request for risk and recommending approve or deny.</p>
+  </div>
+  <div class="claim m-protocol">
+    <p><span class="tag t-protocol">Protocol</span>Two implementation models, and the difference matters. <b>Native time-bound</b> means Entra PIM eligibility schedules expire in the platform of record: if Linx is unavailable at expiry, the grant still lapses. <b>Scheduled revocation</b> means Linx grants access then calls back later to remove it: if Linx is unavailable at expiry, the grant persists. Ask which model applies per target system. Scheduled revocation converts a vendor availability problem into a standing-privilege problem.</p>
+  </div>
+
+  <h3>9.4 The read-to-write consent gap</h3>
+  <p class="pull"><b>Plan for this explicitly.</b> The write permissions above are a materially different consent grant than the read permissions in section 4. <code>User.ReadWrite.All</code> and <code>okta.users.manage</code> are not what a security team approves for a read-only pilot. A discovery pilot on read scopes is low friction and demonstrates value quickly, but moving to remediation requires a second consent conversation with whoever owns the tenant, and in a regulated environment that is a change advisory board item, not a checkbox. Sequence it into the rollout plan rather than discovering it in week six.</p>
+</section>
+
+<section class="sec" id="s10">
+  <p class="sec-n">10</p>
+  <h2>Agentic layer: the MCP Gateway</h2>
+  <div class="claim m-vendor">
+    <p><span class="tag t-vendor">Vendor</span>Linx AI Access Control is an MCP gateway that sits inline between AI platforms and the enterprise applications they access. It inspects every MCP tool call in real time, evaluating not just which server an agent can reach but which tools it can invoke, which actions it can take, and which data it can touch. Requests are approved in milliseconds or blocked before they cause harm, evaluated against the same access profiles used for humans and non-human identities. Every action is logged with the initiating identity, the tools called, and the outcome.</p>
+  </div>
+<pre class="figure">                   Access profile
+                 (one policy for all)
+                          │
+                          ▼
+   AI agent  ────────▶  Linx MCP  ────────▶  Enterprise app
+(acts for a human)      gateway              (via MCP server)
+                          │
+                          ▼
+                    Audit record
+                (agent back to human)</pre>
+  <p class="figcap">Figure 4. Every other connector in this guide is a polling API client operating after the fact. The gateway is inline and synchronous, on the critical path of the agent's request. That changes the risk profile entirely.</p>
+
+  <div class="claim m-open">
+    <p><span class="tag t-open">Open</span>Questions specific to inline enforcement:</p>
+    <ul>
+      <li><b>Failure mode.</b> If the gateway is unreachable, do agent tool calls fail open or fail closed? There is no universally correct answer, but there is a wrong answer for your environment, and you need to know which one you are getting.</li>
+      <li><b>Hosting.</b> Is the gateway Linx-hosted, meaning your agent traffic and its payloads transit the vendor, or customer-hosted? This is a data flow question, not a preference.</li>
+      <li><b>Latency budget.</b> "Milliseconds" needs a p99, not an adjective.</li>
+      <li><b>Protocol coverage.</b> MCP transports vary. A gateway can only intercept what routes through it, and direct agent-to-API calls that bypass MCP entirely are invisible.</li>
+      <li><b>Identity binding.</b> How is the human or NHI behind an agent session established and asserted, and can an agent spoof it?</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="s11">
+  <p class="sec-n">11</p>
+  <h2>Protocol reference: direction matters</h2>
+  <p>A common misconception is that an IGA platform reads via SCIM. It does not. SCIM is a provisioning protocol and runs the opposite way. Three distinct protocol paths exist in a Linx deployment.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Path</th><th>Protocol</th><th>Direction</th><th>Linx role</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>Console login</td><td>SAML 2.0 or OIDC</td><td>IdP &rarr; Linx</td><td>Service provider</td><td>Authenticate Linx admins</td></tr>
+      <tr><td>Admin provisioning</td><td>SCIM 2.0</td><td>IdP &rarr; Linx</td><td>SCIM service provider</td><td>Create and deprovision Linx admin accounts</td></tr>
+      <tr><td>Discovery</td><td>Vendor REST over OAuth 2.0</td><td>Linx &rarr; IdP and apps</td><td>API client</td><td>Read identities, entitlements, logs</td></tr>
+      <tr><td>Remediation</td><td>Vendor REST, or SCIM 2.0</td><td>Linx &rarr; IdP and apps</td><td>API or SCIM client</td><td>Suspend, revoke, strip entitlements</td></tr>
+      <tr><td>Agent enforcement</td><td>MCP over HTTP</td><td>Agent &rarr; Linx &rarr; app</td><td>Inline gateway</td><td>Allow or deny tool calls</td></tr>
+    </tbody>
+  </table></div>
+  <p>Set up the first row on day one. Configuring Linx console SSO through your own IdP means Linx admin access is governed by the same controls as everything else, and it makes the platform's own admin accounts appear correctly in your posture data.</p>
+</section>
+
+<section class="sec" id="s12">
+  <p class="sec-n">12</p>
+  <h2>Phased rollout plan</h2>
+  <div class="tw"><table>
+    <thead><tr><th>Phase</th><th>Duration</th><th>Scope</th><th>Exit criteria</th></tr></thead>
+    <tbody>
+      <tr><td>0. Prep</td><td>1 to 2 weeks</td><td>Checklist in section 3, console SSO</td><td>Owners named, consent approved</td></tr>
+      <tr><td>1. Primary IdP, read only</td><td>1 week</td><td>Okta or Entra, read scopes</td><td>Graph populated, correlation rate above 95%</td></tr>
+      <tr><td>2. HR source</td><td>1 to 2 weeks</td><td>Workday or equivalent</td><td>Joiner and leaver events visible, effective dating confirmed</td></tr>
+      <tr><td>3. Posture baseline</td><td>2 weeks</td><td>No writes</td><td>Findings triaged, false positive rate assessed</td></tr>
+      <tr><td>4. Tier 1 apps</td><td>4 to 8 weeks</td><td>Highest criticality apps</td><td>Access paths complete for crown jewels</td></tr>
+      <tr><td>5. Write enablement</td><td>2 weeks</td><td>Second consent grant, guardrails</td><td>Exception list encoded, approval routing tested</td></tr>
+      <tr><td>6. Automation</td><td>Ongoing</td><td>JML, UAR, JIT</td><td>Automated actions exceed manual, with audit trail</td></tr>
+      <tr><td>7. Agentic</td><td>As needed</td><td>MCP gateway</td><td>Failure mode and latency validated in staging</td></tr>
+    </tbody>
+  </table></div>
+  <p class="pull"><b>Do not compress phase 3.</b> The value of a governance platform is bounded by trust in its findings, and trust is established by triaging a baseline before anything is allowed to act.</p>
+</section>
+
+<section class="sec" id="s13">
+  <p class="sec-n">13</p>
+  <h2>Vendor due diligence</h2>
+  <p>Grouped by what a weak answer would tell you.</p>
+  <div class="claim m-open">
+    <p><span class="tag t-open">Open</span><b>Architecture integrity</b></p>
+    <ol class="body-list">
+      <li>On-premises Active Directory: indirect through Entra Connect, or a customer-hosted collector? Do AD-only accounts with no Entra representation appear in the graph?</li>
+      <li>Does the Okta connector use scoped OAuth (<code>private_key_jwt</code>) or a legacy SSWS token?</li>
+      <li>Is workload identity federation supported for Entra, or is a certificate or secret required?</li>
+      <li>Does the AWS connector enforce an <code>ExternalId</code> on the cross-account role?</li>
+    </ol>
+  </div>
+  <div class="claim m-open">
+    <p><span class="tag t-open">Open</span><b>Operational reliability</b></p>
+    <ol class="body-list" start="5">
+      <li>Baseline sync duration and rate limit consumption for an org of our size.</li>
+      <li>If an event subscription lapses or a delta cursor is invalidated, is the failure alerted or does the graph silently go stale?</li>
+      <li>What is the AI custom connector actually doing for an application with no API? Is the generated connector reviewable and version controlled before it runs?</li>
+    </ol>
+  </div>
+  <div class="claim m-open">
+    <p><span class="tag t-open">Open</span><b>Blast radius</b></p>
+    <ol class="body-list" start="8">
+      <li>Exactly which additional grants does remediation require beyond discovery, and can we run indefinitely in read-only?</li>
+      <li>For JIT, is expiry native to the target platform (Entra PIM) or dependent on a Linx callback?</li>
+      <li>How are break-glass and vendor-support accounts excluded from autonomous action, and who can change that exclusion list?</li>
+    </ol>
+  </div>
+  <div class="claim m-open">
+    <p><span class="tag t-open">Open</span><b>Agentic layer</b></p>
+    <ol class="body-list" start="11">
+      <li>Does the MCP gateway fail open or fail closed, and where is it hosted?</li>
+      <li>What is the p99 added latency on a tool call?</li>
+      <li>How is the human identity behind an agent session asserted, and what prevents spoofing?</li>
+    </ol>
+  </div>
+  <div class="claim m-open">
+    <p><span class="tag t-open">Open</span><b>Data governance</b></p>
+    <ol class="body-list" start="14">
+      <li>Data residency, per-tenant key isolation, log retention.</li>
+      <li>Sub-processor list, and whether customer identity data touches any model training.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec" id="s14">
+  <p class="sec-n">14</p>
+  <h2>Sources and confidence</h2>
+  <h4>Linx public material used</h4>
+  <ul>
+    <li>linx.security platform, integrations, MCP gateway, and automation pages</li>
+    <li>Linx Series B coverage (SiliconANGLE, March 2026) and the Autopilot launch release (March 2026)</li>
+    <li>Microsoft and AWS marketplace listings</li>
+    <li>Customer references: Achieve (314+ applications), New American Funding, Evolv</li>
+  </ul>
+  <h4>Protocol references</h4>
+  <p>Okta developer documentation (OAuth for Okta, API tokens, permissions, rate limits), Microsoft Graph documentation (permissions reference, delta query, change notifications, throttling), Google Admin SDK (Directory API, Reports API, domain-wide delegation), PingOne platform API, SCIM 2.0 (RFC 7644), JWT bearer grant (RFC 7523).</p>
+  <h4>What this guide does not establish</h4>
+  <p>Which permitted implementation path Linx selected per connector, their actual sync intervals and rate limit behavior, the internals of the AI custom connector, and the MCP gateway's hosting model and failure semantics. Every one of those is an open item above and should be confirmed in writing before contract, not in a demo.</p>
+</section>
+
+</main>
+</div>
+
+<footer class="foot">
+  <div class="foot-inner">Linx Security client integration guide, July 2026. Vendor claims are attributed, protocol behavior is derived from published provider APIs, and unresolved items are marked open.</div>
+</footer>
+
+<script>
+(function(){
+  var btn=document.getElementById('filter');
+  btn.addEventListener('click',function(){
+    var on=document.body.classList.toggle('focus-open');
+    btn.setAttribute('aria-pressed',on?'true':'false');
+    btn.querySelector('.chip-k').textContent=on?'Open \u2192 showing':'Open \u2192 isolate';
+  });
+
+  var opens=document.querySelectorAll('.m-open').length;
+  document.getElementById('opencount').textContent=opens+' marked open';
+
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  var map={};
+  links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(l){l.classList.remove('on');});
+        if(map[e.target.id])map[e.target.id].classList.add('on');
+      }
+    });
+  },{rootMargin:'-15% 0px -75% 0px'});
+  [].slice.call(document.querySelectorAll('.sec')).forEach(function(s){obs.observe(s);});
+})();
+</script>
+
+</body>
+</html>
